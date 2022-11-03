@@ -1,6 +1,3 @@
-###Last updated 3 November 2022
-###Master R code for executing analyses for
-
 # Molecular early burst associated with the diversification of birds at the K–Pg boundary
 Author details: Jacob S. Berv (1,2,*), Sonal Singhal (3), Daniel J.
 Field (4,5), Nathanael Walker-Hale (6), Sean W. McHugh (7), J. Ryan
@@ -62,10 +59,12 @@ Connecticut, 06520, USA
 University Avenue, University of Michigan, Ann Arbor, Michigan,
 48109-1085, USA
 
+## Last updated 3 November 2022
 
-#primary files
+## Primary files
 
-##constrained_species_tree.R
+**constrained_species_tree.R**
+
 This is a large R script containing the code for the primary 
 series of analyses. It is divided into 16 sub-sections delimited 
 using curly-bracket notation {}. Each section is commented and 
@@ -73,26 +72,26 @@ annotated for reproducibility. Many lines where analyses are
 executed are commented out so that processed RDS objects (provided 
 here, see below) can be loaded.
 
-##Functions_consensus_genetrees.R
+**Functions_consensus_genetrees.R**
+
 This file contains many custom or new functions called by the 
 primary analysis script.
 
-##RandomForest_var_imp.R
+**RandomForest_var_imp.R**
+
 This script contains the code for RandomForest supervised 
 classification using the tidymodels framework. This code is 
 adapted from the Physalia course examples for machine learning 
 in R.
 
-##*.RDS files
+**.RDS files**
+
 These files correspond to intermediate or final R data objects 
 generated in the course of analysis and which are called/loaded 
 by the primary analysis script "constrained_species_tree.R".
 
-##mtDNA_supp_table.xlsx
+**mtDNA_supp_table.xlsx**
+
 Supplementary Table 3, as noted in the manuscript. This file
 describes assembly details for assembly and extraction of 
 mtDNA genome data from the original AHE target capture data.
-
-
-
-
