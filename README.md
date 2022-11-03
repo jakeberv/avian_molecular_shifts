@@ -1,9 +1,9 @@
 # Molecular early burst associated with the diversification of birds at the K–Pg boundary
-Author details: Jacob S. Berv (1,2,*), Sonal Singhal (3), Daniel J.
-Field (4,5), Nathanael Walker-Hale (6), Sean W. McHugh (7), J. Ryan
-Shipley (8), Eliot T. Miller (9), Rebecca T. Kimball (10), Edward L.
-Braun (10), Alex Dornburg (11), C. Tomomi Parins-Fukuchi (12), Richard
-O. Prum (13,14), Matt Friedman (2, 15), Stephen A. Smith (1)
+Author details: Jacob S. Berv<sup>1,2,*</sup>, Sonal Singhal<sup>3</sup>, Daniel J.
+Field<sup>4,5</sup>, Nathanael Walker-Hale<sup>6</sup>, Sean W. McHugh<sup>7</sup>, J. Ryan
+Shipley<sup>8</sup>, Eliot T. Miller<sup>9</sup>, Rebecca T. Kimball<sup>10</sup>, Edward L.
+Braun<sup>10</sup>, Alex Dornburg<sup>11</sup>, C. Tomomi Parins-Fukuchi<sup>12</sup>, Richard
+O. Prum<sup>13,14</sup>, Matt Friedman<sup>2, 15</sup>, Stephen A. Smith<sup>1</sup>
 
 Corresponding Author: *Jacob S. Berv, jberv@umich.edu,
 jacob.berv@gmail.com
