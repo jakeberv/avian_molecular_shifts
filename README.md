@@ -3,7 +3,7 @@
 #Last updated 3 November 2022
 #Master R code for executing analyses for
 
-# Molecular early burst associated with bird diversification at the K–Pg boundary
+# Molecular early burst associated with the diversification of birds at the K–Pg boundary
 Author details: Jacob S. Berv (1,2,*), Sonal Singhal (3), Daniel J.
 Field (4,5), Nathanael Walker-Hale (6), Sean W. McHugh (7), J. Ryan
 Shipley (8), Eliot T. Miller (9), Rebecca T. Kimball (10), Edward L.
@@ -63,6 +63,33 @@ Connecticut, 06520, USA
 15.	Department of Earth and Environmental Sciences, 1100 North
 University Avenue, University of Michigan, Ann Arbor, Michigan,
 48109-1085, USA
+
+
+#primary files
+"constrained_species_tree.R"
+This is a large R script containing the code for the primary 
+series of analyses. It is divided into 16 sub-sections delimited 
+using curly-bracket notation {}. Each section is commented and 
+annotated for reproducibility. Many lines where analyses are 
+executed are commented out so that processed RDS objects (provided 
+here, see below) can be loaded.
+
+"Functions_consensus_genetrees.R"
+This file contains many custom or new functions called by the 
+primary analysis script.
+
+"RandomForest_var_imp.R"
+This script contains the code for RandomForest supervised 
+classification using the tidymodels framework. This code is 
+adapted from the Physalia course examples for machine learning 
+in R.
+
+"*.RDS files"
+These files correspond to intermediate or final R data objects 
+generated in the course of analysis and which are called/loaded 
+by the primary analysis script "constrained_species_tree.R".
+
+
 
 
 
