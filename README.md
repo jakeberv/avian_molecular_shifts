@@ -89,6 +89,10 @@ These files correspond to intermediate or final R data objects
 generated in the course of analysis and which are called/loaded 
 by the primary analysis script "constrained_species_tree.R".
 
+"mtDNA_supp_table.xlsx"
+Supplementary Table 3, as noted in the manuscript. This file
+describes assembly details for assembly and extraction of 
+mtDNA genome data from the original AHE target capture data.
 
 
 
