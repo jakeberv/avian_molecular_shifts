@@ -70,7 +70,9 @@ series of analyses. It is divided into 16 sub-sections delimited
 using curly-bracket notation {}. Each section is commented and 
 annotated for reproducibility. Many lines where analyses are 
 executed are commented out so that processed RDS objects (provided 
-here, see below) can be loaded.
+here, see below) can be loaded. This script focuses on processing
+and analyzing the *output* from *janus* and other software applied
+herein. The Go code for *janus* can be found here: https://git.sr.ht/~hms/janus
 
 **Functions_consensus_genetrees.R**
 
