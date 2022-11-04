@@ -2,7 +2,6 @@
 #Master R code for executing analyses for
 # Molecular early burst associated with the diversification of birds at the K–Pg boundary
 
-
 #load packages to get started
 require(phytools)
 require(ape)
@@ -89,13 +88,13 @@ loci.standard.95.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bir
 #v8952e31d
 consensus.all<-read.beast.fixed(consensus.all.path, ladderize=T)
 #genematch.all<-match_generator(refpath=consensus.all.path, targetpath=loci.standard.path)
-#saveRDS(genematch.all, file="genematch.all.RDS")
-genematch.all<-readRDS(file="genematch.all.RDS")
+#saveRDS(genematch.all, file="./RDS/genematch.all.RDS")
+genematch.all<-readRDS(file="./RDS/genematch.all.RDS")
 
 #concordance calculation on gene trees with low support edges collapsed
 #all_concordance.95<-gene_concordance_perc(refpath=consensus.all.path, targetpath=loci.standard.95.path)
-#saveRDS(all_concordance.95, file="all_concordance.95.RDS")
-all_concordance.95<-readRDS(file="all_concordance.95.RDS")
+#saveRDS(all_concordance.95, file="./RDS/all_concordance.95.RDS")
+all_concordance.95<-readRDS(file="./RDS/all_concordance.95.RDS")
 
 
 ##### EXONS ONLY
@@ -105,17 +104,17 @@ all_concordance.95<-readRDS(file="all_concordance.95.RDS")
 consensus.exons<-read.beast.fixed(consensus.exons.path, ladderize=T)
 #consensus.exons.bl<-read.beast.fixed("~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/5d81a027/branch_lengths/exons_MFP_MERGE_MRL3_constraint_B_RM_UE_UL_M4/exons_MFP_MERGE_MRL3_constraint.rooted.treefile.gophy.results.tre", ladderize=T)
 #genematch.exons<-match_generator(refpath=consensus.exons.path, targetpath = loci.standard.path, kind="exon")
-#saveRDS(genematch.exons, file="genematch.exons.RDS")
-genematch.exons<-readRDS(file="genematch.exons.RDS")
+#saveRDS(genematch.exons, file="./RDS/genematch.exons.RDS")
+genematch.exons<-readRDS(file="./RDS/genematch.exons.RDS")
 
 #genematch.exons.allref<-match_generator(refpath=consensus.all.path, targetpath = loci.standard.path, kind="exon")
-#saveRDS(genematch.exons.allref, file="genematch.exons.allref.RDS")
-genematch.exons.allref<-readRDS(file="genematch.exons.allref.RDS")
+#saveRDS(genematch.exons.allref, file="./RDS/genematch.exons.allref.RDS")
+genematch.exons.allref<-readRDS(file="./RDS/genematch.exons.allref.RDS")
 
 #concordance data on gene trees with low support edges collapsed
 #exons_concordance.allref<-gene_concordance_perc(refpath=consensus.all.path, targetpath = loci.standard.95.path, kind="exon")
-#saveRDS(exons_concordance.allref, file="exons_concordance.allref.RDS")
-exons_concordance.allref<-readRDS(file="exons_concordance.allref.RDS")
+#saveRDS(exons_concordance.allref, file="./RDS/exons_concordance.allref.RDS")
+exons_concordance.allref<-readRDS(file="./RDS/exons_concordance.allref.RDS")
 
 ##### EXONS with MFP+MERGE codons
 
@@ -141,17 +140,17 @@ exons_concordance.allref<-readRDS(file="exons_concordance.allref.RDS")
 consensus.introns<-read.beast.fixed(consensus.introns.path, ladderize=T)
 #consensus.introns.bl<-read.beast.fixed("~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/5d81a027/branch_lengths/introns_MFP_MERGE_MRL3_constraint_B_RM_UE_UL_M4/introns_MFP_MERGE_MRL3_constraint.rooted.treefile.gophy.results.tre", ladderize=T)
 #genematch.introns<-match_generator(refpath = consensus.introns.path, targetpath = loci.standard.path, kind = "intron|Unknown")
-#saveRDS(genematch.introns, file="genematch.introns.RDS")
-genematch.introns<-readRDS(file="genematch.introns.RDS")
+#saveRDS(genematch.introns, file="./RDS/genematch.introns.RDS")
+genematch.introns<-readRDS(file="./RDS/genematch.introns.RDS")
 
 #genematch.introns.allref<-match_generator(refpath = consensus.all.path, targetpath = loci.standard.path, kind = "intron|Unknown")
-#aveRDS(genematch.introns.allref, file="genematch.introns.allref.RDS")
-genematch.introns.allref<-readRDS(file="genematch.introns.allref.RDS")
+#aveRDS(genematch.introns.allref, file="./RDS/genematch.introns.allref.RDS")
+genematch.introns.allref<-readRDS(file="./RDS/genematch.introns.allref.RDS")
 
 #concordance calcs
 #introns_concordance.allref<-gene_concordance_perc(refpath = consensus.all.path, targetpath = loci.standard.95.path, kind = "intron|Unknown")
-#saveRDS(introns_concordance.allref, file="introns_concordance.allref.RDS")
-introns_concordance.allref<-readRDS(file="introns_concordance.allref.RDS")
+#saveRDS(introns_concordance.allref, file="./RDS/introns_concordance.allref.RDS")
+introns_concordance.allref<-readRDS(file="./RDS/introns_concordance.allref.RDS")
 
 ##### UTRs ONLY
 
@@ -160,17 +159,17 @@ introns_concordance.allref<-readRDS(file="introns_concordance.allref.RDS")
 consensus.utrs<-read.beast.fixed(consensus.utrs.path, ladderize=T)
 #consensus.utrs.bl<-read.beast.fixed("~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/5d81a027/branch_lengths/utrs_MFP_MERGE_MRL3_constraint_B_RM_UE_UL_M4_stderror/utrs_MFP_MERGE_MRL3_constraint.rooted.treefile.gophy.results.tre", ladderize=T)
 #genematch.utrs<-match_generator(refpath = consensus.utrs.path, targetpath = loci.standard.path, kind = "utr")
-#saveRDS(genematch.utrs, file="genematch.utrs.RDS")
-genematch.utrs<-readRDS(file="genematch.utrs.RDS")
+#saveRDS(genematch.utrs, file="./RDS/genematch.utrs.RDS")
+genematch.utrs<-readRDS(file="./RDS/genematch.utrs.RDS")
 
 #genematch.utrs.allref<-match_generator(refpath = consensus.utrs.path, targetpath = loci.standard.path, kind = "utr")
-#saveRDS(genematch.utrs.allref, file="genematch.utrs.allref.RDS")
-genematch.utrs.allref<-readRDS(file="genematch.utrs.allref.RDS")
+#saveRDS(genematch.utrs.allref, file="./RDS/genematch.utrs.allref.RDS")
+genematch.utrs.allref<-readRDS(file="./RDS/genematch.utrs.allref.RDS")
 
 #concordance calcs
 #utrs_concordance.allref<-gene_concordance_perc(refpath = consensus.all.path, targetpath = loci.standard.95.path, kind = "utr")
-#saveRDS(utrs_concordance.allref, file="utrs_concordance.allref.RDS")
-utrs_concordance.allref<-readRDS(file="utrs_concordance.allref.RDS")
+#saveRDS(utrs_concordance.allref, file="./RDS/utrs_concordance.allref.RDS")
+utrs_concordance.allref<-readRDS(file="./RDS/utrs_concordance.allref.RDS")
 
 #reading in the mtDNA datasets
 
@@ -1282,8 +1281,8 @@ exonchar<-as.character(exons)
 
 #reading in individual exons (codon usage looping)
 #exons_separate<-exonload(path='/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/CODING/exons/NT_fasta', treeNames=consensus.all.timetree$phy$tip.label)
-#saveRDS(exons_separate, file="exons_separate.RDS")
-exons_separate<-readRDS(file="exons_separate.RDS")
+#saveRDS(exons_separate, file="./RDS/exons_separate.RDS")
+exons_separate<-readRDS(file="./RDS/exons_separate.RDS")
 
 #read in the introns for GC content calculation
 introns<-readSet(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/NONCODING/TRIMAL_GT_0.05/intron_concat.fas")
@@ -1370,8 +1369,8 @@ nuc.scuo<- SCUO(nuc.codon_table)
 {
   #generate table of codon counts for nuclear data
   #nuc.codon_table.separate<-pbmclapply(exons_separate, codonTable, mc.cores=3)
-  #saveRDS(nuc.codon_table.separate, file="nuc.codon_table.separate.RDS")
-  nuc.codon_table.separate<-readRDS("nuc.codon_table.separate.RDS")
+  #saveRDS(nuc.codon_table.separate, file="./RDS/nuc.codon_table.separate.RDS")
+  nuc.codon_table.separate<-readRDS("./RDS/nuc.codon_table.separate.RDS")
   
   #calculate various codon usage statistics
   ENCprime.alt<-function(input){
@@ -1385,8 +1384,8 @@ nuc.scuo<- SCUO(nuc.codon_table)
   #calcualte values
   {
   #nuc.encprime.separate<-pbmclapply(nuc.codon_table.separate, ENCprime.alt, mc.cores=3)
-  #saveRDS(nuc.encprime.separate, file="nuc.encprime.separate.RDS")
-  nuc.encprime.separate<-readRDS(file="nuc.encprime.separate.RDS")
+  #saveRDS(nuc.encprime.separate, file="./RDS/nuc.encprime.separate.RDS")
+  nuc.encprime.separate<-readRDS(file="./RDS/nuc.encprime.separate.RDS")
   
   for(i in 1:length(nuc.encprime.separate)){
     names(nuc.encprime.separate[[i]])<-names(nuc.encprime.separate[i])
@@ -1394,8 +1393,8 @@ nuc.scuo<- SCUO(nuc.codon_table)
   }
   
   #nuc.scuo.separate<- pbmclapply(nuc.codon_table.separate, SCUO.alt, mc.cores=3)
-  #saveRDS(nuc.scuo.separate, file="nuc.scuo.separate.RDS")
-  nuc.scuo.separate<-readRDS(file="nuc.scuo.separate.RDS")
+  #saveRDS(nuc.scuo.separate, file="./RDS/nuc.scuo.separate.RDS")
+  nuc.scuo.separate<-readRDS(file="./RDS/nuc.scuo.separate.RDS")
   
   for(i in 1:length(nuc.scuo.separate)){
     names(nuc.scuo.separate[[i]])<-names(nuc.scuo.separate[i])
@@ -1434,40 +1433,40 @@ rownames(mol_stats)<-names(alldatachar)}
 
 #calculate GC content on the exon data
 {#nuc.gc1<-pbmclapply(strsplit(exonchar, split=""), GC1, exact=T, mc.cores = 4)
-#saveRDS(nuc.gc1, file="nuc.gc1.RDS")
-nuc.gc1<-readRDS(file="nuc.gc1.RDS")
+#saveRDS(nuc.gc1, file="./RDS/nuc.gc1.RDS")
+nuc.gc1<-readRDS(file="./RDS/nuc.gc1.RDS")
 
 #nuc.gc2<-pbmclapply(strsplit(exonchar, split=""), GC2, exact=T, mc.cores = 4)
-#saveRDS(nuc.gc2, file="nuc.gc2.RDS")
-nuc.gc2<-readRDS(file="nuc.gc2.RDS")
+#saveRDS(nuc.gc2, file="./RDS/nuc.gc2.RDS")
+nuc.gc2<-readRDS(file="./RDS/nuc.gc2.RDS")
 
 #nuc.gc3<-pbmclapply(strsplit(exonchar, split=""), GC3, exact=T, mc.cores = 4)
-#saveRDS(nuc.gc3, file="nuc.gc3.RDS")
-nuc.gc3<-readRDS(file="nuc.gc3.RDS")
+#saveRDS(nuc.gc3, file="./RDS/nuc.gc3.RDS")
+nuc.gc3<-readRDS(file="./RDS/nuc.gc3.RDS")
 
 #nuc.exonGC<-pbmclapply((exonchar), function(dat){GC(s2c(dat), exact=T)}, mc.cores = 4)
-#saveRDS(nuc.exonGC, file="nuc.exonGC.RDS")
-nuc.exonGC<-readRDS(file="nuc.exonGC.RDS")
+#saveRDS(nuc.exonGC, file="./RDS/nuc.exonGC.RDS")
+nuc.exonGC<-readRDS(file="./RDS/nuc.exonGC.RDS")
 }
 
 #calculate intron GC
 {#nuc.intronGC<-pbmclapply((intronchar), function(dat){GC(s2c(dat), exact=T)}, mc.cores = 4)
-#saveRDS(nuc.intronGC, file="nuc.intronGC.RDS")
-nuc.intronGC<-readRDS(file="nuc.intronGC.RDS")
+#saveRDS(nuc.intronGC, file="./RDS/nuc.intronGC.RDS")
+nuc.intronGC<-readRDS(file="./RDS/nuc.intronGC.RDS")
 #hist(unlist(intronGC))
 }
 
 #calculate utr GC
 {#nuc.utrGC<-pbmclapply((utrchar), function(dat){GC(s2c(dat), exact=T)}, mc.cores = 4)
-#saveRDS(nuc.utrGC, file="nuc.utrGC.RDS")
-nuc.utrGC<-readRDS(file="nuc.utrGC.RDS")
+#saveRDS(nuc.utrGC, file="./RDS/nuc.utrGC.RDS")
+nuc.utrGC<-readRDS(file="./RDS/nuc.utrGC.RDS")
 #hist(unlist(utrGC))
 }
 
 #calcuate GC on the "whole" dataset
 {#nuc.allGC<-pbmclapply((alldatachar), function(dat){GC(s2c(dat), exact=T)}, mc.cores=4)
-#saveRDS(nuc.allGC, file="nuc.allGC.RDS")
-nuc.allGC<-readRDS(file="nuc.allGC.RDS")
+#saveRDS(nuc.allGC, file="./RDS/nuc.allGC.RDS")
+nuc.allGC<-readRDS(file="./RDS/nuc.allGC.RDS")
 }
 
 #calculate GC content on the mtdna protein data
@@ -2093,8 +2092,8 @@ dev.off()
 # system.time(
 # ANOVs<-multi_anov(exon_stats=nuc.scuo.separate, tree = consensus.all.timetree$phy, models = tip.data.molstats$exon_models, sims = 10000)
 # )
-#saveRDS(ANOVs, file = 'SCUO.anova.RDS')
-ANOVs<- readRDS(file="SCUO.anova.RDS")
+#saveRDS(ANOVs, file = './RDS/SCUO.anova.RDS')
+ANOVs<- readRDS(file="./RDS/SCUO.anova.RDS")
 }
 
 # Ps<-list()
@@ -2214,10 +2213,10 @@ phylopars.data<-phylopars.data[,which(unlist(lapply(phylopars.data, function(x) 
 #ou.fit.corr <- phylopars(trait_data = phylopars.data[,c("species","mass", "mean.clutch", "gen_length", "survival", "breeding","longevity", "chickPC1", "latitude")], tree = consensus.all.timetree$phy, model = "mvOU", phylo_correlated = T)
 #ou.fit.nocorr <- phylopars(trait_data = phylopars.data[,c("species","mass", "mean.clutch", "gen_length", "survival", "breeding","longevity", "chickPC1", "latitude")], tree = consensus.all.timetree$phy, model = "OU", phylo_correlated = F)
 
-bm.fit.nocorr<-readRDS(file="bm.fit.nocorr.RDS")
-bm.fit.corr<-readRDS(file="bm.fit.corr.RDS")
-ou.fit.corr<-readRDS(file="ou.fit.corr.RDS")
-ou.fit.nocorr<-readRDS(file="ou.fit.nocorr.RDS")
+bm.fit.nocorr<-readRDS(file="./RDS/bm.fit.nocorr.RDS")
+bm.fit.corr<-readRDS(file="./RDS/bm.fit.corr.RDS")
+ou.fit.corr<-readRDS(file="./RDS/ou.fit.corr.RDS")
+ou.fit.nocorr<-readRDS(file="./RDS/ou.fit.nocorr.RDS")
 
 AIC(bm.fit.nocorr)
 AIC(bm.fit.corr)
@@ -2240,9 +2239,9 @@ mvMORPH.input<-phylopars.data[,c("species","mass", "mean.clutch", "gen_length", 
 rownames(mvMORPH.input)<- mvMORPH.input$species
 mvMORPH.input$species <- NULL
 bm.fit.mvbm<-mvBM(data = mvMORPH.input, tree = consensus.all.timetree$phy, model="BM1")
-saveRDS(bm.fit.mvbm, file="bm.fit.mvbm.RDS")
+saveRDS(bm.fit.mvbm, file="./RDS/bm.fit.mvbm.RDS")
 bm.fit.mvou<-mvOU(data = mvMORPH.input, tree = consensus.all.timetree$phy, model="OU1", method="inverse")
-saveRDS(bm.fit.mvou, file="bm.fit.mvou.RDS")
+saveRDS(bm.fit.mvou, file="./RDS/bm.fit.mvou.RDS")
 bm.fit.mvou<-mvOU(data = mvMORPH.input, tree = consensus.all.timetree$phy, model="OU1", method="inverse")
 }
 
@@ -2584,8 +2583,8 @@ OUwie_data.codons <-
 #   mserr = "known",
 #   get.root.theta = F
 # )
-# saveRDS(mass.OUM, file="mass.OUM.RDS")
-mass.OUM<- readRDS(file="mass.OUM.RDS")
+# saveRDS(mass.OUM, file="./RDS/mass.OUM.RDS")
+mass.OUM<- readRDS(file="./RDS/mass.OUM.RDS")
 
 #try with parametric bootstrapping
 # OUwie_boots.mass <-
@@ -2603,8 +2602,8 @@ mass.OUM<- readRDS(file="mass.OUM.RDS")
 #     quiet = F,
 #     mserr = "none"
 #   )
-# saveRDS(OUwie_boots.mass, file="OUwie_boots.mass.RDS")
-OUwie_boots.mass<-readRDS(file="OUwie_boots.mass.RDS")
+# saveRDS(OUwie_boots.mass, file="./RDS/OUwie_boots.mass.RDS")
+OUwie_boots.mass<-readRDS(file="./RDS/OUwie_boots.mass.RDS")
 
 OUwie_boots.mass <- OUwie_boots.mass[,c(21:30)] #subset the thetas
 OUwie_boots.mass <- OUwie_boots.mass %>% as.data.frame(.) %>%
@@ -2615,7 +2614,7 @@ OUwie_boots.mass <- OUwie_boots.mass %>% as.data.frame(.) %>%
   mutate(type = rep("theta", length(.[,1]))) %>%
   select(Reg, name, value, type)
 
-tmp<-readRDS(file="OUwie_boots.mass.RDS")
+tmp<-readRDS(file="./RDS/OUwie_boots.mass.RDS")
 HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
 median(log(2)/tmp[,1])
 
@@ -2631,8 +2630,8 @@ median(log(2)/tmp[,1])
 #   scaleHeight = F,
 #   mserr = "none"
 # )
-# saveRDS(chickPC1.OUM, file="chickPC1.OUM.RDS")
-chickPC1.OUM<- readRDS(file="chickPC1.OUM.RDS")
+# saveRDS(chickPC1.OUM, file="./RDS/chickPC1.OUM.RDS")
+chickPC1.OUM<- readRDS(file="./RDS/chickPC1.OUM.RDS")
 
 #try with parametric bootstrapping
 # OUwie_boots.chickPC1 <-
@@ -2650,8 +2649,8 @@ chickPC1.OUM<- readRDS(file="chickPC1.OUM.RDS")
 #     quiet = F,
 #     mserr = "none"
 #   )
-# saveRDS(OUwie_boots.chickPC1, file="OUwie_boots.chickPC1.RDS")
-OUwie_boots.chickPC1<- readRDS(file="OUwie_boots.chickPC1.RDS")
+# saveRDS(OUwie_boots.chickPC1, file="./RDS/OUwie_boots.chickPC1.RDS")
+OUwie_boots.chickPC1<- readRDS(file="./RDS/OUwie_boots.chickPC1.RDS")
 
 OUwie_boots.chickPC1 <- OUwie_boots.chickPC1[,c(21:30)] #subset the thetas
 OUwie_boots.chickPC1 <- OUwie_boots.chickPC1 %>% as.data.frame(.) %>%
@@ -2662,7 +2661,7 @@ OUwie_boots.chickPC1 <- OUwie_boots.chickPC1 %>% as.data.frame(.) %>%
   mutate(type = rep("theta", length(.[,1]))) %>%
   select(Reg, name, value, type)
 
-tmp<-readRDS(file="OUwie_boots.chickPC1.RDS")
+tmp<-readRDS(file="./RDS/OUwie_boots.chickPC1.RDS")
 HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
 median(log(2)/tmp[,1])
 
@@ -2680,8 +2679,8 @@ median(log(2)/tmp[,1])
 #   scaleHeight = F,
 #   mserr = "none"
 # )
-# saveRDS(clutch.OUM, file="clutch.OUM.RDS")
-clutch.OUM<- readRDS(file="chickPC1.OUM.RDS")
+# saveRDS(clutch.OUM, file="./RDS/clutch.OUM.RDS")
+clutch.OUM<- readRDS(file="./RDS/chickPC1.OUM.RDS")
 
 #try with parametric bootstrapping
 # OUwie_boots.clutch <-
@@ -2699,8 +2698,8 @@ clutch.OUM<- readRDS(file="chickPC1.OUM.RDS")
 #     quiet = F,
 #     mserr = "none"
 #   )
-# saveRDS(OUwie_boots.clutch, file="OUwie_boots.clutch.RDS")
-OUwie_boots.clutch <- readRDS(file="OUwie_boots.clutch.RDS")
+# saveRDS(OUwie_boots.clutch, file="./RDS/OUwie_boots.clutch.RDS")
+OUwie_boots.clutch <- readRDS(file="./RDS/OUwie_boots.clutch.RDS")
 
 OUwie_boots.clutch <- OUwie_boots.clutch[,c(21:30)] #subset the thetas
 OUwie_boots.clutch <- OUwie_boots.clutch %>% as.data.frame(.) %>%
@@ -2711,7 +2710,7 @@ OUwie_boots.clutch <- OUwie_boots.clutch %>% as.data.frame(.) %>%
   mutate(type = rep("theta", length(.[,1]))) %>%
   select(Reg, name, value, type)
 
-tmp<-readRDS(file="OUwie_boots.clutch.RDS")
+tmp<-readRDS(file="./RDS/OUwie_boots.clutch.RDS")
 HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
 median(log(2)/tmp[,1])
 
@@ -2730,8 +2729,8 @@ median(log(2)/tmp[,1])
 #   mserr = "none"#,
 #   #opts = list("algorithm"="NLOPT_LN_SBPLX", "maxeval"="500", "ftol_abs"=0.001)
 # )
-# saveRDS(gen_length.OUM, file="gen_length.OUM.RDS")
-gen_length.OUM <- readRDS(file="gen_length.OUM.RDS")
+# saveRDS(gen_length.OUM, file="./RDS/gen_length.OUM.RDS")
+gen_length.OUM <- readRDS(file="./RDS/gen_length.OUM.RDS")
 ### MAY BE AT SADDLE POINT ### -- but looks OK
 
 #try with parametric bootstrapping
@@ -2750,8 +2749,8 @@ gen_length.OUM <- readRDS(file="gen_length.OUM.RDS")
 #     quiet = F,
 #     mserr = "none"
 #   )
-# saveRDS(OUwie_boots.gen_length, file="OUwie_boots.gen_length.RDS")
-OUwie_boots.gen_length <- readRDS(file="OUwie_boots.gen_length.RDS")
+# saveRDS(OUwie_boots.gen_length, file="./RDS/OUwie_boots.gen_length.RDS")
+OUwie_boots.gen_length <- readRDS(file="./RDS/OUwie_boots.gen_length.RDS")
 
 OUwie_boots.gen_length <- OUwie_boots.gen_length[,c(21:30)] #subset the thetas
 OUwie_boots.gen_length <- OUwie_boots.gen_length %>% as.data.frame(.) %>%
@@ -2762,7 +2761,7 @@ OUwie_boots.gen_length <- OUwie_boots.gen_length %>% as.data.frame(.) %>%
   mutate(type = rep("theta", length(.[,1]))) %>%
   select(Reg, name, value, type)
 
-tmp<-readRDS(file="OUwie_boots.gen_length.RDS")
+tmp<-readRDS(file="./RDS/OUwie_boots.gen_length.RDS")
 HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
 median(log(2)/tmp[,1])
 
@@ -2780,8 +2779,8 @@ median(log(2)/tmp[,1])
 #   scaleHeight = F,
 #   mserr = "none"
 # )
-# saveRDS(survival.OUM, file="survival.OUM.RDS")
-survival.OUM<- readRDS(file="survival.OUM.RDS")
+# saveRDS(survival.OUM, file="./RDS/survival.OUM.RDS")
+survival.OUM<- readRDS(file="./RDS/survival.OUM.RDS")
 
 #try with parametric bootstrapping
 # OUwie_boots.survival <-
@@ -2799,8 +2798,8 @@ survival.OUM<- readRDS(file="survival.OUM.RDS")
 #     quiet = F,
 #     mserr = "none"
 #   )
-# saveRDS(OUwie_boots.survival, file="OUwie_boots.survival.RDS")
-OUwie_boots.survival <- readRDS(file="OUwie_boots.survival.RDS")
+# saveRDS(OUwie_boots.survival, file="./RDS/OUwie_boots.survival.RDS")
+OUwie_boots.survival <- readRDS(file="./RDS/OUwie_boots.survival.RDS")
 
 OUwie_boots.survival <- OUwie_boots.survival[,c(21:30)] #subset the thetas
 OUwie_boots.survival <- OUwie_boots.survival %>% as.data.frame(.) %>%
@@ -2811,7 +2810,7 @@ OUwie_boots.survival <- OUwie_boots.survival %>% as.data.frame(.) %>%
   mutate(type = rep("theta", length(.[,1]))) %>%
   select(Reg, name, value, type)
 
-tmp<-readRDS(file="OUwie_boots.survival.RDS")
+tmp<-readRDS(file="./RDS/OUwie_boots.survival.RDS")
 HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
 median(log(2)/tmp[,1])
 
@@ -2829,8 +2828,8 @@ median(log(2)/tmp[,1])
 #   scaleHeight = F,
 #   mserr = "none"
 # )
-# saveRDS(breeding.OUM, file="breeding.OUM.RDS")
-breeding.OUM<- readRDS(file="breeding.OUM.RDS")
+# saveRDS(breeding.OUM, file="./RDS/breeding.OUM.RDS")
+breeding.OUM<- readRDS(file="./RDS/breeding.OUM.RDS")
 
 #try with parametric bootstrapping
 # OUwie_boots.breeding <-
@@ -2848,8 +2847,8 @@ breeding.OUM<- readRDS(file="breeding.OUM.RDS")
 #     quiet = F,
 #     mserr = "none"
 #   )
-# saveRDS(OUwie_boots.breeding, file="OUwie_boots.breeding.RDS")
-OUwie_boots.breeding <- readRDS(file="OUwie_boots.breeding.RDS")
+# saveRDS(OUwie_boots.breeding, file="./RDS/OUwie_boots.breeding.RDS")
+OUwie_boots.breeding <- readRDS(file="./RDS/OUwie_boots.breeding.RDS")
 
 OUwie_boots.breeding <- OUwie_boots.breeding[,c(21:30)] #subset the thetas
 OUwie_boots.breeding <- OUwie_boots.breeding %>% as.data.frame(.) %>%
@@ -2860,7 +2859,7 @@ OUwie_boots.breeding <- OUwie_boots.breeding %>% as.data.frame(.) %>%
   mutate(type = rep("theta", length(.[,1]))) %>%
   select(Reg, name, value, type)
 
-tmp<-readRDS(file="OUwie_boots.breeding.RDS")
+tmp<-readRDS(file="./RDS/OUwie_boots.breeding.RDS")
 HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
 median(log(2)/tmp[,1])
 
@@ -2878,8 +2877,8 @@ median(log(2)/tmp[,1])
 #   scaleHeight = F,
 #   mserr = "none"
 # )
-# saveRDS(longevity.OUM, file="longevity.OUM.RDS")
-longevity.OUM<- readRDS(file="longevity.OUM.RDS")
+# saveRDS(longevity.OUM, file="./RDS/longevity.OUM.RDS")
+longevity.OUM<- readRDS(file="./RDS/longevity.OUM.RDS")
 
 #try with parametric bootstrapping
 # OUwie_boots.longevity <-
@@ -2897,8 +2896,8 @@ longevity.OUM<- readRDS(file="longevity.OUM.RDS")
 #     quiet = F,
 #     mserr = "none"
 #   )
-# saveRDS(OUwie_boots.longevity, file="OUwie_boots.longevity.RDS")
-OUwie_boots.longevity <- readRDS(file="OUwie_boots.longevity.RDS")
+# saveRDS(OUwie_boots.longevity, file="./RDS/OUwie_boots.longevity.RDS")
+OUwie_boots.longevity <- readRDS(file="./RDS/OUwie_boots.longevity.RDS")
 
 OUwie_boots.longevity <- OUwie_boots.longevity[,c(21:30)] #subset the thetas
 OUwie_boots.longevity <- OUwie_boots.longevity %>% as.data.frame(.) %>%
@@ -2909,7 +2908,7 @@ OUwie_boots.longevity <- OUwie_boots.longevity %>% as.data.frame(.) %>%
   mutate(type = rep("theta", length(.[,1]))) %>%
   select(Reg, name, value, type)
 
-tmp<-readRDS(file="OUwie_boots.longevity.RDS")
+tmp<-readRDS(file="./RDS/OUwie_boots.longevity.RDS")
 HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
 median(log(2)/tmp[,1])
 
@@ -2926,8 +2925,8 @@ median(log(2)/tmp[,1])
 #   scaleHeight = F,
 #   mserr = "none"
 # )
-# saveRDS(latitude.OUM, file="latitude.OUM.RDS")
-latitude.OUM<- readRDS(file="latitude.OUM.RDS")
+# saveRDS(latitude.OUM, file="./RDS/latitude.OUM.RDS")
+latitude.OUM<- readRDS(file="./RDS/latitude.OUM.RDS")
 
 #try with parametric bootstrapping
 # OUwie_boots.latitude <-
@@ -2945,8 +2944,8 @@ latitude.OUM<- readRDS(file="latitude.OUM.RDS")
 #     quiet = F,
 #     mserr = "none"
 #   )
-# saveRDS(OUwie_boots.latitude, file="OUwie_boots.latitude.RDS")
-OUwie_boots.latitude <- readRDS(file="OUwie_boots.latitude.RDS")
+# saveRDS(OUwie_boots.latitude, file="./RDS/OUwie_boots.latitude.RDS")
+OUwie_boots.latitude <- readRDS(file="./RDS/OUwie_boots.latitude.RDS")
 
 OUwie_boots.latitude <- OUwie_boots.latitude[,c(21:30)] #subset the thetas
 OUwie_boots.latitude <- OUwie_boots.latitude %>% as.data.frame(.) %>%
@@ -2957,7 +2956,7 @@ OUwie_boots.latitude <- OUwie_boots.latitude %>% as.data.frame(.) %>%
   mutate(type = rep("theta", length(.[,1]))) %>%
   select(Reg, name, value, type)
 
-tmp<-readRDS(file="OUwie_boots.latitude.RDS")
+tmp<-readRDS(file="./RDS/OUwie_boots.latitude.RDS")
 HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
 median(log(2)/tmp[,1])
 
@@ -3024,8 +3023,8 @@ median(log(2)/tmp[,1])
   #   mserr = "known",
   #   get.root.theta = F
   # )
-  # saveRDS(mass2.OUM, file="mass2.OUM.RDS")
-  mass2.OUM<- readRDS(file="mass2.OUM.RDS")
+  # saveRDS(mass2.OUM, file="./RDS/mass2.OUM.RDS")
+  mass2.OUM<- readRDS(file="./RDS/mass2.OUM.RDS")
   
   #try with parametric bootstrapping
   # OUwie_boots2.mass <-
@@ -3043,8 +3042,8 @@ median(log(2)/tmp[,1])
   #     quiet = F,
   #     mserr = "none"
   #   )
-  # saveRDS(OUwie_boots2.mass, file="OUwie_boots2.mass.RDS")
-  OUwie_boots2.mass <-readRDS(file="OUwie_boots.mass2.RDS")
+  # saveRDS(OUwie_boots2.mass, file="./RDS/OUwie_boots2.mass.RDS")
+  OUwie_boots2.mass <-readRDS(file="./RDS/OUwie_boots.mass2.RDS")
 
   OUwie_boots2.mass <- OUwie_boots2.mass[,c(23:33)] #subset the thetas (for 2)
   OUwie_boots2.mass <- OUwie_boots2.mass %>% as.data.frame(.) %>%
@@ -3055,7 +3054,7 @@ median(log(2)/tmp[,1])
     mutate(type = rep("theta", length(.[,1]))) %>%
     select(Reg, name, value, type)
   
-  tmp<-readRDS(file="OUwie_boots2.mass.RDS")
+  tmp<-readRDS(file="./RDS/OUwie_boots2.mass.RDS")
   HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
   median(log(2)/tmp[,1])
   
@@ -3072,8 +3071,8 @@ median(log(2)/tmp[,1])
   #   scaleHeight = F,
   #   mserr = "none"
   # )
-  # saveRDS(chickPC1_2.OUM, file="chickPC1_2.OUM.RDS")
-  chickPC1_2.OUM<- readRDS(file="chickPC1_2.OUM.RDS")
+  # saveRDS(chickPC1_2.OUM, file="./RDS/chickPC1_2.OUM.RDS")
+  chickPC1_2.OUM<- readRDS(file="./RDS/chickPC1_2.OUM.RDS")
   
   #try with parametric bootstrapping
   # OUwie_boots2.chickPC1 <-
@@ -3091,8 +3090,8 @@ median(log(2)/tmp[,1])
   #     quiet = F,
   #     mserr = "none"
   #   )
-  # saveRDS(OUwie_boots2.chickPC1, file="OUwie_boots2.chickPC1.RDS")
-  OUwie_boots2.chickPC1<- readRDS(file="OUwie_boots2.chickPC1.RDS")
+  # saveRDS(OUwie_boots2.chickPC1, file="./RDS/OUwie_boots2.chickPC1.RDS")
+  OUwie_boots2.chickPC1<- readRDS(file="./RDS/OUwie_boots2.chickPC1.RDS")
   
   OUwie_boots2.chickPC1 <- OUwie_boots2.chickPC1[,c(23:33)] #subset the thetas
   OUwie_boots2.chickPC1 <- OUwie_boots2.chickPC1 %>% as.data.frame(.) %>%
@@ -3103,7 +3102,7 @@ median(log(2)/tmp[,1])
     mutate(type = rep("theta", length(.[,1]))) %>%
     select(Reg, name, value, type)
   
-  tmp<-readRDS(file="OUwie_boots2.chickPC1.RDS")
+  tmp<-readRDS(file="./RDS/OUwie_boots2.chickPC1.RDS")
   HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
   median(log(2)/tmp[,1])
   
@@ -3120,8 +3119,8 @@ median(log(2)/tmp[,1])
   #   scaleHeight = F,
   #   mserr = "none"
   # )
-  # saveRDS(clutch2.OUM, file="clutch2.OUM.RDS")
-  clutch2.OUM<- readRDS(file="clutch2.OUM.RDS")
+  # saveRDS(clutch2.OUM, file="./RDS/clutch2.OUM.RDS")
+  clutch2.OUM<- readRDS(file="./RDS/clutch2.OUM.RDS")
   
   #try with parametric bootstrapping
   # OUwie_boots2.clutch <-
@@ -3139,10 +3138,10 @@ median(log(2)/tmp[,1])
   #     quiet = F,
   #     mserr = "none"
   #   )
-  # saveRDS(OUwie_boots2.clutch, file="OUwie_boots2.clutch.RDS")
-  OUwie_boots2.clutch <- readRDS(file="OUwie_boots2.clutch.RDS")
+  # saveRDS(OUwie_boots2.clutch, file="./RDS/OUwie_boots2.clutch.RDS")
+  OUwie_boots2.clutch <- readRDS(file="./RDS/OUwie_boots2.clutch.RDS")
   
-  OUwie_boots2.clutch <- readRDS(file="OUwie_boots2.clutch.RDS")
+  OUwie_boots2.clutch <- readRDS(file="./RDS/OUwie_boots2.clutch.RDS")
   OUwie_boots2.clutch <- OUwie_boots2.clutch[,c(23:33)] #subset the thetas
   OUwie_boots2.clutch <- OUwie_boots2.clutch %>% as.data.frame(.) %>%
     tidyr::pivot_longer(cols = everything()) %>%
@@ -3152,7 +3151,7 @@ median(log(2)/tmp[,1])
     mutate(type = rep("theta", length(.[,1]))) %>%
     select(Reg, name, value, type)
   
-  tmp<-readRDS(file="OUwie_boots2.clutch.RDS")
+  tmp<-readRDS(file="./RDS/OUwie_boots2.clutch.RDS")
   HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
   median(log(2)/tmp[,1])
   
@@ -3169,8 +3168,8 @@ median(log(2)/tmp[,1])
   #   scaleHeight = F,
   #   mserr = "none"
   # )
-  # saveRDS(gen_length2.OUM, file="gen_length2.OUM.RDS")
-  gen_length2.OUM<- readRDS(file="gen_length2.OUM.RDS")
+  # saveRDS(gen_length2.OUM, file="./RDS/gen_length2.OUM.RDS")
+  gen_length2.OUM<- readRDS(file="./RDS/gen_length2.OUM.RDS")
   #### MAY BE AT SADDLEPOINT ### TRYING ANYWAY THOUGH
   
   #try with parametric bootstrapping
@@ -3189,8 +3188,8 @@ median(log(2)/tmp[,1])
   #     quiet = F,
   #     mserr = "none"
   #   )
-  # saveRDS(OUwie_boots2.gen_length, file="OUwie_boots2.gen_length.RDS")
-  OUwie_boots2.gen_length <- readRDS(file="OUwie_boots2.gen_length.RDS")
+  # saveRDS(OUwie_boots2.gen_length, file="./RDS/OUwie_boots2.gen_length.RDS")
+  OUwie_boots2.gen_length <- readRDS(file="./RDS/OUwie_boots2.gen_length.RDS")
  
   OUwie_boots2.gen_length <- OUwie_boots2.gen_length[,c(23:33)] #subset the thetas
   OUwie_boots2.gen_length <- OUwie_boots2.gen_length %>% as.data.frame(.) %>%
@@ -3201,7 +3200,7 @@ median(log(2)/tmp[,1])
     mutate(type = rep("theta", length(.[,1]))) %>%
     select(Reg, name, value, type)
   
-  tmp<-readRDS(file="OUwie_boots2.gen_length.RDS")
+  tmp<-readRDS(file="./RDS/OUwie_boots2.gen_length.RDS")
   HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
   median(log(2)/tmp[,1])
   
@@ -3218,8 +3217,8 @@ median(log(2)/tmp[,1])
   #   scaleHeight = F,
   #   mserr = "none"
   # )
-  # saveRDS(survival2.OUM, file="survival2.OUM.RDS")
-  survival2.OUM<- readRDS(file="survival2.OUM.RDS")
+  # saveRDS(survival2.OUM, file="./RDS/survival2.OUM.RDS")
+  survival2.OUM<- readRDS(file="./RDS/survival2.OUM.RDS")
   
   #try with parametric bootstrapping
   # OUwie_boots2.survival <-
@@ -3237,8 +3236,8 @@ median(log(2)/tmp[,1])
   #     quiet = F,
   #     mserr = "none"
   #   )
-  # saveRDS(OUwie_boots2.survival, file="OUwie_boots2.survival.RDS")
-  OUwie_boots2.survival <- readRDS(file="OUwie_boots2.survival.RDS")
+  # saveRDS(OUwie_boots2.survival, file="./RDS/OUwie_boots2.survival.RDS")
+  OUwie_boots2.survival <- readRDS(file="./RDS/OUwie_boots2.survival.RDS")
   
   OUwie_boots2.survival <- OUwie_boots2.survival[,c(23:33)] #subset the thetas
   OUwie_boots2.survival <- OUwie_boots2.survival %>% as.data.frame(.) %>%
@@ -3249,7 +3248,7 @@ median(log(2)/tmp[,1])
     mutate(type = rep("theta", length(.[,1]))) %>%
     select(Reg, name, value, type)
   
-  tmp<-readRDS(file="OUwie_boots2.survival.RDS")
+  tmp<-readRDS(file="./RDS/OUwie_boots2.survival.RDS")
   HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
   median(log(2)/tmp[,1])
   
@@ -3266,8 +3265,8 @@ median(log(2)/tmp[,1])
   #   scaleHeight = F,
   #   mserr = "none"
   # )
-  # saveRDS(breeding2.OUM, file="breeding2.OUM.RDS")
-  breeding2.OUM <- readRDS(file="breeding2.OUM.RDS")
+  # saveRDS(breeding2.OUM, file="./RDS/breeding2.OUM.RDS")
+  breeding2.OUM <- readRDS(file="./RDS/breeding2.OUM.RDS")
   
   #try with parametric bootstrapping
   # OUwie_boots2.breeding <-
@@ -3285,8 +3284,8 @@ median(log(2)/tmp[,1])
   #     quiet = F,
   #     mserr = "none"
   #   )
-  # saveRDS(OUwie_boots2.breeding, file="OUwie_boots2.breeding.RDS")
-  OUwie_boots2.breeding <- readRDS(file="OUwie_boots2.breeding.RDS")
+  # saveRDS(OUwie_boots2.breeding, file="./RDS/OUwie_boots2.breeding.RDS")
+  OUwie_boots2.breeding <- readRDS(file="./RDS/OUwie_boots2.breeding.RDS")
   
   OUwie_boots2.breeding <- OUwie_boots2.breeding[,c(23:33)] #subset the thetas
   OUwie_boots2.breeding <- OUwie_boots2.breeding %>% as.data.frame(.) %>%
@@ -3297,7 +3296,7 @@ median(log(2)/tmp[,1])
     mutate(type = rep("theta", length(.[,1]))) %>%
     select(Reg, name, value, type)
   
-  tmp<-readRDS(file="OUwie_boots2.breeding.RDS")
+  tmp<-readRDS(file="./RDS/OUwie_boots2.breeding.RDS")
   HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
   median(log(2)/tmp[,1])
   
@@ -3315,8 +3314,8 @@ median(log(2)/tmp[,1])
   #   scaleHeight = F,
   #   mserr = "none"
   # )
-  # saveRDS(longevity2.OUM, file="longevity2.OUM.RDS")
-  longevity2.OUM<- readRDS(file="longevity2.OUM.RDS")
+  # saveRDS(longevity2.OUM, file="./RDS/longevity2.OUM.RDS")
+  longevity2.OUM<- readRDS(file="./RDS/longevity2.OUM.RDS")
   
   #try with parametric bootstrapping
   # OUwie_boots2.longevity <-
@@ -3334,8 +3333,8 @@ median(log(2)/tmp[,1])
   #     quiet = F,
   #     mserr = "none"
   #   )
-  # saveRDS(OUwie_boots2.longevity, file="OUwie_boots2.longevity.RDS")
-  OUwie_boots2.longevity <- readRDS(file="OUwie_boots2.longevity.RDS")
+  # saveRDS(OUwie_boots2.longevity, file="./RDS/OUwie_boots2.longevity.RDS")
+  OUwie_boots2.longevity <- readRDS(file="./RDS/OUwie_boots2.longevity.RDS")
   
   OUwie_boots2.longevity <- OUwie_boots2.longevity[,c(23:33)] #subset the thetas
   OUwie_boots2.longevity <- OUwie_boots2.longevity %>% as.data.frame(.) %>%
@@ -3346,7 +3345,7 @@ median(log(2)/tmp[,1])
     mutate(type = rep("theta", length(.[,1]))) %>%
     select(Reg, name, value, type)
   
-  tmp<-readRDS(file="OUwie_boots2.longevity.RDS")
+  tmp<-readRDS(file="./RDS/OUwie_boots2.longevity.RDS")
   HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
   median(log(2)/tmp[,1])
   
@@ -3364,8 +3363,8 @@ median(log(2)/tmp[,1])
   #   scaleHeight = F,
   #   mserr = "none"
   # )
-  # saveRDS(latitude2.OUM, file="latitude2.OUM.RDS")
-  latitude2.OUM <- readRDS(file="latitude2.OUM.RDS")
+  # saveRDS(latitude2.OUM, file="./RDS/latitude2.OUM.RDS")
+  latitude2.OUM <- readRDS(file="./RDS/latitude2.OUM.RDS")
   
   #try with parametric bootstrapping
   # OUwie_boots2.latitude <-
@@ -3383,8 +3382,8 @@ median(log(2)/tmp[,1])
   #     quiet = F,
   #     mserr = "none"
   #   )
-  # saveRDS(OUwie_boots2.latitude, file="OUwie_boots2.latitude.RDS")
-  OUwie_boots2.latitude <- readRDS(file="OUwie_boots2.latitude.RDS")
+  # saveRDS(OUwie_boots2.latitude, file="./RDS/OUwie_boots2.latitude.RDS")
+  OUwie_boots2.latitude <- readRDS(file="./RDS/OUwie_boots2.latitude.RDS")
   
   OUwie_boots2.latitude <- OUwie_boots2.latitude[,c(23:33)] #subset the thetas
   OUwie_boots2.latitude <- OUwie_boots2.latitude %>% as.data.frame(.) %>%
@@ -3395,7 +3394,7 @@ median(log(2)/tmp[,1])
     mutate(type = rep("theta", length(.[,1]))) %>%
     select(Reg, name, value, type)
   
-  tmp<-readRDS(file="OUwie_boots2.latitude.RDS")
+  tmp<-readRDS(file="./RDS/OUwie_boots2.latitude.RDS")
   HDInterval::hdi(log(2)/tmp[,1]) #get the HPD 1/2 life
   median(log(2)/tmp[,1])
   
@@ -3416,8 +3415,8 @@ median(log(2)/tmp[,1])
 #   #   scaleHeight = F,
 #   #   mserr = "none"
 #   # )
-#   # saveRDS(exon.enc.OUM, file="exon.enc.OUM.RDS")
-#   exon.enc.OUM <- readRDS(file="exon.enc.OUM.RDS")
+#   # saveRDS(exon.enc.OUM, file="./RDS/exon.enc.OUM.RDS")
+#   exon.enc.OUM <- readRDS(file="./RDS/exon.enc.OUM.RDS")
 #   
 #   #try with parametric bootstrapping
 #   # OUwie_boots.enc <-
@@ -3435,8 +3434,8 @@ median(log(2)/tmp[,1])
 #   #     quiet = F,
 #   #     mserr = "none"
 #   #   )
-#   #saveRDS(OUwie_boots.enc, file="OUwie_boots.enc.RDS")
-#   OUwie_boots.enc<- readRDS(file="OUwie_boots.enc.RDS")
+#   #saveRDS(OUwie_boots.enc, file="./RDS/OUwie_boots.enc.RDS")
+#   OUwie_boots.enc<- readRDS(file="./RDS/OUwie_boots.enc.RDS")
 #   
 #   # exon.encprime.OUM <- OUwie(
 #   #   phy = simmap.janus.nuc.exons,
@@ -3449,8 +3448,8 @@ median(log(2)/tmp[,1])
 #   #   scaleHeight = F,
 #   #   mserr = "none"
 #   # )
-#   # saveRDS(exon.encprime.OUM, file="exon.encprime.OUM.RDS")
-#   exon.encprime.OUM <- readRDS(file="exon.encprime.OUM.RDS")
+#   # saveRDS(exon.encprime.OUM, file="./RDS/exon.encprime.OUM.RDS")
+#   exon.encprime.OUM <- readRDS(file="./RDS/exon.encprime.OUM.RDS")
 #   
 #   #try with parametric bootstrapping
 #   OUwie_boots.encprime <-
@@ -3468,8 +3467,8 @@ median(log(2)/tmp[,1])
 #       quiet = F,
 #       mserr = "none"
 #     )
-#   saveRDS(OUwie_boots.encprime, file="OUwie_boots.encprime.RDS")
-#   OUwie_boots.encprime<- readRDS(file="OUwie_boots.encprime.RDS")
+#   saveRDS(OUwie_boots.encprime, file="./RDS/OUwie_boots.encprime.RDS")
+#   OUwie_boots.encprime<- readRDS(file="./RDS/OUwie_boots.encprime.RDS")
 #   
 #   # exon.scuo.OUM <- OUwie(
 #   #   phy = simmap.janus.nuc.exons,
@@ -3482,8 +3481,8 @@ median(log(2)/tmp[,1])
 #   #   scaleHeight = F,
 #   #   mserr = "none"
 #   # )
-#   # saveRDS(exon.scuo.OUM, file="exon.scuo.OUM.RDS")
-#   exon.scuo.OUM <- readRDS(file="exon.scuo.OUM.RDS")
+#   # saveRDS(exon.scuo.OUM, file="./RDS/exon.scuo.OUM.RDS")
+#   exon.scuo.OUM <- readRDS(file="./RDS/exon.scuo.OUM.RDS")
 #   
 #   #try with parametric bootstrapping
 #   # OUwie_boots.scuo <-
@@ -3501,8 +3500,8 @@ median(log(2)/tmp[,1])
 #   #     quiet = F,
 #   #     mserr = "none"
 #   #   )
-#   # saveRDS(OUwie_boots.scuo, file="OUwie_boots.scuo.RDS")
-#   OUwie_boots.scuo <- readRDS(file="OUwie_boots.scuo.RDS")
+#   # saveRDS(OUwie_boots.scuo, file="./RDS/OUwie_boots.scuo.RDS")
+#   OUwie_boots.scuo <- readRDS(file="./RDS/OUwie_boots.scuo.RDS")
 #   
 # }
 
@@ -3551,8 +3550,8 @@ order <- c(
 #   mutate(Reg = factor(Reg, levels = order)) %>%
 #   arrange(Reg) %>%
 #   mutate(type=rep("expected", length(.[,1])))
-# saveRDS(sims.chickPC1, "sims.chickPC1.RDS")
-sims.chickPC1 <- readRDS("sims.chickPC1.RDS")
+# saveRDS(sims.chickPC1, "./RDS/sims.chickPC1.RDS")
+sims.chickPC1 <- readRDS("./RDS/sims.chickPC1.RDS")
 
 # sims.mass <-
 #   sim_plotter(
@@ -3569,8 +3568,8 @@ sims.chickPC1 <- readRDS("sims.chickPC1.RDS")
 #   mutate(Reg = factor(Reg, levels = order)) %>%
 #   arrange(Reg) %>%
 #   mutate(type=rep("expected", length(.[,1])))
-# saveRDS(sims.mass, "sims.mass.RDS")
-sims.mass <- readRDS("sims.mass.RDS")
+# saveRDS(sims.mass, "./RDS/sims.mass.RDS")
+sims.mass <- readRDS("./RDS/sims.mass.RDS")
 
 # sims.clutch <-
 #   sim_plotter(
@@ -3587,8 +3586,8 @@ sims.mass <- readRDS("sims.mass.RDS")
 #   mutate(Reg = factor(Reg, levels = order)) %>%
 #   arrange(Reg) %>%
 #   mutate(type=rep("expected", length(.[,1])))
-# saveRDS(sims.clutch, "sims.clutch.RDS")
-sims.clutch<- readRDS("sims.clutch.RDS")
+# saveRDS(sims.clutch, "./RDS/sims.clutch.RDS")
+sims.clutch<- readRDS("./RDS/sims.clutch.RDS")
 
 # sims.gen_length <-
 #   sim_plotter(
@@ -3605,8 +3604,8 @@ sims.clutch<- readRDS("sims.clutch.RDS")
 #   mutate(Reg = factor(Reg, levels = order)) %>%
 #   arrange(Reg) %>%
 #   mutate(type=rep("expected", length(.[,1])))
-# saveRDS(sims.gen_length, "sims.gen_length.RDS")
-sims.gen_length <- readRDS("sims.gen_length.RDS")
+# saveRDS(sims.gen_length, "./RDS/sims.gen_length.RDS")
+sims.gen_length <- readRDS("./RDS/sims.gen_length.RDS")
 
 
 # sims.survival <-
@@ -3624,8 +3623,8 @@ sims.gen_length <- readRDS("sims.gen_length.RDS")
 #   mutate(Reg = factor(Reg, levels = order)) %>%
 #   arrange(Reg) %>%
 #   mutate(type=rep("expected", length(.[,1])))
-# saveRDS(sims.survival, "sims.survival.RDS")
-sims.survival<- readRDS("sims.survival.RDS")
+# saveRDS(sims.survival, "./RDS/sims.survival.RDS")
+sims.survival<- readRDS("./RDS/sims.survival.RDS")
 
 # sims.breeding <-
 #   sim_plotter(
@@ -3642,8 +3641,8 @@ sims.survival<- readRDS("sims.survival.RDS")
 #   mutate(Reg = factor(Reg, levels = order)) %>%
 #   arrange(Reg) %>%
 #   mutate(type=rep("expected", length(.[,1])))
-# saveRDS(sims.breeding, "sims.breeding.RDS")
-sims.breeding<- readRDS('sims.breeding.RDS')
+# saveRDS(sims.breeding, "./RDS/sims.breeding.RDS")
+sims.breeding<- readRDS('./RDS/sims.breeding.RDS')
 
 
 # sims.longevity <-
@@ -3661,8 +3660,8 @@ sims.breeding<- readRDS('sims.breeding.RDS')
 #   mutate(Reg = factor(Reg, levels = order)) %>%
 #   arrange(Reg) %>%
 #   mutate(type=rep("expected", length(.[,1])))
-# saveRDS(sims.longevity, "sims.longevity.RDS")
-sims.longevity<- readRDS("sims.longevity.RDS")
+# saveRDS(sims.longevity, "./RDS/sims.longevity.RDS")
+sims.longevity<- readRDS("./RDS/sims.longevity.RDS")
 
 # sims.latitude <-
 #   sim_plotter(
@@ -3679,8 +3678,8 @@ sims.longevity<- readRDS("sims.longevity.RDS")
 #   mutate(Reg = factor(Reg, levels = order)) %>%
 #   arrange(Reg) %>%
 #   mutate(type=rep("expected", length(.[,1])))
-# saveRDS(sims.latitude, "sims.latitude.RDS")
-sims.latitude <- readRDS("sims.latitude.RDS")
+# saveRDS(sims.latitude, "./RDS/sims.latitude.RDS")
+sims.latitude <- readRDS("./RDS/sims.latitude.RDS")
 
 
 # sims.encprime <-
@@ -4477,8 +4476,8 @@ dev.off()
   #   mutate(Reg = factor(Reg, levels = order2)) %>%
   #   arrange(Reg) %>%
   #   mutate(type=rep("expected", length(.[,1])))
-  # saveRDS(sims2.chickPC1, "sims2.chickPC1.RDS")
-  sims2.chickPC1 <- readRDS("sims2.chickPC1.RDS")
+  # saveRDS(sims2.chickPC1, "./RDS/sims2.chickPC1.RDS")
+  sims2.chickPC1 <- readRDS("./RDS/sims2.chickPC1.RDS")
   
   # sims2.mass <-
   #   sim_plotter(
@@ -4495,8 +4494,8 @@ dev.off()
   #   mutate(Reg = factor(Reg, levels = order2)) %>%
   #   arrange(Reg) %>%
   #   mutate(type=rep("expected", length(.[,1])))
-  # saveRDS(sims2.mass, "sims2.mass.RDS")
-  sims2.mass <- readRDS("sims2.mass.RDS")
+  # saveRDS(sims2.mass, "./RDS/sims2.mass.RDS")
+  sims2.mass <- readRDS("./RDS/sims2.mass.RDS")
   
   # sims2.clutch <-
   #   sim_plotter(
@@ -4513,8 +4512,8 @@ dev.off()
   #   mutate(Reg = factor(Reg, levels = order2)) %>%
   #   arrange(Reg) %>%
   #   mutate(type=rep("expected", length(.[,1])))
-  # saveRDS(sims2.clutch, "sims2.clutch.RDS")
-  sims2.clutch<- readRDS("sims2.clutch.RDS")
+  # saveRDS(sims2.clutch, "./RDS/sims2.clutch.RDS")
+  sims2.clutch<- readRDS("./RDS/sims2.clutch.RDS")
   
   # sims2.gen_length <-
   #   sim_plotter(
@@ -4531,8 +4530,8 @@ dev.off()
   #   mutate(Reg = factor(Reg, levels = order2)) %>%
   #   arrange(Reg) %>%
   #   mutate(type=rep("expected", length(.[,1])))
-  # saveRDS(sims2.gen_length, "sims2.gen_length.RDS")
-  sims2.gen_length <- readRDS("sims2.gen_length.RDS")
+  # saveRDS(sims2.gen_length, "./RDS/sims2.gen_length.RDS")
+  sims2.gen_length <- readRDS("./RDS/sims2.gen_length.RDS")
   
   
   # sims2.survival <-
@@ -4550,8 +4549,8 @@ dev.off()
   #   mutate(Reg = factor(Reg, levels = order2)) %>%
   #   arrange(Reg) %>%
   #   mutate(type=rep("expected", length(.[,1])))
-  # saveRDS(sims2.survival, "sims2.survival.RDS")
-  sims2.survival<- readRDS("sims2.survival.RDS")
+  # saveRDS(sims2.survival, "./RDS/sims2.survival.RDS")
+  sims2.survival<- readRDS("./RDS/sims2.survival.RDS")
   
   # sims2.breeding <-
   #   sim_plotter(
@@ -4568,8 +4567,8 @@ dev.off()
   #   mutate(Reg = factor(Reg, levels = order2)) %>%
   #   arrange(Reg) %>%
   #   mutate(type=rep("expected", length(.[,1])))
-  # saveRDS(sims2.breeding, "sims2.breeding.RDS")
-  sims2.breeding<- readRDS('sims2.breeding.RDS')
+  # saveRDS(sims2.breeding, "./RDS/sims2.breeding.RDS")
+  sims2.breeding<- readRDS('./RDS/sims2.breeding.RDS')
   
   
   # sims2.longevity <-
@@ -4587,8 +4586,8 @@ dev.off()
   #   mutate(Reg = factor(Reg, levels = order2)) %>%
   #   arrange(Reg) %>%
   #   mutate(type=rep("expected", length(.[,1])))
-  # saveRDS(sims2.longevity, "sims2.longevity.RDS")
-  sims2.longevity<- readRDS("sims2.longevity.RDS")
+  # saveRDS(sims2.longevity, "./RDS/sims2.longevity.RDS")
+  sims2.longevity<- readRDS("./RDS/sims2.longevity.RDS")
   
   # sims2.latitude <-
   #   sim_plotter(
@@ -4605,8 +4604,8 @@ dev.off()
   #   mutate(Reg = factor(Reg, levels = order2)) %>%
   #   arrange(Reg) %>%
   #   mutate(type=rep("expected", length(.[,1])))
-  # saveRDS(sims2.latitude, "sims2.latitude.RDS")
-  sims2.latitude <- readRDS("sims2.latitude.RDS")
+  # saveRDS(sims2.latitude, "./RDS/sims2.latitude.RDS")
+  sims2.latitude <- readRDS("./RDS/sims2.latitude.RDS")
   
   # sims.encprime <-
   #   sim_plotter(
@@ -5892,45 +5891,45 @@ rownames(scaling_data_errors)<- megaLHT$species
 #which regime map to use for imputation? test them mvBM
 {
 #janus.null.mvBM<-mvBM(tree=simmap.janus.null, data = scaling_data, error = scaling_data_errors, model="BM1", diagnostic=FALSE, echo=FALSE, method='rpf', scale.height = F)
-#saveRDS(janus.null.mvBM, "janus.null.mvBM.RDS")
-janus.null.mvBM<-readRDS("janus.null.mvBM.RDS")
+#saveRDS(janus.null.mvBM, "./RDS/janus.null.mvBM.RDS")
+janus.null.mvBM<-readRDS("./RDS/janus.null.mvBM.RDS")
 
 #all.aggregte.mvBM<-mvBM(tree=simmap.janus.all.aggregate, data = scaling_data, error = scaling_data_errors, model="BMM", diagnostic=FALSE, echo=FALSE, method='rpf', scale.height = F)
-#saveRDS(all.aggregte.mvBM, "all.aggregte.mvBM.RDS")
-all.aggregte.mvBM<-readRDS("all.aggregte.mvBM.RDS")
+#saveRDS(all.aggregte.mvBM, "./RDS/all.aggregte.mvBM.RDS")
+all.aggregte.mvBM<-readRDS("./RDS/all.aggregte.mvBM.RDS")
 
 #mtdna.all.mvBM<-mvBM(tree=simmap.janus.mtdna.all, data = scaling_data, error = scaling_data_errors, model="BMM", diagnostic=FALSE, echo=FALSE, method='rpf', scale.height = F)
-#saveRDS(mtdna.all.mvBM, "mtdna.all.mvBM.RDS")
-mtdna.all.mvBM<-readRDS("mtdna.all.mvBM.RDS")
+#saveRDS(mtdna.all.mvBM, "./RDS/mtdna.all.mvBM.RDS")
+mtdna.all.mvBM<-readRDS("./RDS/mtdna.all.mvBM.RDS")
 
 #mtdna.proteins.mvBM<-mvBM(tree=simmap.janus.mtdna.proteins, data = scaling_data, error = scaling_data_errors, model="BMM", diagnostic=FALSE, echo=FALSE, method='rpf', scale.height = F)
-#saveRDS(mtdna.proteins.mvBM, "mtdna.proteins.mvBM.RDS")
-mtdna.proteins.mvBM<- readRDS("mtdna.proteins.mvBM.RDS")
+#saveRDS(mtdna.proteins.mvBM, "./RDS/mtdna.proteins.mvBM.RDS")
+mtdna.proteins.mvBM<- readRDS("./RDS/mtdna.proteins.mvBM.RDS")
 
 #match proteins bc the rrna signal is identical
 #mtdna.rrnas.mvBM<-mvBM(tree=simmap.janus.mtdna.proteins, data = scaling_data, error = scaling_data_errors, model="BMM", diagnostic=FALSE, echo=FALSE, method='rpf', scale.height = F)
-#saveRDS(mtdna.rrnas.mvBM, "mtdna.rrnas.mvBM.RDS")
-mtdna.rrnas.mvBM<-readRDS("mtdna.rrnas.mvBM.RDS")
+#saveRDS(mtdna.rrnas.mvBM, "./RDS/mtdna.rrnas.mvBM.RDS")
+mtdna.rrnas.mvBM<-readRDS("./RDS/mtdna.rrnas.mvBM.RDS")
 
 #nuc.aggregate.mvBM<-mvBM(tree=simmap.janus.nuc.aggregate, data = scaling_data, error = scaling_data_errors, model="BMM", diagnostic=FALSE, echo=FALSE, method='rpf', scale.height = F)
-#saveRDS(nuc.aggregate.mvBM, "nuc.aggregate.mvBM.RDS")
-nuc.aggregate.mvBM<-readRDS("nuc.aggregate.mvBM.RDS")
+#saveRDS(nuc.aggregate.mvBM, "./RDS/nuc.aggregate.mvBM.RDS")
+nuc.aggregate.mvBM<-readRDS("./RDS/nuc.aggregate.mvBM.RDS")
 
 #nuc.alldata.mvBM<-mvBM(tree=simmap.janus.nuc.alldata, data = scaling_data, error = scaling_data_errors, model="BMM", diagnostic=FALSE, echo=FALSE, method='rpf', scale.height = F)
-#saveRDS(nuc.alldata.mvBM, "nuc.alldata.mvBM.RDS")
-nuc.alldata.mvBM <- readRDS("nuc.alldata.mvBM.RDS")
+#saveRDS(nuc.alldata.mvBM, "./RDS/nuc.alldata.mvBM.RDS")
+nuc.alldata.mvBM <- readRDS("./RDS/nuc.alldata.mvBM.RDS")
 
 #nuc.exons.mvBM<-mvBM(tree=simmap.janus.nuc.exons, data = scaling_data, error = scaling_data_errors, model="BMM", diagnostic=FALSE, echo=FALSE, method='rpf', scale.height = F)
-#saveRDS(nuc.exons.mvBM, "nuc.exons.mvBM.RDS")
-nuc.exons.mvBM<- readRDS("nuc.exons.mvBM.RDS")
+#saveRDS(nuc.exons.mvBM, "./RDS/nuc.exons.mvBM.RDS")
+nuc.exons.mvBM<- readRDS("./RDS/nuc.exons.mvBM.RDS")
 
 #nuc.introns.mvBM<-mvBM(tree=simmap.janus.nuc.introns, data = scaling_data, error = scaling_data_errors, model="BMM", diagnostic=FALSE, echo=FALSE, method='rpf', scale.height = F)
-#saveRDS(nuc.introns.mvBM, "nuc.introns.mvBM.RDS")
-nuc.introns.mvBM<-readRDS("nuc.introns.mvBM.RDS")
+#saveRDS(nuc.introns.mvBM, "./RDS/nuc.introns.mvBM.RDS")
+nuc.introns.mvBM<-readRDS("./RDS/nuc.introns.mvBM.RDS")
 
 #nuc.utrs.mvBM<-mvBM(tree=simmap.janus.nuc.utrs, data = scaling_data, error = scaling_data_errors, model="BMM", diagnostic=FALSE, echo=FALSE, method='rpf', scale.height = F)
-#saveRDS(nuc.utrs.mvBM, "nuc.utrs.mvBM.RDS")
-nuc.utrs.mvBM<-readRDS("nuc.utrs.mvBM.RDS")
+#saveRDS(nuc.utrs.mvBM, "./RDS/nuc.utrs.mvBM.RDS")
+nuc.utrs.mvBM<-readRDS("./RDS/nuc.utrs.mvBM.RDS")
 
 results<-list(janus.null.mvBM, all.aggregte.mvBM, mtdna.all.mvBM, mtdna.proteins.mvBM, 
               mtdna.rrnas.mvBM, nuc.aggregate.mvBM, nuc.alldata.mvBM, nuc.exons.mvBM,
@@ -6200,22 +6199,22 @@ janus.null.mvBM.imputed$NA_index
 #data export for random forest test
 {
   
-  #saveRDS(bm.fit.corr$anc_recon[1:198,][,c(1:8)], file="RF_test_data.RDS")
+  #saveRDS(bm.fit.corr$anc_recon[1:198,][,c(1:8)], file="./RDS/RF_test_data.RDS")
   #add in the "aggregate shift signal" to megaLHT
   megaLHT$aggregate_models<-getStates(simmap.janus.all.aggregate, type="tips")
-  #saveRDS(megaLHT, file="megaLHT.RDS")
+  #saveRDS(megaLHT, file="./RDS/megaLHT.RDS")
   
   #generate distances
   
 {
   distances<-as.dist(cophenetic.phylo(as.phylo(simmap.janus.all.aggregate)), diag=T)
-  #saveRDS(distances, file="dist.RDS")
+  #saveRDS(distances, file="./RDS/dist.RDS")
   #adephylo:::distTips(as.phylo(simmap.janus.all.aggregate))
   #distances<-cophenetic.phylo(as.phylo(simmap.janus.all.aggregate))
   distances.gene<-as.dist(cophenetic.phylo(as.phylo(consensus.all))[labels(distances),labels(distances)], diag=T)
   
   #export tree
-  #saveRDS(as.phylo(simmap.janus.all.aggregate), file="RF_timetree.RDS")
+  #saveRDS(as.phylo(simmap.janus.all.aggregate), file="./RDS/RF_timetree.RDS")
   
   pcoa.dist<-ape::pcoa(distances)
   #rownames(pcoa.dist$values)<-labels(distances)
@@ -6224,8 +6223,8 @@ janus.null.mvBM.imputed$NA_index
 
 }
 #save objects
-#saveRDS(pcoa.dist, file="pcoa.dist.RDS")
-#saveRDS(pcoa.dist.gene, file="pcoa.dist.gene.RDS")
+#saveRDS(pcoa.dist, file="./RDS/pcoa.dist.RDS")
+#saveRDS(pcoa.dist.gene, file="./RDS/pcoa.dist.gene.RDS")
 }
 
 
@@ -6262,8 +6261,8 @@ edges <- edge_indices_N(tree=l1ou_test$tree, min=4) #add 14
 #                                                              edge.length.threshold = 7.066136e-05, 
 #                                                              max.nShifts = 60, 
 #                                                              criterion="AIC")
-# saveRDS(eModel.par.unconstrained.aic, file="eModel.par.unconstrained.aic.RDS")
-eModel.par.unconstrained.aic <- readRDS(file="eModel.par.unconstrained.aic.RDS")
+# saveRDS(eModel.par.unconstrained.aic, file="./RDS/eModel.par.unconstrained.aic.RDS")
+eModel.par.unconstrained.aic <- readRDS(file="./RDS/eModel.par.unconstrained.aic.RDS")
 
 # eModel.par.unconstrained.bic <- estimate_shift_configuration(l1ou_test$tree, 
 #                                                              l1ou_test$Y, 
@@ -6273,8 +6272,8 @@ eModel.par.unconstrained.aic <- readRDS(file="eModel.par.unconstrained.aic.RDS")
 #                                                              edge.length.threshold = 7.066136e-05, 
 #                                                              max.nShifts = 60, 
 #                                                              criterion="BIC")
-# saveRDS(eModel.par.unconstrained.bic, file="eModel.par.unconstrained.bic.RDS")
-eModel.par.unconstrained.bic <- readRDS(file="eModel.par.unconstrained.bic.RDS")
+# saveRDS(eModel.par.unconstrained.bic, file="./RDS/eModel.par.unconstrained.bic.RDS")
+eModel.par.unconstrained.bic <- readRDS(file="./RDS/eModel.par.unconstrained.bic.RDS")
 
 
 # eModel.par.unconstrained.pbic <- estimate_shift_configuration(l1ou_test$tree, 
@@ -6285,8 +6284,8 @@ eModel.par.unconstrained.bic <- readRDS(file="eModel.par.unconstrained.bic.RDS")
 #                                                               edge.length.threshold = 7.066136e-05, 
 #                                                               max.nShifts = 60, 
 #                                                               criterion="pBIC")
-# saveRDS(eModel.par.unconstrained.pbic, file="eModel.par.unconstrained.pbic.RDS")
-eModel.par.unconstrained.pbic <- readRDS("eModel.par.unconstrained.pbic.RDS")
+# saveRDS(eModel.par.unconstrained.pbic, file="./RDS/eModel.par.unconstrained.pbic.RDS")
+eModel.par.unconstrained.pbic <- readRDS("./RDS/eModel.par.unconstrained.pbic.RDS")
 
 
 # eModel.par.unconstrained.aicc <- estimate_shift_configuration(l1ou_test$tree, 
@@ -6297,8 +6296,8 @@ eModel.par.unconstrained.pbic <- readRDS("eModel.par.unconstrained.pbic.RDS")
 #                                                               edge.length.threshold = 7.066136e-05, 
 #                                                               max.nShifts = 60, 
 #                                                               criterion="AICc")
-# saveRDS(eModel.par.unconstrained.aicc, file="eModel.par.unconstrained.aicc.RDS")
-eModel.par.unconstrained.aicc <- readRDS(file="eModel.par.unconstrained.aicc.RDS")
+# saveRDS(eModel.par.unconstrained.aicc, file="./RDS/eModel.par.unconstrained.aicc.RDS")
+eModel.par.unconstrained.aicc <- readRDS(file="./RDS/eModel.par.unconstrained.aicc.RDS")
 
 # eModel.par.unconstrained.pBICess <- estimate_shift_configuration(l1ou_test$tree, 
 #                                                                  l1ou_test$Y, 
@@ -6308,8 +6307,8 @@ eModel.par.unconstrained.aicc <- readRDS(file="eModel.par.unconstrained.aicc.RDS
 #                                                                  edge.length.threshold = 7.066136e-05, 
 #                                                                  max.nShifts = 60, 
 #                                                                  criterion="pBICess")
-# saveRDS(eModel.par.unconstrained.pBICess, file="eModel.par.unconstrained.pBICess.RDS")
-eModel.par.unconstrained.pBICess <- readRDS(file="eModel.par.unconstrained.pBICess.RDS")
+# saveRDS(eModel.par.unconstrained.pBICess, file="./RDS/eModel.par.unconstrained.pBICess.RDS")
+eModel.par.unconstrained.pBICess <- readRDS(file="./RDS/eModel.par.unconstrained.pBICess.RDS")
 
 # eModel.par.unconstrained.mBIC <- estimate_shift_configuration(l1ou_test$tree, 
 #                                                               l1ou_test$Y, 
@@ -6319,8 +6318,8 @@ eModel.par.unconstrained.pBICess <- readRDS(file="eModel.par.unconstrained.pBICe
 #                                                               edge.length.threshold = 7.066136e-05, 
 #                                                               max.nShifts = 60, 
 #                                                               criterion="mBIC")
-# saveRDS(eModel.par.unconstrained.mBIC, file="eModel.par.unconstrained.mBIC.RDS")
-eModel.par.unconstrained.mBIC <- readRDS(file="eModel.par.unconstrained.mBIC.RDS")
+# saveRDS(eModel.par.unconstrained.mBIC, file="./RDS/eModel.par.unconstrained.mBIC.RDS")
+eModel.par.unconstrained.mBIC <- readRDS(file="./RDS/eModel.par.unconstrained.mBIC.RDS")
 }
 
 #these two lines generate a result that is very similar to janus, but it is quite constrained
@@ -6336,8 +6335,8 @@ edges <- edge_indices_nodes(tree=l1ou_test$tree, nodes=con_prop_logit[con_prop_l
 #                                                            edge.length.threshold = 7.066136e-05, 
 #                                                            max.nShifts = 12, 
 #                                                            criterion="AIC")
-# saveRDS(eModel.par.constrained.aic, file="eModel.par.constrained.aic.RDS")
-eModel.par.constrained.aic <- readRDS(file="eModel.par.constrained.aic.RDS")
+# saveRDS(eModel.par.constrained.aic, file="./RDS/eModel.par.constrained.aic.RDS")
+eModel.par.constrained.aic <- readRDS(file="./RDS/eModel.par.constrained.aic.RDS")
 
 
 # eModel.par.constrained.bic <- estimate_shift_configuration(l1ou_test$tree,
@@ -6348,8 +6347,8 @@ eModel.par.constrained.aic <- readRDS(file="eModel.par.constrained.aic.RDS")
 #                                                            edge.length.threshold = 7.066136e-05, 
 #                                                            max.nShifts = 12, 
 #                                                            criterion="BIC")
-# saveRDS(eModel.par.constrained.bic, file="eModel.par.constrained.bic.RDS")
-eModel.par.constrained.bic <- readRDS(file="eModel.par.constrained.bic.RDS")
+# saveRDS(eModel.par.constrained.bic, file="./RDS/eModel.par.constrained.bic.RDS")
+eModel.par.constrained.bic <- readRDS(file="./RDS/eModel.par.constrained.bic.RDS")
 # 
 # eModel.par.constrained.pbic <- estimate_shift_configuration(l1ou_test$tree, 
 #                                                             l1ou_test$Y, 
@@ -6359,8 +6358,8 @@ eModel.par.constrained.bic <- readRDS(file="eModel.par.constrained.bic.RDS")
 #                                                             edge.length.threshold = 7.066136e-05, 
 #                                                             max.nShifts = 12, 
 #                                                             criterion="pBIC")
-# saveRDS(eModel.par.constrained.pbic, file="eModel.par.constrained.pbic.RDS")
-eModel.par.constrained.pbic <- readRDS(file="eModel.par.constrained.pbic.RDS")
+# saveRDS(eModel.par.constrained.pbic, file="./RDS/eModel.par.constrained.pbic.RDS")
+eModel.par.constrained.pbic <- readRDS(file="./RDS/eModel.par.constrained.pbic.RDS")
 
 # eModel.par.constrained.aicc <- estimate_shift_configuration(l1ou_test$tree, 
 #                                                             l1ou_test$Y, 
@@ -6370,8 +6369,8 @@ eModel.par.constrained.pbic <- readRDS(file="eModel.par.constrained.pbic.RDS")
 #                                                             edge.length.threshold = 7.066136e-05, 
 #                                                             max.nShifts = 12, 
 #                                                             criterion="AICc")
-# saveRDS(eModel.par.constrained.aicc, file="eModel.par.constrained.aicc.RDS")
-eModel.par.constrained.aicc <- readRDS(file="eModel.par.constrained.aicc.RDS")
+# saveRDS(eModel.par.constrained.aicc, file="./RDS/eModel.par.constrained.aicc.RDS")
+eModel.par.constrained.aicc <- readRDS(file="./RDS/eModel.par.constrained.aicc.RDS")
 
 
 # eModel.par.constrained.pBICess <- estimate_shift_configuration(l1ou_test$tree, 
@@ -6382,8 +6381,8 @@ eModel.par.constrained.aicc <- readRDS(file="eModel.par.constrained.aicc.RDS")
 #                                                                edge.length.threshold = 7.066136e-05, 
 #                                                                max.nShifts = 12, 
 #                                                                criterion="pBICess")
-# saveRDS(eModel.par.constrained.pBICess, file="eModel.par.constrained.pBICess.RDS")
-eModel.par.constrained.pBICess <- readRDS(file="eModel.par.constrained.pBICess.RDS")
+# saveRDS(eModel.par.constrained.pBICess, file="./RDS/eModel.par.constrained.pBICess.RDS")
+eModel.par.constrained.pBICess <- readRDS(file="./RDS/eModel.par.constrained.pBICess.RDS")
 
 # 
 # eModel.par.constrained.mBIC <- estimate_shift_configuration(l1ou_test$tree, 
@@ -6394,8 +6393,8 @@ eModel.par.constrained.pBICess <- readRDS(file="eModel.par.constrained.pBICess.R
 #                                                             edge.length.threshold = 7.066136e-05, 
 #                                                             max.nShifts = 12, 
 #                                                             criterion="mBIC")
-# saveRDS(eModel.par.constrained.mBIC, file="eModel.par.constrained.mBIC.RDS")
-eModel.par.constrained.mBIC <- readRDS(file="eModel.par.constrained.mBIC.RDS")
+# saveRDS(eModel.par.constrained.mBIC, file="./RDS/eModel.par.constrained.mBIC.RDS")
+eModel.par.constrained.mBIC <- readRDS(file="./RDS/eModel.par.constrained.mBIC.RDS")
 }
 
 #testing null fits
@@ -6411,8 +6410,8 @@ edges <- edge_indices_N(tree=l1ou_test$tree, min=4) #add 14
 #                                                              edge.length.threshold = 7.066136e-05,
 #                                                              max.nShifts = 60,
 #                                                              criterion="AIC")
-# saveRDS(eModel.par.unconstrained.aic.null, file="eModel.par.unconstrained.aic.null.RDS")
-eModel.par.unconstrained.aic.null <- readRDS(file="eModel.par.unconstrained.aic.null.RDS")
+# saveRDS(eModel.par.unconstrained.aic.null, file="./RDS/eModel.par.unconstrained.aic.null.RDS")
+eModel.par.unconstrained.aic.null <- readRDS(file="./RDS/eModel.par.unconstrained.aic.null.RDS")
 
 # eModel.par.unconstrained.bic.null <- estimate_shift_configuration(l1ou_test_null$tree,
 #                                                              l1ou_test_null$Y,
@@ -6422,8 +6421,8 @@ eModel.par.unconstrained.aic.null <- readRDS(file="eModel.par.unconstrained.aic.
 #                                                              edge.length.threshold = 7.066136e-05,
 #                                                              max.nShifts = 60,
 #                                                              criterion="BIC")
-# saveRDS(eModel.par.unconstrained.bic.null, file="eModel.par.unconstrained.bic.null.RDS")
-eModel.par.unconstrained.bic.null <- readRDS(file="eModel.par.unconstrained.bic.null.RDS")
+# saveRDS(eModel.par.unconstrained.bic.null, file="./RDS/eModel.par.unconstrained.bic.null.RDS")
+eModel.par.unconstrained.bic.null <- readRDS(file="./RDS/eModel.par.unconstrained.bic.null.RDS")
 
 
 # eModel.par.unconstrained.pbic.null <- estimate_shift_configuration(l1ou_test_null$tree,
@@ -6434,8 +6433,8 @@ eModel.par.unconstrained.bic.null <- readRDS(file="eModel.par.unconstrained.bic.
 #                                                               edge.length.threshold = 7.066136e-05,
 #                                                               max.nShifts = 60,
 #                                                               criterion="pBIC")
-# saveRDS(eModel.par.unconstrained.pbic.null, file="eModel.par.unconstrained.pbic.null.RDS")
-eModel.par.unconstrained.pbic.null <- readRDS("eModel.par.unconstrained.pbic.null.RDS")
+# saveRDS(eModel.par.unconstrained.pbic.null, file="./RDS/eModel.par.unconstrained.pbic.null.RDS")
+eModel.par.unconstrained.pbic.null <- readRDS("./RDS/eModel.par.unconstrained.pbic.null.RDS")
 
 
 # eModel.par.unconstrained.aicc.null <- estimate_shift_configuration(l1ou_test_null$tree,
@@ -6446,8 +6445,8 @@ eModel.par.unconstrained.pbic.null <- readRDS("eModel.par.unconstrained.pbic.nul
 #                                                               edge.length.threshold = 7.066136e-05,
 #                                                               max.nShifts = 60,
 #                                                               criterion="AICc")
-# saveRDS(eModel.par.unconstrained.aicc.null, file="eModel.par.unconstrained.aicc.null.RDS")
-eModel.par.unconstrained.aicc.null <- readRDS(file="eModel.par.unconstrained.aicc.null.RDS")
+# saveRDS(eModel.par.unconstrained.aicc.null, file="./RDS/eModel.par.unconstrained.aicc.null.RDS")
+eModel.par.unconstrained.aicc.null <- readRDS(file="./RDS/eModel.par.unconstrained.aicc.null.RDS")
 
 # eModel.par.unconstrained.pBICess.null <- estimate_shift_configuration(l1ou_test_null$tree,
 #                                                                  l1ou_test_null$Y,
@@ -6457,8 +6456,8 @@ eModel.par.unconstrained.aicc.null <- readRDS(file="eModel.par.unconstrained.aic
 #                                                                  edge.length.threshold = 7.066136e-05,
 #                                                                  max.nShifts = 60,
 #                                                                  criterion="pBICess")
-# saveRDS(eModel.par.unconstrained.pBICess.null, file="eModel.par.unconstrained.pBICess.null.RDS")
-eModel.par.unconstrained.pBICess.null <- readRDS(file="eModel.par.unconstrained.pBICess.null.RDS")
+# saveRDS(eModel.par.unconstrained.pBICess.null, file="./RDS/eModel.par.unconstrained.pBICess.null.RDS")
+eModel.par.unconstrained.pBICess.null <- readRDS(file="./RDS/eModel.par.unconstrained.pBICess.null.RDS")
 
 # eModel.par.unconstrained.mBIC.null <- estimate_shift_configuration(l1ou_test_null$tree,
 #                                                               l1ou_test_null$Y,
@@ -6468,8 +6467,8 @@ eModel.par.unconstrained.pBICess.null <- readRDS(file="eModel.par.unconstrained.
 #                                                               edge.length.threshold = 7.066136e-05,
 #                                                               max.nShifts = 60,
 #                                                               criterion="mBIC")
-# saveRDS(eModel.par.unconstrained.mBIC.null, file="eModel.par.unconstrained.mBIC.null.RDS")
-eModel.par.unconstrained.mBIC.null <- readRDS(file="eModel.par.unconstrained.mBIC.null.RDS")
+# saveRDS(eModel.par.unconstrained.mBIC.null, file="./RDS/eModel.par.unconstrained.mBIC.null.RDS")
+eModel.par.unconstrained.mBIC.null <- readRDS(file="./RDS/eModel.par.unconstrained.mBIC.null.RDS")
 
 
 #these two lines generate a result that is very similar to janus, but it is quite constrained
@@ -6483,8 +6482,8 @@ edges <- edge_indices_nodes(tree=l1ou_test$tree, nodes=con_prop_logit[con_prop_l
 #                                                            edge.length.threshold = 7.066136e-05,
 #                                                            max.nShifts = 12,
 #                                                            criterion="AIC")
-# saveRDS(eModel.par.constrained.aic.null, file="eModel.par.constrained.aic.null.RDS")
-eModel.par.constrained.aic.null <- readRDS(file="eModel.par.constrained.aic.null.RDS")
+# saveRDS(eModel.par.constrained.aic.null, file="./RDS/eModel.par.constrained.aic.null.RDS")
+eModel.par.constrained.aic.null <- readRDS(file="./RDS/eModel.par.constrained.aic.null.RDS")
 
 
 # eModel.par.constrained.bic.null <- estimate_shift_configuration(l1ou_test_null$tree,
@@ -6495,8 +6494,8 @@ eModel.par.constrained.aic.null <- readRDS(file="eModel.par.constrained.aic.null
 #                                                            edge.length.threshold = 7.066136e-05,
 #                                                            max.nShifts = 12,
 #                                                            criterion="BIC")
-# saveRDS(eModel.par.constrained.bic.null, file="eModel.par.constrained.bic.null.RDS")
-eModel.par.constrained.bic.null <- readRDS(file="eModel.par.constrained.bic.null.RDS")
+# saveRDS(eModel.par.constrained.bic.null, file="./RDS/eModel.par.constrained.bic.null.RDS")
+eModel.par.constrained.bic.null <- readRDS(file="./RDS/eModel.par.constrained.bic.null.RDS")
 
 # eModel.par.constrained.pbic.null <- estimate_shift_configuration(l1ou_test_null$tree,
 #                                                             l1ou_test_null$Y,
@@ -6506,8 +6505,8 @@ eModel.par.constrained.bic.null <- readRDS(file="eModel.par.constrained.bic.null
 #                                                             edge.length.threshold = 7.066136e-05,
 #                                                             max.nShifts = 12,
 #                                                             criterion="pBIC")
-# saveRDS(eModel.par.constrained.pbic.null, file="eModel.par.constrained.pbic.null.RDS")
-eModel.par.constrained.pbic.null <- readRDS(file="eModel.par.constrained.pbic.null.RDS")
+# saveRDS(eModel.par.constrained.pbic.null, file="./RDS/eModel.par.constrained.pbic.null.RDS")
+eModel.par.constrained.pbic.null <- readRDS(file="./RDS/eModel.par.constrained.pbic.null.RDS")
 
 # eModel.par.constrained.aicc.null <- estimate_shift_configuration(l1ou_test_null$tree,
 #                                                             l1ou_test_null$Y,
@@ -6517,8 +6516,8 @@ eModel.par.constrained.pbic.null <- readRDS(file="eModel.par.constrained.pbic.nu
 #                                                             edge.length.threshold = 7.066136e-05,
 #                                                             max.nShifts = 12,
 #                                                             criterion="AICc")
-# saveRDS(eModel.par.constrained.aicc.null, file="eModel.par.constrained.aicc.null.RDS")
-eModel.par.constrained.aicc.null <- readRDS(file="eModel.par.constrained.aicc.null.RDS")
+# saveRDS(eModel.par.constrained.aicc.null, file="./RDS/eModel.par.constrained.aicc.null.RDS")
+eModel.par.constrained.aicc.null <- readRDS(file="./RDS/eModel.par.constrained.aicc.null.RDS")
 
 # eModel.par.constrained.pBICess.null <- estimate_shift_configuration(l1ou_test_null$tree,
 #                                                                l1ou_test_null$Y,
@@ -6528,8 +6527,8 @@ eModel.par.constrained.aicc.null <- readRDS(file="eModel.par.constrained.aicc.nu
 #                                                                edge.length.threshold = 7.066136e-05,
 #                                                                max.nShifts = 12,
 #                                                                criterion="pBICess")
-# saveRDS(eModel.par.constrained.pBICess.null, file="eModel.par.constrained.pBICess.null.RDS")
-eModel.par.constrained.pBICess.null <- readRDS(file="eModel.par.constrained.pBICess.null.RDS")
+# saveRDS(eModel.par.constrained.pBICess.null, file="./RDS/eModel.par.constrained.pBICess.null.RDS")
+eModel.par.constrained.pBICess.null <- readRDS(file="./RDS/eModel.par.constrained.pBICess.null.RDS")
 
 # eModel.par.constrained.mBIC.null <- estimate_shift_configuration(l1ou_test_null$tree,
 #                                                             l1ou_test_null$Y,
@@ -6539,47 +6538,47 @@ eModel.par.constrained.pBICess.null <- readRDS(file="eModel.par.constrained.pBIC
 #                                                             edge.length.threshold = 7.066136e-05,
 #                                                             max.nShifts = 12,
 #                                                             criterion="mBIC")
-# saveRDS(eModel.par.constrained.mBIC.null, file="eModel.par.constrained.mBIC.null.RDS")
-eModel.par.constrained.mBIC.null <- readRDS(file="eModel.par.constrained.mBIC.null.RDS")
+# saveRDS(eModel.par.constrained.mBIC.null, file="./RDS/eModel.par.constrained.mBIC.null.RDS")
+eModel.par.constrained.mBIC.null <- readRDS(file="./RDS/eModel.par.constrained.mBIC.null.RDS")
 }
 
 #running bootstrap models
 {
 # fit.boot.bic.constrained<-l1ou_bootstrap_support(eModel.par.constrained.bic, nItrs = 100, multicore = T, nCores = 50, quietly = F)
-# saveRDS(fit.boot.bic.constrained, file="fit.boot.bic.constrained.RDS")
-fit.boot.bic.constrained<- readRDS(file="fit.boot.bic.constrained.RDS")
+# saveRDS(fit.boot.bic.constrained, file="./RDS/fit.boot.bic.constrained.RDS")
+fit.boot.bic.constrained<- readRDS(file="./RDS/fit.boot.bic.constrained.RDS")
 
 # fit.boot.aicc.constrained<-l1ou_bootstrap_support(eModel.par.constrained.aicc, nItrs = 100, multicore = T, nCores = 50, quietly = F)
-# saveRDS(fit.boot.aicc.constrained, file="fit.boot.aicc.constrained.RDS")
-fit.boot.aicc.constrained <- readRDS(file="fit.boot.aicc.constrained.RDS")
+# saveRDS(fit.boot.aicc.constrained, file="./RDS/fit.boot.aicc.constrained.RDS")
+fit.boot.aicc.constrained <- readRDS(file="./RDS/fit.boot.aicc.constrained.RDS")
 #this only completed 94 replicates -- investigate further? 
 
 # fit.boot.aic.constrained<-l1ou_bootstrap_support(eModel.par.constrained.aic, nItrs = 100, multicore = T, nCores = 50, quietly = F)
-# saveRDS(fit.boot.aic.constrained, file="fit.boot.aic.constrained.RDS")
-fit.boot.aic.constrained <-readRDS("fit.boot.aic.constrained.RDS")
+# saveRDS(fit.boot.aic.constrained, file="./RDS/fit.boot.aic.constrained.RDS")
+fit.boot.aic.constrained <-readRDS("./RDS/fit.boot.aic.constrained.RDS")
 
 #fit.boot.pbic.constrained<-l1ou_bootstrap_support(eModel.par.constrained.pbic, nItrs = 100, multicore = T, nCores = 30, quietly = F)
-#saveRDS(fit.boot.pbic.constrained, file="fit.boot.pbic.constrained.RDS")
-fit.boot.pbic.constrained<- readRDS("fit.boot.pbic.constrained.RDS")
+#saveRDS(fit.boot.pbic.constrained, file="./RDS/fit.boot.pbic.constrained.RDS")
+fit.boot.pbic.constrained<- readRDS("./RDS/fit.boot.pbic.constrained.RDS")
 
 #fit.boot.pbicess.constrained<-l1ou_bootstrap_support(eModel.par.constrained.pBICess, nItrs = 100, multicore = T, nCores = 30, quietly = F)
-#saveRDS(fit.boot.pbicess.constrained, file="fit.boot.pbicess.constrained.RDS")
-fit.boot.pbicess.constrained<- readRDS("fit.boot.pbicess.constrained.RDS")
+#saveRDS(fit.boot.pbicess.constrained, file="./RDS/fit.boot.pbicess.constrained.RDS")
+fit.boot.pbicess.constrained<- readRDS("./RDS/fit.boot.pbicess.constrained.RDS")
 
 #fit.boot.mbic.constrained<-l1ou_bootstrap_support(eModel.par.constrained.mBIC, nItrs = 100, multicore = T, nCores = 30, quietly = F)
-#saveRDS(fit.boot.mbic.constrained, file="fit.boot.mbic.constrained.RDS")
-fit.boot.mbic.constrained<- readRDS("fit.boot.mbic.constrained.RDS")
+#saveRDS(fit.boot.mbic.constrained, file="./RDS/fit.boot.mbic.constrained.RDS")
+fit.boot.mbic.constrained<- readRDS("./RDS/fit.boot.mbic.constrained.RDS")
 }
 ## running bootstrap models for unconstrained analysis
 {
 #fit.boot.aicc.unconstrained<-l1ou_bootstrap_support(eModel.par.unconstrained.aicc, nItrs = 100, multicore = T, nCores = 40, quietly = F)
-#saveRDS(fit.boot.aicc.unconstrained, file="fit.boot.aicc.unconstrained.RDS")
-fit.boot.aicc.unconstrained <- readRDS(file="fit.boot.aicc.unconstrained.RDS")
+#saveRDS(fit.boot.aicc.unconstrained, file="./RDS/fit.boot.aicc.unconstrained.RDS")
+fit.boot.aicc.unconstrained <- readRDS(file="./RDS/fit.boot.aicc.unconstrained.RDS")
 #only completed 44 replicates -- need to run more
 
 #fit.boot.pbic.unconstrained<-l1ou_bootstrap_support(eModel.par.unconstrained.pbic, nItrs = 100, multicore = T, nCores = 40, quietly = F)
-#saveRDS(fit.boot.pbic.unconstrained, file="fit.boot.pbic.unconstrained.RDS")
-fit.boot.pbic.unconstrained<- readRDS("fit.boot.pbic.unconstrained.RDS")
+#saveRDS(fit.boot.pbic.unconstrained, file="./RDS/fit.boot.pbic.unconstrained.RDS")
+fit.boot.pbic.unconstrained<- readRDS("./RDS/fit.boot.pbic.unconstrained.RDS")
 #only completed 54 replicates -- need to try this again 
 
 #running bootstrap models with AICc but boots with pBIC (as suggested by authors)
@@ -6589,19 +6588,19 @@ eModel.par.constrained.aicc.mod<-eModel.par.constrained.aicc
 eModel.par.constrained.aicc.mod$l1ou.options$criterion <- "pBIC"
 
 #fit.boot.aicc.unconstrained.mod<-l1ou_bootstrap_support(eModel.par.unconstrained.aicc.mod, nItrs = 100, multicore = T, nCores = 30, quietly = F)
-#saveRDS(fit.boot.aicc.unconstrained.mod, file="fit.boot.aicc.unconstrained.mod.RDS")
-fit.boot.aicc.unconstrained.mod <- readRDS(file="fit.boot.aicc.unconstrained.mod.RDS")
+#saveRDS(fit.boot.aicc.unconstrained.mod, file="./RDS/fit.boot.aicc.unconstrained.mod.RDS")
+fit.boot.aicc.unconstrained.mod <- readRDS(file="./RDS/fit.boot.aicc.unconstrained.mod.RDS")
 
 #fit.boot.aicc.constrained.mod<-l1ou_bootstrap_support(eModel.par.constrained.aicc.mod, nItrs = 100, multicore = T, nCores = 30, quietly = F)
-#saveRDS(fit.boot.aicc.constrained.mod, file="fit.boot.aicc.constrained.mod")
-fit.boot.aicc.constrained.mod<- readRDS("fit.boot.aicc.constrained.mod.RDS")
+#saveRDS(fit.boot.aicc.constrained.mod, file="./RDS/fit.boot.aicc.constrained.mod")
+fit.boot.aicc.constrained.mod<- readRDS("./RDS/fit.boot.aicc.constrained.mod.RDS")
 }
 
 ####Testing null bootstrap#####
 {
 #fit.boot.aicc.constrained.null<-l1ou_bootstrap_support(eModel.par.constrained.aicc.null, nItrs = 100, multicore = T, nCores = 50, quietly = T)
-#saveRDS(fit.boot.aicc.constrained.null, file="fit.boot.aicc.constrained.null.RDS")
-fit.boot.aicc.constrained.null<-readRDS(file="fit.boot.aicc.constrained.null.RDS")
+#saveRDS(fit.boot.aicc.constrained.null, file="./RDS/fit.boot.aicc.constrained.null.RDS")
+fit.boot.aicc.constrained.null<-readRDS(file="./RDS/fit.boot.aicc.constrained.null.RDS")
 
 
 #this only completed 94 replicates -- investigate further?
@@ -6618,8 +6617,8 @@ fit.boot.aicc.constrained.null<-readRDS(file="fit.boot.aicc.constrained.null.RDS
 #                             max.nshifts = 12,
 #                             timelim=100)
 # )
-# saveRDS(boots.aicc,file="boots.aicc.RDS")
-boots.aicc<- readRDS(file="boots.aicc.RDS")
+# saveRDS(boots.aicc,file="./RDS/boots.aicc.RDS")
+boots.aicc<- readRDS(file="./RDS/boots.aicc.RDS")
 
 # system.time(
 #   boots.pBIC<-l1ou_nullboot(seed = 5, 
@@ -6633,8 +6632,8 @@ boots.aicc<- readRDS(file="boots.aicc.RDS")
 #                             max.nshifts = 12,
 #                             timelim=100)
 # )
-# saveRDS(boots.pBIC, file="boots.pBIC.RDS")
-boots.pBIC<-readRDS(file="boots.pBIC.RDS")
+# saveRDS(boots.pBIC, file="./RDS/boots.pBIC.RDS")
+boots.pBIC<-readRDS(file="./RDS/boots.pBIC.RDS")
 
 }
 
@@ -6657,7 +6656,7 @@ require("R.utils")
 #                                             max.nshifts = 12,
 #                                             timelim=100)
 # )
-# saveRDS(boots.aicc,file="boots.aicc.mvmorph.RDS")
+# saveRDS(boots.aicc,file="./RDS/boots.aicc.mvmorph.RDS")
 # 
 # 
 # system.time(
@@ -6672,7 +6671,7 @@ require("R.utils")
 #                                             max.nshifts = 12,
 #                                             timelim=100)
 # )
-# saveRDS(boots.pBIC, file="boots.pBIC.mvmorph.RDS")
+# saveRDS(boots.pBIC, file="./RDS/boots.pBIC.mvmorph.RDS")
 # 
 # }
 
@@ -6805,8 +6804,8 @@ pdf(file="Figure1.pdf", width=2.5, height=8)
 #set up the plotting area and plot the tree
 {
 #window<-par()
-#saveRDS(window, file="Figure1_coordinate_par.RDS")
-window<-readRDS("Figure1_coordinate_par.RDS")
+#saveRDS(window, file="./RDS/Figure1_coordinate_par.RDS")
+window<-readRDS("./RDS/Figure1_coordinate_par.RDS")
 require(phyloch)
 
 par(lwd=1)
@@ -7026,8 +7025,8 @@ dev.off()
 {
 #create bmr dataset for plotting the rjMCMC results
 nomiss<-nuc.aggregate.mvBM.imputed$estimates
-#saveRDS(nomiss, file="nomiss.RDS")
-nomiss<-readRDS(file="nomiss.RDS")
+#saveRDS(nomiss, file="./RDS/nomiss.RDS")
+nomiss<-readRDS(file="./RDS/nomiss.RDS")
 
 
 # #what is the variance in bmrs within each regime
@@ -7058,7 +7057,6 @@ lin.pgls <- phylolm::phylolm(bmr ~ mass, phy = simmap.janus.all.aggregate, data 
 quad.pgls <- phylolm::phylolm(bmr ~ mass+mass2, phy = simmap.janus.all.aggregate, data = bmr_vars, model = "OUfixedRoot", upper.bound=10)
 
 
-
 AIC(lin)
 AIC(quad) ## indicates curvature model is a better fit
 
@@ -7071,14 +7069,14 @@ AIC(quad)
 BIC(lin)
 BIC(quad)
 
-#checking the rr2 values
-# This also works for models fit with nlme::gls()
-z.f.gls <- nlme::gls(y_pgls ~ x_trait, data = d, correlation = ape::corPagel(1, phy), method = "ML")
-z.x.gls <- nlme::gls(y_pgls ~ 1, data = d, correlation = ape::corPagel(1, phy), method = "ML")
-R2(mod = z.f.gls, mod.r = z.v.lm)
-##    R2_lik  R2_resid   R2_pred 
-## 0.3826794 0.4854591 0.4599150
-R2(mod = z.f.gls)
+# #checking the rr2 values
+# # This also works for models fit with nlme::gls()
+# z.f.gls <- nlme::gls(y_pgls ~ x_trait, data = d, correlation = ape::corPagel(1, phy), method = "ML")
+# z.x.gls <- nlme::gls(y_pgls ~ 1, data = d, correlation = ape::corPagel(1, phy), method = "ML")
+# R2(mod = z.f.gls, mod.r = z.v.lm)
+# ##    R2_lik  R2_resid   R2_pred 
+# ## 0.3826794 0.4854591 0.4599150
+# R2(mod = z.f.gls)
 
 
 
