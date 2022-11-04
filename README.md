@@ -1,3 +1,5 @@
+pre-print available: https://www.biorxiv.org/content/10.1101/2022.10.21.513146v1
+
 # Molecular early burst associated with the diversification of birds at the K–Pg boundary
 Author details: Jacob S. Berv<sup>1,2,*</sup>, Sonal Singhal<sup>3</sup>, Daniel J.
 Field<sup>4,5</sup>, Nathanael Walker-Hale<sup>6</sup>, Sean W. McHugh<sup>7</sup>, J. Ryan
@@ -59,7 +61,7 @@ Connecticut, 06520, USA
 University Avenue, University of Michigan, Ann Arbor, Michigan,
 48109-1085, USA
 
-## Last updated 3 November 2022
+## Last updated 4 November 2022
 
 ## Primary files
 
@@ -86,9 +88,10 @@ classification using the tidymodels framework. This code is
 adapted from the Physalia course examples for machine learning 
 in R.
 
-**.RDS files**
+**RDS folder**
 
-These files correspond to intermediate or final R data objects 
+This folder contains RDS files (R data objects). These files 
+correspond to intermediate or final R data objects 
 generated in the course of analysis and which are called/loaded 
 by the primary analysis script "constrained_species_tree.R".
 
