@@ -41,6 +41,7 @@ require(fmsb)
 require(TeachingDemos)
 require(ratematrix)
 require(mapplots)
+require(autoimage)
 
 #read in function definitions
 source("Functions_consensus_genetrees.R")
@@ -911,8 +912,66 @@ mean(c(sin(X2_h.exon)^2, sin(X2_h.intron)^2, sin(X2_h.utr)^2, sin(X2_h.merged)^2
 }
 
 #these parameters control the confidence itnerval and the spline smoothing param
-int=0.75
+int=0.7
 smooth=0.95
+
+#set up base plot with points
+baseplot<-function(title="Model Shift Binomial pGLM", gradient=F){
+  # create a color ramp function that goes from white to black
+  color_ramp <- colorRampPalette(c("gray100","gray90","grey", "black"), bias=0.5)
+  
+  # normalize the values in logisticreg.newdat.alt$discordance to lie between 0 and 1
+  normalized_discordance <- asinTransform(logisticreg.newdat.alt$discordance) / asinTransform(max(logisticreg.newdat.alt$discordance))
+  
+  normalized_discordance <- round(normalized_discordance, 2)*100
+  names(normalized_discordance) <- rownames(logisticreg.newdat.alt)
+  
+  # apply the color ramp to the normalized values to get a corresponding color for each point
+  point_colors <- color_ramp(100)
+  
+  # generate the scatterplot
+  plot(x=log(logisticreg.newdat$stem.ages_since), y=jitter(logisticreg.newdat$uncex.merged.mtdnas,factor=0,amount=0.02), 
+       xlim=c(-3,4.2), ylim=c(-0.05,1.05),
+       xlab="log(time) to T=66 Ma", ylab="probability", 
+       main=title, pch=21, col=make.transparent("gray", 0.0), 
+       bty='n', cex=0.000001, cex.main=1.0)
+  
+  # # add points to the scatterplot with the colors determined by the discordance values
+  # points(x=log(logisticreg.newdat$stem.ages_since), y=jitter(logisticreg.newdat$uncex.merged.mtdnas,factor=0,amount=0.075), 
+  #        pch=21, cex=1.0, bg=scales::alpha(point_colors[normalized_discordance], alpha=0.8), lwd=0.5)
+  # 
+  if (gradient==T){
+    points(x=log(logisticreg.newdat$stem.ages_since), y=jitter(logisticreg.newdat$uncex.merged.mtdnas,factor=0,amount=0.05), 
+           pch=21, cex=0.9, bg=scales::alpha(point_colors[normalized_discordance], alpha=0.8), lwd=0.5)
+    {# First, create a vector of values that covers the full range of the data
+      values <- seq(min(normalized_discordance), max(normalized_discordance), length.out=100)
+      
+      # Next, create a matrix of colors corresponding to the values in the 'values' vector
+      colors <- color_ramp(length(values))
+      
+      # legend.scale(zlim=range(values), col = colors, horizontal = F)
+      
+      # Now, create the legend
+      par(lend=2)
+      legend("topright", pch="",
+             legend=values, text.col = scales::alpha("white",0),
+             col = rev(colors), 
+             title="Color scale",
+             lty=1, lwd=4, bty='n', box.lty = 1, box.lwd=2,
+             cex=0.05, text.width=0.00001, seg.len=8
+      )
+      par(lend=1)
+    }
+    
+  }
+  
+  if (gradient==F){
+    points(x=log(logisticreg.newdat$stem.ages_since), y=jitter(logisticreg.newdat$uncex.merged.mtdnas,factor=0,amount=0.05), 
+           pch=21, cex=0.9, bg=scales::alpha('white', alpha=0.8), lwd=0.5)
+  }
+
+  
+}
 
 pdf(file="model_shift_pGLM.pdf", height=9, width = 7.5)
 {
@@ -920,11 +979,12 @@ par(mfrow=c(2,2))
 
 ###set up plotting for shift vs time ###
 {
-    plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged.mtdnas,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
-         xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001, cex.main=1.0)
-    #axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
-    points(lwd=0.5, x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged.mtdnas,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("black", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255, alpha = 0.8), cex=1.0)#make.transparent("gray", 0.3)
-    
+    # plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged.mtdnas,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
+    #      xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001, cex.main=1.0)
+    # #axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
+    # points(lwd=0.5, x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged.mtdnas,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("black", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255, alpha = 0.8), cex=1.0)#make.transparent("gray", 0.3)
+    # 
+    baseplot()
     #plot the exon data
     {
       # #add the bootstrap lines for exons
@@ -949,7 +1009,7 @@ par(mfrow=c(2,2))
     max_y <- max(curvemod(plogis(cc[1] + cc[2] * x), xlim=c(-0.8726974, 4.2))$y)
     lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[2], lwd=0.5)
     #abline(h = max_y, col = palette.colors(palette = "Okabe-Ito")[2], xlim=c(-0.8726974, 4.2))
-    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
     
     #plot the intron data
     {
@@ -973,7 +1033,7 @@ par(mfrow=c(2,2))
     max_y <- max(curvemod(plogis(cc[1] + cc[2] * x), xlim=c(-0.8726974, 4.2))$y)
     lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[3], lwd=0.5)
     #abline(h = max_y, col = palette.colors(palette = "Okabe-Ito")[3], xlim=c(-0.8726974, 4.2))
-    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
     
     #plot the utr data
     {
@@ -996,7 +1056,7 @@ par(mfrow=c(2,2))
     max_y <- max(curvemod(plogis(cc[1] + cc[2] * x), xlim=c(-0.8726974, 4.2))$y)
     lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[4], lwd=0.5)
     #abline(h = max_y, col = palette.colors(palette = "Okabe-Ito")[4], xlim=c(-0.8726974, 4.2))
-    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
     
     #plot the mtdna data (all)
     {
@@ -1074,17 +1134,18 @@ par(mfrow=c(2,2))
     max_y <- max(curvemod(plogis(cc[1] + cc[2] * x), xlim=c(-0.8726974, 4.2))$y)
     lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = 'black', lwd=0.5)
     #abline(h = max_y, col = "black", xlim=c(-0.8726974, 4.2))
-    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
     
 }
 
 ### set up plot for shift vs time + discordance ### (low discordance)
 {
-    plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
-         xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM (low discordance)", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001, cex.main=1.0)
-    #axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
-    points(lwd=0.5, x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("black", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255, alpha=0.8), cex=1.0)#make.transparent("gray", 0.3)
-    
+    # plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
+    #      xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM (low discordance)", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001, cex.main=1.0)
+    # #axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
+    # points(lwd=0.5, x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("black", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255, alpha=0.8), cex=1.0)#make.transparent("gray", 0.3)
+    # 
+    baseplot(title="Model Shift Binomial pGLM (low discordance)", gradient=T)
     #plot the data for exons
     X2<-X2_l.exon
     {
@@ -1107,7 +1168,7 @@ par(mfrow=c(2,2))
     max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
     lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[2], lwd=0.5)
     #abline(h = max_y, col = "black", lwd=0.5)
-    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
     
     #plot data for introns
     X2<-X2_l.intron
@@ -1132,7 +1193,7 @@ par(mfrow=c(2,2))
     max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
     lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[3], lwd=0.5)
     #abline(h = max_y, col = "black", lwd=0.5)
-    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
     
     #plot data for utrs
     X2<-X2_l.utr
@@ -1157,7 +1218,7 @@ par(mfrow=c(2,2))
     max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
     lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[4], lwd=0.5)
     #abline(h = max_y, col = "black", lwd=0.5)
-    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
     
     #plot the data for merged
     X2<-X2_l.merged
@@ -1183,7 +1244,7 @@ par(mfrow=c(2,2))
     max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
     lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = 'black', lwd=0.5)
     #abline(h = max_y, col = "black", lwd=0.5)
-    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
     
     ### add more points to curve function plotting --- try to figure out why the max isn't matching up
     
@@ -1192,10 +1253,12 @@ par(mfrow=c(2,2))
   
 ### set up plot for shift vs time + discordance ### (mean discordance)
 {
-  plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
-       xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM (mean discordance)", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001, cex.main=1.0)
-  #axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
-  points(lwd=0.5, x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("black", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255, alpha=0.8), cex=1.0)#make.transparent("gray", 0.3)
+  # plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
+  #      xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM (mean discordance)", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001, cex.main=1.0)
+  # #axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
+  # points(lwd=0.5, x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("black", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255, alpha=0.8), cex=1.0)#make.transparent("gray", 0.3)
+  # 
+  baseplot(title="Model Shift Binomial pGLM (mean discordance)", gradient=T)
   
   X2<-X2_m.exon
   #plot the data for exons
@@ -1219,7 +1282,7 @@ par(mfrow=c(2,2))
   max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
   lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[2], lwd=0.5)
   #abline(h = max_y, col = "black", lwd=0.5)
-  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
   
   #plot data for introns
   X2<-X2_m.intron
@@ -1244,7 +1307,7 @@ par(mfrow=c(2,2))
   max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
   lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[3], lwd=0.5)
   #abline(h = max_y, col = "black", lwd=0.5)
-  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
   
   #plot data for utrs
   X2<-X2_m.utr
@@ -1269,7 +1332,7 @@ par(mfrow=c(2,2))
   max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
   lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[4], lwd=0.5)
   #abline(h = max_y, col = "black", lwd=0.5)
-  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
   
   #plot the data for merged
   X2<-X2_m.merged
@@ -1295,16 +1358,18 @@ par(mfrow=c(2,2))
   max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
   lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = 'black', lwd=0.5)
   #abline(h = max_y, col = "black", lwd=0.5)
-  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
   
 }
   
 ### set up plot for shift vs time + discordance ### (high discordance)
 {
-  plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
-       xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM (high discordance)", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001, cex.main=1.0)
-  #axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
-  points(lwd=0.5, x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("black", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255, alpha=0.8), cex=1.0)#make.transparent("gray", 0.3)
+  # plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
+  #      xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM (high discordance)", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001, cex.main=1.0)
+  # #axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
+  # points(lwd=0.5, x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("black", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255, alpha=0.8), cex=1.0)#make.transparent("gray", 0.3)
+  # 
+  baseplot(title="Model Shift Binomial pGLM (high discordance)", gradient=T)
   
   X2<-X2_h.exon
   #plot the data for exons
@@ -1328,7 +1393,7 @@ par(mfrow=c(2,2))
   max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
   lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[2], lwd=0.5)
   #abline(h = max_y, col = "black", lwd=0.5)
-  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
   
   #plot data for introns
   X2<-X2_h.intron
@@ -1353,7 +1418,7 @@ par(mfrow=c(2,2))
   max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
   lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[3], lwd=0.5)
   #abline(h = max_y, col = "black", lwd=0.5)
-  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
   
   #plot data for utrs
   X2<-X2_h.utr
@@ -1378,7 +1443,7 @@ par(mfrow=c(2,2))
   max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
   lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[4], lwd=0.5)
   #abline(h = max_y, col = "black", lwd=0.5)
-  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
   
   #plot the data for merged
   X2<-X2_h.merged
@@ -1404,7 +1469,7 @@ par(mfrow=c(2,2))
   max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
   lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = 'black', lwd=0.5)
   #abline(h = max_y, col = "black", lwd=0.5)
-  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.65)
   
 }
 
