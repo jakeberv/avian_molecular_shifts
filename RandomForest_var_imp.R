@@ -1,6 +1,5 @@
 ## Random Forest for multiclass classification (tidymodels inside)
 
-
 library("vip")
 library("ggplot2")
 library("tidyverse")
@@ -17,22 +16,22 @@ library('vita')
 {
 setwd("/Users/cotinga/jsb439@cornell.edu/Code/avian_molecular_shifts")
 
-LHT<-as.data.frame(readRDS(file="RF_test_data.RDS"))
-megaLHT<-readRDS(file="megaLHT.RDS")
+LHT<-as.data.frame(readRDS(file="./RDS/RF_test_data.RDS"))
+megaLHT<-readRDS(file="./RDS/megaLHT.RDS")
 models<-as.factor(megaLHT$exon_models)
 megaLHT<-megaLHT[!colnames(megaLHT) %in% colnames(LHT)]
 megaLHT<- as.data.frame(lapply(megaLHT[,c(2,3, 4, 7, 8, 9, 10)], as.factor))
 
 #getting phylo distance pcoas
-phylo.dist.gene <-readRDS('pcoa.dist.gene.RDS')
+phylo.dist.gene <-readRDS('./RDS/pcoa.dist.gene.RDS')
 phylo.dist.gene <- phylo.dist.gene$vectors[,c(1)]
 
-phylo.dist <- readRDS('pcoa.dist.RDS')
+phylo.dist <- readRDS('./RDS/pcoa.dist.RDS')
 phylo.dist <- phylo.dist$vectors[,c(1)]
 
 # #generate time distance predictors using MEMs (from spatialRF)
-# tree<-readRDS(file="RF_timetree.RDS")
-# distance_matrix<-cophenetic.phylo(as.phylo(tree))
+tree<-readRDS(file="./RDS/RF_timetree.RDS")
+distance_matrix<-cophenetic.phylo(as.phylo(tree))
 # mems <- spatialRF::mem(distance.matrix = distance_matrix)
 # 
 # mem.rank <- spatialRF::rank_spatial_predictors(
@@ -40,8 +39,8 @@ phylo.dist <- phylo.dist$vectors[,c(1)]
 #   spatial.predictors.df = mems,
 #   ranking.method = "moran"
 # )
-# 
-# mems <- mems[, mem.rank$ranking]
+
+#mems <- mems[, mem.rank$ranking]
 # #plot(mems$mem_2~ mems$mem_3)
 
 merged<-cbind(exon_models=models, LHT, megaLHT, phylo.dist)
@@ -49,10 +48,18 @@ merged<-cbind(exon_models=models, LHT, megaLHT, phylo.dist)
 merged <- merged %>%
   select(c(exon_models, mass, mean.clutch, gen_length,
            breeding, longevity, chickPC1, latitude, freshwater,
-           marine, migrant, diet, nocturnal, forest)) #phylo.dist
-
-#merged <- merged %>%
-#  select(c(exon_models, Axis.1, Axis.2, Axis.3)) #phylo.dist
+           marine, migrant, diet, nocturnal, forest#, 
+           # mem_1,
+           # mem_2,
+           # mem_3,
+           # mem_4,
+           # mem_5,
+           # mem_6,
+           # mem_7,
+           # mem_8,
+           # mem_9,
+           # mem_10
+           )) #phylo.dist
 
 }
 
@@ -80,11 +87,10 @@ merged_recipe <- merged_train %>%
   step_corr(all_numeric(), threshold = 0.95) %>%
   step_normalize(all_numeric(), -all_outcomes()) %>%
   step_dummy(all_nominal_predictors(), one_hot=T) %>%
-  #step_upsample(exon_models, over_ratio=1) #%>%
+  #step_upsample(exon_models, over_ratio=0.5) #%>%
   #step_rose(exon_models, over_ratio=0.5, seed=5)
   step_adasyn(exon_models, over_ratio=0.5, neighbors=2, seed=1)
 #class_weights()
-
 
 #step_interact( ~ all_predictors())
 #%>%
@@ -118,10 +124,11 @@ head(training_set)
 tune_spec <- rand_forest(
   mtry = tune(),
   trees = 1000,
-  min_n = tune()
+  min_n = tune(),
+  #proxmity=distance_matrix,
 ) %>%
   set_mode("classification") %>%
-  set_engine("randomForest", importance=TRUE)
+  set_engine("randomForest", importance=TRUE) #tree # proxmity=distance_matrix
 
 
 tune_wf <- workflow() %>%
