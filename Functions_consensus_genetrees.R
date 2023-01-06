@@ -2363,4 +2363,380 @@ quadplot_alt <-
   }
 
 
+
+curvemod<-function (expr, from = NULL, to = NULL, n = 101, add = FALSE, 
+                    type = "l", xname = "x", xlab = xname, ylab = NULL, log = NULL, 
+                    xlim = NULL, ...) {
+  sexpr <- substitute(expr)
+  if (is.name(sexpr)) {
+    expr <- call(as.character(sexpr), as.name(xname))
+  }
+  else {
+    if (!((is.call(sexpr) || is.expression(sexpr)) && xname %in% 
+          all.vars(sexpr))) 
+      stop(gettextf("'expr' must be a function, or a call or an expression containing '%s'", 
+                    xname), domain = NA)
+    expr <- sexpr
+  }
+  if (dev.cur() == 1L && !isFALSE(add)) {
+    warning("'add' will be ignored as there is no existing plot")
+    add <- FALSE
+  }
+  addF <- isFALSE(add)
+  if (is.null(ylab)) 
+    ylab <- deparse(expr)
+  if (is.null(from) || is.null(to)) {
+    xl <- if (!is.null(xlim)) 
+      xlim
+    else if (!addF) {
+      pu <- par("usr")[1L:2L]
+      if (par("xaxs") == "r") 
+        pu <- extendrange(pu, f = -1/27)
+      if (par("xlog")) 
+        10^pu
+      else pu
+    }
+    else c(0, 1)
+    if (is.null(from)) 
+      from <- xl[1L]
+    if (is.null(to)) 
+      to <- xl[2L]
+  }
+  lg <- if (length(log)) 
+    log
+  else if (!addF && par("xlog")) 
+    "x"
+  else ""
+  if (length(lg) == 0) 
+    lg <- ""
+  if (grepl("x", lg, fixed = TRUE)) {
+    if (from <= 0 || to <= 0) 
+      stop("'from' and 'to' must be > 0 with log=\"x\"")
+    x <- exp(seq.int(log(from), log(to), length.out = n))
+  }
+  else x <- seq.int(from, to, length.out = n)
+  ll <- list(x = x)
+  names(ll) <- xname
+  y <- eval(expr, envir = ll, enclos = parent.frame())
+  if (length(y) != length(x)) 
+    stop("'expr' did not evaluate to an object of length 'n'")
+  #if (isTRUE(add)) 
+  #  lines(x = x, y = y, type = type, ...)
+  #else plot(x = x, y = y, type = type, xlab = xlab, ylab = ylab, 
+      #      xlim = xlim, log = lg, ...)
+  return(list(x = x, y = y))
+}
+
+
+
+# #boot confidence intervals
+# phylolm_bootstrap_CI <- function(input, lims, interval, breaks){
+#   
+#   # Create a list of curves
+#   tmp <- list()
+#   
+#   # Loop through the number of bootstrap samples
+#   for(i in 1:(input$boot)) {
+#     
+#     # Extract the bootstrap sample for the current iteration
+#     cc <- (input$bootstrap[i,])
+#     
+#     # Add a transparent curve to the list
+#     if(class(input)=='phyloglm'){
+#     tmp[[i]] <- curvemod(plogis(cc[1]+cc[2]*x), xlim=lims, n = breaks)
+#     }
+#   }
+#   
+#   # Convert the list to a data frame
+#   tmp <- as.data.frame(tmp)
+#   
+#   # Extract the x values and y values from the data frame
+#   xvals <- tmp[, 1]
+#   columns <- grep("x", names(tmp), invert = T)
+#   yvals <- tmp[, columns]
+#   
+#   # Calculate the 2.5 and 97.5 quantiles for each row
+# 
+#   quants1 <- apply(yvals, MARGIN = 1, quantile, probs = c((1-interval)/2, (1+interval)/2))
+#   quants2 <- apply(yvals, MARGIN = 1, HDInterval::hdi, credMass = interval)
+#   
+#   # Extract the lower and upper bounds from the quantiles matrix
+#   lower_bounds <- quants1[1, ]
+#   upper_bounds <- quants1[2, ]
+#   
+#   lower_dens <- quants2[1, ]
+#   upper_dens <- quants2[2, ]
+#   
+#   # Return a data frame with the x values and lower and upper bounds
+#   return(data.frame(xvals, lower_bounds, upper_bounds, lower_dens, upper_dens))
+# }
+
+#boot confidence intervals
+phylolm_bootstrap_CI <- function(input, lims, interval, breaks, X2=NULL){
+  
+  # Create a list of curves
+  tmp <- list()
+  
+  # Loop through the number of bootstrap samples
+  for(i in 1:(input$boot)) {
+    
+    # Extract the bootstrap sample for the current iteration
+    cc <- (input$bootstrap[i,])
+    cc <- cc[-grep("alpha", names(input$bootstrap[1,]))]
+    
+    # Add a transparent curve to the list
+    if(class(input)=='phyloglm'){
+      if(length(cc)==3){
+        tmp[[i]] <- curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=lims, n = breaks)
+      }
+      if(length(cc)==2){
+        tmp[[i]] <- curvemod(plogis(cc[1]+cc[2]*x), xlim=lims, n = breaks)
+      }
+    }
+  }
+  
+  # Convert the list to a data frame
+  tmp <- as.data.frame(tmp)
+  
+  # Extract the x values and y values from the data frame
+  xvals <- tmp[, 1]
+  columns <- grep("x", names(tmp), invert = T)
+  yvals <- tmp[, columns]
+  
+  # Calculate the 2.5 and 97.5 quantiles for each row
+  
+  quants1 <- apply(yvals, MARGIN = 1, quantile, probs = c((1-interval)/2, (1+interval)/2))
+  quants2 <- apply(yvals, MARGIN = 1, HDInterval::hdi, credMass = interval)
+  
+  # Extract the lower and upper bounds from the quantiles matrix
+  lower_bounds <- quants1[1, ]
+  upper_bounds <- quants1[2, ]
+  
+  lower_dens <- quants2[1, ]
+  upper_dens <- quants2[2, ]
+  
+  # Return a data frame with the x values and lower and upper bounds
+  return(data.frame(xvals, lower_bounds, upper_bounds, lower_dens, upper_dens))
+}
+
+#plot polygon
+phylolm_plot_CIs<-function(input, type='quant', n=.nknots.smspl, smooth, color, alpha, outline=T){
+  
+  # Extract the X and Y coordinates from the data frame
+  if(type=='quant'){
+    x <- input$xvals
+    y1 <- input$lower_bounds
+    y2 <- input$upper_bounds
+  }
+  if(type=='hdi'){
+    x <- input$xvals
+    y1 <- input$lower_dens
+    y2 <- input$upper_dens
+  }
+  
+  # Fit a smooth curve to the X and Y coordinates
+  spline1 <- smooth.spline(x, y1, nknots = n, spar=smooth)#, breaks)
+  spline2 <- smooth.spline(x, y2, nknots = n, spar=smooth)#, breaks)
+  
+  # Plot the polygon representing the confidence interval
+  #plot(x, y1, type = "n", xlim = range(x), ylim = range(c(y1, y2)), xlab = "X", ylab = "Y")
+  #polygon(c(x, rev(x)), c(y1, rev(y2)), col = scales::alpha("gray", 0.25), border = NA)
+  #clipping y just a bit
+  clip(x1=par('usr')[1], x2=10, y1=0,y2=1)
+  polygon(c(spline1$x, rev(spline1$x)), c(spline1$y, rev(spline2$y)), col = scales::alpha(color, alpha), border = NA)
+  
+  # Add dashed lines to the top and bottom of the polygon
+  if(outline==T){
+    lines(spline1$x, spline1$y, col = color, lty = "dashed")
+    lines(spline2$x, spline2$y, col = color, lty = "dashed")
+  }
+
+  
+}
+
+
+#3D surface plotting (Testing)
+#https://stackoverflow.com/questions/3979240/r-plotting-a-3d-surface-from-x-y-z
+plot_rgl_model_a <- function(fdata, plot_contour = T, plot_points = T, 
+                             verbose = F, colour = "rainbow", smoother = F){
+  ## takes a model in long form, in the format
+  ## 1st column x
+  ## 2nd is y,
+  ## 3rd is z (height)
+  ## and draws an rgl model
+  
+  ## includes a contour plot below and plots the points in blue
+  ## if these are set to TRUE
+  
+  # note that x has to be ascending, followed by y
+  if (verbose) print(head(fdata))
+  
+  fdata <- fdata[order(fdata[, 1], fdata[, 2]), ]
+  if (verbose) print(head(fdata))
+  ##
+  require(reshape2)
+  require(rgl)
+  orig_names <- colnames(fdata)
+  colnames(fdata) <- c("x", "y", "z")
+  fdata <- as.data.frame(fdata)
+  
+  ## work out the min and max of x,y,z
+  xlimits <- c(min(fdata$x, na.rm = T), max(fdata$x, na.rm = T))
+  ylimits <- c(min(fdata$y, na.rm = T), max(fdata$y, na.rm = T))
+  zlimits <- c(min(fdata$z, na.rm = T), max(fdata$z, na.rm = T))
+  l <- list (x = xlimits, y = ylimits, z = zlimits)
+  xyz <- do.call(expand.grid, l)
+  if (verbose) print(xyz)
+  x_boundaries <- xyz$x
+  if (verbose) print(class(xyz$x))
+  y_boundaries <- xyz$y
+  if (verbose) print(class(xyz$y))
+  z_boundaries <- xyz$z
+  if (verbose) print(class(xyz$z))
+  if (verbose) print(paste(x_boundaries, y_boundaries, z_boundaries, sep = ";"))
+  
+  # now turn fdata into a wide format for use with the rgl.surface
+  fdata[, 2] <- as.character(fdata[, 2])
+  fdata[, 3] <- as.character(fdata[, 3])
+  #if (verbose) print(class(fdata[, 2]))
+  wide_form <- dcast(fdata, y ~ x, value.var = "z")
+  if (verbose) print(head(wide_form))
+  wide_form_values <- as.matrix(wide_form[, 2:ncol(wide_form)])  
+  if (verbose) print(wide_form_values)
+  x_values <- as.numeric(colnames(wide_form[2:ncol(wide_form)]))
+  y_values <- as.numeric(wide_form[, 1])
+  if (verbose) print(x_values)
+  if (verbose) print(y_values)
+  wide_form_values <- wide_form_values[order(y_values), order(x_values)]
+  wide_form_values <- as.numeric(wide_form_values)
+  x_values <- x_values[order(x_values)]
+  y_values <- y_values[order(y_values)]
+  if (verbose) print(x_values)
+  if (verbose) print(y_values)
+  
+  if (verbose) print(dim(wide_form_values))
+  if (verbose) print(length(x_values))
+  if (verbose) print(length(y_values))
+  
+  zlim <- range(wide_form_values)
+  if (verbose) print(zlim)
+  zlen <- zlim[2] - zlim[1] + 1
+  if (verbose) print(zlen)
+  
+  if (colour == "rainbow"){
+    colourut <- rainbow(zlen, alpha = 0)
+    if (verbose) print(colourut)
+    col <- colourut[ wide_form_values - zlim[1] + 1]
+    # if (verbose) print(col)
+  } else {
+    col <- "grey"
+      if (verbose) print(table(col2))
+  }
+  
+  
+  open3d()
+  plot3d(x_boundaries, y_boundaries, z_boundaries, 
+         box = T, col = "black",  xlab = orig_names[1], 
+         ylab = orig_names[2], zlab = orig_names[3])
+  
+  rgl.surface(z = x_values,  ## these are all different because
+              x = y_values,  ## of the confusing way that 
+              y = wide_form_values,  ## rgl.surface works! - y is the height!
+              coords = c(2,3,1),
+              color = col,
+              alpha = 1.0,
+              lit = F,
+              smooth = smoother)
+  
+  if (plot_points){
+    # plot points in red just to be on the safe side!
+    points3d(fdata, col = "blue")
+  }
+  
+  if (plot_contour){
+    # plot the plane underneath
+    flat_matrix <- wide_form_values
+    if (verbose) print(flat_matrix)
+    y_intercept <- (zlim[2] - zlim[1]) * (-2/3) # put the flat matrix 1/2 the distance below the lower height 
+    flat_matrix[which(flat_matrix != y_intercept)] <- y_intercept
+    if (verbose) print(flat_matrix)
+    
+    rgl.surface(z = x_values,  ## these are all different because
+                x = y_values,  ## of the confusing way that 
+                y = flat_matrix,  ## rgl.surface works! - y is the height!
+                coords = c(2,3,1),
+                color = col,
+                alpha = 1.0,
+                smooth = smoother)
+  }
+}
+
+add_rgl_model <- function(fdata){
+  
+  ## takes a model in long form, in the format
+  ## 1st column x
+  ## 2nd is y,
+  ## 3rd is z (height)
+  ## and draws an rgl model
+  
+  ##
+  # note that x has to be ascending, followed by y
+  print(head(fdata))
+  
+  fdata <- fdata[order(fdata[, 1], fdata[, 2]), ]
+  
+  print(head(fdata))
+  ##
+  require(reshape2)
+  require(rgl)
+  orig_names <- colnames(fdata)
+  
+  #print(head(fdata))
+  colnames(fdata) <- c("x", "y", "z")
+  fdata <- as.data.frame(fdata)
+  
+  ## work out the min and max of x,y,z
+  xlimits <- c(min(fdata$x, na.rm = T), max(fdata$x, na.rm = T))
+  ylimits <- c(min(fdata$y, na.rm = T), max(fdata$y, na.rm = T))
+  zlimits <- c(min(fdata$z, na.rm = T), max(fdata$z, na.rm = T))
+  l <- list (x = xlimits, y = ylimits, z = zlimits)
+  xyz <- do.call(expand.grid, l)
+  #print(xyz)
+  x_boundaries <- xyz$x
+  #print(class(xyz$x))
+  y_boundaries <- xyz$y
+  #print(class(xyz$y))
+  z_boundaries <- xyz$z
+  #print(class(xyz$z))
+  
+  # now turn fdata into a wide format for use with the rgl.surface
+  fdata[, 2] <- as.character(fdata[, 2])
+  fdata[, 3] <- as.character(fdata[, 3])
+  #print(class(fdata[, 2]))
+  wide_form <- dcast(fdata, y ~ x, value.var = "z")
+  print(head(wide_form))
+  wide_form_values <- as.matrix(wide_form[, 2:ncol(wide_form)])  
+  x_values <- as.numeric(colnames(wide_form[2:ncol(wide_form)]))
+  y_values <- as.numeric(wide_form[, 1])
+  print(x_values)
+  print(y_values)
+  wide_form_values <- wide_form_values[order(y_values), order(x_values)]
+  x_values <- x_values[order(x_values)]
+  y_values <- y_values[order(y_values)]
+  print(x_values)
+  print(y_values)
+  
+  print(dim(wide_form_values))
+  print(length(x_values))
+  print(length(y_values))
+  
+  rgl.surface(z = x_values,  ## these are all different because
+              x = y_values,  ## of the confusing way that 
+              y = wide_form_values,  ## rgl.surface works!
+              coords = c(2,3,1),
+              alpha = .8)
+  # plot points in red just to be on the safe side!
+  points3d(fdata, col = "red")
+}
+
 ### End function definitions ###

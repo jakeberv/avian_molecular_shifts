@@ -8,7 +8,6 @@ require(ape)
 require(treeio)
 require(RColorBrewer)
 require(ggtree)
-require(treeio)
 library(doSNOW)
 library(doParallel)
 library(parallel)
@@ -739,8 +738,12 @@ phylo.logisticreg.fit.stem.ages.merged.mtdnas<- phyloglm(uncex.merged.mtdnas~(lo
 phylo.logisticreg.fit.stem.ages.exons.discordance  <- phyloglm(uncex.exons~(log(stem.ages_since))+(asinTransform(discordance.exons)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot=1000, start.alpha=0.1, log.alpha.bound = 4.5)
 #phylo.logisticreg.fit.stem.ages.introns.discordance  <- phyloglm(uncex.introns~(log(stem.ages_since))+(asinTransform(discordance.introns)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot=1000, start.alpha=1, log.alpha.bound = 10)
 phylo.logisticreg.fit.stem.ages.introns.discordance  <- phyloglm(uncex.introns~(log(stem.ages_since))+(asinTransform(discordance.introns)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot=1000)
-phylo.logisticreg.fit.stem.ages.utrs.discordance <- phyloglm(uncex.utrs~(log(stem.ages_since))+(asinTransform(discordance.utrs)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot = 1000, start.alpha=0.2, log.alpha.bound = 5)
-phylo.logisticreg.fit.stem.ages.merged.discordance <- phyloglm(uncex.merged~(log(stem.ages_since))+(asinTransform(discordance)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot = 1000)
+phylo.logisticreg.fit.stem.ages.utrs.discordance <- phyloglm(uncex.utrs~(log(stem.ages_since))+(asinTransform(discordance.utrs)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot = 1000)#, start.alpha=0.2, log.alpha.bound = 5)
+phylo.logisticreg.fit.stem.ages.merged.discordance <- phyloglm(uncex.merged~(log(stem.ages_since))+(asinTransform(discordance)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot=1000)#, start.alpha=0.1, log.alpha.bound = 4.5)
+
+
+#min(fitted.values(phylo.logisticreg.fit.stem.ages.exons.discordance))
+#max(fitted.values(phylo.logisticreg.fit.stem.ages.exons.discordance))
 
 
 # 
@@ -759,6 +762,45 @@ phylo.logisticreg.fit.stem.ages.merged.discordance <- phyloglm(uncex.merged~(log
 # 
 }
 
+# #run logistic regression (assuming fixed alpha) -- commented out
+# {
+#   #phylo.logisticreg.fit.stem.ages.allnucdata <- phyloglm(uncex.allnudatc~(log(stem.ages_since)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot = 1000)
+#   phylo.logisticreg.fit.stem.ages.exons <- phyloglm(uncex.exons~(log(stem.ages_since)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot = 1000, log.alpha.bound=0)#start.alpha=0.1)
+#   phylo.logisticreg.fit.stem.ages.introns <- phyloglm(uncex.introns~(log(stem.ages_since)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot=1000, log.alpha.bound=0)#start.alpha=0.15, log.alpha.bound=4)#, log.alpha.bound=4, boot = 1000)
+#   phylo.logisticreg.fit.stem.ages.utrs<- phyloglm(uncex.utrs~(log(stem.ages_since)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot=1000, log.alpha.bound=0)#, start.alpha=0.1)#, start.alpha=0.2, log.alpha.bound=3, boot = 1000)
+#   phylo.logisticreg.fit.stem.ages.mtdnas.all<- phyloglm(uncex.mtdnas.all~(log(stem.ages_since)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot = 1000, log.alpha.bound=0)
+#   phylo.logisticreg.fit.stem.ages.mtdnas.proteins<- phyloglm(uncex.mtdnas.proteins~(log(stem.ages_since)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot=1000, log.alpha.bound=0)#, start.alpha=0.2, boot = 1000)
+#   phylo.logisticreg.fit.stem.ages.mtdnas.rrnas<- phyloglm(uncex.mtdnas.rrnas~(log(stem.ages_since)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot=1000, log.alpha.bound=0)#, start.alpha=0.2, boot = 1000)
+#   phylo.logisticreg.fit.stem.ages.merged<- phyloglm(uncex.merged~(log(stem.ages_since)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot = 1000, log.alpha.bound=0)
+#   phylo.logisticreg.fit.stem.ages.merged.mtdnas<- phyloglm(uncex.merged.mtdnas~(log(stem.ages_since)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot = 1000, log.alpha.bound=0)
+#   
+#   #individual models for each data type + discordance
+#   #phylo.logisticreg.fit.stem.ages.allnucdata.discordance <- phyloglm(uncex.allnudatc~(log(stem.ages_since))+(asinTransform(discordance)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), start.alpha=0.001, log.alpha.bound = 10, boot = 100)
+#   phylo.logisticreg.fit.stem.ages.exons.discordance  <- phyloglm(uncex.exons~(log(stem.ages_since))+(asinTransform(discordance.exons)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot=1000, log.alpha.bound=0)#, start.alpha=0.1, log.alpha.bound = 4.5)
+#   #phylo.logisticreg.fit.stem.ages.introns.discordance  <- phyloglm(uncex.introns~(log(stem.ages_since))+(asinTransform(discordance.introns)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot=1000, start.alpha=1, log.alpha.bound = 10)
+#   phylo.logisticreg.fit.stem.ages.introns.discordance  <- phyloglm(uncex.introns~(log(stem.ages_since))+(asinTransform(discordance.introns)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), log.alpha.bound=0)#, start.alpha=0.1, boot=1000, log.alpha.bound = 4.5)
+#   phylo.logisticreg.fit.stem.ages.utrs.discordance <- phyloglm(uncex.utrs~(log(stem.ages_since))+(asinTransform(discordance.utrs)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot = 1000, log.alpha.bound=0)#, start.alpha=0.2, log.alpha.bound = 5)
+#   phylo.logisticreg.fit.stem.ages.merged.discordance <- phyloglm(uncex.merged~(log(stem.ages_since))+(asinTransform(discordance)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot=1000, log.alpha.bound=0)# start.alpha=0.1, log.alpha.bound = 4.5)
+#   
+#   #min(fitted.values(phylo.logisticreg.fit.stem.ages.exons.discordance))
+#   #max(fitted.values(phylo.logisticreg.fit.stem.ages.exons.discordance))
+#   
+#   # 
+#   # phylo.logisticreg.fit.stem.ages.merged.mtdnas.discordance <- phyloglm(uncex.merged.mtdnas~scale(log(stem.ages_since))*scale(asinTransform(discordance)), data=logisticreg.newdat, phy=(logisticreg_tree.alt), boot = 100)
+#   # summary(phylo.logisticreg.fit.stem.ages.merged.mtdnas.discordance)
+#   # 
+#   # test <- glm(uncex.merged.mtdnas~(log(stem.ages_since))+asinTransform(discordance), data=logisticreg.newdat.alt, family="binomial", correlation)
+#   # summary(test)
+#   # LogisticDx:::dx(test)
+#   # plot_logistic_curve(test)
+#   # 
+#   # plot(test$residuals~test$fitted.values)
+#   # length(test$fitted.values)
+#   # length(logisticreg.newdat.alt$uncex.merged.mtdnas[-197])
+#   # 
+#   # 
+# }
+  
 #load some function from this github repo
 #calculate AICc
 {
@@ -837,321 +879,536 @@ summary(model.time.discordance.lm)
 }
 
 #plotting for figure 2
-pdf(file="model_shift_pGLM.pdf", height=7, width = 12)
+
+#picking values for nodevalues
+#setting up params for figure 2
+
+#setting up alternative values for X2 in the logistic regressions with discordance
 {
-par(mfrow=c(1,2))
+X2s.exons <- (asinTransform(logisticreg.newdat[logisticreg_tree.alt$tip.label,]$discordance.exons))
+X2s.introns <- (asinTransform(logisticreg.newdat[logisticreg_tree.alt$tip.label,]$discordance.introns))
+X2s.utrs <- (asinTransform(logisticreg.newdat[logisticreg_tree.alt$tip.label,]$discordance.utrs))
+X2s.merged <- (asinTransform(logisticreg.newdat[logisticreg_tree.alt$tip.label,]$discordance))
+
+X2_l.exon<- mean(X2s.exons) - sd(X2s.exons)#*2
+X2_l.intron<- mean(X2s.introns) - sd(X2s.introns)#*2
+X2_l.utr<- mean(X2s.utrs) - sd(X2s.utrs)#*2
+X2_l.merged<- mean(X2s.merged) - sd(X2s.merged)#*2
+mean(c(sin(X2_l.exon)^2, sin(X2_l.intron)^2, sin(X2_l.utr)^2, sin(X2_l.merged)^2))
+
+X2_m.exon <- mean(X2s.exons)
+X2_m.intron <- mean(X2s.introns)
+X2_m.utr <- mean(X2s.utrs)
+X2_m.merged <- mean(X2s.merged)
+mean(c(sin(X2_m.exon)^2, sin(X2_m.intron)^2, sin(X2_m.utr)^2, sin(X2_m.merged)^2))
+
+X2_h.exon<- mean(X2s.exons) + sd(X2s.exons)#*2
+X2_h.intron<- mean(X2s.introns) + sd(X2s.introns)#*2
+X2_h.utr<- mean(X2s.utrs) + sd(X2s.utrs)#*2
+X2_h.merged<- mean(X2s.merged) + sd(X2s.merged)#*2
+mean(c(sin(X2_h.exon)^2, sin(X2_h.intron)^2, sin(X2_h.utr)^2, sin(X2_h.merged)^2))
+
+}
+
+#these parameters control the confidence itnerval and the spline smoothing param
+int=0.75
+smooth=0.95
+
+pdf(file="model_shift_pGLM.pdf", height=9, width = 7.5)
+{
+par(mfrow=c(2,2))
+
 ###set up plotting for shift vs time ###
 {
-plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged.mtdnas,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
-     xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001)
-#axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
-points(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged.mtdnas,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("black", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255, alpha = 0.8), cex=1)#make.transparent("gray", 0.3)
+    plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged.mtdnas,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
+         xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001, cex.main=1.0)
+    #axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
+    points(lwd=0.5, x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged.mtdnas,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("black", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255, alpha = 0.8), cex=1.0)#make.transparent("gray", 0.3)
+    
+    #plot the exon data
+    {
+      # #add the bootstrap lines for exons
+      # for(i in 1:(phylo.logisticreg.fit.stem.ages.exons$boot/10)){
+      #   cc <- (phylo.logisticreg.fit.stem.ages.exons$bootstrap[i,])
+      #   curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+      #   curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+      # }
+      # 
+      exonplot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.exons, lims = c(-3.5, 4.2), breaks=1000, interval=int)
+      phylolm_plot_CIs(input=exonplot, type='hdi', smooth=smooth, color=palette.colors(palette = "Okabe-Ito")[2], alpha=0.1, outline=F)
+      
+      #paste(coef(phylo.logisticreg.fit.stem.ages.exons), names(coef(phylo.logisticreg.fit.stem.ages.exons)), sep = ' * ', collapse = ' + ')
+      
+      #cc <- coef(phylo.logisticreg.fit.stem.ages.exons)
+      cc <- (phylo.logisticreg.fit.stem.ages.exons$bootmean)
+      curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+      curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8), lty=2)
+      
+    }
+    
+    max_y <- max(curvemod(plogis(cc[1] + cc[2] * x), xlim=c(-0.8726974, 4.2))$y)
+    lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[2], lwd=0.5)
+    #abline(h = max_y, col = palette.colors(palette = "Okabe-Ito")[2], xlim=c(-0.8726974, 4.2))
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    
+    #plot the intron data
+    {
+      # for(i in 1:(phylo.logisticreg.fit.stem.ages.introns$boot/10)){
+      #   cc <- (phylo.logisticreg.fit.stem.ages.introns$bootstrap[i,])
+      #   curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+      #   curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+      # }
+      
+      intronplot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.introns, lims = c(-3.5, 4.2), breaks=1000, interval=int)
+      phylolm_plot_CIs(input=intronplot, type='hdi', smooth=smooth, color=palette.colors(palette = "Okabe-Ito")[3], alpha=0.1, outline=F)
+      
+      
+      #cc <- coef(phylo.logisticreg.fit.stem.ages.introns)
+      cc <- (phylo.logisticreg.fit.stem.ages.introns$bootmean)
+      curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+      curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8), lty=2)
+      
+    }
+    
+    max_y <- max(curvemod(plogis(cc[1] + cc[2] * x), xlim=c(-0.8726974, 4.2))$y)
+    lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[3], lwd=0.5)
+    #abline(h = max_y, col = palette.colors(palette = "Okabe-Ito")[3], xlim=c(-0.8726974, 4.2))
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    
+    #plot the utr data
+    {
+      # for(i in 1:(phylo.logisticreg.fit.stem.ages.utrs$boot/10)){
+      #   cc <- (phylo.logisticreg.fit.stem.ages.utrs$bootstrap[i,])
+      #   curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+      #   curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+      # }
+      
+      utrplot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.utrs, lims = c(-3.5, 4.2), breaks=1000, interval=int)
+      phylolm_plot_CIs(input=utrplot, type='hdi', smooth=smooth, color=palette.colors(palette = "Okabe-Ito")[4], alpha=0.1, outline=F)
+      
+      #cc <- coef(phylo.logisticreg.fit.stem.ages.utrs)
+      cc <- (phylo.logisticreg.fit.stem.ages.utrs$bootmean)
+      curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+      curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8), lty=2)
+      
+    }
+    
+    max_y <- max(curvemod(plogis(cc[1] + cc[2] * x), xlim=c(-0.8726974, 4.2))$y)
+    lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[4], lwd=0.5)
+    #abline(h = max_y, col = palette.colors(palette = "Okabe-Ito")[4], xlim=c(-0.8726974, 4.2))
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    
+    #plot the mtdna data (all)
+    {
+      # for(i in 1:(phylo.logisticreg.fit.stem.ages.mtdnas.all$boot/10)){
+      #   cc <- (phylo.logisticreg.fit.stem.ages.mtdnas.all$bootstrap[i,])
+      #   curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[6], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+      #   curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[6], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+      # }
+      
+      mt_all_plot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.mtdnas.all, lims = c(-3.5, 4.2), breaks=1000, interval=int)
+      phylolm_plot_CIs(input=mt_all_plot, type='hdi', smooth=smooth, color=palette.colors(palette = "Okabe-Ito")[6], alpha=0.1, outline=F)
+      
+      #cc <- coef(phylo.logisticreg.fit.stem.ages.mtdnas.all)
+      cc <- (phylo.logisticreg.fit.stem.ages.mtdnas.all$bootmean)
+      curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[6], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+      curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[6], 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2)
+      
+    }
+    
+    #plot the mtdna data (proteins)
+    {
+      # for(i in 1:(phylo.logisticreg.fit.stem.ages.mtdnas.proteins$boot/10)){
+      #   cc <- (phylo.logisticreg.fit.stem.ages.mtdnas.proteins$bootstrap[i,])
+      #   curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[7], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+      #   curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[7], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+      # }
+      
+      mt_prot_plot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.mtdnas.proteins, lims = c(-3.5, 4.2), breaks=1000, interval=int)
+      phylolm_plot_CIs(input=mt_prot_plot, type='hdi', smooth=smooth, color=palette.colors(palette = "Okabe-Ito")[7], alpha=0.1, outline=F)
+      
+      #cc <- coef(phylo.logisticreg.fit.stem.ages.mtdnas.proteins)
+      cc <- (phylo.logisticreg.fit.stem.ages.mtdnas.proteins$bootmean)
+      curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[7], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+      curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[7], 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2)
+      
+    }
+    
+    #plot the merged signal + mtdna signal
+    {
+      # for(i in 1:(phylo.logisticreg.fit.stem.ages.merged.mtdnas$boot/10)){
+      #   cc <- (phylo.logisticreg.fit.stem.ages.merged.mtdnas$bootstrap[i,])
+      #   curve(plogis(cc[1]+cc[2]*x),col=make.transparent("gray", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+      #   curve(plogis(cc[1]+cc[2]*x),col=make.transparent("gray", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+      # }
+      
+      mt_merged_plot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.merged.mtdnas, lims = c(-3.5, 4.2), breaks=1000, interval=int)
+      phylolm_plot_CIs(input=mt_merged_plot, type='hdi', smooth=smooth, color="gray", alpha=0.1, outline=F)
+      
+      #cc <- coef(phylo.logisticreg.fit.stem.ages.merged.mtdnas)
+      cc <- phylo.logisticreg.fit.stem.ages.merged.mtdnas$bootmean
+      curve(plogis(cc[1]+cc[2]*x),col=make.transparent("gray", 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+      curve(plogis(cc[1]+cc[2]*x),col=make.transparent("gray", 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2)
+      
+    }
+    
+    #plot the merged data signal
+    {
+      # for(i in 1:(phylo.logisticreg.fit.stem.ages.merged$boot/10)){
+      #   cc <- (phylo.logisticreg.fit.stem.ages.merged$bootstrap[i,])
+      #   curve(plogis(cc[1]+cc[2]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+      #   curve(plogis(cc[1]+cc[2]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+      # }
+      
+      merged_plot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.merged, lims = c(-3.5, 4.2), breaks=1000, interval=int)
+      phylolm_plot_CIs(input=merged_plot, type='hdi', smooth=smooth, color="black", alpha=0.1, outline=F)
+      
+      #cc <- coef(phylo.logisticreg.fit.stem.ages.merged)
+      cc <- (phylo.logisticreg.fit.stem.ages.merged$bootmean)
+      curve(plogis(cc[1]+cc[2]*x),col=make.transparent("black", 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+      curve(plogis(cc[1]+cc[2]*x),col=make.transparent("black", 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2)
+      
+    }
+    
+    abline(v=2.302585, col="black", lty=3)
+    max_y <- max(curvemod(plogis(cc[1] + cc[2] * x), xlim=c(-0.8726974, 4.2))$y)
+    lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = 'black', lwd=0.5)
+    #abline(h = max_y, col = "black", xlim=c(-0.8726974, 4.2))
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    
+}
 
-
-
-#plot the exon data
+### set up plot for shift vs time + discordance ### (low discordance)
 {
-  #add the bootstrap lines for exons
-  for(i in 1:(phylo.logisticreg.fit.stem.ages.exons$boot/10)){
-    cc <- (phylo.logisticreg.fit.stem.ages.exons$bootstrap[i,])
-    curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-    curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+    plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
+         xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM (low discordance)", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001, cex.main=1.0)
+    #axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
+    points(lwd=0.5, x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("black", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255, alpha=0.8), cex=1.0)#make.transparent("gray", 0.3)
+    
+    #plot the data for exons
+    X2<-X2_l.exon
+    {
+      # #add the bootstrap lines for exons
+      # for(i in 1:(phylo.logisticreg.fit.stem.ages.exons.discordance$boot/10)){
+      #   cc <- (phylo.logisticreg.fit.stem.ages.exons.discordance$bootstrap[i,])
+      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+      # }
+      
+      exonplot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.exons.discordance, lims = c(-3.5, 4.2), breaks=1000, interval=int, X2)
+      phylolm_plot_CIs(input=exonplot, type='hdi', smooth=smooth, color=palette.colors(palette = "Okabe-Ito")[2], alpha=0.1, outline=F)
+      
+      #cc <- coef(phylo.logisticreg.fit.stem.ages.exons.discordance)
+      cc <- (phylo.logisticreg.fit.stem.ages.exons.discordance$bootmean)
+      curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2), type='l')
+      curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2, type='l')
+    }
+    
+    max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
+    lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[2], lwd=0.5)
+    #abline(h = max_y, col = "black", lwd=0.5)
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    
+    #plot data for introns
+    X2<-X2_l.intron
+    {
+      # #add the bootstrap lines for introns
+      # for(i in 1:(phylo.logisticreg.fit.stem.ages.introns.discordance$boot/10)){
+      #   cc <- (phylo.logisticreg.fit.stem.ages.introns.discordance$bootstrap[i,])
+      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+      # }
+      
+      intronplot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.introns.discordance, lims = c(-3.5, 4.2), breaks=1000, interval=int, X2)
+      phylolm_plot_CIs(input=intronplot, type='hdi', smooth=smooth, color=palette.colors(palette = "Okabe-Ito")[3], alpha=0.1, outline=F)
+      
+      #cc <- coef(phylo.logisticreg.fit.stem.ages.introns.discordance)
+      cc <- (phylo.logisticreg.fit.stem.ages.introns.discordance$bootmean)
+      curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+      curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2)
+      
+    }
+    
+    max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
+    lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[3], lwd=0.5)
+    #abline(h = max_y, col = "black", lwd=0.5)
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    
+    #plot data for utrs
+    X2<-X2_l.utr
+    {
+      # #add the bootstrap lines for utrs
+      # for(i in 1:(phylo.logisticreg.fit.stem.ages.utrs.discordance$boot/10)){
+      #   cc <- (phylo.logisticreg.fit.stem.ages.utrs.discordance$bootstrap[i,])
+      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+      # }
+      
+      utrplot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.utrs.discordance, lims = c(-3.5, 4.2), breaks=1000, interval=int, X2)
+      phylolm_plot_CIs(input=utrplot, type='hdi', smooth=smooth, color=palette.colors(palette = "Okabe-Ito")[4], alpha=0.1, outline=F)
+      
+      #cc <- coef(phylo.logisticreg.fit.stem.ages.utrs.discordance)
+      cc <- (phylo.logisticreg.fit.stem.ages.utrs.discordance$bootmean)
+      curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+      curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2)
+      
+    }
+    
+    max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
+    lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[4], lwd=0.5)
+    #abline(h = max_y, col = "black", lwd=0.5)
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    
+    #plot the data for merged
+    X2<-X2_l.merged
+    {
+      # #add the bootstrap lines for merged
+      # for(i in 1:(phylo.logisticreg.fit.stem.ages.merged.discordance$boot/10)){
+      #   cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootstrap[i,])
+      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+      # }
+      #cc <- coef(phylo.logisticreg.fit.stem.ages.merged.discordance)
+      
+      mergedplot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.merged.discordance, lims = c(-3.5, 4.2), breaks=1000, interval=int, X2)
+      phylolm_plot_CIs(input=mergedplot, type='hdi', smooth=smooth, color='black', alpha=0.1, outline=F)
+      
+      cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootmean)
+      curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+      curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2)
+      
+    }
+    
+    abline(v=2.302585, col="black", lty=3)
+    max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
+    lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = 'black', lwd=0.5)
+    #abline(h = max_y, col = "black", lwd=0.5)
+    text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+    
+    ### add more points to curve function plotting --- try to figure out why the max isn't matching up
+    
+    
+}
+  
+### set up plot for shift vs time + discordance ### (mean discordance)
+{
+  plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
+       xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM (mean discordance)", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001, cex.main=1.0)
+  #axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
+  points(lwd=0.5, x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("black", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255, alpha=0.8), cex=1.0)#make.transparent("gray", 0.3)
+  
+  X2<-X2_m.exon
+  #plot the data for exons
+  {
+    # #add the bootstrap lines for exons
+    # for(i in 1:(phylo.logisticreg.fit.stem.ages.exons.discordance$boot/10)){
+    #   cc <- (phylo.logisticreg.fit.stem.ages.exons.discordance$bootstrap[i,])
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+    # }
+    
+    exonplot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.exons.discordance, lims = c(-3.5, 4.2), breaks=1000, interval=int, X2)
+    phylolm_plot_CIs(input=exonplot, type='hdi', smooth=smooth, color=palette.colors(palette = "Okabe-Ito")[2], alpha=0.1, outline=F)
+    
+    #cc <- coef(phylo.logisticreg.fit.stem.ages.exons.discordance)
+    cc <- (phylo.logisticreg.fit.stem.ages.exons.discordance$bootmean)
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2), type='l')
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2, type='l')
   }
   
-  cc <- coef(phylo.logisticreg.fit.stem.ages.exons)
-  #cc <- (phylo.logisticreg.fit.stem.ages.exons$bootmode)
-  curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-  curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=3, xlim=c(-3.5, -0.8726974), lty=3)
+  max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
+  lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[2], lwd=0.5)
+  #abline(h = max_y, col = "black", lwd=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+  
+  #plot data for introns
+  X2<-X2_m.intron
+  {
+    # #add the bootstrap lines for introns
+    # for(i in 1:(phylo.logisticreg.fit.stem.ages.introns.discordance$boot/10)){
+    #   cc <- (phylo.logisticreg.fit.stem.ages.introns.discordance$bootstrap[i,])
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+    # }
+    
+    intronplot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.introns.discordance, lims = c(-3.5, 4.2), breaks=1000, interval=int, X2)
+    phylolm_plot_CIs(input=intronplot, type='hdi', smooth=smooth, color=palette.colors(palette = "Okabe-Ito")[3], alpha=0.1, outline=F)
+    
+    #cc <- coef(phylo.logisticreg.fit.stem.ages.introns.discordance)
+    cc <- (phylo.logisticreg.fit.stem.ages.introns.discordance$bootmean)
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2)
+    
+  }
+  
+  max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
+  lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[3], lwd=0.5)
+  #abline(h = max_y, col = "black", lwd=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+  
+  #plot data for utrs
+  X2<-X2_m.utr
+  {
+    # #add the bootstrap lines for utrs
+    # for(i in 1:(phylo.logisticreg.fit.stem.ages.utrs.discordance$boot/10)){
+    #   cc <- (phylo.logisticreg.fit.stem.ages.utrs.discordance$bootstrap[i,])
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+    # }
+    
+    utrplot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.utrs.discordance, lims = c(-3.5, 4.2), breaks=1000, interval=int, X2)
+    phylolm_plot_CIs(input=utrplot, type='hdi', smooth=smooth, color=palette.colors(palette = "Okabe-Ito")[4], alpha=0.1, outline=F)
+    
+    #cc <- coef(phylo.logisticreg.fit.stem.ages.utrs.discordance)
+    cc <- (phylo.logisticreg.fit.stem.ages.utrs.discordance$bootmean)
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2)
+    
+  }
+  
+  max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
+  lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[4], lwd=0.5)
+  #abline(h = max_y, col = "black", lwd=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+  
+  #plot the data for merged
+  X2<-X2_m.merged
+  {
+    # #add the bootstrap lines for merged
+    # for(i in 1:(phylo.logisticreg.fit.stem.ages.merged.discordance$boot/10)){
+    #   cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootstrap[i,])
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+    # }
+    #cc <- coef(phylo.logisticreg.fit.stem.ages.merged.discordance)
+    
+    mergedplot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.merged.discordance, lims = c(-3.5, 4.2), breaks=1000, interval=int, X2)
+    phylolm_plot_CIs(input=mergedplot, type='hdi', smooth=smooth, color='black', alpha=0.1, outline=F)
+    
+    cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootmean)
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2)
+    
+  }
+  
+  abline(v=2.302585, col="black", lty=3)
+  max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
+  lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = 'black', lwd=0.5)
+  #abline(h = max_y, col = "black", lwd=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+  
+}
+  
+### set up plot for shift vs time + discordance ### (high discordance)
+{
+  plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
+       xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM (high discordance)", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001, cex.main=1.0)
+  #axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
+  points(lwd=0.5, x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("black", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255, alpha=0.8), cex=1.0)#make.transparent("gray", 0.3)
+  
+  X2<-X2_h.exon
+  #plot the data for exons
+  {
+    # #add the bootstrap lines for exons
+    # for(i in 1:(phylo.logisticreg.fit.stem.ages.exons.discordance$boot/10)){
+    #   cc <- (phylo.logisticreg.fit.stem.ages.exons.discordance$bootstrap[i,])
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+    # }
+    
+    exonplot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.exons.discordance, lims = c(-3.5, 4.2), breaks=1000, interval=int, X2)
+    phylolm_plot_CIs(input=exonplot, type='hdi', smooth=smooth, color=palette.colors(palette = "Okabe-Ito")[2], alpha=0.1, outline=F)
+    
+    #cc <- coef(phylo.logisticreg.fit.stem.ages.exons.discordance)
+    cc <- (phylo.logisticreg.fit.stem.ages.exons.discordance$bootmean)
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2), type='l')
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2, type='l')
+  }
+  
+  max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
+  lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[2], lwd=0.5)
+  #abline(h = max_y, col = "black", lwd=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+  
+  #plot data for introns
+  X2<-X2_h.intron
+  {
+    # #add the bootstrap lines for introns
+    # for(i in 1:(phylo.logisticreg.fit.stem.ages.introns.discordance$boot/10)){
+    #   cc <- (phylo.logisticreg.fit.stem.ages.introns.discordance$bootstrap[i,])
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+    # }
+    
+    intronplot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.introns.discordance, lims = c(-3.5, 4.2), breaks=1000, interval=int, X2)
+    phylolm_plot_CIs(input=intronplot, type='hdi', smooth=smooth, color=palette.colors(palette = "Okabe-Ito")[3], alpha=0.1, outline=F)
+    
+    #cc <- coef(phylo.logisticreg.fit.stem.ages.introns.discordance)
+    cc <- (phylo.logisticreg.fit.stem.ages.introns.discordance$bootmean)
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2)
+    
+  }
+  
+  max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
+  lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[3], lwd=0.5)
+  #abline(h = max_y, col = "black", lwd=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+  
+  #plot data for utrs
+  X2<-X2_h.utr
+  {
+    # #add the bootstrap lines for utrs
+    # for(i in 1:(phylo.logisticreg.fit.stem.ages.utrs.discordance$boot/10)){
+    #   cc <- (phylo.logisticreg.fit.stem.ages.utrs.discordance$bootstrap[i,])
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+    # }
+    
+    utrplot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.utrs.discordance, lims = c(-3.5, 4.2), breaks=1000, interval=int, X2)
+    phylolm_plot_CIs(input=utrplot, type='hdi', smooth=smooth, color=palette.colors(palette = "Okabe-Ito")[4], alpha=0.1, outline=F)
+    
+    #cc <- coef(phylo.logisticreg.fit.stem.ages.utrs.discordance)
+    cc <- (phylo.logisticreg.fit.stem.ages.utrs.discordance$bootmean)
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2)
+    
+  }
+  
+  max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
+  lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = palette.colors(palette = "Okabe-Ito")[4], lwd=0.5)
+  #abline(h = max_y, col = "black", lwd=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
+  
+  #plot the data for merged
+  X2<-X2_h.merged
+  {
+    # #add the bootstrap lines for merged
+    # for(i in 1:(phylo.logisticreg.fit.stem.ages.merged.discordance$boot/10)){
+    #   cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootstrap[i,])
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+    #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+    # }
+    #cc <- coef(phylo.logisticreg.fit.stem.ages.merged.discordance)
+    
+    mergedplot<-phylolm_bootstrap_CI(input = phylo.logisticreg.fit.stem.ages.merged.discordance, lims = c(-3.5, 4.2), breaks=1000, interval=int, X2)
+    phylolm_plot_CIs(input=mergedplot, type='hdi', smooth=smooth, color='black', alpha=0.1, outline=F)
+    
+    cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootmean)
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+    curve(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=TRUE, lwd=2, xlim=c(-3.5, -0.8726974), lty=2)
+    
+  }
+  
+  abline(v=2.302585, col="black", lty=3)
+  max_y <- max(curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2), xlim=c(-0.8726974, 4.2))$y)
+  lines(x=c(-0.8726974, 4.2), y=c(max_y,max_y), col = 'black', lwd=0.5)
+  #abline(h = max_y, col = "black", lwd=0.5)
+  text(x = 4.05, y = max_y, label = bquote(.(round(max_y,2))), pos = 4, cex=0.5)
   
 }
 
-#plot the intron data
-{
-  for(i in 1:(phylo.logisticreg.fit.stem.ages.introns$boot/10)){
-    cc <- (phylo.logisticreg.fit.stem.ages.introns$bootstrap[i,])
-    curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-    curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-  }
-  cc <- coef(phylo.logisticreg.fit.stem.ages.introns)
-  #cc <- (phylo.logisticreg.fit.stem.ages.introns$bootmode)
-  curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-  curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=3, xlim=c(-3.5, -0.8726974), lty=3)
-  
-}
-
-#plot the utr data
-{
-  for(i in 1:(phylo.logisticreg.fit.stem.ages.utrs$boot/10)){
-    cc <- (phylo.logisticreg.fit.stem.ages.utrs$bootstrap[i,])
-    curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-    curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-  }
-  cc <- coef(phylo.logisticreg.fit.stem.ages.utrs)
-  #cc <- (phylo.logisticreg.fit.stem.ages.utrs$bootmode)
-  curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-  curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=3, xlim=c(-3.5, -0.8726974), lty=3)
-
-}
-
-#plot the mtdna data (all)
-{
-  for(i in 1:(phylo.logisticreg.fit.stem.ages.mtdnas.all$boot/10)){
-    cc <- (phylo.logisticreg.fit.stem.ages.mtdnas.all$bootstrap[i,])
-    curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[6], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-    curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[6], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-  }
-  cc <- coef(phylo.logisticreg.fit.stem.ages.mtdnas.all)
-  #cc <- (phylo.logisticreg.fit.stem.ages.mtdnas.all$bootmode)
-  curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[6], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-  curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[6], 0.95),add=TRUE, lwd=3, xlim=c(-3.5, -0.8726974), lty=3)
-
-}
-
-#plot the mtdna data (proteins)
-{
-  for(i in 1:(phylo.logisticreg.fit.stem.ages.mtdnas.proteins$boot/10)){
-    cc <- (phylo.logisticreg.fit.stem.ages.mtdnas.proteins$bootstrap[i,])
-    curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[7], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-    curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[7], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-  }
-  cc <- coef(phylo.logisticreg.fit.stem.ages.mtdnas.proteins)
-  #cc <- (phylo.logisticreg.fit.stem.ages.mtdnas.proteins$bootmode)
-  curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[7], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-  curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[7], 0.95),add=TRUE, lwd=3, xlim=c(-3.5, -0.8726974), lty=3)
-
-}
-
-#plot the merged signal + mtdna signal
-{
-  for(i in 1:(phylo.logisticreg.fit.stem.ages.merged.mtdnas$boot/10)){
-    cc <- (phylo.logisticreg.fit.stem.ages.merged.mtdnas$bootstrap[i,])
-    curve(plogis(cc[1]+cc[2]*x),col=make.transparent("gray", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-    curve(plogis(cc[1]+cc[2]*x),col=make.transparent("gray", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-  }
-  cc <- coef(phylo.logisticreg.fit.stem.ages.merged.mtdnas)
-  #cc <- phylo.logisticreg.fit.stem.ages.merged.mtdnas$bootmode
-  curve(plogis(cc[1]+cc[2]*x),col=make.transparent("gray", 0.95),add=TRUE, lwd=5, xlim=c(-0.8726974, 4.2))
-  curve(plogis(cc[1]+cc[2]*x),col=make.transparent("gray", 0.95),add=TRUE, lwd=5, xlim=c(-3.5, -0.8726974), lty=3)
-  
-}
-
-#plot the merged data signal
-{
-  for(i in 1:(phylo.logisticreg.fit.stem.ages.merged$boot/10)){
-    cc <- (phylo.logisticreg.fit.stem.ages.merged$bootstrap[i,])
-    curve(plogis(cc[1]+cc[2]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-    curve(plogis(cc[1]+cc[2]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-  }
-  cc <- coef(phylo.logisticreg.fit.stem.ages.merged)
-  #cc <- (phylo.logisticreg.fit.stem.ages.merged$bootmode)
-  curve(plogis(cc[1]+cc[2]*x),col=make.transparent("black", 0.95),add=TRUE, lwd=5, xlim=c(-0.8726974, 4.2))
-  curve(plogis(cc[1]+cc[2]*x),col=make.transparent("black", 0.95),add=TRUE, lwd=5, xlim=c(-3.5, -0.8726974), lty=3)
-  
-}
-
-#abline(v=-0.8726974, col="black", lwd=1)
-#abline(v=1.609438, col="black", lty=2)
-abline(v=2.302585, col="black", lty=2)
-abline(h=0.485, col="black")
-
-}
-
-### end plot ####
-
-# #version with bootmodes
-# ###set up plotting for shift vs time ###
-# {
-#   plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged.mtdnas,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
-#        xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001)
-#   #axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
-#   points(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged.mtdnas,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("red", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255), cex=1)#make.transparent("gray", 0.3)
-#   
-#   
-#   #plot the exon data
-#   {
-#     #add the bootstrap lines for exons
-#     for(i in 1:(phylo.logisticreg.fit.stem.ages.exons$boot/10)){
-#       cc <- (phylo.logisticreg.fit.stem.ages.exons$bootstrap[i,])
-#       curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-#       curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-#     }
-#     
-#     #cc <- coef(phylo.logisticreg.fit.stem.ages.exons)
-#     cc <- (phylo.logisticreg.fit.stem.ages.exons$bootmode)
-#     curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-#     curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=3, xlim=c(-3.5, -0.8726974), lty=3)
-#     
-#   }
-#   
-#   #plot the intron data
-#   {
-#     for(i in 1:(phylo.logisticreg.fit.stem.ages.introns$boot/10)){
-#       cc <- (phylo.logisticreg.fit.stem.ages.introns$bootstrap[i,])
-#       curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-#       curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-#     }
-#     #cc <- coef(phylo.logisticreg.fit.stem.ages.introns)
-#     cc <- (phylo.logisticreg.fit.stem.ages.introns$bootmode)
-#     curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-#     curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=3, xlim=c(-3.5, -0.8726974), lty=3)
-#     
-#   }
-#   
-#   #plot the utr data
-#   {
-#     for(i in 1:(phylo.logisticreg.fit.stem.ages.utrs$boot/10)){
-#       cc <- (phylo.logisticreg.fit.stem.ages.utrs$bootstrap[i,])
-#       curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-#       curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-#     }
-#     #cc <- coef(phylo.logisticreg.fit.stem.ages.utrs)
-#     cc <- (phylo.logisticreg.fit.stem.ages.utrs$bootmode)
-#     curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-#     curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=3, xlim=c(-3.5, -0.8726974), lty=3)
-#     
-#   }
-#   
-#   #plot the mtdna data (all)
-#   {
-#     for(i in 1:(phylo.logisticreg.fit.stem.ages.mtdnas.all$boot/10)){
-#       cc <- (phylo.logisticreg.fit.stem.ages.mtdnas.all$bootstrap[i,])
-#       curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[6], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-#       curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[6], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-#     }
-#     #cc <- coef(phylo.logisticreg.fit.stem.ages.mtdnas.all)
-#     cc <- (phylo.logisticreg.fit.stem.ages.mtdnas.all$bootmode)
-#     curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[6], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-#     curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[6], 0.95),add=TRUE, lwd=3, xlim=c(-3.5, -0.8726974), lty=3)
-#     
-#   }
-#   
-#   #plot the mtdna data (proteins)
-#   {
-#     for(i in 1:(phylo.logisticreg.fit.stem.ages.mtdnas.proteins$boot/10)){
-#       cc <- (phylo.logisticreg.fit.stem.ages.mtdnas.proteins$bootstrap[i,])
-#       curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[7], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-#       curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[7], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-#     }
-#     #cc <- coef(phylo.logisticreg.fit.stem.ages.mtdnas.proteins)
-#     cc <- (phylo.logisticreg.fit.stem.ages.mtdnas.proteins$bootmode)
-#     curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[7], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-#     curve(plogis(cc[1]+cc[2]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[7], 0.95),add=TRUE, lwd=3, xlim=c(-3.5, -0.8726974), lty=3)
-#     
-#   }
-#   
-#   #plot the merged signal + mtdna signal
-#   {
-#     for(i in 1:(phylo.logisticreg.fit.stem.ages.merged.mtdnas$boot/10)){
-#       cc <- (phylo.logisticreg.fit.stem.ages.merged.mtdnas$bootstrap[i,])
-#       curve(plogis(cc[1]+cc[2]*x),col=make.transparent("gray", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-#       curve(plogis(cc[1]+cc[2]*x),col=make.transparent("gray", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-#     }
-#     #cc <- coef(phylo.logisticreg.fit.stem.ages.merged.mtdnas)
-#     cc <- phylo.logisticreg.fit.stem.ages.merged.mtdnas$bootmode
-#     curve(plogis(cc[1]+cc[2]*x),col=make.transparent("gray", 0.95),add=TRUE, lwd=5, xlim=c(-0.8726974, 4.2))
-#     curve(plogis(cc[1]+cc[2]*x),col=make.transparent("gray", 0.95),add=TRUE, lwd=5, xlim=c(-3.5, -0.8726974), lty=3)
-#     
-#   }
-#   
-#   #plot the merged data signal
-#   {
-#     for(i in 1:(phylo.logisticreg.fit.stem.ages.merged$boot/10)){
-#       cc <- (phylo.logisticreg.fit.stem.ages.merged$bootstrap[i,])
-#       curve(plogis(cc[1]+cc[2]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-#       curve(plogis(cc[1]+cc[2]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-#     }
-#     #cc <- coef(phylo.logisticreg.fit.stem.ages.merged)
-#     cc <- (phylo.logisticreg.fit.stem.ages.merged$bootmode)
-#     curve(plogis(cc[1]+cc[2]*x),col=make.transparent("black", 0.95),add=TRUE, lwd=5, xlim=c(-0.8726974, 4.2))
-#     curve(plogis(cc[1]+cc[2]*x),col=make.transparent("black", 0.95),add=TRUE, lwd=5, xlim=c(-3.5, -0.8726974), lty=3)
-#     
-#   }
-#   
-#   
-#   abline(v=-0.8726974, col="black", lwd=1)
-#   #abline(v=1.609438, col="black", lty=2)
-#   abline(v=2.302585, col="black", lty=2)
-#   abline(h=0.55, col="black")
-#   
-# }
-# ### end plot ####
-
-  
-  
-#par(mfrow=c(1,2))
-### set up plot for shift vs time + discordance ###
-{
-plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
-     xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM (discordance)", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001)
-#axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
-points(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("black", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255, alpha=0.8), cex=1)#make.transparent("gray", 0.3)
-
-#plot the data for exons
-{
-  #add the bootstrap lines for exons
-  for(i in 1:(phylo.logisticreg.fit.stem.ages.exons.discordance$boot/10)){
-    cc <- (phylo.logisticreg.fit.stem.ages.exons.discordance$bootstrap[i,])
-    curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-    curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-  }
-  
-  cc <- coef(phylo.logisticreg.fit.stem.ages.exons.discordance)
-  #cc <- (phylo.logisticreg.fit.stem.ages.exons.discordance$bootmedian)
-  curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-  curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=3, xlim=c(-3, -0.8726974), lty=3)
-}
-
-#plot data for introns
-{
-  #add the bootstrap lines for introns
-  for(i in 1:(phylo.logisticreg.fit.stem.ages.introns.discordance$boot/10)){
-    cc <- (phylo.logisticreg.fit.stem.ages.introns.discordance$bootstrap[i,])
-    curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-    curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-  }
-  cc <- coef(phylo.logisticreg.fit.stem.ages.introns.discordance)
-  #cc <- (phylo.logisticreg.fit.stem.ages.introns.discordance$bootmode)
-  curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-  curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=3, xlim=c(-3, -0.8726974), lty=3)
-
-}
-
-#plot data for utrs
-{
-  #add the bootstrap lines for utrs
-  for(i in 1:(phylo.logisticreg.fit.stem.ages.utrs.discordance$boot/10)){
-    cc <- (phylo.logisticreg.fit.stem.ages.utrs.discordance$bootstrap[i,])
-    curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-    curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-  }
-  cc <- coef(phylo.logisticreg.fit.stem.ages.utrs.discordance)
-  #cc <- (phylo.logisticreg.fit.stem.ages.utrs.discordance$bootmode)
-  curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-  curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=3, xlim=c(-3, -0.8726974), lty=3)
-  
-}
-
-#plot the data for merged
-{
-  #add the bootstrap lines for merged
-  for(i in 1:(phylo.logisticreg.fit.stem.ages.merged.discordance$boot/10)){
-    cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootstrap[i,])
-    curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-    curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-  }
-  cc <- coef(phylo.logisticreg.fit.stem.ages.merged.discordance)
-  #cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootmode)
-  curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.95),add=TRUE, lwd=5, xlim=c(-0.8726974, 4.2))
-  curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.95),add=TRUE, lwd=5, xlim=c(-3, -0.8726974), lty=3)
-  
-}
-
-#abline(v=-0.8726974, col="black", lwd=1)
-#abline(v=1.609438, col="black", lty=2)
-abline(v=2.302585, col="black", lty=2)
-abline(h=0.875, col="black")
-
-}
+#add a bit of distance 
 
 ### end plot ####
   
@@ -1159,9 +1416,9 @@ abline(h=0.875, col="black")
 # ### set up plot for shift vs time + discordance ### Bootmodes version
 # {
 #   plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
-#        xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001)
+#        xlab="log(time) to T=66 Ma", ylab="probability", main="Model Shift Binomial pGLM", pch=21, col=make.transparent("gray", 0.0), bty='n', cex=0.000001, cex.main=1.0)
 #   #axis(side=1, at = c(-3,-2,-1,0,1,2,3, 4.189655), labels = round(exp(c(-3,-2,-1,0,1,2,3, 4.189655)), 1))
-#   points(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("red", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255), cex=1)#make.transparent("gray", 0.3)
+#   points(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.075), pch=21, bg=rgb(colorRamp(c("red", "white"))(asinTransform(logisticreg.newdat.alt$discordance)/max(asinTransform(logisticreg.newdat.alt$discordance)))/255), cex=1.0)#make.transparent("gray", 0.3)
 #   
 #   #plot the data for exons
 #   {
@@ -1174,8 +1431,8 @@ abline(h=0.875, col="black")
 #     
 #     #cc <- coef(phylo.logisticreg.fit.stem.ages.exons.discordance)
 #     cc <- (phylo.logisticreg.fit.stem.ages.exons.discordance$bootmode)
-#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=3, xlim=c(-3, -0.8726974), lty=3)
+#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[2], 0.95),add=TRUE, lwd=2, xlim=c(-3, -0.8726974), lty=2)
 #   }
 #   
 #   #plot data for introns
@@ -1188,8 +1445,8 @@ abline(h=0.875, col="black")
 #     }
 #     #cc <- coef(phylo.logisticreg.fit.stem.ages.introns.discordance)
 #     cc <- (phylo.logisticreg.fit.stem.ages.introns.discordance$bootmode)
-#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=3, xlim=c(-3, -0.8726974), lty=3)
+#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[3], 0.95),add=TRUE, lwd=2, xlim=c(-3, -0.8726974), lty=2)
 #     
 #   }
 #   
@@ -1203,8 +1460,8 @@ abline(h=0.875, col="black")
 #     }
 #     #cc <- coef(phylo.logisticreg.fit.stem.ages.utrs.discordance)
 #     cc <- (phylo.logisticreg.fit.stem.ages.utrs.discordance$bootmode)
-#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=3, xlim=c(-0.8726974, 4.2))
-#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=3, xlim=c(-3, -0.8726974), lty=3)
+#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=2, xlim=c(-0.8726974, 4.2))
+#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent(palette.colors(palette = "Okabe-Ito")[4], 0.95),add=TRUE, lwd=2, xlim=c(-3, -0.8726974), lty=2)
 #     
 #   }
 #   
@@ -1218,8 +1475,8 @@ abline(h=0.875, col="black")
 #     }
 #     #cc <- coef(phylo.logisticreg.fit.stem.ages.merged.discordance)
 #     cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootmode)
-#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.95),add=TRUE, lwd=5, xlim=c(-0.8726974, 4.2))
-#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.95),add=TRUE, lwd=5, xlim=c(-3, -0.8726974), lty=3)
+#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.95),add=TRUE, lwd=4, xlim=c(-0.8726974, 4.2))
+#     curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.95),add=TRUE, lwd=4, xlim=c(-3, -0.8726974), lty=2)
 #     
 #   }
 #   
@@ -1262,8 +1519,274 @@ abline(h=0.875, col="black")
 dev.off()
 
 
+dis_range<-range(
+  asinTransform(c(
+    logisticreg.newdat[logisticreg.newdat$label %in% logisticreg_tree.alt$tip.label,]$discordance,
+    logisticreg.newdat[logisticreg.newdat$label %in% logisticreg_tree.alt$tip.label,]$discordance.exons,
+    logisticreg.newdat[logisticreg.newdat$label %in% logisticreg_tree.alt$tip.label,]$discordance.introns,
+    logisticreg.newdat[logisticreg.newdat$label %in% logisticreg_tree.alt$tip.label,]$discordance.utrs
+  ))
+)
+
+
+rgl.clear()
+#merged
+{
+{
+  {#plot the data for merged
+    X2<-X2_l.merged
+    {
+      
+      cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootmean)
+      tmp.l<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
+      
+    }}
+  {  X2<-X2_m.merged
+    {
+      # #add the bootstrap lines for merged
+      # for(i in 1:(phylo.logisticreg.fit.stem.ages.merged.discordance$boot/10)){
+      #   cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootstrap[i,])
+      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+      # }
+      #cc <- coef(phylo.logisticreg.fit.stem.ages.merged.discordance)
+      
+      cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootmean)
+      tmp.m<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
+      
+    }}
+  {  X2<-X2_h.merged
+    {
+      
+      cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootmean)
+      tmp.h<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
+      
+    }}
+  
+}
+{
+test<-data.frame(x=tmp.l$x, tmp.l$y, tmp.m$y,tmp.h$y)
+library(reshape2)
+# Next, melt the data frame
+data_melt <- melt(test, id.vars="x")
+
+data_melt$variable<-as.character(data_melt$variable)
+
+data_melt$variable[data_melt$variable=="tmp.l.y"]<-rep(X2_l.merged, length(data_melt$variable[data_melt$variable=="tmp.l.y"]))
+data_melt$variable[data_melt$variable=="tmp.m.y"]<-rep(X2_m.merged, length(data_melt$variable[data_melt$variable=="tmp.m.y"]))
+data_melt$variable[data_melt$variable=="tmp.h.y"]<-rep(X2_h.merged, length(data_melt$variable[data_melt$variable=="tmp.h.y"]))
+data_melt$variable<-as.numeric(data_melt$variable)
+names(data_melt)<-c('x','discordance','probability')
+
+require(rgl)
+options(rgl.printRglwidget = TRUE)
+
+plot3d(data_melt, ylim= c(dis_range), zlim=c(0,1))
+
+require(akima)
+s = akima::interp(data_melt$x,data_melt$discordance,data_melt$probability, nx=100, ny=100)
+
+cols<- viridis(100)[cut(s$z, breaks = 100)]
+surface3d(s$x,s$y,s$z, color=cols)
+}
+}
+
+rgl.clear()
+
+#exon
+{
+{
+  {#plot the data for exon
+    X2<-X2_l.exon
+    {
+      
+      cc <- (phylo.logisticreg.fit.stem.ages.exons.discordance$bootmean)
+      tmp.l<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
+      
+    }}
+  {  X2<-X2_m.exon
+    {
+      # #add the bootstrap lines for merged
+      # for(i in 1:(phylo.logisticreg.fit.stem.ages.merged.discordance$boot/10)){
+      #   cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootstrap[i,])
+      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+      # }
+      #cc <- coef(phylo.logisticreg.fit.stem.ages.merged.discordance)
+      
+      cc <- (phylo.logisticreg.fit.stem.ages.exons.discordance$bootmean)
+      tmp.m<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
+      
+    }}
+  {  X2<-X2_h.exon
+    {
+      
+      cc <- (phylo.logisticreg.fit.stem.ages.exons.discordance$bootmean)
+      tmp.h<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
+      
+    }}
+  
+}
+{
+  test<-data.frame(x=tmp.l$x, tmp.l$y, tmp.m$y,tmp.h$y)
+  library(reshape2)
+  # Next, melt the data frame
+  data_melt <- melt(test, id.vars="x")
+  
+  data_melt$variable<-as.character(data_melt$variable)
+  
+  data_melt$variable[data_melt$variable=="tmp.l.y"]<-rep(X2_l.exon, length(data_melt$variable[data_melt$variable=="tmp.l.y"]))
+  data_melt$variable[data_melt$variable=="tmp.m.y"]<-rep(X2_m.exon, length(data_melt$variable[data_melt$variable=="tmp.m.y"]))
+  data_melt$variable[data_melt$variable=="tmp.h.y"]<-rep(X2_h.exon, length(data_melt$variable[data_melt$variable=="tmp.h.y"]))
+  data_melt$variable<-as.numeric(data_melt$variable)
+  names(data_melt)<-c('x','discordance','probability')
+  
+  require(rgl)
+  options(rgl.printRglwidget = TRUE)
+  
+  plot3d(data_melt, ylim= dis_range, zlim=c(0,1))
+  
+  require(akima)
+  s = akima::interp(data_melt$x,data_melt$discordance,data_melt$probability, nx=100, ny=100)
+  
+  cols<- viridis(100)[cut(s$z, breaks = 100)]
+  surface3d(s$x,s$y,s$z, color=cols)
+}
+}
+
+rgl.clear()
+
+#intron
+{
+  {
+    {#plot the data for intron
+      X2<-X2_l.intron
+      {
+        
+        cc <- (phylo.logisticreg.fit.stem.ages.introns.discordance$bootmean)
+        tmp.l<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
+        
+      }}
+    {  X2<-X2_m.intron
+      {
+        # #add the bootstrap lines for merged
+        # for(i in 1:(phylo.logisticreg.fit.stem.ages.merged.discordance$boot/10)){
+        #   cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootstrap[i,])
+        #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+        #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+        # }
+        #cc <- coef(phylo.logisticreg.fit.stem.ages.merged.discordance)
+        
+        cc <- (phylo.logisticreg.fit.stem.ages.introns.discordance$bootmean)
+        tmp.m<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
+        
+      }}
+    {  X2<-X2_h.intron
+      {
+        
+        cc <- (phylo.logisticreg.fit.stem.ages.introns.discordance$bootmean)
+        tmp.h<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
+        
+      }}
+    
+  }
+  {
+    test<-data.frame(x=tmp.l$x, tmp.l$y, tmp.m$y,tmp.h$y)
+    library(reshape2)
+    # Next, melt the data frame
+    data_melt <- melt(test, id.vars="x")
+    
+    data_melt$variable<-as.character(data_melt$variable)
+    
+    data_melt$variable[data_melt$variable=="tmp.l.y"]<-rep(X2_l.intron, length(data_melt$variable[data_melt$variable=="tmp.l.y"]))
+    data_melt$variable[data_melt$variable=="tmp.m.y"]<-rep(X2_m.intron, length(data_melt$variable[data_melt$variable=="tmp.m.y"]))
+    data_melt$variable[data_melt$variable=="tmp.h.y"]<-rep(X2_h.intron, length(data_melt$variable[data_melt$variable=="tmp.h.y"]))
+    data_melt$variable<-as.numeric(data_melt$variable)
+    names(data_melt)<-c('x','discordance','probability')
+    
+    require(rgl)
+    options(rgl.printRglwidget = TRUE)
+    
+    plot3d(data_melt, ylim= dis_range, zlim=c(0,1))
+    
+    require(akima)
+    s = akima::interp(data_melt$x,data_melt$discordance,data_melt$probability, nx=100, ny=100, remove=F)
+    
+    cols<- viridis(100)[cut(s$z, breaks = 100)]
+    
+    surface3d(s$x,s$y,s$z, color=cols)
+  }
+}
+
+rgl.clear()
+
+#utr
+{
+  {
+    {#plot the data for utr
+      X2<-X2_l.utr
+      {
+        
+        cc <- (phylo.logisticreg.fit.stem.ages.utrs.discordance$bootmean)
+        tmp.l<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
+        
+      }}
+    {  X2<-X2_m.utr
+      {
+        # #add the bootstrap lines for merged
+        # for(i in 1:(phylo.logisticreg.fit.stem.ages.merged.discordance$boot/10)){
+        #   cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootstrap[i,])
+        #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
+        #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
+        # }
+        #cc <- coef(phylo.logisticreg.fit.stem.ages.merged.discordance)
+        
+        cc <- (phylo.logisticreg.fit.stem.ages.utrs.discordance$bootmean)
+        tmp.m<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
+        
+      }}
+    {  X2<-X2_h.utr
+      {
+        
+        cc <- (phylo.logisticreg.fit.stem.ages.utrs.discordance$bootmean)
+        tmp.h<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
+        
+      }}
+    
+  }
+  {
+    test<-data.frame(x=tmp.l$x, tmp.l$y, tmp.m$y,tmp.h$y)
+    library(reshape2)
+    # Next, melt the data frame
+    data_melt <- melt(test, id.vars="x")
+    
+    data_melt$variable<-as.character(data_melt$variable)
+    
+    data_melt$variable[data_melt$variable=="tmp.l.y"]<-rep(X2_l.utr, length(data_melt$variable[data_melt$variable=="tmp.l.y"]))
+    data_melt$variable[data_melt$variable=="tmp.m.y"]<-rep(X2_m.utr, length(data_melt$variable[data_melt$variable=="tmp.m.y"]))
+    data_melt$variable[data_melt$variable=="tmp.h.y"]<-rep(X2_h.utr, length(data_melt$variable[data_melt$variable=="tmp.h.y"]))
+    data_melt$variable<-as.numeric(data_melt$variable)
+    names(data_melt)<-c('x','discordance','probability')
+    
+    require(rgl)
+    options(rgl.printRglwidget = TRUE)
+    
+    plot3d(data_melt, ylim= dis_range, zlim=c(0,1))
+    
+    require(akima)
+    s = akima::interp(data_melt$x,data_melt$discordance,data_melt$probability, nx=100, ny=100)
+    
+    #cols <- viridis(100)
+    
+    cols<- viridis(100)[cut(s$z, breaks = 100)]
+    
+    surface3d(s$x,s$y,s$z, color=cols)
+  }
+}
+
+
 #Section 5 
-##########################################
+###############d###########################
 #get data for gc content and codon usage #
 ##########################################
 {
