@@ -7821,6 +7821,7 @@ dev.off()
 
 ##testing patterns of life history integration with mvMORPH/RPANDA
 
+{
 require(RPANDA)
 require(mvMORPH)
 
@@ -7848,7 +7849,6 @@ manova.gls(LHT.mvgls.bmm.grp, type='III')
 
 glht.test.p<-pairwise.glh(LHT.mvgls.bmm.grp, verbose=F, term='groups', adjust='none', test='Pillai')
 glht.test.w<-pairwise.glh(LHT.mvgls.bmm.grp, verbose=F, term='groups', adjust='none', test='Wilks')
-
 create_distance_matrix(glht.test.p, param="pvalue")
 
 
@@ -7878,7 +7878,6 @@ qgraph(stat.dist.p, vsize=10, minimum=0.1)
 qgraph(stat.dist.w, vsize=10)
 qgraph(pval.dist.p, vsize=10)
 
-
 ##testing scOU models for theta
 errormat<-as.matrix(set_all_values(l1ou_test$Y, 0.1^2))
 
@@ -7899,13 +7898,11 @@ LHT.mvOU.OUM <-
     param = list(decomp = "equaldiagonal", root = "stationary")
   )
 
-#saveRDS(LHT.mvOU.OUM, file='LHT.mvOU.OUM.RDS')
-LHT.mvOU.OUM<-readRDS('LHT.mvOU.OUM.RDS')
+#saveRDS(LHT.mvOU.OUM, file='./RDS/LHT.mvOU.OUM.RDS')
+LHT.mvOU.OUM<-readRDS('./RDS/LHT.mvOU.OUM.RDS')
 
 qgraph(LHT.mvOU.OUM$sigma, graph='cor')
 qgraph(LHT.mvOU.OUM$sigma, graph='pcor')
-
-
 
 LHT.mvOU.OUM.error <-
   mvOU(
@@ -7916,8 +7913,8 @@ LHT.mvOU.OUM.error <-
     error=errormat
   )
 
-#saveRDS(LHT.mvOU.OUM.error, file='LHT.mvOU.OUM.error.RDS')
-LHT.mvOU.OUM.error<-readRDS('LHT.mvOU.OUM.error.RDS')
+#saveRDS(LHT.mvOU.OUM.error, file='./RDS/LHT.mvOU.OUM.error.RDS')
+LHT.mvOU.OUM.error<-readRDS('./RDS/LHT.mvOU.OUM.error.RDS')
 
 phylopars.data.mvOU<-phylopars.data[,c("species", "mass", "mean.clutch", "gen_length", "survival", "breeding","longevity", "chickPC1", "latitude")]
 rownames(phylopars.data.mvOU)<-phylopars.data.mvOU$species
@@ -7931,7 +7928,8 @@ LHT.mvOU.OUM.missing<-
     param = list(decomp = "equaldiagonal", root = "stationary")
   )
 
-saveRDS(LHT.mvOU.OUM.missing, file='LHT.mvOU.OUM.missing.RDS')
+#saveRDS(LHT.mvOU.OUM.missing, file='./RDS/LHT.mvOU.OUM.missing.RDS')
+LHT.mvOU.OUM.missing<-readRDS(file='./RDS/LHT.mvOU.OUM.missing.RDS')
 
 LHT.mvOU.OUM.missing.error<-
   mvOU(
@@ -7942,8 +7940,8 @@ LHT.mvOU.OUM.missing.error<-
     error=errormat
   )
 
-saveRDS(LHT.mvOU.OUM.missing.error, file='LHT.mvOU.OUM.missing.error.RDS')
-
+#saveRDS(LHT.mvOU.OUM.missing.error, file='./RDS/LHT.mvOU.OUM.missing.error.RDS')
+LHT.mvOU.OUM.missing.error<-readRDS(file='./RDS/LHT.mvOU.OUM.missing.error.RDS')
 
 thetas<-do.call(cbind,
 lapply(colnames(LHT.mvOU.OUM.missing.error$theta), function(x) get_dup_thetas(tree=simmap.janus.nuc.aggregate.simplified2, fitted = LHT.mvOU.OUM.missing.error, trait=x)),
@@ -7969,4 +7967,4 @@ dev.off()
 
 plot_phylo_with_bars(tree=simmap.janus.nuc.aggregate.simplified2, thetas.pca.zeromin[,c("PC1", "PC2")], mapcolors=setNames(rainbow(11), unique(getStates(simmap.janus.nuc.aggregate.simplified2, type = 'tips'))), part=0.5, colors=rev(RColorBrewer::brewer.pal(n=8,"Spectral")))
 phylo.heatmap(tree = simmap.janus.nuc.aggregate.simplified2, X = thetas.zeromin, standardize=F, legend=F, ftype='off')
-
+}
