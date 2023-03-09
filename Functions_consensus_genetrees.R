@@ -2497,7 +2497,7 @@ phylolm_bootstrap_CI <- function(input, lims, interval, breaks, X2=NULL){
   
   # Convert the list to a data frame
   tmp <- as.data.frame(tmp)
-  
+
   # Extract the x values and y values from the data frame
   xvals <- tmp[, 1]
   columns <- grep("x", names(tmp), invert = T)
@@ -2738,5 +2738,149 @@ add_rgl_model <- function(fdata){
   # plot points in red just to be on the safe side!
   points3d(fdata, col = "red")
 }
+
+
+get_dup_thetas <- function(tree, fitted, trait) {
+  tmp.thetas <- getStates(tree, type='tips')
+  
+  for(i in unique(getStates(tree, type = 'tips'))) {
+    tmp.thetas[tmp.thetas == i] <- setNames(
+      rep(fitted$theta[, trait][rownames(fitted$theta) == i], length(tmp.thetas[tmp.thetas == i])),
+      names(tmp.thetas[tmp.thetas == i])
+    )
+  }
+  
+  tmp.thetas<-unlist(lapply(tmp.thetas, as.numeric))
+  
+  return(tmp.thetas)
+}
+
+
+plot_tree_with_traits <- function(tree, data) {
+  h <- max(nodeHeights(tree))
+  m <- ncol(data)
+  cols <- brewer.pal(n=4, "Spectral")
+  xlim <- ylim <- c(-h, h) + c(-1, 1) * 0.1 * m * h + 0.02 * c(-h, h)
+  plotTree(tree, type = "fan", xlim = xlim, ylim = ylim, lwd = 1, ftype = "off")
+  for (i in 1:m) {
+    tt <- tree
+    tt$edge.length[which(tt$edge[,2] <= Ntip(tt))] <-
+      tt$edge.length[which(tt$edge[,2] <= Ntip(tt))] +
+      0.02 * h + (i - 1) * 0.1 * h
+    plotTree(tt, color = "transparent", type = "fan", xlim = xlim, ylim = ylim,
+             lwd = 1, ftype = "off", add = TRUE)
+    pp1 <- get("last_plot.phylo", envir = .PlotPhyloEnv)
+    tt$edge.length[which(tt$edge[,2] <= Ntip(tt))] <-
+      tt$edge.length[which(tt$edge[,2] <= Ntip(tt))] +
+      0.09 * h
+    draw.circle(0, 0, radius = h + 0.02 * h + (i - 1) * 0.1 * h, border = "grey")
+    plotTree(tt, color = "transparent", type = "fan", xlim = xlim, ylim = ylim,
+             lwd = 1, ftype = "off", add = TRUE)
+    pp2 <- get("last_plot.phylo", envir = .PlotPhyloEnv)
+    par(lend = 1)
+    for (j in 1:Ntip(tree)) {
+      ii <- which(rownames(data) == tree$tip.label[j])
+      dx <- (pp2$xx[j] - pp1$xx[j]) * data[ii, i]
+      dy <- (pp2$yy[j] - pp1$yy[j]) * data[ii, i]
+      lines(pp1$xx[j] + c(0, dx), pp1$yy[j] + c(0, dy), lwd = 10, col = cols[i])
+    }
+  }
+}
+
+
+plot_phylo_with_bars <- function(tree, data, mapcolors=NULL, colors = NULL, part=part) {
+  #data <- t(apply(data, 1, function(x) x/max(x, na.rm=TRUE)))
+  data <- (apply(data, 2, function(x) x/max(x, na.rm=TRUE)))
+  h <- max(nodeHeights(tree))
+  m <- ncol(data)
+  xlim <- ylim <- c(-h,h) + c(-1,1) * 0.2 * m * h + 0.02 * c(-h,h)
+  plotSimmap(tree, type = "fan", xlim = xlim, ylim = ylim, lwd = 1, ftype = "off", colors=mapcolors, part=part)
+  
+  for(i in 1:m) {
+    tt <- tree
+    tt$edge.length[which(tt$edge[,2] <= Ntip(tt))] <-
+      tt$edge.length[which(tt$edge[,2] <= Ntip(tt))] + 0.02*h + (i-1) * 0.2 * h
+    plotSimmap(tt, colors = scales::alpha(mapcolors,0), type = "fan", xlim = xlim, ylim = ylim, lwd = 1, ftype = "off", add = TRUE, part=part)
+    pp1 <- get("last_plot.phylo", envir = .PlotPhyloEnv)
+    tt$edge.length[which(tt$edge[,2] <= Ntip(tt))] <-
+      tt$edge.length[which(tt$edge[,2] <= Ntip(tt))] + 0.15*h
+    # define a clipping region for the bottom half of the plot
+    clip(x1 = xlim[1], x2 = xlim[2], y1 = 0, y2 = ylim[2]+100)
+    plotrix::draw.circle(0, 0, radius = h + 0.02*h + (i-1) * 0.2 * h, border = "grey")
+    clip(x1 = xlim[1]-100, x2 = xlim[2]+100, y1 = ylim[1], y2 = ylim[2]+100)
+    plotSimmap(tt, colors = scales::alpha(mapcolors, 0), type = "fan", xlim = xlim, ylim = ylim, lwd = 1, ftype = "off", add = TRUE, part=part)
+    pp2 <- get("last_plot.phylo", envir = .PlotPhyloEnv)
+    par(lend = 1)
+    
+    lwds<-seq(1:length(colnames(data)))
+    lwds<-lwds^0.8+0.1
+    
+    for(j in 1:Ntip(tree)) {
+      ii <- which(rownames(data) == tree$tip.label[j])
+      dx <- (pp2$xx[j] - pp1$xx[j]) * data[ii,i]
+      dy <- (pp2$yy[j] - pp1$yy[j]) * data[ii,i]
+      lines(pp1$xx[j] + c(0, dx), pp1$yy[j] + c(0, dy), lwd = lwds[i], col = colors[i])
+    }
+  }
+  
+  xx <- rep(0.75 * par()$usr[4], m)
+  yy <- 0.95 * par()$usr[4] - 1.5 * 0:(m-1) * strheight("W")
+  text(xx, yy, colnames(data), pos = 4, cex = 0.8)
+  scale.bar <- 3#apply(data, 2, max, na.rm = TRUE) * 0.09 * h
+  xx2 <- xx - scale.bar
+  segments(x0 = xx, y0 = yy, x1 = xx2, y1 = yy, lwd = 10, col = colors)
+  #text(rep(min(xx2), m), yy, paste(formatC(apply(data, 2, max, na.rm = TRUE), digits = 1, format = "f"), "cm", sep = " "), cex = 0.8, pos = 2)
+}
+
+set_all_values <- function(df, value) {
+  new_df <- data.frame(matrix(value, nrow = nrow(df), ncol = ncol(df)))
+  rownames(new_df) <- rownames(df)
+  colnames(new_df) <- colnames(df)
+  return(new_df)
+}
+
+
+create_distance_matrix <- function(glht.test, param) {
+  if(param=="stat"){
+    pairwise_comp<-glht.test$stat
+  }
+  if(param=="pvalue"){
+    pairwise_comp<-glht.test$pvalue
+  }
+  
+  names(pairwise_comp) <- rownames(glht.test$L)
+  
+  # extract the unique labels from the named vector
+  labels <- unique(unlist(strsplit(names(pairwise_comp), " - ")))
+  
+  # create a matrix of zeros with dimensions n x n, where n is the number of unique labels
+  distance_mat <- matrix(0, nrow = length(labels), ncol = length(labels))
+  colnames(distance_mat)<-labels
+  rownames(distance_mat)<-labels
+  
+  # fill in the upper triangle of the distance matrix with the values from the named vector
+  for (i in 1:(length(labels) - 1)) {
+    for (j in (i + 1):length(labels)) {
+      label1 <- labels[i]
+      label2 <- labels[j]
+      key1 <- paste0(label1, " - ", label2)
+      key2 <- paste0(label2, " - ", label1)
+      if (key1 %in% names(pairwise_comp)) {
+        distance_mat[i, j] <- pairwise_comp[key1]
+      } else if (key2 %in% names(pairwise_comp)) {
+        distance_mat[i, j] <- pairwise_comp[key2]
+      } else {
+        stop("Error: missing pairwise comparison")
+      }
+    }
+  }
+  # set the lower triangle of the distance matrix equal to the upper triangle
+  distance_mat[lower.tri(distance_mat)] <- t(distance_mat)[lower.tri(distance_mat)]
+  
+  return(distance_mat)
+}
+
+
+
 
 ### End function definitions ###

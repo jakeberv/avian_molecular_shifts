@@ -809,21 +809,31 @@ devtools:::source_url("https://raw.githubusercontent.com/mrhelmus/phylogeny_mani
 AICc.phyloglm(phylo.logisticreg.fit.stem.ages.merged.discordance) #69.36564
 AICc.phyloglm(phylo.logisticreg.fit.stem.ages.merged) #67.90789
 #dAIC < 1
+aictab(list(phylo.logisticreg.fit.stem.ages.merged.discordance,phylo.logisticreg.fit.stem.ages.merged ))
+
 
 AICc.phyloglm(phylo.logisticreg.fit.stem.ages.exons.discordance) #61.27305
 AICc.phyloglm(phylo.logisticreg.fit.stem.ages.exons) #61.15363
 #dAIC ~ NA
+aictab(list(phylo.logisticreg.fit.stem.ages.exons.discordance,phylo.logisticreg.fit.stem.ages.exons ))
+
 
 AICc.phyloglm(phylo.logisticreg.fit.stem.ages.introns.discordance) #44.31081
 AICc.phyloglm(phylo.logisticreg.fit.stem.ages.introns) #39.28601
 #dAIC = 5.51
+aictab(list(phylo.logisticreg.fit.stem.ages.introns.discordance,phylo.logisticreg.fit.stem.ages.introns ))
+
 
 AICc.phyloglm(phylo.logisticreg.fit.stem.ages.utrs.discordance) #31.15809
 AICc.phyloglm(phylo.logisticreg.fit.stem.ages.utrs) #29.99632
 #dAIC < 1
 #in all cases, models excluding discordance have lower AICc
+aictab(list(phylo.logisticreg.fit.stem.ages.utrs.discordance,phylo.logisticreg.fit.stem.ages.utrs ))
+
 
 }
+
+
 
 #what is the average VIF for predictors across
 #models that exclude mtDNA
@@ -879,10 +889,10 @@ summary(model.time.discordance.lm)
 }
 }
 
-#plotting for figure 2
+#plotting for supp figur 1
 
 #picking values for nodevalues
-#setting up params for figure 2
+#setting up params for supp figure 1
 
 #setting up alternative values for X2 in the logistic regressions with discordance
 {
@@ -911,7 +921,7 @@ mean(c(sin(X2_h.exon)^2, sin(X2_h.intron)^2, sin(X2_h.utr)^2, sin(X2_h.merged)^2
 
 }
 
-#these parameters control the confidence itnerval and the spline smoothing param
+#these parameters control the confidence interval and the spline smoothing param
 int=0.7
 smooth=0.95
 
@@ -1138,6 +1148,7 @@ par(mfrow=c(2,2))
     
 }
 
+  
 ### set up plot for shift vs time + discordance ### (low discordance)
 {
     # plot(x=log(logisticreg.newdat$stem.ages_since),y=jitter(logisticreg.newdat$uncex.merged,factor=0,amount=0.02), xlim=c(-3,4.2), ylim=c(-0.05,1.05),
@@ -1583,271 +1594,6 @@ par(mfrow=c(2,2))
 }
 dev.off()
 
-
-dis_range<-range(
-  asinTransform(c(
-    logisticreg.newdat[logisticreg.newdat$label %in% logisticreg_tree.alt$tip.label,]$discordance,
-    logisticreg.newdat[logisticreg.newdat$label %in% logisticreg_tree.alt$tip.label,]$discordance.exons,
-    logisticreg.newdat[logisticreg.newdat$label %in% logisticreg_tree.alt$tip.label,]$discordance.introns,
-    logisticreg.newdat[logisticreg.newdat$label %in% logisticreg_tree.alt$tip.label,]$discordance.utrs
-  ))
-)
-
-
-rgl.clear()
-#merged
-{
-{
-  {#plot the data for merged
-    X2<-X2_l.merged
-    {
-      
-      cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootmean)
-      tmp.l<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
-      
-    }}
-  {  X2<-X2_m.merged
-    {
-      # #add the bootstrap lines for merged
-      # for(i in 1:(phylo.logisticreg.fit.stem.ages.merged.discordance$boot/10)){
-      #   cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootstrap[i,])
-      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-      # }
-      #cc <- coef(phylo.logisticreg.fit.stem.ages.merged.discordance)
-      
-      cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootmean)
-      tmp.m<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
-      
-    }}
-  {  X2<-X2_h.merged
-    {
-      
-      cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootmean)
-      tmp.h<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
-      
-    }}
-  
-}
-{
-test<-data.frame(x=tmp.l$x, tmp.l$y, tmp.m$y,tmp.h$y)
-library(reshape2)
-# Next, melt the data frame
-data_melt <- melt(test, id.vars="x")
-
-data_melt$variable<-as.character(data_melt$variable)
-
-data_melt$variable[data_melt$variable=="tmp.l.y"]<-rep(X2_l.merged, length(data_melt$variable[data_melt$variable=="tmp.l.y"]))
-data_melt$variable[data_melt$variable=="tmp.m.y"]<-rep(X2_m.merged, length(data_melt$variable[data_melt$variable=="tmp.m.y"]))
-data_melt$variable[data_melt$variable=="tmp.h.y"]<-rep(X2_h.merged, length(data_melt$variable[data_melt$variable=="tmp.h.y"]))
-data_melt$variable<-as.numeric(data_melt$variable)
-names(data_melt)<-c('x','discordance','probability')
-
-require(rgl)
-options(rgl.printRglwidget = TRUE)
-
-plot3d(data_melt, ylim= c(dis_range), zlim=c(0,1))
-
-require(akima)
-s = akima::interp(data_melt$x,data_melt$discordance,data_melt$probability, nx=100, ny=100)
-
-cols<- viridis(100)[cut(s$z, breaks = 100)]
-surface3d(s$x,s$y,s$z, color=cols)
-}
-}
-
-rgl.clear()
-
-#exon
-{
-{
-  {#plot the data for exon
-    X2<-X2_l.exon
-    {
-      
-      cc <- (phylo.logisticreg.fit.stem.ages.exons.discordance$bootmean)
-      tmp.l<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
-      
-    }}
-  {  X2<-X2_m.exon
-    {
-      # #add the bootstrap lines for merged
-      # for(i in 1:(phylo.logisticreg.fit.stem.ages.merged.discordance$boot/10)){
-      #   cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootstrap[i,])
-      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-      #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-      # }
-      #cc <- coef(phylo.logisticreg.fit.stem.ages.merged.discordance)
-      
-      cc <- (phylo.logisticreg.fit.stem.ages.exons.discordance$bootmean)
-      tmp.m<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
-      
-    }}
-  {  X2<-X2_h.exon
-    {
-      
-      cc <- (phylo.logisticreg.fit.stem.ages.exons.discordance$bootmean)
-      tmp.h<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
-      
-    }}
-  
-}
-{
-  test<-data.frame(x=tmp.l$x, tmp.l$y, tmp.m$y,tmp.h$y)
-  library(reshape2)
-  # Next, melt the data frame
-  data_melt <- melt(test, id.vars="x")
-  
-  data_melt$variable<-as.character(data_melt$variable)
-  
-  data_melt$variable[data_melt$variable=="tmp.l.y"]<-rep(X2_l.exon, length(data_melt$variable[data_melt$variable=="tmp.l.y"]))
-  data_melt$variable[data_melt$variable=="tmp.m.y"]<-rep(X2_m.exon, length(data_melt$variable[data_melt$variable=="tmp.m.y"]))
-  data_melt$variable[data_melt$variable=="tmp.h.y"]<-rep(X2_h.exon, length(data_melt$variable[data_melt$variable=="tmp.h.y"]))
-  data_melt$variable<-as.numeric(data_melt$variable)
-  names(data_melt)<-c('x','discordance','probability')
-  
-  require(rgl)
-  options(rgl.printRglwidget = TRUE)
-  
-  plot3d(data_melt, ylim= dis_range, zlim=c(0,1))
-  
-  require(akima)
-  s = akima::interp(data_melt$x,data_melt$discordance,data_melt$probability, nx=100, ny=100)
-  
-  cols<- viridis(100)[cut(s$z, breaks = 100)]
-  surface3d(s$x,s$y,s$z, color=cols)
-}
-}
-
-rgl.clear()
-
-#intron
-{
-  {
-    {#plot the data for intron
-      X2<-X2_l.intron
-      {
-        
-        cc <- (phylo.logisticreg.fit.stem.ages.introns.discordance$bootmean)
-        tmp.l<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
-        
-      }}
-    {  X2<-X2_m.intron
-      {
-        # #add the bootstrap lines for merged
-        # for(i in 1:(phylo.logisticreg.fit.stem.ages.merged.discordance$boot/10)){
-        #   cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootstrap[i,])
-        #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-        #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-        # }
-        #cc <- coef(phylo.logisticreg.fit.stem.ages.merged.discordance)
-        
-        cc <- (phylo.logisticreg.fit.stem.ages.introns.discordance$bootmean)
-        tmp.m<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
-        
-      }}
-    {  X2<-X2_h.intron
-      {
-        
-        cc <- (phylo.logisticreg.fit.stem.ages.introns.discordance$bootmean)
-        tmp.h<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
-        
-      }}
-    
-  }
-  {
-    test<-data.frame(x=tmp.l$x, tmp.l$y, tmp.m$y,tmp.h$y)
-    library(reshape2)
-    # Next, melt the data frame
-    data_melt <- melt(test, id.vars="x")
-    
-    data_melt$variable<-as.character(data_melt$variable)
-    
-    data_melt$variable[data_melt$variable=="tmp.l.y"]<-rep(X2_l.intron, length(data_melt$variable[data_melt$variable=="tmp.l.y"]))
-    data_melt$variable[data_melt$variable=="tmp.m.y"]<-rep(X2_m.intron, length(data_melt$variable[data_melt$variable=="tmp.m.y"]))
-    data_melt$variable[data_melt$variable=="tmp.h.y"]<-rep(X2_h.intron, length(data_melt$variable[data_melt$variable=="tmp.h.y"]))
-    data_melt$variable<-as.numeric(data_melt$variable)
-    names(data_melt)<-c('x','discordance','probability')
-    
-    require(rgl)
-    options(rgl.printRglwidget = TRUE)
-    
-    plot3d(data_melt, ylim= dis_range, zlim=c(0,1))
-    
-    require(akima)
-    s = akima::interp(data_melt$x,data_melt$discordance,data_melt$probability, nx=100, ny=100, remove=F)
-    
-    cols<- viridis(100)[cut(s$z, breaks = 100)]
-    
-    surface3d(s$x,s$y,s$z, color=cols)
-  }
-}
-
-rgl.clear()
-
-#utr
-{
-  {
-    {#plot the data for utr
-      X2<-X2_l.utr
-      {
-        
-        cc <- (phylo.logisticreg.fit.stem.ages.utrs.discordance$bootmean)
-        tmp.l<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
-        
-      }}
-    {  X2<-X2_m.utr
-      {
-        # #add the bootstrap lines for merged
-        # for(i in 1:(phylo.logisticreg.fit.stem.ages.merged.discordance$boot/10)){
-        #   cc <- (phylo.logisticreg.fit.stem.ages.merged.discordance$bootstrap[i,])
-        #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-0.8726974, 4.2))
-        #   curve(plogis(cc[1]+cc[2]*x+cc[3]*x),col=make.transparent("black", 0.25),add=TRUE, lwd=0.25, xlim=c(-3.5, -0.8726974), lty=1)
-        # }
-        #cc <- coef(phylo.logisticreg.fit.stem.ages.merged.discordance)
-        
-        cc <- (phylo.logisticreg.fit.stem.ages.utrs.discordance$bootmean)
-        tmp.m<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
-        
-      }}
-    {  X2<-X2_h.utr
-      {
-        
-        cc <- (phylo.logisticreg.fit.stem.ages.utrs.discordance$bootmean)
-        tmp.h<-curvemod(plogis(cc[1]+cc[2]*x+cc[3]*X2),col=make.transparent("black", 0.95),add=F, lwd=4, xlim=c(-3.5, 4.2))
-        
-      }}
-    
-  }
-  {
-    test<-data.frame(x=tmp.l$x, tmp.l$y, tmp.m$y,tmp.h$y)
-    library(reshape2)
-    # Next, melt the data frame
-    data_melt <- melt(test, id.vars="x")
-    
-    data_melt$variable<-as.character(data_melt$variable)
-    
-    data_melt$variable[data_melt$variable=="tmp.l.y"]<-rep(X2_l.utr, length(data_melt$variable[data_melt$variable=="tmp.l.y"]))
-    data_melt$variable[data_melt$variable=="tmp.m.y"]<-rep(X2_m.utr, length(data_melt$variable[data_melt$variable=="tmp.m.y"]))
-    data_melt$variable[data_melt$variable=="tmp.h.y"]<-rep(X2_h.utr, length(data_melt$variable[data_melt$variable=="tmp.h.y"]))
-    data_melt$variable<-as.numeric(data_melt$variable)
-    names(data_melt)<-c('x','discordance','probability')
-    
-    require(rgl)
-    options(rgl.printRglwidget = TRUE)
-    
-    plot3d(data_melt, ylim= dis_range, zlim=c(0,1))
-    
-    require(akima)
-    s = akima::interp(data_melt$x,data_melt$discordance,data_melt$probability, nx=100, ny=100)
-    
-    #cols <- viridis(100)
-    
-    cols<- viridis(100)[cut(s$z, breaks = 100)]
-    
-    surface3d(s$x,s$y,s$z, color=cols)
-  }
-}
 
 
 #Section 5 
@@ -6823,6 +6569,7 @@ janus.null.mvBM.imputed$NA_index
 ###################
 #setting up l1ou ##
 ###################
+
 {
 require(l1ou)
 l1ou_test<-adjust_data(as.phylo(simmap.janus.null), bm.fit.corr$anc_recon[1:198,][,c(1:8)])
@@ -7227,6 +6974,169 @@ boots.pBIC<-readRDS(file="./RDS/boots.pBIC.RDS")
 
 }
 
+
+#testing LHTs for EB bias
+{
+##testing mass
+BM.mass<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,1], model='BM')
+EB.mass<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,1], model='EB', bounds=list(a=c(-10,0)))
+OU.mass<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,1], model='OU', bounds=list(alpha=c(0,100)))
+aicw(c("BM"=AIC(BM.mass),"EB"=AIC(EB.mass), "OU"=AIC(OU.mass)))
+
+#confirming OU
+OU.mass.OUwie<-OUwie(
+  phy = simmap.janus.nuc.aggregate.simplified2,
+  data = data.frame(
+    "Genus_species" = names(l1ou_test$Y[, 1]),
+    "Reg" = rep(0, length(names(l1ou_test$Y[, 1]))),
+    "X" = l1ou_test$Y[, 1]
+  )
+  ,
+  model = "OU1",
+  simmap.tree = F
+)
+
+##testing mean.clutch
+BM.mc<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,2], model='BM')
+EB.mc<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,2], model='EB', bounds=list(a=c(-10,0)))
+OU.mc<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,2], model='OU', bounds=list(alpha=c(0,100)))
+aicw(c("BM"=AIC(BM.mc),"EB"=AIC(EB.mc), "OU"=AIC(OU.mc)))
+
+#confirming OU
+OU.mc.OUwie<-OUwie(
+  phy = simmap.janus.nuc.aggregate.simplified2,
+  data = data.frame(
+    "Genus_species" = names(l1ou_test$Y[, 2]),
+    "Reg" = rep(0, length(names(l1ou_test$Y[, 2]))),
+    "X" = l1ou_test$Y[, 2],
+    #"mserr" = rep(0.1, length(names(l1ou_test$Y[, 2])))
+  )
+  ,
+  model = "OU1",
+  simmap.tree = F
+)
+
+##testing gen_length
+BM.gen<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,3], model='BM')
+EB.gen<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,3], model='EB', bounds=list(a=c(-10,0)))
+OU.gen<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,3], model='OU', bounds=list(alpha=c(0,100)))
+aicw(c("BM"=AIC(BM.gen),"EB"=AIC(EB.gen), "OU"=AIC(OU.gen)))
+
+#confirming OU
+OU.gen.OUwie<-OUwie(
+  phy = simmap.janus.nuc.aggregate.simplified2,
+  data = data.frame(
+    "Genus_species" = names(l1ou_test$Y[, 3]),
+    "Reg" = rep(0, length(names(l1ou_test$Y[, 3]))),
+    "X" = l1ou_test$Y[, 3]
+  )
+  ,
+  model = "OU1",
+  simmap.tree = F
+)
+
+##testing survival
+BM.surv<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,4], model='BM')
+EB.surv<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,4], model='EB', bounds=list(a=c(-10,0)))
+OU.surv<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,4], model='OU', bounds=list(alpha=c(0,100)))
+aicw(c("BM"=AIC(BM.surv),"EB"=AIC(EB.surv), "OU"=AIC(OU.surv)))
+
+#confirming OU
+OU.surv.OUwie<-OUwie(
+  phy = simmap.janus.nuc.aggregate.simplified2,
+  data = data.frame(
+    "Genus_species" = names(l1ou_test$Y[, 4]),
+    "Reg" = rep(0, length(names(l1ou_test$Y[, 4]))),
+    "X" = l1ou_test$Y[, 4]
+  )
+  ,
+  model = "OU1",
+  simmap.tree = F
+)
+
+
+##testing breeding
+BM.breed<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,5], model='BM')
+EB.breed<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,5], model='EB', bounds=list(a=c(-10,0)))
+OU.breed<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,5], model='OU', bounds=list(alpha=c(0,100)))
+aicw(c("BM"=AIC(BM.breed),"EB"=AIC(EB.breed), "OU"=AIC(OU.breed)))
+
+#confirming OU
+OU.breed.OUwie<-OUwie(
+  phy = simmap.janus.nuc.aggregate.simplified2,
+  data = data.frame(
+    "Genus_species" = names(l1ou_test$Y[, 5]),
+    "Reg" = rep(0, length(names(l1ou_test$Y[, 5]))),
+    "X" = l1ou_test$Y[, 5]
+  )
+  ,
+  model = "OU1",
+  simmap.tree = F
+)
+
+
+##testing longevity
+BM.lg<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,6], model='BM')
+EB.lg<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,6], model='EB', bounds=list(a=c(-10,0)))
+OU.lg<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,6], model='OU', bounds=list(alpha=c(0,100)))
+aicw(c("BM"=AIC(BM.lg),"EB"=AIC(EB.lg), "OU"=AIC(OU.lg)))
+
+#confirming OU
+OU.lg.OUwie<-OUwie(
+  phy = simmap.janus.nuc.aggregate.simplified2,
+  data = data.frame(
+    "Genus_species" = names(l1ou_test$Y[, 6]),
+    "Reg" = rep(0, length(names(l1ou_test$Y[, 6]))),
+    "X" = l1ou_test$Y[, 6]
+  )
+  ,
+  model = "OU1",
+  simmap.tree = F
+)
+
+
+##testing chick PC1
+BM.pc1<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,7], model='BM')
+EB.pc1<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,7], model='EB', bounds=list(a=c(-10,0)))
+OU.pc1<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,7], model='OU', bounds=list(alpha=c(0,100)))
+aicw(c("BM"=AIC(BM.pc1),"EB"=AIC(EB.pc1), "OU"=AIC(OU.pc1)))
+
+#confirming OU
+OU.pc1.OUwie<-OUwie(
+  phy = simmap.janus.nuc.aggregate.simplified2,
+  data = data.frame(
+    "Genus_species" = names(l1ou_test$Y[, 7]),
+    "Reg" = rep(0, length(names(l1ou_test$Y[, 7]))),
+    "X" = l1ou_test$Y[, 7]
+  )
+  ,
+  model = "OU1",
+  simmap.tree = F
+)
+
+
+##testing latitude
+BM.lat<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,8], model='BM')
+EB.lat<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,8], model='EB', bounds=list(a=c(-10,0)))
+OU.lat<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,8], model='OU', bounds=list(alpha=c(0,100)))
+aicw(c("BM"=AIC(BM.lat),"EB"=AIC(EB.lat), "OU"=AIC(OU.lat)))
+
+#confirming OU
+OU.lat.OUwie<-OUwie(
+  phy = simmap.janus.nuc.aggregate.simplified2,
+  data = data.frame(
+    "Genus_species" = names(l1ou_test$Y[, 8]),
+    "Reg" = rep(0, length(names(l1ou_test$Y[, 8]))),
+    "X" = l1ou_test$Y[, 8]
+  )
+  ,
+  model = "OU1",
+  simmap.tree = F
+)
+
+
+}
+#no bias toward EB
 
 #processing
 #experimental bootstraps (NOT YET RUN)
@@ -7707,7 +7617,7 @@ nested<-tips_from_edge(tree= l1ou_test$tree, edge=387)[
 
 
 
-#expperimenting with plotting bmr/mass for each section (not used)
+#experimenting with plotting bmr/mass for each section (not used)
 #root to 13
 {plot(nomiss, pch=21, bg=make.transparent('grey',0.5), lwd=0.5, bty='n', xlim=c(0, 17), ylim=c(-4.5, 12))
 x.lim<-range(nomiss[,1])
@@ -7907,4 +7817,156 @@ dev.off()
 
 #plot(l1ou_test$tree, cex=0.001)
 #edgelabels(edge=edges)
+
+
+##testing patterns of life history integration with mvMORPH/RPANDA
+
+require(RPANDA)
+require(mvMORPH)
+
+LHT.mvgls.bmm <-
+  mvgls(l1ou_test$Y ~ 1,
+        tree = simmap.janus.all.aggregate,
+        model = 'BMM',
+        error = T)
+
+LHT.mvgls.OU <-
+  mvgls(l1ou_test$Y ~ 1,
+        tree = simmap.janus.all.aggregate,
+        model = 'OU',
+        error = T)
+
+grps<-factor(getStates(simmap.janus.all.aggregate, type='tips'))
+dat.grp<-data.frame(l1ou_test$Y, groups=grps)
+LHT.mvgls.bmm.grp <-
+  mvgls(as.matrix(dat.grp[,1:8]) ~ groups, data=dat.grp,
+        tree = simmap.janus.all.aggregate,
+        model = 'BMM',
+        error = T, method='LL')
+
+manova.gls(LHT.mvgls.bmm.grp, type='III')
+
+glht.test.p<-pairwise.glh(LHT.mvgls.bmm.grp, verbose=F, term='groups', adjust='none', test='Pillai')
+glht.test.w<-pairwise.glh(LHT.mvgls.bmm.grp, verbose=F, term='groups', adjust='none', test='Wilks')
+
+create_distance_matrix(glht.test.p, param="pvalue")
+
+
+###
+grps<-factor(getStates(simmap.janus.nuc.aggregate.simplified, type='tips'))
+dat.grp<-data.frame(l1ou_test$Y, groups=grps)
+LHT.mvgls.bmm.grp <-
+  mvgls(as.matrix(dat.grp[,1:8]) ~ groups, data=dat.grp,
+        tree = simmap.janus.nuc.aggregate.simplified,
+        model = 'BM',
+        error = T, method='LL')
+
+manova.gls(LHT.mvgls.bmm.grp)
+
+glht.test.p<-pairwise.glh(LHT.mvgls.bmm.grp, verbose=F, term='groups', adjust='none', test='Pillai')
+glht.test.w<-pairwise.glh(LHT.mvgls.bmm.grp, verbose=F, term='groups', adjust='none', test='Wilks')
+
+pval.dist.p<-as.dist(create_distance_matrix(glht.test.p, param="pvalue"))
+stat.dist.p<-as.dist(create_distance_matrix(glht.test.p, param="stat"))
+pval.dist.w<-as.dist(create_distance_matrix(glht.test.w, param="pvalue"))
+stat.dist.w<-as.dist(create_distance_matrix(glht.test.w, param="stat"))
+
+
+require(qgraph)
+qgraph(stat.dist.p, vsize=10, minimum=0.1)
+
+qgraph(stat.dist.w, vsize=10)
+qgraph(pval.dist.p, vsize=10)
+
+
+##testing scOU models for theta
+errormat<-as.matrix(set_all_values(l1ou_test$Y, 0.1^2))
+
+LHT.mvBM.bmm <-
+  mvBM(data = l1ou_test$Y,
+       tree = simmap.janus.all.aggregate,
+       model = 'BMM', error=errormat)
+
+
+#fit the scOU model (eg. PhyloEM)
+#input data in this data frame are log transformed, scaled, and then imputed under mvBM
+#this means that the variances are not all 1 after imputation...hmm
+LHT.mvOU.OUM <-
+  mvOU(
+    data = l1ou_test$Y,
+    tree = simmap.janus.nuc.aggregate.simplified2,
+    model = 'OUM',
+    param = list(decomp = "equaldiagonal", root = "stationary")
+  )
+
+#saveRDS(LHT.mvOU.OUM, file='LHT.mvOU.OUM.RDS')
+LHT.mvOU.OUM<-readRDS('LHT.mvOU.OUM.RDS')
+
+qgraph(LHT.mvOU.OUM$sigma, graph='cor')
+qgraph(LHT.mvOU.OUM$sigma, graph='pcor')
+
+
+
+LHT.mvOU.OUM.error <-
+  mvOU(
+    data = l1ou_test$Y,
+    tree = simmap.janus.nuc.aggregate.simplified2,
+    model = 'OUM',
+    param = list(decomp = "equaldiagonal", root = "stationary"),
+    error=errormat
+  )
+
+#saveRDS(LHT.mvOU.OUM.error, file='LHT.mvOU.OUM.error.RDS')
+LHT.mvOU.OUM.error<-readRDS('LHT.mvOU.OUM.error.RDS')
+
+phylopars.data.mvOU<-phylopars.data[,c("species", "mass", "mean.clutch", "gen_length", "survival", "breeding","longevity", "chickPC1", "latitude")]
+rownames(phylopars.data.mvOU)<-phylopars.data.mvOU$species
+phylopars.data.mvOU$species<-NULL
+
+LHT.mvOU.OUM.missing<-
+  mvOU(
+    data = phylopars.data.mvOU ,
+    tree = simmap.janus.nuc.aggregate.simplified2,
+    model = 'OUM',
+    param = list(decomp = "equaldiagonal", root = "stationary")
+  )
+
+saveRDS(LHT.mvOU.OUM.missing, file='LHT.mvOU.OUM.missing.RDS')
+
+LHT.mvOU.OUM.missing.error<-
+  mvOU(
+    data = phylopars.data.mvOU,
+    tree = simmap.janus.nuc.aggregate.simplified2,
+    model = 'OUM',
+    param = list(decomp = "equaldiagonal", root = "stationary"),
+    error=errormat
+  )
+
+saveRDS(LHT.mvOU.OUM.missing.error, file='LHT.mvOU.OUM.missing.error.RDS')
+
+
+thetas<-do.call(cbind,
+lapply(colnames(LHT.mvOU.OUM.missing.error$theta), function(x) get_dup_thetas(tree=simmap.janus.nuc.aggregate.simplified2, fitted = LHT.mvOU.OUM.missing.error, trait=x)),
+)
+colnames(thetas)<-colnames(LHT.mvOU.OUM.missing.error$theta)
+
+thetas<-thetas[,rev(c('chickPC1', 'mass', 'mean.clutch', 'longevity', 'breeding', 'latitude', 'gen_length','survival'))]
+thetas.norm<-thetas/max(thetas,na.rm=TRUE)
+thetas.zeromin<-apply(thetas, 2, function(x) x-min(x))
+thetas.zeromin.norm<-thetas.zeromin/max(thetas.zeromin,na.rm=TRUE)
+
+thetas.pca<-phyl.pca(tree=simmap.janus.nuc.aggregate.simplified2, Y = thetas)
+thetas.pca.zeromin<-apply(thetas.pca$S, 2, function(x) x-min(x))
+thetas.norm<-thetas/max(thetas,na.rm=TRUE)
+
+require(phytools)
+require(plotrix)
+
+
+pdf(file='test.pdf', width=10, height=10)
+plot_phylo_with_bars(tree=simmap.janus.nuc.aggregate.simplified2, thetas.zeromin, mapcolors=setNames(rainbow(11), unique(getStates(simmap.janus.nuc.aggregate.simplified2, type = 'tips'))), part=0.5, colors=rev(RColorBrewer::brewer.pal(n=8,"Spectral")))
+dev.off()
+
+plot_phylo_with_bars(tree=simmap.janus.nuc.aggregate.simplified2, thetas.pca.zeromin[,c("PC1", "PC2")], mapcolors=setNames(rainbow(11), unique(getStates(simmap.janus.nuc.aggregate.simplified2, type = 'tips'))), part=0.5, colors=rev(RColorBrewer::brewer.pal(n=8,"Spectral")))
+phylo.heatmap(tree = simmap.janus.nuc.aggregate.simplified2, X = thetas.zeromin, standardize=F, legend=F, ftype='off')
 

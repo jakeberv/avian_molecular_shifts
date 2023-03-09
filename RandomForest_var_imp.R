@@ -10,7 +10,8 @@ library("themis")
 library('ape')
 library('phytools')
 library('vita')
-
+library('modelStudio')
+library('DALEX')
 
 #set up the input data and read in the files
 {
@@ -300,7 +301,24 @@ cm <- final_res %>%
   collect_predictions() %>%
   conf_mat(exon_models, .pred_class)
 
-
-
 autoplot(cm, type = "heatmap")
+
+
+#testing explainer
+
+explainer <- DALEXtra::explain_tidymodels(model = final_rf)
+
+
+explain_tidymodels(
+  extract_(final_rf)
+
+
+explainer<- DALEX::explain(model = final_rf,
+                           data = merged_test[,c(-1)],
+                           y = merged_test[,c(1)],
+                           label = 'rf')
+
+modelStudio::modelStudio(explainer)
+
+
 
