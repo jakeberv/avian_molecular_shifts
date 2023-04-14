@@ -1,0 +1,63 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:20 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 25;
+	TAXLABELS
+		Burhinus_oedicnemus_1
+		Calyptomena_viridis_1
+		Neodrepanis_coruscans_1
+		Rhynchocyclus_olivaceus_1
+		Tyrannus_albogularis_1
+		Schiffornis_turdina_1
+		Sclerurus_mexicanus_1
+		Turdus_olivater_1
+		Chunga_burmeisteri_1
+		Caracara_cheriway_1
+		Chroicocephalus_cirrocephalus_1
+		Falco_sparverius_1
+		Nestor_meridionalis_1
+		Probosciger_aterrimus_1
+		Pandion_haliaetus_1
+		Steatornis_caripensi_1
+		Indicator_exilis_1
+		Ramphastos_ambiguus_1
+		Dromaius_novaehollandiae_1
+		Eudromia_elegans_1
+		Fregata_magnificens_1
+		Nyctibius_griseus_1
+		Eurostopodus_macrotis_1
+		Hemiprocne_comata_1
+		Tringa_solitaria_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Burhinus_oedicnemus_1,
+		2	Calyptomena_viridis_1,
+		3	Neodrepanis_coruscans_1,
+		4	Rhynchocyclus_olivaceus_1,
+		5	Tyrannus_albogularis_1,
+		6	Schiffornis_turdina_1,
+		7	Sclerurus_mexicanus_1,
+		8	Turdus_olivater_1,
+		9	Chunga_burmeisteri_1,
+		10	Caracara_cheriway_1,
+		11	Chroicocephalus_cirrocephalus_1,
+		12	Falco_sparverius_1,
+		13	Nestor_meridionalis_1,
+		14	Probosciger_aterrimus_1,
+		15	Pandion_haliaetus_1,
+		16	Steatornis_caripensi_1,
+		17	Indicator_exilis_1,
+		18	Ramphastos_ambiguus_1,
+		19	Dromaius_novaehollandiae_1,
+		20	Eudromia_elegans_1,
+		21	Fregata_magnificens_1,
+		22	Nyctibius_griseus_1,
+		23	Eurostopodus_macrotis_1,
+		24	Hemiprocne_comata_1,
+		25	Tringa_solitaria_1
+	;
+	TREE * UNTITLED = [&U] (1:0.0409778982,(((2:0.0539584044,3:0.0565586424)95:0.0189837763,(((4:0.0226843232,5:0.0065681996)97:0.0026979892,6:0.0263928738)97:0.0286488408,7:0.0894266661)83:0.0046496807)83:0.009914975,8:0.1082310816)91:0.0813120643,9:0.0672953023,10:0.110684191,(11:2.281e-06,12:0.0858102931,((13:0.0165054103,14:0.0312319671)95:0.0148347446,15:0.0226997879)77:0.0281412177,16:0.0611875889)99:10.02162743,(17:0.0893801109,18:0.1948449951)95:0.1420012314,(19:0.0638472493,20:0.1315216456)88:0.1782771908,21:0.064937359,22:0.0652467553,23:0.0615995854,24:0.1072292462,25:0.1482739085);
+END;

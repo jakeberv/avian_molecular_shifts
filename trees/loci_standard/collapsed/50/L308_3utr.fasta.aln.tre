@@ -1,0 +1,65 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:03 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 26;
+	TAXLABELS
+		Anseranas_semipalmata_1
+		Atelornis_pittoides_1
+		Rallus_longirostris_1
+		Centropus_bengalensis_1
+		Coracias_cyanogaster_1
+		Chaetura_brachyura_1
+		Hemiprocne_comata_1
+		Streptoprocne_zonaris_1
+		Columbina_minuta_1
+		Ptilinopus_magnificus_1
+		Calyptomena_viridis_1
+		Eurylaimus_ochromalus_1
+		Neodrepanis_coruscans_1
+		Pitta_angolensis_1
+		Monias_benschi_1
+		Coccyzus_melacoryphus_1
+		Tockus_camurus_1
+		Bonasa_umbellus_1
+		Rollulus_rouloul_1
+		Climacteris_melanura_1
+		Numida_malagris_1
+		Colinus_cristatus_1
+		Odontophorus_gujanensis_1
+		Leipoa_ocellata_1
+		Oxyura_jamaicensis_1
+		Casuarius_bennetti_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Anseranas_semipalmata_1,
+		2	Atelornis_pittoides_1,
+		3	Rallus_longirostris_1,
+		4	Centropus_bengalensis_1,
+		5	Coracias_cyanogaster_1,
+		6	Chaetura_brachyura_1,
+		7	Hemiprocne_comata_1,
+		8	Streptoprocne_zonaris_1,
+		9	Columbina_minuta_1,
+		10	Ptilinopus_magnificus_1,
+		11	Calyptomena_viridis_1,
+		12	Eurylaimus_ochromalus_1,
+		13	Neodrepanis_coruscans_1,
+		14	Pitta_angolensis_1,
+		15	Monias_benschi_1,
+		16	Coccyzus_melacoryphus_1,
+		17	Tockus_camurus_1,
+		18	Bonasa_umbellus_1,
+		19	Rollulus_rouloul_1,
+		20	Climacteris_melanura_1,
+		21	Numida_malagris_1,
+		22	Colinus_cristatus_1,
+		23	Odontophorus_gujanensis_1,
+		24	Leipoa_ocellata_1,
+		25	Oxyura_jamaicensis_1,
+		26	Casuarius_bennetti_1
+	;
+	TREE * UNTITLED = [&U] (1:0.0478668767,(((((2:2.7718e-06,3:0.0507563714)51:0.0294907998,4:0.1062710521)79:0.0448149019,5:0.0284308334)77:0.0948448728,(6:0.0196286148,(7:0.0536975684,8:0.020746901)71:0.0103070084)73:0.1172502553,(9:0.0362087496,10:0.0355631298)95:0.1445723521,(((11:0.0276495789,12:2.0329e-06)85:0.0236429802,13:0.0350323277)89:0.0149693741,14:0.0244635858)89:0.1049082794,15:0.1032955899,16:0.1195092847,17:0.0533612804)64:0.042517136,((18:0.0751222591,19:0.1076321073,20:4.715108295,21:0.0212485151,(22:0.0393210254,23:0.0184996433)92:0.0300376045)54:0.0501393624,24:0.0181948862)62:0.0860381269,25:0.0534434058)60:0.0257163169,26:0.0887602955);
+END;

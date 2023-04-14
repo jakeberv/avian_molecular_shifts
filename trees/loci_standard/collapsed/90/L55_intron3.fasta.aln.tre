@@ -1,0 +1,63 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:51 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 25;
+	TAXLABELS
+		Acanthisitta_chloris_1
+		Bucco_capensis_1
+		Tockus_camurus_1
+		Psophia_crepitans_1
+		Chauna_torquata_1
+		Glareola_nuchalis_1
+		Uria_aalge_1
+		Calandrella_brachydactyla_1
+		Columba_livia_1
+		Phoeniculus_purpureus_1
+		Cariama_cristata_1
+		Corythaeola_cristata_1
+		Grus_canadensis_1
+		Leptoptilos_crumeniferus_1
+		Hirundinea_ferruginea_1
+		Regulus_ignicapilla_1
+		Ibycter_americanus_1
+		Ixobrychus_minutus_1
+		Phoebastria_nigripes_1
+		Pipra_erythrocephala_1
+		Tigrisoma_lineatum_1
+		Rynchops_niger_1
+		Momotus_lessonii_1
+		Upupa_epops_1
+		Struthio_camelus_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Acanthisitta_chloris_1,
+		2	Bucco_capensis_1,
+		3	Tockus_camurus_1,
+		4	Psophia_crepitans_1,
+		5	Chauna_torquata_1,
+		6	Glareola_nuchalis_1,
+		7	Uria_aalge_1,
+		8	Calandrella_brachydactyla_1,
+		9	Columba_livia_1,
+		10	Phoeniculus_purpureus_1,
+		11	Cariama_cristata_1,
+		12	Corythaeola_cristata_1,
+		13	Grus_canadensis_1,
+		14	Leptoptilos_crumeniferus_1,
+		15	Hirundinea_ferruginea_1,
+		16	Regulus_ignicapilla_1,
+		17	Ibycter_americanus_1,
+		18	Ixobrychus_minutus_1,
+		19	Phoebastria_nigripes_1,
+		20	Pipra_erythrocephala_1,
+		21	Tigrisoma_lineatum_1,
+		22	Rynchops_niger_1,
+		23	Momotus_lessonii_1,
+		24	Upupa_epops_1,
+		25	Struthio_camelus_1
+	;
+	TREE * UNTITLED = [&U] (1:2.4471e-06,(2:0.0489008776,3:0.012158036)97:0.9157431506,4:0.8954957797,5:1.759511613,6:1.299745015,7:1.175083728,8:1.79771631,9:1.157342402,10:0.8533788952,11:0.9367759486,12:0.9917368697,13:1.365902326,14:1.596408962,15:1.196646182,16:0.7680606926,17:1.101765571,18:1.476836395,19:0.5736791254,20:0.9122512201,21:0.391758006,22:0.5148335054,23:0.5503047772,24:1.027232837,25:0.468700515);
+END;

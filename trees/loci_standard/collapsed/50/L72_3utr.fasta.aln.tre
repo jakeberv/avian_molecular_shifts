@@ -1,0 +1,57 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:11 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 22;
+	TAXLABELS
+		Acanthisitta_chloris_1
+		Archilochus_colubris_1
+		Bonasa_umbellus_1
+		Numida_malagris_1
+		Rollulus_rouloul_1
+		Picus_canus_1
+		Chordeiles_pusillus_1
+		Heliornis_fulica_1
+		Nyctibius_griseus_1
+		Gavia_immer_1
+		Psittacus_erithacus_1
+		Glareola_nuchalis_1
+		Chunga_burmeisteri_1
+		Columba_livia_1
+		Columbina_minuta_1
+		Climacteris_melanura_1
+		Sericulus_bakeri_1
+		Fringilla_coelebs_1
+		Spizella_arborea_1
+		Turdus_olivater_1
+		Smithornis_rufolateralis_1
+		Thamnophilus_ruficapillu_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Acanthisitta_chloris_1,
+		2	Archilochus_colubris_1,
+		3	Bonasa_umbellus_1,
+		4	Numida_malagris_1,
+		5	Rollulus_rouloul_1,
+		6	Picus_canus_1,
+		7	Chordeiles_pusillus_1,
+		8	Heliornis_fulica_1,
+		9	Nyctibius_griseus_1,
+		10	Gavia_immer_1,
+		11	Psittacus_erithacus_1,
+		12	Glareola_nuchalis_1,
+		13	Chunga_burmeisteri_1,
+		14	Columba_livia_1,
+		15	Columbina_minuta_1,
+		16	Climacteris_melanura_1,
+		17	Sericulus_bakeri_1,
+		18	Fringilla_coelebs_1,
+		19	Spizella_arborea_1,
+		20	Turdus_olivater_1,
+		21	Smithornis_rufolateralis_1,
+		22	Thamnophilus_ruficapillu_1
+	;
+	TREE * UNTITLED = [&U] (1:0.1013156145,(2:0.1167498285,(3:0.0521193076,(4:0.051001932,5:0.0879469929)75:0.0015307333)100:0.1102435888,6:0.1144436542,(7:0.0631256923,8:0.099654246)68:0.0310983865,9:0.0474626241,(10:0.0374207828,11:0.125570199)68:0.0143142487,12:0.040926689,13:0.0514094273,(14:0.0333458768,15:0.0490895853)96:0.0594747716)100:0.0572777168,((16:0.0623767471,17:0.0609996261)63:0.001792588,((18:0.0317484573,19:0.0158973824)92:0.0234366718,20:0.0642983532)72:0.0106941261)99:0.0462147443,21:0.059005905,22:0.0596393289);
+END;

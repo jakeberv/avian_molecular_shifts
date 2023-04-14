@@ -1,0 +1,67 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:43:56 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 27;
+	TAXLABELS
+		Aramus_guarauna_1
+		Barnardius_zonarius_1
+		Hymenops_perspicillatus_1
+		Rupicola_rupicola_1
+		Pelecanoides_urinatrix_1
+		Cariama_cristata_1
+		Elaenia_flavogaster_1
+		Tyrannus_albogularis_1
+		Psophia_crepitans_1
+		Syrrhaptes_paradoxus_1
+		Glareola_nuchalis_1
+		Picus_canus_1
+		Probosciger_aterrimus_1
+		Treron_calvus_1
+		Uria_aalge_1
+		Spheniscus_humboldti_1
+		Colius_colius_1
+		Pandion_haliaetus_1
+		Micrastur_gilvicollis_1
+		Elanus_leucurus_1
+		Menura_novaehollandiae_1
+		Nyctibius_griseus_1
+		Fregata_magnificens_1
+		Myiobius_barbatus_1
+		Tityra_cayana_1
+		Podargus_strigoides_1
+		Bucorvus_leadbeateri_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Aramus_guarauna_1,
+		2	Barnardius_zonarius_1,
+		3	Hymenops_perspicillatus_1,
+		4	Rupicola_rupicola_1,
+		5	Pelecanoides_urinatrix_1,
+		6	Cariama_cristata_1,
+		7	Elaenia_flavogaster_1,
+		8	Tyrannus_albogularis_1,
+		9	Psophia_crepitans_1,
+		10	Syrrhaptes_paradoxus_1,
+		11	Glareola_nuchalis_1,
+		12	Picus_canus_1,
+		13	Probosciger_aterrimus_1,
+		14	Treron_calvus_1,
+		15	Uria_aalge_1,
+		16	Spheniscus_humboldti_1,
+		17	Colius_colius_1,
+		18	Pandion_haliaetus_1,
+		19	Micrastur_gilvicollis_1,
+		20	Elanus_leucurus_1,
+		21	Menura_novaehollandiae_1,
+		22	Nyctibius_griseus_1,
+		23	Fregata_magnificens_1,
+		24	Myiobius_barbatus_1,
+		25	Tityra_cayana_1,
+		26	Podargus_strigoides_1,
+		27	Bucorvus_leadbeateri_1
+	;
+	TREE * UNTITLED = [&U] (1:0.2685447682,(((2:0.0843736539,(3:0.1016353021,4:0.0363547387)100:0.2701533166)97:0.0666189896,5:0.1796882712)79:0.1247323694,(6:0.1691962378,(7:0.0505984111,8:0.0086750833)100:0.1823406998)99:0.2454600637,9:0.4552179704,10:0.3475341549,11:0.3149233093,12:0.3122429684,(13:0.033247245,14:0.1603665034)92:0.0836125357,15:0.1593884954,16:0.4426288487,(((17:0.1391979594,18:0.0804147808)58:0.0765395613,19:0.1677410645,20:0.2706501305,21:0.3796397475,22:0.1176011131,23:0.2078683047)61:0.0693700772,(24:0.0242185291,25:0.0380590694)100:0.2452936858,26:0.1854563971)56:0.0240072703)51:0.1042542441,27:0.093836335);
+END;

@@ -1,0 +1,77 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:43:54 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 32;
+	TAXLABELS
+		Acanthisitta_chloris_1
+		Anas_superciliosa_1
+		Anser_canagicus_1
+		Aythya_valisineria_1
+		Crax_alector_1
+		Leipoa_ocellata_1
+		Todus_mexicanus_1
+		Atelornis_pittoides_1
+		Jacana_jacana_1
+		Casuarius_bennetti_1
+		Buccanodon_duchaillui_1
+		Capito_niger_1
+		Ramphastos_ambiguus_1
+		Picus_canus_1
+		Treron_calvus_1
+		Galbula_dea_1
+		Calyptomena_viridis_1
+		Eurylaimus_ochromalus_1
+		Pitta_angolensis_1
+		Smithornis_rufolateralis_1
+		Cryptopipo_aenigma_1
+		Neopelma_chrysocephalum_1
+		Myiobius_barbatus_1
+		Schiffornis_turdina_1
+		Rupicola_rupicola_1
+		Elaenia_flavogaster_1
+		Menura_novaehollandiae_1
+		Calandrella_brachydactyla_1
+		Pycnonotus_macrotis_1
+		Climacteris_melanura_1
+		Corvus_albus_1
+		Ptilonorhynchus_violaceus_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Acanthisitta_chloris_1,
+		2	Anas_superciliosa_1,
+		3	Anser_canagicus_1,
+		4	Aythya_valisineria_1,
+		5	Crax_alector_1,
+		6	Leipoa_ocellata_1,
+		7	Todus_mexicanus_1,
+		8	Atelornis_pittoides_1,
+		9	Jacana_jacana_1,
+		10	Casuarius_bennetti_1,
+		11	Buccanodon_duchaillui_1,
+		12	Capito_niger_1,
+		13	Ramphastos_ambiguus_1,
+		14	Picus_canus_1,
+		15	Treron_calvus_1,
+		16	Galbula_dea_1,
+		17	Calyptomena_viridis_1,
+		18	Eurylaimus_ochromalus_1,
+		19	Pitta_angolensis_1,
+		20	Smithornis_rufolateralis_1,
+		21	Cryptopipo_aenigma_1,
+		22	Neopelma_chrysocephalum_1,
+		23	Myiobius_barbatus_1,
+		24	Schiffornis_turdina_1,
+		25	Rupicola_rupicola_1,
+		26	Elaenia_flavogaster_1,
+		27	Menura_novaehollandiae_1,
+		28	Calandrella_brachydactyla_1,
+		29	Pycnonotus_macrotis_1,
+		30	Climacteris_melanura_1,
+		31	Corvus_albus_1,
+		32	Ptilonorhynchus_violaceus_1
+	;
+	TREE * UNTITLED = [&U] (1:0.0583510814,(((((((2:0.0047503508,(3:0.0456032865,4:1e-06)99:0.0107323726)100:0.0676159301,(5:0.0666719365,6:0.0795219769)95:0.0258573375)89:0.0557415059,7:0.0992496483)66:0.0381892812,8:0.0540698733,9:0.1341705414)69:0.0071961084,10:0.1363920588)82:0.0148992036,((11:0.0789691169,(12:0.0204453334,13:0.0273894511)80:0.0345364301,14:0.1404781043,15:0.34116711)88:0.1275835949,16:0.060262331)54:0.0346541091)91:0.0858401547,(17:0.0531926892,18:0.0601227385,19:0.2510894527,20:2e-06)92:0.0364793764,((((21:2.3287e-06,22:0.0524099853)80:0.0693124054,((23:0.0766321799,24:0.0334271911)72:0.0194528631,25:0.0486043936)66:0.0142362072)57:0.0118015201,26:0.0853787919)66:0.0526206587,27:0.2024452364)62:0.011256031)66:0.0178159436,((((28:0.1296079051,29:0.0472065567)99:0.0764016757,30:0.0898057535)91:0.0518683535,31:0.0329746662)94:0.0947289887,32:0.0709837126)82:0.0592707806);
+END;

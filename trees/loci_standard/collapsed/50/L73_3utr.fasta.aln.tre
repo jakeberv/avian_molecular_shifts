@@ -1,0 +1,97 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:11 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 42;
+	TAXLABELS
+		Acanthisitta_chloris_1
+		Anhinga_anhinga_1
+		Coracias_cyanogaster_1
+		Gallus_gallus_1
+		Odontophorus_gujanensis_1
+		Coccyzus_melacoryphus_1
+		Galbula_dea_1
+		Apaloderma_aequatoriale_1
+		Eudromia_elegans_1
+		Nothoprocta_ornata_1
+		Struthio_camelus_1
+		Fulmarus_glacialoides_1
+		Burhinus_oedicnemus_1
+		Chelidoptera_tenebrosa_1
+		Ptilinopus_magnificus_1
+		Nestor_meridionalis_1
+		Psittacus_erithacus_1
+		Rollandia_rolland_1
+		Falco_sparverius_1
+		Jacana_jacana_1
+		Glareola_nuchalis_1
+		Porphyrio_porphyrio_1
+		Leipoa_ocellata_1
+		Chunga_burmeisteri_1
+		Caracara_cheriway_1
+		Jynx_torquilla_1
+		Ramphastos_ambiguus_1
+		Todus_mexicanus_1
+		Ardea_herodias_1
+		Haematopus_palliatus_1
+		Nyctibius_griseus_1
+		Calandrella_brachydactyla_1
+		Climacteris_melanura_1
+		Sericulus_bakeri_1
+		Menura_novaehollandiae_1
+		Elaenia_flavogaster_1
+		Furnarius_rufus_1
+		Sclerurus_mexicanus_1
+		Hirundinea_ferruginea_1
+		Tyrannus_albogularis_1
+		Pitta_angolensis_1
+		Smithornis_rufolateralis_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Acanthisitta_chloris_1,
+		2	Anhinga_anhinga_1,
+		3	Coracias_cyanogaster_1,
+		4	Gallus_gallus_1,
+		5	Odontophorus_gujanensis_1,
+		6	Coccyzus_melacoryphus_1,
+		7	Galbula_dea_1,
+		8	Apaloderma_aequatoriale_1,
+		9	Eudromia_elegans_1,
+		10	Nothoprocta_ornata_1,
+		11	Struthio_camelus_1,
+		12	Fulmarus_glacialoides_1,
+		13	Burhinus_oedicnemus_1,
+		14	Chelidoptera_tenebrosa_1,
+		15	Ptilinopus_magnificus_1,
+		16	Nestor_meridionalis_1,
+		17	Psittacus_erithacus_1,
+		18	Rollandia_rolland_1,
+		19	Falco_sparverius_1,
+		20	Jacana_jacana_1,
+		21	Glareola_nuchalis_1,
+		22	Porphyrio_porphyrio_1,
+		23	Leipoa_ocellata_1,
+		24	Chunga_burmeisteri_1,
+		25	Caracara_cheriway_1,
+		26	Jynx_torquilla_1,
+		27	Ramphastos_ambiguus_1,
+		28	Todus_mexicanus_1,
+		29	Ardea_herodias_1,
+		30	Haematopus_palliatus_1,
+		31	Nyctibius_griseus_1,
+		32	Calandrella_brachydactyla_1,
+		33	Climacteris_melanura_1,
+		34	Sericulus_bakeri_1,
+		35	Menura_novaehollandiae_1,
+		36	Elaenia_flavogaster_1,
+		37	Furnarius_rufus_1,
+		38	Sclerurus_mexicanus_1,
+		39	Hirundinea_ferruginea_1,
+		40	Tyrannus_albogularis_1,
+		41	Pitta_angolensis_1,
+		42	Smithornis_rufolateralis_1
+	;
+	TREE * UNTITLED = [&U] (1:0.0263539708,(((2:0.0211997454,3:0.0649435145)79:0.0104070259,(4:2.6546e-06,5:0.1322112202)57:0.0723470788,(6:0.0890276119,7:0.1672077032)51:0.0151726863,8:0.0742331274,((9:0.0119403743,10:0.056871704)99:0.0780202838,11:0.001573384)95:0.1598577805,12:0.0254908224,13:0.0154696316,(14:0.0780746194,15:0.2254028024)72:0.2678753228,16:0.073965033,17:0.0744003952,18:1.2084e-05,(19:0.0519143955,20:0.0230745205)78:0.0640348597,(21:0.0412108682,22:0.0474797432)52:0.0154213021,23:0.0154174457,24:0.0483094719,(25:0.0522114074,((26:0.0275217679,27:0.0682730621)77:0.0483823123,28:0.079303268)54:2.1277e-06)55:0.0217177505)62:2.4483e-06,((29:2.3552e-06,30:0.0426275739)88:0.0102399698,31:0.0316822366)83:0.0205892832)93:0.0253037526,((((32:0.0148082604,33:0.0717195446)95:0.0075695623,34:0.0321806985)91:0.0064552261,35:0.0459155223)92:0.0225244302,((36:0.0173771739,(37:0.0312330958,38:0.0189150787)91:0.0154676919,39:8.5535e-06,40:0.0174196108)78:0.019244851,41:0.0734616271,42:0.0808519848)87:0.0125694215)71:2.3671e-06);
+END;

@@ -1,0 +1,115 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:31 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 51;
+	TAXLABELS
+		Aegotheles_insignis_1
+		Chroicocephalus_cirrocephalus_1
+		Uria_aalge_1
+		Sterna_hirundo_1
+		Arenaria_interpres_1
+		Mesitornis_unicolor_1
+		Scopus_umbretta_1
+		Pandion_haliaetus_1
+		Elanus_leucurus_1
+		Merops_muelleri_1
+		Spheniscus_humboldti_1
+		Oceanodroma_leucorhoa_1
+		Hemiprocne_comata_1
+		Topaza_pella_1
+		Pelagodroma_marina_1
+		Fregata_magnificens_1
+		Grus_canadensis_1
+		Ixobrychus_minutus_1
+		Tigrisoma_lineatum_1
+		Rallus_longirostris_1
+		Capito_niger_1
+		Terenura_callinota_1
+		Myrmornis_torquata_1
+		Myrmothera_campanisona_1
+		Furnarius_rufus_1
+		Lepidocolaptes_angustirostr_1
+		Tityra_cayana_1
+		Oxyruncus_cristatus_1
+		Myiobius_barbatus_1
+		Tyto_alba_1
+		Phoeniculus_purpureus_1
+		Bucorvus_leadbeateri_1
+		Strix_varia_1
+		Deroptyus_accipitrinus_1
+		Apaloderma_aequatoriale_1
+		Eurylaimus_ochromalus_1
+		Calyptomena_viridis_1
+		Vultur_gryphus_1
+		Micrastur_gilvicollis_1
+		Leptosomus_discolor_1
+		Crypturellus_tataupa_1
+		Tinamus_major_1
+		Nothoprocta_ornata_1
+		Apteryx_sp._1
+		Dromaius_novaehollandiae_1
+		Leipoa_ocellata_1
+		Dendrocygna_viduata_1
+		Malurus_splendens_1
+		Puffinus_griseus_1
+		Pelecanoides_urinatrix_1
+		Pterodroma_externa_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Aegotheles_insignis_1,
+		2	Chroicocephalus_cirrocephalus_1,
+		3	Uria_aalge_1,
+		4	Sterna_hirundo_1,
+		5	Arenaria_interpres_1,
+		6	Mesitornis_unicolor_1,
+		7	Scopus_umbretta_1,
+		8	Pandion_haliaetus_1,
+		9	Elanus_leucurus_1,
+		10	Merops_muelleri_1,
+		11	Spheniscus_humboldti_1,
+		12	Oceanodroma_leucorhoa_1,
+		13	Hemiprocne_comata_1,
+		14	Topaza_pella_1,
+		15	Pelagodroma_marina_1,
+		16	Fregata_magnificens_1,
+		17	Grus_canadensis_1,
+		18	Ixobrychus_minutus_1,
+		19	Tigrisoma_lineatum_1,
+		20	Rallus_longirostris_1,
+		21	Capito_niger_1,
+		22	Terenura_callinota_1,
+		23	Myrmornis_torquata_1,
+		24	Myrmothera_campanisona_1,
+		25	Furnarius_rufus_1,
+		26	Lepidocolaptes_angustirostr_1,
+		27	Tityra_cayana_1,
+		28	Oxyruncus_cristatus_1,
+		29	Myiobius_barbatus_1,
+		30	Tyto_alba_1,
+		31	Phoeniculus_purpureus_1,
+		32	Bucorvus_leadbeateri_1,
+		33	Strix_varia_1,
+		34	Deroptyus_accipitrinus_1,
+		35	Apaloderma_aequatoriale_1,
+		36	Eurylaimus_ochromalus_1,
+		37	Calyptomena_viridis_1,
+		38	Vultur_gryphus_1,
+		39	Micrastur_gilvicollis_1,
+		40	Leptosomus_discolor_1,
+		41	Crypturellus_tataupa_1,
+		42	Tinamus_major_1,
+		43	Nothoprocta_ornata_1,
+		44	Apteryx_sp._1,
+		45	Dromaius_novaehollandiae_1,
+		46	Leipoa_ocellata_1,
+		47	Dendrocygna_viduata_1,
+		48	Malurus_splendens_1,
+		49	Puffinus_griseus_1,
+		50	Pelecanoides_urinatrix_1,
+		51	Pterodroma_externa_1
+	;
+	TREE * UNTITLED = [&U] (1:0.0267192855,((2:0.0102956046,3:0.0150385321,4:0.0191423013)100:0.0153458773,5:0.0110234456)93:0.0167521846,6:0.0472654994,7:0.0167761873,(8:0.0024659724,9:0.0326528681)84:0.0207117258,10:0.0780316999,11:0.0189632632,12:0.0232413563,13:0.0321232066,14:0.0667324307,15:0.0441233889,16:0.0211925124,17:0.0105472491,(18:0.0062114751,19:0.0178054108)100:0.0176220023,20:0.0308970827,21:0.0629795681,((22:0.0153695188,23:0.0174850455)99:0.0101996139,(24:0.0327384603,(25:0.0170077773,26:2.0171e-06)100:0.0183183842)97:0.0013458846)97:0.0246574371,(27:0.0241964982,28:0.024161965,29:0.0154243891)79:0.0212461979,30:0.0327220744,31:0.0953758412,32:0.0563934669,33:0.0322154146,34:0.062261708,35:0.0578415936,((36:0.0246416377,37:0.0261666285)92:0.0164933392,38:2.8003e-06)90:0.0191273434,39:0.0370858734,40:0.0353721631,((((41:0.0141061259,42:0.0242266107)100:0.0032429957,43:0.032732789)99:0.0079365526,(44:0.0163770351,45:0.0120908998)98:0.0074892096)100:0.0189836308,(46:0.0432429942,47:0.0458522283)92:0.0069835478)80:0.0105636348,48:0.0449920664,((49:0.0085484029,50:0.0106492738)99:0.0020198166,51:0.0086663134)99:0.0128362398);
+END;

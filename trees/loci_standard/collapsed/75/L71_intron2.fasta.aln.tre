@@ -1,0 +1,173 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:32 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 80;
+	TAXLABELS
+		Accipiter_superciliosus_1
+		Anas_superciliosa_1
+		Oxyura_jamaicensis_1
+		Dendrocygna_viduata_1
+		Anseranas_semipalmata_1
+		Bonasa_umbellus_1
+		Colinus_cristatus_1
+		Numida_malagris_1
+		Crax_alector_1
+		Ortalis_motmot_1
+		Leipoa_ocellata_1
+		Apteryx_sp._1
+		Rhea_americana_1
+		Crypturellus_tataupa_1
+		Tinamus_major_1
+		Casuarius_bennetti_1
+		Psophia_crepitans_1
+		Corythaeola_cristata_1
+		Archilochus_colubris_1
+		Phaethornis_superciliosus_1
+		Topaza_pella_1
+		Chaetura_brachyura_1
+		Hemiprocne_comata_1
+		Caprimulgus_europaeus_1
+		Pterocles_bicinctus_1
+		Syrrhaptes_paradoxus_1
+		Centropus_bengalensis_1
+		Cuculus_optatus_1
+		Gavia_immer_1
+		Strix_varia_1
+		Nestor_meridionalis_1
+		Probosciger_aterrimus_1
+		Nyctibius_griseus_1
+		Rollandia_rolland_1
+		Aythya_valisineria_1
+		Steatornis_caripensi_1
+		Buccanodon_duchaillui_1
+		Capito_niger_1
+		Recurvirostra_americana_1
+		Leptosomus_discolor_1
+		Pelecanoides_urinatrix_1
+		Turnix_ocellata_1
+		Momotus_lessonii_1
+		Rallus_longirostris_1
+		Todus_mexicanus_1
+		Ciconia_nigra_1
+		Cathartes_burrovianus_1
+		Vultur_gryphus_1
+		Chroicocephalus_cirrocephalus_1
+		Sterna_hirundo_1
+		Fregata_magnificens_1
+		Scopus_umbretta_1
+		Climacteris_melanura_1
+		Malurus_splendens_1
+		Pycnonotus_macrotis_1
+		Turdus_olivater_1
+		Corvus_albus_1
+		Lophorina_superba_1
+		Cryptopipo_aenigma_1
+		Myiobius_barbatus_1
+		Tityra_cayana_1
+		Piprites_chloris_1
+		Oxyruncus_cristatus_1
+		Myrmornis_torquata_1
+		Terenura_callinota_1
+		Eurylaimus_ochromalus_1
+		Glareola_nuchalis_1
+		Colius_colius_1
+		Opisthocomus_hoazin_1
+		Pterodroma_externa_1
+		Balaeniceps_rex_1
+		Eurypyga_helias_1
+		Mesitornis_unicolor_1
+		Monias_benschi_1
+		Columba_livia_1
+		Leptotila_rufaxilla_1
+		Theristicus_caerulescens_1
+		Phoeniculus_purpureus_1
+		Sagittarius_serpentarius_1
+		Pandion_haliaetus_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Accipiter_superciliosus_1,
+		2	Anas_superciliosa_1,
+		3	Oxyura_jamaicensis_1,
+		4	Dendrocygna_viduata_1,
+		5	Anseranas_semipalmata_1,
+		6	Bonasa_umbellus_1,
+		7	Colinus_cristatus_1,
+		8	Numida_malagris_1,
+		9	Crax_alector_1,
+		10	Ortalis_motmot_1,
+		11	Leipoa_ocellata_1,
+		12	Apteryx_sp._1,
+		13	Rhea_americana_1,
+		14	Crypturellus_tataupa_1,
+		15	Tinamus_major_1,
+		16	Casuarius_bennetti_1,
+		17	Psophia_crepitans_1,
+		18	Corythaeola_cristata_1,
+		19	Archilochus_colubris_1,
+		20	Phaethornis_superciliosus_1,
+		21	Topaza_pella_1,
+		22	Chaetura_brachyura_1,
+		23	Hemiprocne_comata_1,
+		24	Caprimulgus_europaeus_1,
+		25	Pterocles_bicinctus_1,
+		26	Syrrhaptes_paradoxus_1,
+		27	Centropus_bengalensis_1,
+		28	Cuculus_optatus_1,
+		29	Gavia_immer_1,
+		30	Strix_varia_1,
+		31	Nestor_meridionalis_1,
+		32	Probosciger_aterrimus_1,
+		33	Nyctibius_griseus_1,
+		34	Rollandia_rolland_1,
+		35	Aythya_valisineria_1,
+		36	Steatornis_caripensi_1,
+		37	Buccanodon_duchaillui_1,
+		38	Capito_niger_1,
+		39	Recurvirostra_americana_1,
+		40	Leptosomus_discolor_1,
+		41	Pelecanoides_urinatrix_1,
+		42	Turnix_ocellata_1,
+		43	Momotus_lessonii_1,
+		44	Rallus_longirostris_1,
+		45	Todus_mexicanus_1,
+		46	Ciconia_nigra_1,
+		47	Cathartes_burrovianus_1,
+		48	Vultur_gryphus_1,
+		49	Chroicocephalus_cirrocephalus_1,
+		50	Sterna_hirundo_1,
+		51	Fregata_magnificens_1,
+		52	Scopus_umbretta_1,
+		53	Climacteris_melanura_1,
+		54	Malurus_splendens_1,
+		55	Pycnonotus_macrotis_1,
+		56	Turdus_olivater_1,
+		57	Corvus_albus_1,
+		58	Lophorina_superba_1,
+		59	Cryptopipo_aenigma_1,
+		60	Myiobius_barbatus_1,
+		61	Tityra_cayana_1,
+		62	Piprites_chloris_1,
+		63	Oxyruncus_cristatus_1,
+		64	Myrmornis_torquata_1,
+		65	Terenura_callinota_1,
+		66	Eurylaimus_ochromalus_1,
+		67	Glareola_nuchalis_1,
+		68	Colius_colius_1,
+		69	Opisthocomus_hoazin_1,
+		70	Pterodroma_externa_1,
+		71	Balaeniceps_rex_1,
+		72	Eurypyga_helias_1,
+		73	Mesitornis_unicolor_1,
+		74	Monias_benschi_1,
+		75	Columba_livia_1,
+		76	Leptotila_rufaxilla_1,
+		77	Theristicus_caerulescens_1,
+		78	Phoeniculus_purpureus_1,
+		79	Sagittarius_serpentarius_1,
+		80	Pandion_haliaetus_1
+	;
+	TREE * UNTITLED = [&U] (1:0.0399676926,((((((((2:0.0241214023,3:0.0318669853)83:0.0156737876,4:2.4415e-06)98:0.0320263218,5:0.0150248811)94:0.0157383822,((6:0.061943667,7:0.0958581139)79:0.0365081157,8:0.0672784041,(9:2.5827e-06,10:0.0081944727)100:0.0993362019,11:0.0804049988)87:0.0085997517)100:0.0327413778,(((12:0.0382450744,13:0.0472164683)98:0.0083343479,(14:0.025031513,15:0.0533147981)99:0.0380955089)98:0.0206889399,16:0.0208128025)100:0.0790840401)78:0.0149311141,17:0.0591093547)75:0.0306864622,18:0.0401542001,(((19:0.0261677879,20:0.0315705773)81:0.0025702841,21:0.0213617598)100:0.0783068757,(22:0.0340924785,23:0.0318746406)99:0.0408343334)80:0.0318037302,24:0.072038883,(25:0.006196737,26:0.0591153983)78:0.0777440086,(27:0.1476641812,28:0.0783804797)98:0.0689350189,(29:0.0157979225,30:0.0293600884)88:0.0259221319,((31:0.0566545919,32:0.01365791)100:0.0516270699,33:0.0398906021)83:0.0318327425,34:0.0485507897,(35:1.0032e-06,36:1.0032e-06)83:0.0336347693,(37:0.0696687487,38:0.0775798887)98:0.1151159636,39:0.0557825828,40:0.0402197817,(41:0.0119609898,42:0.0793370731)79:0.0289870696,43:0.0668414141,44:0.0924951045,45:0.116046192,46:0.0493697262,((47:0.0152943785,48:2.8576e-06)92:0.007583079,49:0.007575172,50:0.0153555101)81:0.016812848,51:0.0170519576,52:0.0516530226,(53:0.074068624,54:0.1172849322,(55:0.0156071007,56:0.0153665815)99:0.0449795958,(57:0.0159959878,58:0.0322495448)96:0.0184026027,((59:0.0075836079,(60:0.0234947345,61:0.0315344755)93:0.007272458,62:0.0152001136,63:0.0075433641)97:0.0235060646,(64:0.053721976,65:0.0156531032)98:0.0313430748,66:0.095472027)99:0.04602957)99:0.0568747145,67:0.0402283969,68:0.1573651884,69:0.0473791534,70:0.0169074873,71:0.0330635381,72:0.0979270998,(73:0.0153014728,74:2.0134e-06)100:0.0552194352,(75:0.013652481,76:0.0265836633)98:0.0782386002,77:0.0168286906,78:0.1227232583)87:0.0058621105,79:0.0309263193)99:0.0070986358,80:0.0156023738);
+END;

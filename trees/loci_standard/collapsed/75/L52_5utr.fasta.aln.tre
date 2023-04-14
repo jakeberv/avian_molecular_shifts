@@ -1,0 +1,89 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:31 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 38;
+	TAXLABELS
+		Aegotheles_insignis_1
+		Aramus_guarauna_1
+		Falco_sparverius_1
+		Porphyrio_porphyrio_1
+		Jacana_jacana_1
+		Glareola_nuchalis_1
+		Galbula_dea_1
+		Upupa_epops_1
+		Jynx_torquilla_1
+		Picus_canus_1
+		Megalaima_chrysopogon_1
+		Ramphastos_ambiguus_1
+		Nyctibius_griseus_1
+		Heliornis_fulica_1
+		Oceanites_oceanicus_1
+		Melanopareia_maximilian_1
+		Rupicola_rupicola_1
+		Pitta_angolensis_1
+		Ptilonorhynchus_violaceus_1
+		Sericulus_bakeri_1
+		Ciconia_nigra_1
+		Vultur_gryphus_1
+		Psophia_crepitans_1
+		Cryptopipo_aenigma_1
+		Pipra_erythrocephala_1
+		Tityra_cayana_1
+		Pycnonotus_macrotis_1
+		Urocolius_indicus_1
+		Eudromia_elegans_1
+		Pelecanoides_urinatrix_1
+		Fulmarus_glacialoides_1
+		Cariama_cristata_1
+		Archilochus_colubris_1
+		Topaza_pella_1
+		Leptotila_rufaxilla_1
+		Chunga_burmeisteri_1
+		Monias_benschi_1
+		Mesitornis_unicolor_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Aegotheles_insignis_1,
+		2	Aramus_guarauna_1,
+		3	Falco_sparverius_1,
+		4	Porphyrio_porphyrio_1,
+		5	Jacana_jacana_1,
+		6	Glareola_nuchalis_1,
+		7	Galbula_dea_1,
+		8	Upupa_epops_1,
+		9	Jynx_torquilla_1,
+		10	Picus_canus_1,
+		11	Megalaima_chrysopogon_1,
+		12	Ramphastos_ambiguus_1,
+		13	Nyctibius_griseus_1,
+		14	Heliornis_fulica_1,
+		15	Oceanites_oceanicus_1,
+		16	Melanopareia_maximilian_1,
+		17	Rupicola_rupicola_1,
+		18	Pitta_angolensis_1,
+		19	Ptilonorhynchus_violaceus_1,
+		20	Sericulus_bakeri_1,
+		21	Ciconia_nigra_1,
+		22	Vultur_gryphus_1,
+		23	Psophia_crepitans_1,
+		24	Cryptopipo_aenigma_1,
+		25	Pipra_erythrocephala_1,
+		26	Tityra_cayana_1,
+		27	Pycnonotus_macrotis_1,
+		28	Urocolius_indicus_1,
+		29	Eudromia_elegans_1,
+		30	Pelecanoides_urinatrix_1,
+		31	Fulmarus_glacialoides_1,
+		32	Cariama_cristata_1,
+		33	Archilochus_colubris_1,
+		34	Topaza_pella_1,
+		35	Leptotila_rufaxilla_1,
+		36	Chunga_burmeisteri_1,
+		37	Monias_benschi_1,
+		38	Mesitornis_unicolor_1
+	;
+	TREE * UNTITLED = [&U] (1:9.966e-07,2:0.0697748012,(3:0.0153881657,4:9.966e-07)94:0.1423679539,5:0.1185715924,6:0.0949089297,(7:0.0823243542,8:0.0179136338)79:0.115105385,(((9:0.2060035962,10:0.0163225611)80:0.057084527,11:0.0883174724)85:0.0497812191,12:0.0258026356)84:0.1239569361,13:0.1032728202,14:0.0830215638,15:0.0985888527,16:0.3232080162,17:0.2532994886,18:0.2487084056,(19:0.0293813072,20:0.0116547091)96:0.2526779261,((21:0.0728811723,22:0.0268968259)94:0.0418397832,23:2.4398e-06)99:0.7066478184,24:0.3746127307,25:0.3839661384,26:0.3495576657,27:0.2980178631,28:0.5259742083,29:0.2818102146,30:0.0636448974,31:0.0463375613,32:3.5787e-06,((33:0.0500014109,34:2.08e-06)95:0.031755255,35:0.050704485)75:0.0261652742,36:0.0305917048,37:0.0161575741,38:0.0161554703);
+END;

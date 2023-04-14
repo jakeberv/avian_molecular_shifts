@@ -1,0 +1,1824 @@
+#nexus
+begin sets;
+  charset L100_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L100_3utr.fasta.aln: ;
+  charset L100_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L100_exon6_final_align_NT.aln: ;
+  charset L101_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L101_exon6_final_align_NT.aln: ;
+  charset L102_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L102_exon2_final_align_NT.aln: ;
+  charset L102_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L102_intron1.fasta.aln: ;
+  charset L102_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L102_intron2.fasta.aln: ;
+  charset L103_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L103_3utr.fasta.aln: ;
+  charset L103_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L103_exon6_final_align_NT.aln: ;
+  charset L104_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L104_exon2_final_align_NT.aln: ;
+  charset L104_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L104_intron1.fasta.aln: ;
+  charset L104_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L104_intron2.fasta.aln: ;
+  charset L105_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L105_exon3_final_align_NT.aln: ;
+  charset L105_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L105_intron2.fasta.aln: ;
+  charset L105_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L105_intron3.fasta.aln: ;
+  charset L106_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L106_3utr.fasta.aln: ;
+  charset L106_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L106_exon2_final_align_NT.aln: ;
+  charset L107_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L107_exon3_final_align_NT.aln: ;
+  charset L107_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L107_intron2.fasta.aln: ;
+  charset L107_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L107_intron3.fasta.aln: ;
+  charset L108_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L108_3utr.fasta.aln: ;
+  charset L108_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L108_exon2_final_align_NT.aln: ;
+  charset L108_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L108_intron1.fasta.aln: ;
+  charset L109_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L109_3utr.fasta.aln: ;
+  charset L109_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L109_exon2_final_align_NT.aln: ;
+  charset L109_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L109_intron1.fasta.aln: ;
+  charset L10_exon29_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L10_exon29_final_align_NT.aln: ;
+  charset L10_intron28.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L10_intron28.fasta.aln: ;
+  charset L110_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L110_exon6_final_align_NT.aln: ;
+  charset L110_intron5.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L110_intron5.fasta.aln: ;
+  charset L111_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L111_3utr.fasta.aln: ;
+  charset L111_exon23_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L111_exon23_final_align_NT.aln: ;
+  charset L111_intron22.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L111_intron22.fasta.aln: ;
+  charset L112_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L112_exon2_final_align_NT.aln: ;
+  charset L112_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L112_intron1.fasta.aln: ;
+  charset L112_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L112_intron2.fasta.aln: ;
+  charset L114_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L114_3utr.fasta.aln: ;
+  charset L114_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L114_exon6_final_align_NT.aln: ;
+  charset L114_intron5.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L114_intron5.fasta.aln: ;
+  charset L115_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L115_5utr.fasta.aln: ;
+  charset L115_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L115_exon1_final_align_NT.aln: ;
+  charset L116_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L116_3utr.fasta.aln: ;
+  charset L116_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L116_exon2_final_align_NT.aln: ;
+  charset L118_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L118_exon6_final_align_NT.aln: ;
+  charset L119_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L119_3utr.fasta.aln: ;
+  charset L119_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L119_exon7_final_align_NT.aln: ;
+  charset L11_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L11_3utr.fasta.aln: ;
+  charset L11_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L11_exon2_final_align_NT.aln: ;
+  charset L11_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L11_intron1.fasta.aln: ;
+  charset L120_exon11_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L120_exon11_final_align_NT.aln: ;
+  charset L121_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L121_exon5_final_align_NT.aln: ;
+  charset L121_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L121_intron4.fasta.aln: ;
+  charset L122_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L122_exon1_final_align_NT.aln: ;
+  charset L122_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L122_intron1.fasta.aln: ;
+  charset L124_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L124_3utr.fasta.aln: ;
+  charset L124_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L124_exon4_final_align_NT.aln: ;
+  charset L124_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L124_intron3.fasta.aln: ;
+  charset L125_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L125_3utr.fasta.aln: ;
+  charset L125_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L125_exon4_final_align_NT.aln: ;
+  charset L126_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L126_exon1_final_align_NT.aln: ;
+  charset L127_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L127_exon5_final_align_NT.aln: ;
+  charset L127_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L127_intron4.fasta.aln: ;
+  charset L127_intron5.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L127_intron5.fasta.aln: ;
+  charset L128_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L128_exon9_final_align_NT.aln: ;
+  charset L129_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L129_exon1_final_align_NT.aln: ;
+  charset L129_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L129_intron1.fasta.aln: ;
+  charset L12_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L12_exon3_final_align_NT.aln: ;
+  charset L12_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L12_intron2.fasta.aln: ;
+  charset L12_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L12_intron3.fasta.aln: ;
+  charset L130_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L130_exon2_final_align_NT.aln: ;
+  charset L130_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L130_intron1.fasta.aln: ;
+  charset L130_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L130_intron2.fasta.aln: ;
+  charset L131_exon10_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L131_exon10_final_align_NT.aln: ;
+  charset L131_intron10.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L131_intron10.fasta.aln: ;
+  charset L131_intron9.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L131_intron9.fasta.aln: ;
+  charset L132_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L132_3utr.fasta.aln: ;
+  charset L132_exon12_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L132_exon12_final_align_NT.aln: ;
+  charset L133_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L133_exon2_final_align_NT.aln: ;
+  charset L133_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L133_intron1.fasta.aln: ;
+  charset L133_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L133_intron2.fasta.aln: ;
+  charset L135_exon16_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L135_exon16_final_align_NT.aln: ;
+  charset L135_intron15.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L135_intron15.fasta.aln: ;
+  charset L135_intron16.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L135_intron16.fasta.aln: ;
+  charset L136_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L136_exon5_final_align_NT.aln: ;
+  charset L136_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L136_intron4.fasta.aln: ;
+  charset L136_intron5.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L136_intron5.fasta.aln: ;
+  charset L137_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L137_exon2_final_align_NT.aln: ;
+  charset L137_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L137_intron2.fasta.aln: ;
+  charset L139_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L139_exon1_final_align_NT.aln: ;
+  charset L139_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L139_intron1.fasta.aln: ;
+  charset L13_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L13_exon5_final_align_NT.aln: ;
+  charset L13_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L13_intron4.fasta.aln: ;
+  charset L13_intron5.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L13_intron5.fasta.aln: ;
+  charset L140_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L140_3utr.fasta.aln: ;
+  charset L140_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L140_5utr.fasta.aln: ;
+  charset L140_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L140_exon1_final_align_NT.aln: ;
+  charset L141_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L141_5utr.fasta.aln: ;
+  charset L141_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L141_exon1_final_align_NT.aln: ;
+  charset L142_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L142_exon3_final_align_NT.aln: ;
+  charset L142_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L142_intron2.fasta.aln: ;
+  charset L142_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L142_intron3.fasta.aln: ;
+  charset L143_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L143_3utr.fasta.aln: ;
+  charset L143_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L143_exon2_final_align_NT.aln: ;
+  charset L143_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L143_intron1.fasta.aln: ;
+  charset L144_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L144_3utr.fasta.aln: ;
+  charset L144_exon15_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L144_exon15_final_align_NT.aln: ;
+  charset L145_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L145_3utr.fasta.aln: ;
+  charset L145_exon18_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L145_exon18_final_align_NT.aln: ;
+  charset L145_intron17.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L145_intron17.fasta.aln: ;
+  charset L146_exon17_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L146_exon17_final_align_NT.aln: ;
+  charset L146_intron16.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L146_intron16.fasta.aln: ;
+  charset L146_intron17.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L146_intron17.fasta.aln: ;
+  charset L147_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L147_3utr.fasta.aln: ;
+  charset L147_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L147_5utr.fasta.aln: ;
+  charset L147_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L147_exon1_final_align_NT.aln: ;
+  charset L148_exon28_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L148_exon28_final_align_NT.aln: ;
+  charset L148_intron27.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L148_intron27.fasta.aln: ;
+  charset L148_intron28.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L148_intron28.fasta.aln: ;
+  charset L149_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L149_exon1_final_align_NT.aln: ;
+  charset L149_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L149_intron1.fasta.aln: ;
+  charset L14_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L14_exon4_final_align_NT.aln: ;
+  charset L14_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L14_intron4.fasta.aln: ;
+  charset L150_exon10_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L150_exon10_final_align_NT.aln: ;
+  charset L150_exon11_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L150_exon11_final_align_NT.aln: ;
+  charset L150_intron10.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L150_intron10.fasta.aln: ;
+  charset L150_intron11.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L150_intron11.fasta.aln: ;
+  charset L151_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L151_3utr.fasta.aln: ;
+  charset L151_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L151_exon3_final_align_NT.aln: ;
+  charset L151_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L151_intron2.fasta.aln: ;
+  charset L152_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L152_3utr.fasta.aln: ;
+  charset L152_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L152_exon2_final_align_NT.aln: ;
+  charset L152_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L152_intron1.fasta.aln: ;
+  charset L153_exon10_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L153_exon10_final_align_NT.aln: ;
+  charset L154_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L154_exon2_final_align_NT.aln: ;
+  charset L154_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L154_intron2.fasta.aln: ;
+  charset L155_exon23_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L155_exon23_final_align_NT.aln: ;
+  charset L155_intron22.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L155_intron22.fasta.aln: ;
+  charset L155_intron23.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L155_intron23.fasta.aln: ;
+  charset L156_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L156_exon2_final_align_NT.aln: ;
+  charset L156_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L156_intron1.fasta.aln: ;
+  charset L156_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L156_intron2.fasta.aln: ;
+  charset L157_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L157_exon9_final_align_NT.aln: ;
+  charset L157_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L157_intron8.fasta.aln: ;
+  charset L159_exon24_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L159_exon24_final_align_NT.aln: ;
+  charset L15_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L15_3utr.fasta.aln: ;
+  charset L15_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L15_exon8_final_align_NT.aln: ;
+  charset L15_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L15_intron7.fasta.aln: ;
+  charset L160_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L160_exon4_final_align_NT.aln: ;
+  charset L161_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L161_exon8_final_align_NT.aln: ;
+  charset L161_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L161_intron8.fasta.aln: ;
+  charset L162_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L162_3utr.fasta.aln: ;
+  charset L162_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L162_5utr.fasta.aln: ;
+  charset L162_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L162_exon1_final_align_NT.aln: ;
+  charset L163_exon15_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L163_exon15_final_align_NT.aln: ;
+  charset L163_intron14.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L163_intron14.fasta.aln: ;
+  charset L163_intron15.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L163_intron15.fasta.aln: ;
+  charset L164_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L164_exon5_final_align_NT.aln: ;
+  charset L164_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L164_intron4.fasta.aln: ;
+  charset L164_intron5.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L164_intron5.fasta.aln: ;
+  charset L165_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L165_5utr.fasta.aln: ;
+  charset L165_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L165_exon1_final_align_NT.aln: ;
+  charset L165_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L165_intron1.fasta.aln: ;
+  charset L167_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L167_3utr.fasta.aln: ;
+  charset L167_exon32_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L167_exon32_final_align_NT.aln: ;
+  charset L167_intron31.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L167_intron31.fasta.aln: ;
+  charset L167_noncodingUnknown.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L167_noncodingUnknown.fasta.aln: ;
+  charset L169_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L169_3utr.fasta.aln: ;
+  charset L169_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L169_exon4_final_align_NT.aln: ;
+  charset L169_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L169_intron3.fasta.aln: ;
+  charset L16_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L16_3utr.fasta.aln: ;
+  charset L16_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L16_exon2_final_align_NT.aln: ;
+  charset L16_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L16_intron1.fasta.aln: ;
+  charset L170_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L170_exon7_final_align_NT.aln: ;
+  charset L170_intron6.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L170_intron6.fasta.aln: ;
+  charset L171_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L171_3utr.fasta.aln: ;
+  charset L171_exon11_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L171_exon11_final_align_NT.aln: ;
+  charset L171_intron10.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L171_intron10.fasta.aln: ;
+  charset L172_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L172_3utr.fasta.aln: ;
+  charset L172_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L172_exon5_final_align_NT.aln: ;
+  charset L173_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L173_3utr.fasta.aln: ;
+  charset L173_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L173_exon5_final_align_NT.aln: ;
+  charset L173_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L173_intron4.fasta.aln: ;
+  charset L173_noncodingUnknown.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L173_noncodingUnknown.fasta.aln: ;
+  charset L174_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L174_exon6_final_align_NT.aln: ;
+  charset L175_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L175_exon6_final_align_NT.aln: ;
+  charset L175_intron6.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L175_intron6.fasta.aln: ;
+  charset L176_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L176_exon6_final_align_NT.aln: ;
+  charset L177_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L177_exon3_final_align_NT.aln: ;
+  charset L177_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L177_intron3.fasta.aln: ;
+  charset L178_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L178_exon8_final_align_NT.aln: ;
+  charset L178_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L178_intron7.fasta.aln: ;
+  charset L178_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L178_intron8.fasta.aln: ;
+  charset L179_exon19_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L179_exon19_final_align_NT.aln: ;
+  charset L179_exon20_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L179_exon20_final_align_NT.aln: ;
+  charset L179_intron18.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L179_intron18.fasta.aln: ;
+  charset L179_intron19.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L179_intron19.fasta.aln: ;
+  charset L179_intron20.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L179_intron20.fasta.aln: ;
+  charset L17_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L17_exon1_final_align_NT.aln: ;
+  charset L17_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L17_intron1.fasta.aln: ;
+  charset L180_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L180_exon2_final_align_NT.aln: ;
+  charset L180_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L180_intron1.fasta.aln: ;
+  charset L182_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L182_3utr.fasta.aln: ;
+  charset L182_exon21_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L182_exon21_final_align_NT.aln: ;
+  charset L183_exon10_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L183_exon10_final_align_NT.aln: ;
+  charset L183_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L183_exon9_final_align_NT.aln: ;
+  charset L183_intron10.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L183_intron10.fasta.aln: ;
+  charset L183_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L183_intron8.fasta.aln: ;
+  charset L183_intron9.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L183_intron9.fasta.aln: ;
+  charset L186_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L186_5utr.fasta.aln: ;
+  charset L186_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L186_exon1_final_align_NT.aln: ;
+  charset L186_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L186_exon2_final_align_NT.aln: ;
+  charset L186_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L186_exon3_final_align_NT.aln: ;
+  charset L186_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L186_intron1.fasta.aln: ;
+  charset L186_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L186_intron2.fasta.aln: ;
+  charset L186_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L186_intron3.fasta.aln: ;
+  charset L187_exon16_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L187_exon16_final_align_NT.aln: ;
+  charset L187_intron15.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L187_intron15.fasta.aln: ;
+  charset L188_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L188_exon7_final_align_NT.aln: ;
+  charset L188_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L188_intron7.fasta.aln: ;
+  charset L189_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L189_exon3_final_align_NT.aln: ;
+  charset L18_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L18_3utr.fasta.aln: ;
+  charset L18_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L18_5utr.fasta.aln: ;
+  charset L18_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L18_exon1_final_align_NT.aln: ;
+  charset L18_noncodingUnknown.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L18_noncodingUnknown.fasta.aln: ;
+  charset L190_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L190_5utr.fasta.aln: ;
+  charset L190_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L190_exon1_final_align_NT.aln: ;
+  charset L190_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L190_exon2_final_align_NT.aln: ;
+  charset L190_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L190_intron1.fasta.aln: ;
+  charset L190_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L190_intron2.fasta.aln: ;
+  charset L191_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L191_5utr.fasta.aln: ;
+  charset L191_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L191_exon1_final_align_NT.aln: ;
+  charset L191_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L191_intron1.fasta.aln: ;
+  charset L192_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L192_exon3_final_align_NT.aln: ;
+  charset L192_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L192_intron2.fasta.aln: ;
+  charset L192_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L192_intron3.fasta.aln: ;
+  charset L193_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L193_exon2_final_align_NT.aln: ;
+  charset L193_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L193_intron1.fasta.aln: ;
+  charset L193_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L193_intron2.fasta.aln: ;
+  charset L194_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L194_exon1_final_align_NT.aln: ;
+  charset L194_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L194_intron1.fasta.aln: ;
+  charset L195_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L195_exon1_final_align_NT.aln: ;
+  charset L195_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L195_intron1.fasta.aln: ;
+  charset L196_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L196_exon2_final_align_NT.aln: ;
+  charset L196_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L196_intron1.fasta.aln: ;
+  charset L196_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L196_intron2.fasta.aln: ;
+  charset L197_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L197_3utr.fasta.aln: ;
+  charset L197_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L197_exon2_final_align_NT.aln: ;
+  charset L197_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L197_exon3_final_align_NT.aln: ;
+  charset L197_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L197_exon4_final_align_NT.aln: ;
+  charset L197_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L197_intron1.fasta.aln: ;
+  charset L197_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L197_intron3.fasta.aln: ;
+  charset L198_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L198_exon4_final_align_NT.aln: ;
+  charset L198_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L198_intron3.fasta.aln: ;
+  charset L198_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L198_intron4.fasta.aln: ;
+  charset L19_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L19_3utr.fasta.aln: ;
+  charset L19_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L19_exon3_final_align_NT.aln: ;
+  charset L19_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L19_intron2.fasta.aln: ;
+  charset L1_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L1_exon9_final_align_NT.aln: ;
+  charset L1_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L1_intron8.fasta.aln: ;
+  charset L1_intron9.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L1_intron9.fasta.aln: ;
+  charset L200_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L200_3utr.fasta.aln: ;
+  charset L200_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L200_exon3_final_align_NT.aln: ;
+  charset L200_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L200_intron2.fasta.aln: ;
+  charset L201_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L201_exon3_final_align_NT.aln: ;
+  charset L201_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L201_intron3.fasta.aln: ;
+  charset L202_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L202_exon3_final_align_NT.aln: ;
+  charset L202_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L202_intron2.fasta.aln: ;
+  charset L202_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L202_intron3.fasta.aln: ;
+  charset L203_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L203_exon1_final_align_NT.aln: ;
+  charset L205_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L205_exon9_final_align_NT.aln: ;
+  charset L206_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L206_3utr.fasta.aln: ;
+  charset L206_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L206_exon2_final_align_NT.aln: ;
+  charset L206_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L206_intron1.fasta.aln: ;
+  charset L207_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L207_exon6_final_align_NT.aln: ;
+  charset L207_intron5.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L207_intron5.fasta.aln: ;
+  charset L208_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L208_exon2_final_align_NT.aln: ;
+  charset L209_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L209_exon2_final_align_NT.aln: ;
+  charset L209_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L209_intron1.fasta.aln: ;
+  charset L209_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L209_intron2.fasta.aln: ;
+  charset L20_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L20_exon2_final_align_NT.aln: ;
+  charset L20_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L20_intron1.fasta.aln: ;
+  charset L20_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L20_intron2.fasta.aln: ;
+  charset L210_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L210_exon2_final_align_NT.aln: ;
+  charset L210_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L210_intron1.fasta.aln: ;
+  charset L212_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L212_3utr.fasta.aln: ;
+  charset L212_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L212_exon2_final_align_NT.aln: ;
+  charset L212_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L212_intron1.fasta.aln: ;
+  charset L213_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L213_3utr.fasta.aln: ;
+  charset L213_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L213_exon1_final_align_NT.aln: ;
+  charset L214_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L214_3utr.fasta.aln: ;
+  charset L214_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L214_exon8_final_align_NT.aln: ;
+  charset L214_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L214_intron7.fasta.aln: ;
+  charset L215_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L215_exon9_final_align_NT.aln: ;
+  charset L215_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L215_intron8.fasta.aln: ;
+  charset L216_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L216_exon7_final_align_NT.aln: ;
+  charset L216_intron6.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L216_intron6.fasta.aln: ;
+  charset L216_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L216_intron7.fasta.aln: ;
+  charset L219_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L219_3utr.fasta.aln: ;
+  charset L219_exon25_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L219_exon25_final_align_NT.aln: ;
+  charset L219_intron24.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L219_intron24.fasta.aln: ;
+  charset L220_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L220_3utr.fasta.aln: ;
+  charset L220_exon24_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L220_exon24_final_align_NT.aln: ;
+  charset L220_intron23.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L220_intron23.fasta.aln: ;
+  charset L221_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L221_3utr.fasta.aln: ;
+  charset L221_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L221_exon2_final_align_NT.aln: ;
+  charset L221_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L221_intron1.fasta.aln: ;
+  charset L222_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L222_3utr.fasta.aln: ;
+  charset L222_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L222_exon9_final_align_NT.aln: ;
+  charset L222_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L222_intron8.fasta.aln: ;
+  charset L223_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L223_3utr.fasta.aln: ;
+  charset L223_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L223_exon7_final_align_NT.aln: ;
+  charset L223_intron6.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L223_intron6.fasta.aln: ;
+  charset L224_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L224_exon3_final_align_NT.aln: ;
+  charset L224_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L224_intron2.fasta.aln: ;
+  charset L224_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L224_intron3.fasta.aln: ;
+  charset L225_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L225_exon3_final_align_NT.aln: ;
+  charset L226_exon37_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L226_exon37_final_align_NT.aln: ;
+  charset L226_intron36.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L226_intron36.fasta.aln: ;
+  charset L227_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L227_3utr.fasta.aln: ;
+  charset L227_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L227_exon3_final_align_NT.aln: ;
+  charset L228_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L228_3utr.fasta.aln: ;
+  charset L228_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L228_exon2_final_align_NT.aln: ;
+  charset L228_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L228_intron1.fasta.aln: ;
+  charset L229_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L229_3utr.fasta.aln: ;
+  charset L229_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L229_exon3_final_align_NT.aln: ;
+  charset L229_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L229_intron2.fasta.aln: ;
+  charset L22_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L22_exon7_final_align_NT.aln: ;
+  charset L22_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L22_intron7.fasta.aln: ;
+  charset L230_exon13_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L230_exon13_final_align_NT.aln: ;
+  charset L230_intron12.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L230_intron12.fasta.aln: ;
+  charset L231_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L231_exon3_final_align_NT.aln: ;
+  charset L231_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L231_intron2.fasta.aln: ;
+  charset L231_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L231_intron3.fasta.aln: ;
+  charset L232_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L232_3utr.fasta.aln: ;
+  charset L232_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L232_exon7_final_align_NT.aln: ;
+  charset L232_intron6.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L232_intron6.fasta.aln: ;
+  charset L233_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L233_exon8_final_align_NT.aln: ;
+  charset L233_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L233_intron7.fasta.aln: ;
+  charset L233_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L233_intron8.fasta.aln: ;
+  charset L235_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L235_exon4_final_align_NT.aln: ;
+  charset L235_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L235_intron3.fasta.aln: ;
+  charset L236_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L236_exon7_final_align_NT.aln: ;
+  charset L236_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L236_intron7.fasta.aln: ;
+  charset L237_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L237_5utr.fasta.aln: ;
+  charset L237_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L237_exon1_final_align_NT.aln: ;
+  charset L238_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L238_3utr.fasta.aln: ;
+  charset L238_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L238_exon1_final_align_NT.aln: ;
+  charset L239_exon35_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L239_exon35_final_align_NT.aln: ;
+  charset L23_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L23_exon2_final_align_NT.aln: ;
+  charset L23_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L23_intron2.fasta.aln: ;
+  charset L240_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L240_3utr.fasta.aln: ;
+  charset L240_exon12_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L240_exon12_final_align_NT.aln: ;
+  charset L241_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L241_exon8_final_align_NT.aln: ;
+  charset L241_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L241_intron8.fasta.aln: ;
+  charset L241_intron9.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L241_intron9.fasta.aln: ;
+  charset L242_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L242_3utr.fasta.aln: ;
+  charset L242_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L242_exon4_final_align_NT.aln: ;
+  charset L243_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L243_exon5_final_align_NT.aln: ;
+  charset L243_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L243_intron4.fasta.aln: ;
+  charset L243_intron5.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L243_intron5.fasta.aln: ;
+  charset L244_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L244_exon3_final_align_NT.aln: ;
+  charset L244_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L244_intron2.fasta.aln: ;
+  charset L244_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L244_intron3.fasta.aln: ;
+  charset L245_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L245_3utr.fasta.aln: ;
+  charset L245_exon18_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L245_exon18_final_align_NT.aln: ;
+  charset L245_intron17.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L245_intron17.fasta.aln: ;
+  charset L247_exon19_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L247_exon19_final_align_NT.aln: ;
+  charset L247_intron18.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L247_intron18.fasta.aln: ;
+  charset L248_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L248_exon8_final_align_NT.aln: ;
+  charset L248_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L248_intron7.fasta.aln: ;
+  charset L24_exon16_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L24_exon16_final_align_NT.aln: ;
+  charset L24_intron16.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L24_intron16.fasta.aln: ;
+  charset L250_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L250_3utr.fasta.aln: ;
+  charset L250_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L250_exon8_final_align_NT.aln: ;
+  charset L250_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L250_exon9_final_align_NT.aln: ;
+  charset L250_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L250_intron7.fasta.aln: ;
+  charset L250_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L250_intron8.fasta.aln: ;
+  charset L254_exon13_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L254_exon13_final_align_NT.aln: ;
+  charset L257_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L257_5utr.fasta.aln: ;
+  charset L257_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L257_exon1_final_align_NT.aln: ;
+  charset L257_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L257_intron1.fasta.aln: ;
+  charset L258_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L258_exon3_final_align_NT.aln: ;
+  charset L258_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L258_intron2.fasta.aln: ;
+  charset L258_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L258_intron3.fasta.aln: ;
+  charset L258_noncodingUnknown.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L258_noncodingUnknown.fasta.aln: ;
+  charset L259_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L259_3utr.fasta.aln: ;
+  charset L259_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L259_exon1_final_align_NT.aln: ;
+  charset L25_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L25_3utr.fasta.aln: ;
+  charset L25_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L25_exon2_final_align_NT.aln: ;
+  charset L25_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L25_intron1.fasta.aln: ;
+  charset L260_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L260_3utr.fasta.aln: ;
+  charset L260_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L260_exon7_final_align_NT.aln: ;
+  charset L261_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L261_3utr.fasta.aln: ;
+  charset L261_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L261_exon2_final_align_NT.aln: ;
+  charset L261_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L261_intron1.fasta.aln: ;
+  charset L262_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L262_exon3_final_align_NT.aln: ;
+  charset L262_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L262_exon4_final_align_NT.aln: ;
+  charset L262_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L262_intron2.fasta.aln: ;
+  charset L262_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L262_intron3.fasta.aln: ;
+  charset L262_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L262_intron4.fasta.aln: ;
+  charset L262_noncodingUnknown.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L262_noncodingUnknown.fasta.aln: ;
+  charset L264_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L264_3utr.fasta.aln: ;
+  charset L264_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L264_exon4_final_align_NT.aln: ;
+  charset L264_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L264_intron3.fasta.aln: ;
+  charset L265_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L265_3utr.fasta.aln: ;
+  charset L265_exon22_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L265_exon22_final_align_NT.aln: ;
+  charset L265_intron21.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L265_intron21.fasta.aln: ;
+  charset L266_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L266_3utr.fasta.aln: ;
+  charset L266_exon21_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L266_exon21_final_align_NT.aln: ;
+  charset L266_intron20.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L266_intron20.fasta.aln: ;
+  charset L267_exon20_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L267_exon20_final_align_NT.aln: ;
+  charset L268_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L268_exon4_final_align_NT.aln: ;
+  charset L268_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L268_intron3.fasta.aln: ;
+  charset L269_exon27_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L269_exon27_final_align_NT.aln: ;
+  charset L269_intron26.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L269_intron26.fasta.aln: ;
+  charset L269_intron27.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L269_intron27.fasta.aln: ;
+  charset L26_exon12_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L26_exon12_final_align_NT.aln: ;
+  charset L26_intron11.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L26_intron11.fasta.aln: ;
+  charset L26_intron12.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L26_intron12.fasta.aln: ;
+  charset L270_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L270_3utr.fasta.aln: ;
+  charset L270_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L270_exon2_final_align_NT.aln: ;
+  charset L270_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L270_intron1.fasta.aln: ;
+  charset L271_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L271_3utr.fasta.aln: ;
+  charset L271_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L271_exon2_final_align_NT.aln: ;
+  charset L271_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L271_intron1.fasta.aln: ;
+  charset L272_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L272_3utr.fasta.aln: ;
+  charset L272_exon10_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L272_exon10_final_align_NT.aln: ;
+  charset L272_intron9.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L272_intron9.fasta.aln: ;
+  charset L273_exon10_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L273_exon10_final_align_NT.aln: ;
+  charset L275_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L275_exon2_final_align_NT.aln: ;
+  charset L275_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L275_intron1.fasta.aln: ;
+  charset L275_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L275_intron2.fasta.aln: ;
+  charset L276_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L276_3utr.fasta.aln: ;
+  charset L276_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L276_exon6_final_align_NT.aln: ;
+  charset L276_intron5.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L276_intron5.fasta.aln: ;
+  charset L277_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L277_3utr.fasta.aln: ;
+  charset L277_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L277_exon5_final_align_NT.aln: ;
+  charset L277_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L277_intron4.fasta.aln: ;
+  charset L278_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L278_exon3_final_align_NT.aln: ;
+  charset L278_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L278_intron2.fasta.aln: ;
+  charset L279_exon26_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L279_exon26_final_align_NT.aln: ;
+  charset L279_exon27_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L279_exon27_final_align_NT.aln: ;
+  charset L27_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L27_exon3_final_align_NT.aln: ;
+  charset L27_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L27_intron2.fasta.aln: ;
+  charset L27_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L27_intron3.fasta.aln: ;
+  charset L281_exon12_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L281_exon12_final_align_NT.aln: ;
+  charset L282_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L282_3utr.fasta.aln: ;
+  charset L282_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L282_exon9_final_align_NT.aln: ;
+  charset L282_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L282_intron8.fasta.aln: ;
+  charset L284_exon13_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L284_exon13_final_align_NT.aln: ;
+  charset L284_intron12.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L284_intron12.fasta.aln: ;
+  charset L285_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L285_exon5_final_align_NT.aln: ;
+  charset L285_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L285_intron4.fasta.aln: ;
+  charset L285_intron5.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L285_intron5.fasta.aln: ;
+  charset L286_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L286_exon2_final_align_NT.aln: ;
+  charset L286_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L286_intron1.fasta.aln: ;
+  charset L286_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L286_intron2.fasta.aln: ;
+  charset L287_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L287_3utr.fasta.aln: ;
+  charset L287_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L287_exon9_final_align_NT.aln: ;
+  charset L288_exon10_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L288_exon10_final_align_NT.aln: ;
+  charset L288_intron10.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L288_intron10.fasta.aln: ;
+  charset L288_intron9.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L288_intron9.fasta.aln: ;
+  charset L289_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L289_3utr.fasta.aln: ;
+  charset L289_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L289_exon4_final_align_NT.aln: ;
+  charset L289_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L289_intron3.fasta.aln: ;
+  charset L28_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L28_3utr.fasta.aln: ;
+  charset L28_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L28_exon2_final_align_NT.aln: ;
+  charset L28_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L28_intron1.fasta.aln: ;
+  charset L290_exon11_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L290_exon11_final_align_NT.aln: ;
+  charset L290_intron10.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L290_intron10.fasta.aln: ;
+  charset L290_intron11.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L290_intron11.fasta.aln: ;
+  charset L291_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L291_3utr.fasta.aln: ;
+  charset L291_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L291_exon7_final_align_NT.aln: ;
+  charset L291_intron6.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L291_intron6.fasta.aln: ;
+  charset L293_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L293_3utr.fasta.aln: ;
+  charset L293_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L293_exon3_final_align_NT.aln: ;
+  charset L293_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L293_intron2.fasta.aln: ;
+  charset L294_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L294_3utr.fasta.aln: ;
+  charset L294_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L294_exon9_final_align_NT.aln: ;
+  charset L294_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L294_intron8.fasta.aln: ;
+  charset L295_exon12_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L295_exon12_final_align_NT.aln: ;
+  charset L296_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L296_exon7_final_align_NT.aln: ;
+  charset L296_intron6.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L296_intron6.fasta.aln: ;
+  charset L296_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L296_intron7.fasta.aln: ;
+  charset L297_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L297_3utr.fasta.aln: ;
+  charset L297_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L297_exon2_final_align_NT.aln: ;
+  charset L297_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L297_intron1.fasta.aln: ;
+  charset L298_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L298_exon8_final_align_NT.aln: ;
+  charset L298_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L298_intron7.fasta.aln: ;
+  charset L298_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L298_intron8.fasta.aln: ;
+  charset L299_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L299_exon1_final_align_NT.aln: ;
+  charset L29_exon18_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L29_exon18_final_align_NT.aln: ;
+  charset L2_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L2_exon8_final_align_NT.aln: ;
+  charset L2_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L2_intron7.fasta.aln: ;
+  charset L300_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L300_exon7_final_align_NT.aln: ;
+  charset L301_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L301_exon1_final_align_NT.aln: ;
+  charset L302_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L302_exon2_final_align_NT.aln: ;
+  charset L302_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L302_intron1.fasta.aln: ;
+  charset L302_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L302_intron2.fasta.aln: ;
+  charset L303_exon56_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L303_exon56_final_align_NT.aln: ;
+  charset L303_intron55.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L303_intron55.fasta.aln: ;
+  charset L303_intron56.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L303_intron56.fasta.aln: ;
+  charset L304_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L304_3utr.fasta.aln: ;
+  charset L304_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L304_exon2_final_align_NT.aln: ;
+  charset L304_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L304_intron1.fasta.aln: ;
+  charset L305_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L305_3utr.fasta.aln: ;
+  charset L305_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L305_exon7_final_align_NT.aln: ;
+  charset L305_intron6.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L305_intron6.fasta.aln: ;
+  charset L306_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L306_3utr.fasta.aln: ;
+  charset L306_exon13_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L306_exon13_final_align_NT.aln: ;
+  charset L306_intron12.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L306_intron12.fasta.aln: ;
+  charset L307_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L307_3utr.fasta.aln: ;
+  charset L307_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L307_exon2_final_align_NT.aln: ;
+  charset L307_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L307_intron1.fasta.aln: ;
+  charset L308_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L308_3utr.fasta.aln: ;
+  charset L308_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L308_exon4_final_align_NT.aln: ;
+  charset L308_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L308_intron3.fasta.aln: ;
+  charset L309_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L309_exon2_final_align_NT.aln: ;
+  charset L309_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L309_intron1.fasta.aln: ;
+  charset L30_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L30_3utr.fasta.aln: ;
+  charset L30_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L30_exon4_final_align_NT.aln: ;
+  charset L30_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L30_intron3.fasta.aln: ;
+  charset L311_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L311_exon6_final_align_NT.aln: ;
+  charset L311_intron5.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L311_intron5.fasta.aln: ;
+  charset L311_intron6.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L311_intron6.fasta.aln: ;
+  charset L312_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L312_3utr.fasta.aln: ;
+  charset L312_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L312_5utr.fasta.aln: ;
+  charset L312_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L312_exon1_final_align_NT.aln: ;
+  charset L313_exon10_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L313_exon10_final_align_NT.aln: ;
+  charset L313_intron10.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L313_intron10.fasta.aln: ;
+  charset L314_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L314_3utr.fasta.aln: ;
+  charset L314_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L314_exon9_final_align_NT.aln: ;
+  charset L314_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L314_intron8.fasta.aln: ;
+  charset L315_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L315_exon4_final_align_NT.aln: ;
+  charset L315_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L315_intron3.fasta.aln: ;
+  charset L315_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L315_intron4.fasta.aln: ;
+  charset L315_noncodingUnknown.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L315_noncodingUnknown.fasta.aln: ;
+  charset L316_exon11_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L316_exon11_final_align_NT.aln: ;
+  charset L316_intron10.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L316_intron10.fasta.aln: ;
+  charset L317_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L317_3utr.fasta.aln: ;
+  charset L317_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L317_exon2_final_align_NT.aln: ;
+  charset L317_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L317_intron1.fasta.aln: ;
+  charset L318_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L318_3utr.fasta.aln: ;
+  charset L318_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L318_exon3_final_align_NT.aln: ;
+  charset L318_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L318_intron2.fasta.aln: ;
+  charset L319_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L319_exon8_final_align_NT.aln: ;
+  charset L31_exon12_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L31_exon12_final_align_NT.aln: ;
+  charset L31_intron12.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L31_intron12.fasta.aln: ;
+  charset L320_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L320_3utr.fasta.aln: ;
+  charset L320_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L320_exon3_final_align_NT.aln: ;
+  charset L320_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L320_intron1.fasta.aln: ;
+  charset L320_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L320_intron2.fasta.aln: ;
+  charset L321_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L321_exon6_final_align_NT.aln: ;
+  charset L321_intron5.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L321_intron5.fasta.aln: ;
+  charset L322_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L322_3utr.fasta.aln: ;
+  charset L322_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L322_exon4_final_align_NT.aln: ;
+  charset L322_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L322_intron3.fasta.aln: ;
+  charset L323_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L323_exon1_final_align_NT.aln: ;
+  charset L324_exon13_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L324_exon13_final_align_NT.aln: ;
+  charset L324_intron12.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L324_intron12.fasta.aln: ;
+  charset L324_intron13.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L324_intron13.fasta.aln: ;
+  charset L325_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L325_exon6_final_align_NT.aln: ;
+  charset L326_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L326_3utr.fasta.aln: ;
+  charset L326_exon18_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L326_exon18_final_align_NT.aln: ;
+  charset L326_intron17.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L326_intron17.fasta.aln: ;
+  charset L327_exon11_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L327_exon11_final_align_NT.aln: ;
+  charset L327_intron10.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L327_intron10.fasta.aln: ;
+  charset L327_intron11.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L327_intron11.fasta.aln: ;
+  charset L328_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L328_3utr.fasta.aln: ;
+  charset L328_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L328_exon1_final_align_NT.aln: ;
+  charset L329_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L329_exon8_final_align_NT.aln: ;
+  charset L329_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L329_intron8.fasta.aln: ;
+  charset L32_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L32_3utr.fasta.aln: ;
+  charset L32_exon18_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L32_exon18_final_align_NT.aln: ;
+  charset L32_intron17.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L32_intron17.fasta.aln: ;
+  charset L331_exon24_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L331_exon24_final_align_NT.aln: ;
+  charset L331_intron23.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L331_intron23.fasta.aln: ;
+  charset L332_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L332_exon8_final_align_NT.aln: ;
+  charset L332_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L332_intron7.fasta.aln: ;
+  charset L333_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L333_3utr.fasta.aln: ;
+  charset L333_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L333_exon2_final_align_NT.aln: ;
+  charset L334_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L334_exon2_final_align_NT.aln: ;
+  charset L335_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L335_exon4_final_align_NT.aln: ;
+  charset L335_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L335_intron3.fasta.aln: ;
+  charset L337_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L337_exon2_final_align_NT.aln: ;
+  charset L337_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L337_intron2.fasta.aln: ;
+  charset L338_exon49_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L338_exon49_final_align_NT.aln: ;
+  charset L339_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L339_exon5_final_align_NT.aln: ;
+  charset L339_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L339_intron4.fasta.aln: ;
+  charset L340_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L340_exon4_final_align_NT.aln: ;
+  charset L340_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L340_intron3.fasta.aln: ;
+  charset L340_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L340_intron4.fasta.aln: ;
+  charset L341_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L341_exon2_final_align_NT.aln: ;
+  charset L341_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L341_intron1.fasta.aln: ;
+  charset L341_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L341_intron2.fasta.aln: ;
+  charset L342_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L342_exon8_final_align_NT.aln: ;
+  charset L342_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L342_intron8.fasta.aln: ;
+  charset L343_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L343_exon9_final_align_NT.aln: ;
+  charset L343_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L343_intron8.fasta.aln: ;
+  charset L344_exon18_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L344_exon18_final_align_NT.aln: ;
+  charset L344_intron17.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L344_intron17.fasta.aln: ;
+  charset L345_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L345_exon3_final_align_NT.aln: ;
+  charset L346_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L346_5utr.fasta.aln: ;
+  charset L346_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L346_exon1_final_align_NT.aln: ;
+  charset L347_exon14_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L347_exon14_final_align_NT.aln: ;
+  charset L348_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L348_3utr.fasta.aln: ;
+  charset L348_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L348_exon3_final_align_NT.aln: ;
+  charset L348_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L348_intron2.fasta.aln: ;
+  charset L349_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L349_3utr.fasta.aln: ;
+  charset L349_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L349_exon2_final_align_NT.aln: ;
+  charset L349_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L349_intron1.fasta.aln: ;
+  charset L34_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L34_exon2_final_align_NT.aln: ;
+  charset L34_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L34_intron1.fasta.aln: ;
+  charset L34_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L34_intron2.fasta.aln: ;
+  charset L350_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L350_3utr.fasta.aln: ;
+  charset L350_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L350_exon2_final_align_NT.aln: ;
+  charset L350_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L350_intron1.fasta.aln: ;
+  charset L351_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L351_exon3_final_align_NT.aln: ;
+  charset L351_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L351_intron2.fasta.aln: ;
+  charset L352_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L352_3utr.fasta.aln: ;
+  charset L352_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L352_exon2_final_align_NT.aln: ;
+  charset L352_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L352_intron1.fasta.aln: ;
+  charset L353_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L353_3utr.fasta.aln: ;
+  charset L353_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L353_exon2_final_align_NT.aln: ;
+  charset L353_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L353_intron1.fasta.aln: ;
+  charset L354_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L354_3utr.fasta.aln: ;
+  charset L354_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L354_exon3_final_align_NT.aln: ;
+  charset L354_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L354_intron2.fasta.aln: ;
+  charset L355_exon22_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L355_exon22_final_align_NT.aln: ;
+  charset L356_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L356_3utr.fasta.aln: ;
+  charset L356_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L356_exon2_final_align_NT.aln: ;
+  charset L356_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L356_intron1.fasta.aln: ;
+  charset L357_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L357_exon2_final_align_NT.aln: ;
+  charset L358_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L358_3utr.fasta.aln: ;
+  charset L358_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L358_5utr.fasta.aln: ;
+  charset L358_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L358_exon1_final_align_NT.aln: ;
+  charset L359_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L359_exon4_final_align_NT.aln: ;
+  charset L359_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L359_intron3.fasta.aln: ;
+  charset L35_exon62_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L35_exon62_final_align_NT.aln: ;
+  charset L35_intron61.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L35_intron61.fasta.aln: ;
+  charset L35_intron62.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L35_intron62.fasta.aln: ;
+  charset L360_exonNone_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L360_exonNone_final_align_NT.aln: ;
+  charset L360_noncodingUnknown.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L360_noncodingUnknown.fasta.aln: ;
+  charset L361_exon14_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L361_exon14_final_align_NT.aln: ;
+  charset L361_intron13.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L361_intron13.fasta.aln: ;
+  charset L361_intron14.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L361_intron14.fasta.aln: ;
+  charset L362_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L362_exon5_final_align_NT.aln: ;
+  charset L362_intron5.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L362_intron5.fasta.aln: ;
+  charset L363_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L363_3utr.fasta.aln: ;
+  charset L363_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L363_exon5_final_align_NT.aln: ;
+  charset L364_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L364_3utr.fasta.aln: ;
+  charset L364_exon14_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L364_exon14_final_align_NT.aln: ;
+  charset L365_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L365_exon2_final_align_NT.aln: ;
+  charset L366_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L366_exon2_final_align_NT.aln: ;
+  charset L367_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L367_exon2_final_align_NT.aln: ;
+  charset L368_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L368_exon2_final_align_NT.aln: ;
+  charset L368_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L368_intron1.fasta.aln: ;
+  charset L369_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L369_exon2_final_align_NT.aln: ;
+  charset L369_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L369_intron1.fasta.aln: ;
+  charset L369_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L369_intron2.fasta.aln: ;
+  charset L36_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L36_exon8_final_align_NT.aln: ;
+  charset L370_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L370_3utr.fasta.aln: ;
+  charset L370_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L370_exon6_final_align_NT.aln: ;
+  charset L371_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L371_exon7_final_align_NT.aln: ;
+  charset L371_intron6.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L371_intron6.fasta.aln: ;
+  charset L372_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L372_3utr.fasta.aln: ;
+  charset L372_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L372_exon8_final_align_NT.aln: ;
+  charset L373_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L373_exon3_final_align_NT.aln: ;
+  charset L374_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L374_exon2_final_align_NT.aln: ;
+  charset L376_exon22_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L376_exon22_final_align_NT.aln: ;
+  charset L376_exon23_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L376_exon23_final_align_NT.aln: ;
+  charset L376_intron21.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L376_intron21.fasta.aln: ;
+  charset L376_intron22.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L376_intron22.fasta.aln: ;
+  charset L376_intron23.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L376_intron23.fasta.aln: ;
+  charset L376_noncodingUnknown.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L376_noncodingUnknown.fasta.aln: ;
+  charset L377_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L377_exon3_final_align_NT.aln: ;
+  charset L377_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L377_intron2.fasta.aln: ;
+  charset L378_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L378_exon9_final_align_NT.aln: ;
+  charset L378_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L378_intron8.fasta.aln: ;
+  charset L378_intron9.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L378_intron9.fasta.aln: ;
+  charset L379_exon10_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L379_exon10_final_align_NT.aln: ;
+  charset L379_intron9.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L379_intron9.fasta.aln: ;
+  charset L37_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L37_exon7_final_align_NT.aln: ;
+  charset L37_intron6.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L37_intron6.fasta.aln: ;
+  charset L37_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L37_intron7.fasta.aln: ;
+  charset L380_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L380_exon4_final_align_NT.aln: ;
+  charset L380_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L380_intron3.fasta.aln: ;
+  charset L381_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L381_exon5_final_align_NT.aln: ;
+  charset L382_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L382_3utr.fasta.aln: ;
+  charset L382_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L382_exon2_final_align_NT.aln: ;
+  charset L383_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L383_3utr.fasta.aln: ;
+  charset L383_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L383_5utr.fasta.aln: ;
+  charset L383_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L383_exon1_final_align_NT.aln: ;
+  charset L384_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L384_3utr.fasta.aln: ;
+  charset L384_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L384_exon5_final_align_NT.aln: ;
+  charset L384_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L384_intron4.fasta.aln: ;
+  charset L385_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L385_exon9_final_align_NT.aln: ;
+  charset L386_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L386_exon2_final_align_NT.aln: ;
+  charset L387_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L387_exon2_final_align_NT.aln: ;
+  charset L387_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L387_intron1.fasta.aln: ;
+  charset L387_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L387_intron2.fasta.aln: ;
+  charset L388_exon19_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L388_exon19_final_align_NT.aln: ;
+  charset L388_intron19.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L388_intron19.fasta.aln: ;
+  charset L389_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L389_3utr.fasta.aln: ;
+  charset L389_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L389_exon2_final_align_NT.aln: ;
+  charset L389_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L389_intron1.fasta.aln: ;
+  charset L38_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L38_exon3_final_align_NT.aln: ;
+  charset L38_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L38_intron2.fasta.aln: ;
+  charset L390_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L390_3utr.fasta.aln: ;
+  charset L390_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L390_exon2_final_align_NT.aln: ;
+  charset L391_exon27_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L391_exon27_final_align_NT.aln: ;
+  charset L391_intron27.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L391_intron27.fasta.aln: ;
+  charset L392_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L392_3utr.fasta.aln: ;
+  charset L392_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L392_exon2_final_align_NT.aln: ;
+  charset L392_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L392_intron1.fasta.aln: ;
+  charset L394_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L394_exon2_final_align_NT.aln: ;
+  charset L394_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L394_intron2.fasta.aln: ;
+  charset L395_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L395_exon6_final_align_NT.aln: ;
+  charset L396_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L396_3utr.fasta.aln: ;
+  charset L396_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L396_exon3_final_align_NT.aln: ;
+  charset L396_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L396_intron2.fasta.aln: ;
+  charset L397_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L397_3utr.fasta.aln: ;
+  charset L397_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L397_exon3_final_align_NT.aln: ;
+  charset L397_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L397_intron2.fasta.aln: ;
+  charset L397_noncodingUnknown.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L397_noncodingUnknown.fasta.aln: ;
+  charset L399_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L399_exon4_final_align_NT.aln: ;
+  charset L399_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L399_intron3.fasta.aln: ;
+  charset L39_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L39_exon3_final_align_NT.aln: ;
+  charset L39_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L39_intron2.fasta.aln: ;
+  charset L39_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L39_intron3.fasta.aln: ;
+  charset L3_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L3_3utr.fasta.aln: ;
+  charset L3_exon22_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L3_exon22_final_align_NT.aln: ;
+  charset L3_intron21.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L3_intron21.fasta.aln: ;
+  charset L400_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L400_exon4_final_align_NT.aln: ;
+  charset L401_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L401_3utr.fasta.aln: ;
+  charset L401_exon9_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L401_exon9_final_align_NT.aln: ;
+  charset L401_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L401_intron8.fasta.aln: ;
+  charset L402_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L402_exon1_final_align_NT.aln: ;
+  charset L403_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L403_exon3_final_align_NT.aln: ;
+  charset L403_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L403_intron3.fasta.aln: ;
+  charset L40_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L40_3utr.fasta.aln: ;
+  charset L40_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L40_exon4_final_align_NT.aln: ;
+  charset L41_exon11_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L41_exon11_final_align_NT.aln: ;
+  charset L41_intron10.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L41_intron10.fasta.aln: ;
+  charset L42_exon17_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L42_exon17_final_align_NT.aln: ;
+  charset L42_intron16.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L42_intron16.fasta.aln: ;
+  charset L42_intron17.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L42_intron17.fasta.aln: ;
+  charset L43_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L43_3utr.fasta.aln: ;
+  charset L43_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L43_exon3_final_align_NT.aln: ;
+  charset L43_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L43_intron2.fasta.aln: ;
+  charset L44_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L44_3utr.fasta.aln: ;
+  charset L44_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L44_exon2_final_align_NT.aln: ;
+  charset L44_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L44_intron1.fasta.aln: ;
+  charset L46_exon28_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L46_exon28_final_align_NT.aln: ;
+  charset L47_exon28_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L47_exon28_final_align_NT.aln: ;
+  charset L47_intron27.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L47_intron27.fasta.aln: ;
+  charset L48_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L48_5utr.fasta.aln: ;
+  charset L48_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L48_exon1_final_align_NT.aln: ;
+  charset L48_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L48_intron1.fasta.aln: ;
+  charset L49_exon11_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L49_exon11_final_align_NT.aln: ;
+  charset L49_intron10.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L49_intron10.fasta.aln: ;
+  charset L49_intron11.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L49_intron11.fasta.aln: ;
+  charset L4_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L4_exon8_final_align_NT.aln: ;
+  charset L4_intron8.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L4_intron8.fasta.aln: ;
+  charset L50_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L50_exon3_final_align_NT.aln: ;
+  charset L50_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L50_intron3.fasta.aln: ;
+  charset L51_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L51_exon2_final_align_NT.aln: ;
+  charset L51_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L51_intron2.fasta.aln: ;
+  charset L52_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L52_3utr.fasta.aln: ;
+  charset L52_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L52_5utr.fasta.aln: ;
+  charset L52_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L52_exon1_final_align_NT.aln: ;
+  charset L53_exon28_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L53_exon28_final_align_NT.aln: ;
+  charset L53_intron27.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L53_intron27.fasta.aln: ;
+  charset L53_intron28.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L53_intron28.fasta.aln: ;
+  charset L53_noncodingUnknown.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L53_noncodingUnknown.fasta.aln: ;
+  charset L54_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L54_exon5_final_align_NT.aln: ;
+  charset L54_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L54_intron4.fasta.aln: ;
+  charset L54_intron5.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L54_intron5.fasta.aln: ;
+  charset L55_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L55_exon3_final_align_NT.aln: ;
+  charset L55_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L55_intron2.fasta.aln: ;
+  charset L55_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L55_intron3.fasta.aln: ;
+  charset L56_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L56_5utr.fasta.aln: ;
+  charset L56_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L56_exon1_final_align_NT.aln: ;
+  charset L56_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L56_exon2_final_align_NT.aln: ;
+  charset L56_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L56_intron1.fasta.aln: ;
+  charset L57_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L57_exon4_final_align_NT.aln: ;
+  charset L57_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L57_intron3.fasta.aln: ;
+  charset L58_exon20_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L58_exon20_final_align_NT.aln: ;
+  charset L58_intron19.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L58_intron19.fasta.aln: ;
+  charset L59_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L59_exon2_final_align_NT.aln: ;
+  charset L59_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L59_intron1.fasta.aln: ;
+  charset L59_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L59_intron2.fasta.aln: ;
+  charset L5_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L5_3utr.fasta.aln: ;
+  charset L5_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L5_exon2_final_align_NT.aln: ;
+  charset L5_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L5_intron1.fasta.aln: ;
+  charset L60_exon10_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L60_exon10_final_align_NT.aln: ;
+  charset L60_intron10.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L60_intron10.fasta.aln: ;
+  charset L61_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L61_exon3_final_align_NT.aln: ;
+  charset L61_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L61_intron2.fasta.aln: ;
+  charset L63_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L63_3utr.fasta.aln: ;
+  charset L63_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L63_exon4_final_align_NT.aln: ;
+  charset L63_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L63_exon7_final_align_NT.aln: ;
+  charset L63_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L63_intron3.fasta.aln: ;
+  charset L63_intron6.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L63_intron6.fasta.aln: ;
+  charset L64_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L64_exon2_final_align_NT.aln: ;
+  charset L64_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L64_exon3_final_align_NT.aln: ;
+  charset L64_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L64_intron1.fasta.aln: ;
+  charset L64_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L64_intron2.fasta.aln: ;
+  charset L65_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L65_5utr.fasta.aln: ;
+  charset L65_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L65_exon1_final_align_NT.aln: ;
+  charset L66_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L66_5utr.fasta.aln: ;
+  charset L66_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L66_exon1_final_align_NT.aln: ;
+  charset L66_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L66_exon3_final_align_NT.aln: ;
+  charset L66_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L66_intron1.fasta.aln: ;
+  charset L66_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L66_intron3.fasta.aln: ;
+  charset L66_noncodingUnknown.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L66_noncodingUnknown.fasta.aln: ;
+  charset L67_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L67_exon2_final_align_NT.aln: ;
+  charset L67_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L67_exon3_final_align_NT.aln: ;
+  charset L67_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L67_intron1.fasta.aln: ;
+  charset L68_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L68_exon4_final_align_NT.aln: ;
+  charset L68_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L68_intron3.fasta.aln: ;
+  charset L68_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L68_intron4.fasta.aln: ;
+  charset L69_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L69_5utr.fasta.aln: ;
+  charset L69_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L69_exon1_final_align_NT.aln: ;
+  charset L69_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L69_exon2_final_align_NT.aln: ;
+  charset L69_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L69_exon3_final_align_NT.aln: ;
+  charset L69_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L69_intron1.fasta.aln: ;
+  charset L69_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L69_intron2.fasta.aln: ;
+  charset L69_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L69_intron3.fasta.aln: ;
+  charset L70_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L70_exon2_final_align_NT.aln: ;
+  charset L70_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L70_exon3_final_align_NT.aln: ;
+  charset L70_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L70_intron1.fasta.aln: ;
+  charset L70_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L70_intron2.fasta.aln: ;
+  charset L70_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L70_intron3.fasta.aln: ;
+  charset L70_noncodingUnknown.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L70_noncodingUnknown.fasta.aln: ;
+  charset L71_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L71_exon2_final_align_NT.aln: ;
+  charset L71_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L71_exon3_final_align_NT.aln: ;
+  charset L71_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L71_exon4_final_align_NT.aln: ;
+  charset L71_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L71_intron1.fasta.aln: ;
+  charset L71_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L71_intron2.fasta.aln: ;
+  charset L71_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L71_intron3.fasta.aln: ;
+  charset L71_noncodingUnknown.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L71_noncodingUnknown.fasta.aln: ;
+  charset L72_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L72_3utr.fasta.aln: ;
+  charset L72_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L72_exon2_final_align_NT.aln: ;
+  charset L72_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L72_exon3_final_align_NT.aln: ;
+  charset L72_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L72_intron1.fasta.aln: ;
+  charset L72_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L72_intron2.fasta.aln: ;
+  charset L72_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L72_intron3.fasta.aln: ;
+  charset L72_noncodingUnknown.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L72_noncodingUnknown.fasta.aln: ;
+  charset L73_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L73_3utr.fasta.aln: ;
+  charset L73_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L73_exon1_final_align_NT.aln: ;
+  charset L74_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L74_exon4_final_align_NT.aln: ;
+  charset L74_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L74_intron3.fasta.aln: ;
+  charset L74_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L74_intron4.fasta.aln: ;
+  charset L75_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L75_exon2_final_align_NT.aln: ;
+  charset L75_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L75_intron1.fasta.aln: ;
+  charset L76_exon12_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L76_exon12_final_align_NT.aln: ;
+  charset L76_intron11.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L76_intron11.fasta.aln: ;
+  charset L76_intron12.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L76_intron12.fasta.aln: ;
+  charset L77_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L77_3utr.fasta.aln: ;
+  charset L77_exon13_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L77_exon13_final_align_NT.aln: ;
+  charset L78_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L78_3utr.fasta.aln: ;
+  charset L78_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L78_exon2_final_align_NT.aln: ;
+  charset L78_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L78_intron1.fasta.aln: ;
+  charset L80_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L80_exon2_final_align_NT.aln: ;
+  charset L80_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L80_intron1.fasta.aln: ;
+  charset L80_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L80_intron2.fasta.aln: ;
+  charset L81_exon6_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L81_exon6_final_align_NT.aln: ;
+  charset L81_intron6.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L81_intron6.fasta.aln: ;
+  charset L82_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L82_exon5_final_align_NT.aln: ;
+  charset L82_intron5.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L82_intron5.fasta.aln: ;
+  charset L83_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L83_3utr.fasta.aln: ;
+  charset L83_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L83_exon1_final_align_NT.aln: ;
+  charset L84_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L84_exon4_final_align_NT.aln: ;
+  charset L84_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L84_intron3.fasta.aln: ;
+  charset L85_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L85_3utr.fasta.aln: ;
+  charset L85_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L85_exon2_final_align_NT.aln: ;
+  charset L85_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L85_intron1.fasta.aln: ;
+  charset L86_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L86_exon2_final_align_NT.aln: ;
+  charset L86_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L86_intron1.fasta.aln: ;
+  charset L87_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L87_exon4_final_align_NT.aln: ;
+  charset L87_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L87_intron3.fasta.aln: ;
+  charset L87_intron4.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L87_intron4.fasta.aln: ;
+  charset L88_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L88_3utr.fasta.aln: ;
+  charset L88_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L88_exon4_final_align_NT.aln: ;
+  charset L88_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L88_intron3.fasta.aln: ;
+  charset L89_exon4_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L89_exon4_final_align_NT.aln: ;
+  charset L89_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L89_intron3.fasta.aln: ;
+  charset L8_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L8_exon8_final_align_NT.aln: ;
+  charset L8_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L8_intron7.fasta.aln: ;
+  charset L90_exon15_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L90_exon15_final_align_NT.aln: ;
+  charset L91_exon13_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L91_exon13_final_align_NT.aln: ;
+  charset L91_intron12.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L91_intron12.fasta.aln: ;
+  charset L92_5utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L92_5utr.fasta.aln: ;
+  charset L92_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L92_exon1_final_align_NT.aln: ;
+  charset L92_intron1.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L92_intron1.fasta.aln: ;
+  charset L93_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L93_3utr.fasta.aln: ;
+  charset L93_exon7_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L93_exon7_final_align_NT.aln: ;
+  charset L94_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L94_exon2_final_align_NT.aln: ;
+  charset L95_exon5_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L95_exon5_final_align_NT.aln: ;
+  charset L96_exon1_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L96_exon1_final_align_NT.aln: ;
+  charset L97_exon17_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L97_exon17_final_align_NT.aln: ;
+  charset L97_intron16.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L97_intron16.fasta.aln: ;
+  charset L97_intron17.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L97_intron17.fasta.aln: ;
+  charset L98_3utr.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L98_3utr.fasta.aln: ;
+  charset L98_exon8_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L98_exon8_final_align_NT.aln: ;
+  charset L98_intron7.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L98_intron7.fasta.aln: ;
+  charset L99_exon2_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L99_exon2_final_align_NT.aln: ;
+  charset L99_intron2.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L99_intron2.fasta.aln: ;
+  charset L9_exon3_final_align_NT.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L9_exon3_final_align_NT.aln: ;
+  charset L9_intron3.fasta.aln = /home/jb755/birds/bird2020/sample1haplo/tmp/L9_intron3.fasta.aln: ;
+  charpartition mymodels =
+    TVMe+G4: L100_3utr.fasta.aln,
+    GTR+F+R5: L100_exon6_final_align_NT.aln,
+    GTR+F+R6: L101_exon6_final_align_NT.aln,
+    HKY+F+R6: L102_exon2_final_align_NT.aln,
+    TIM2e+I+G4: L102_intron1.fasta.aln,
+    K2P+R3: L102_intron2.fasta.aln,
+    TVM+F+G4: L103_3utr.fasta.aln,
+    K3P+R4: L103_exon6_final_align_NT.aln,
+    TIM3e+R4: L104_exon2_final_align_NT.aln,
+    TNe+G4: L104_intron1.fasta.aln,
+    TIM2e+R4: L104_intron2.fasta.aln,
+    SYM+R5: L105_exon3_final_align_NT.aln,
+    TVM+F+I+G4: L105_intron2.fasta.aln,
+    GTR+F+I+G4: L105_intron3.fasta.aln,
+    GTR+F+R3: L106_3utr.fasta.aln,
+    GTR+F+R5: L106_exon2_final_align_NT.aln,
+    TIM3e+R4: L107_exon3_final_align_NT.aln,
+    GTR+F+R3: L107_intron2.fasta.aln,
+    TVM+F+G4: L107_intron3.fasta.aln,
+    TVMe+G4: L108_3utr.fasta.aln,
+    TVM+F+I+G4: L108_exon2_final_align_NT.aln,
+    TVMe+R4: L108_intron1.fasta.aln,
+    TVMe+I+G4: L109_3utr.fasta.aln,
+    TVM+F+I+G4: L109_exon2_final_align_NT.aln,
+    TVMe+R4: L109_intron1.fasta.aln,
+    SYM+R4: L10_exon29_final_align_NT.aln,
+    GTR+F+R3: L10_intron28.fasta.aln,
+    SYM+R6: L110_exon6_final_align_NT.aln,
+    TVMe+R4: L110_intron5.fasta.aln,
+    TVM+F+G4: L111_3utr.fasta.aln,
+    TIM3+F+I+G4: L111_exon23_final_align_NT.aln,
+    TPM3+F+G4: L111_intron22.fasta.aln,
+    TVMe+R5: L112_exon2_final_align_NT.aln,
+    SYM+R3: L112_intron1.fasta.aln,
+    TVMe+R3: L112_intron2.fasta.aln,
+    SYM+I+G4: L114_3utr.fasta.aln,
+    TIM3e+R4: L114_exon6_final_align_NT.aln,
+    TVM+F+R4: L114_intron5.fasta.aln,
+    K2P+G4: L115_5utr.fasta.aln,
+    TN+F+R5: L115_exon1_final_align_NT.aln,
+    TN+F+G4: L116_3utr.fasta.aln,
+    TVMe+R10: L116_exon2_final_align_NT.aln,
+    TVM+F+R3: L118_exon6_final_align_NT.aln,
+    K2P+R4: L119_3utr.fasta.aln,
+    TIM3e+R6: L119_exon7_final_align_NT.aln,
+    TVMe+R4: L11_3utr.fasta.aln,
+    GTR+F+I+G4: L11_exon2_final_align_NT.aln,
+    K3Pu+F+R4: L11_intron1.fasta.aln,
+    GTR+F+R5: L120_exon11_final_align_NT.aln,
+    TPM3+F+R4: L121_exon5_final_align_NT.aln,
+    TIM2e+R4: L121_intron4.fasta.aln,
+    TPM2+F+R4: L122_exon1_final_align_NT.aln,
+    K2P+G4: L122_intron1.fasta.aln,
+    TIM3e+G4: L124_3utr.fasta.aln,
+    TVMe+R4: L124_exon4_final_align_NT.aln,
+    TVMe+R3: L124_intron3.fasta.aln,
+    GTR+F+I+G4: L125_3utr.fasta.aln,
+    SYM+R5: L125_exon4_final_align_NT.aln,
+    TIM2+F+R5: L126_exon1_final_align_NT.aln,
+    TVMe+R5: L127_exon5_final_align_NT.aln,
+    TPM2+F+R4: L127_intron4.fasta.aln,
+    GTR+F+R4: L127_intron5.fasta.aln,
+    TPM3+F+R4: L128_exon9_final_align_NT.aln,
+    TVMe+R5: L129_exon1_final_align_NT.aln,
+    SYM+G4: L129_intron1.fasta.aln,
+    TIM3e+R4: L12_exon3_final_align_NT.aln,
+    TPM3+F+G4: L12_intron2.fasta.aln,
+    GTR+F+R3: L12_intron3.fasta.aln,
+    TVMe+R4: L130_exon2_final_align_NT.aln,
+    TPM3+F+R3: L130_intron1.fasta.aln,
+    GTR+F+G4: L130_intron2.fasta.aln,
+    GTR+F+R5: L131_exon10_final_align_NT.aln,
+    TVMe+G4: L131_intron10.fasta.aln,
+    GTR+F+R4: L131_intron9.fasta.aln,
+    TIM2e+G4: L132_3utr.fasta.aln,
+    GTR+F+R5: L132_exon12_final_align_NT.aln,
+    GTR+F+R5: L133_exon2_final_align_NT.aln,
+    GTR+F+R3: L133_intron1.fasta.aln,
+    TVM+F+G4: L133_intron2.fasta.aln,
+    TIM3e+R5: L135_exon16_final_align_NT.aln,
+    GTR+F+I+G4: L135_intron15.fasta.aln,
+    K3P+R3: L135_intron16.fasta.aln,
+    GTR+F+R5: L136_exon5_final_align_NT.aln,
+    GTR+F+R3: L136_intron4.fasta.aln,
+    TVM+F+G4: L136_intron5.fasta.aln,
+    GTR+F+R5: L137_exon2_final_align_NT.aln,
+    TVM+F+G4: L137_intron2.fasta.aln,
+    SYM+R5: L139_exon1_final_align_NT.aln,
+    GTR+F+R3: L139_intron1.fasta.aln,
+    TIM3e+R6: L13_exon5_final_align_NT.aln,
+    TPM3+F+R3: L13_intron4.fasta.aln,
+    GTR+F+R3: L13_intron5.fasta.aln,
+    K2P+G4: L140_3utr.fasta.aln,
+    TIM3+F+R4: L140_5utr.fasta.aln,
+    TPM3+F+R5: L140_exon1_final_align_NT.aln,
+    K2P+G4: L141_5utr.fasta.aln,
+    GTR+F+R5: L141_exon1_final_align_NT.aln,
+    K2P+R4: L142_exon3_final_align_NT.aln,
+    TVM+F+R5: L142_intron2.fasta.aln,
+    GTR+F+R3: L142_intron3.fasta.aln,
+    TN+F+R3: L143_3utr.fasta.aln,
+    TVM+F+R6: L143_exon2_final_align_NT.aln,
+    TIM3+F+R3: L143_intron1.fasta.aln,
+    GTR+F+R3: L144_3utr.fasta.aln,
+    TVM+F+R5: L144_exon15_final_align_NT.aln,
+    TIM2e+R4: L145_3utr.fasta.aln,
+    TIM3e+R5: L145_exon18_final_align_NT.aln,
+    GTR+F+R4: L145_intron17.fasta.aln,
+    GTR+F+R5: L146_exon17_final_align_NT.aln,
+    GTR+F+R3: L146_intron16.fasta.aln,
+    GTR+F+G4: L146_intron17.fasta.aln,
+    TVM+F+G4: L147_3utr.fasta.aln,
+    TIM3e+R4: L147_5utr.fasta.aln,
+    SYM+R5: L147_exon1_final_align_NT.aln,
+    GTR+F+R4: L148_exon28_final_align_NT.aln,
+    TIM2e+R3: L148_intron27.fasta.aln,
+    TVM+F+G4: L148_intron28.fasta.aln,
+    GTR+F+R5: L149_exon1_final_align_NT.aln,
+    TIM+F+G4: L149_intron1.fasta.aln,
+    TVM+F+R4: L14_exon4_final_align_NT.aln,
+    TPM2+F: L14_intron4.fasta.aln,
+    TVM+F+R4: L150_exon10_final_align_NT.aln,
+    TPM2+F+G4: L150_exon11_final_align_NT.aln,
+    K3P+G4: L150_intron10.fasta.aln,
+    K2P+R3: L150_intron11.fasta.aln,
+    TIM2e+G4: L151_3utr.fasta.aln,
+    SYM+R4: L151_exon3_final_align_NT.aln,
+    TIM2+F+R4: L151_intron2.fasta.aln,
+    K2P+R3: L152_3utr.fasta.aln,
+    TIM2+F+R9: L152_exon2_final_align_NT.aln,
+    TN+F+R4: L152_intron1.fasta.aln,
+    TIM3+F+R5: L153_exon10_final_align_NT.aln,
+    TIM3e+R5: L154_exon2_final_align_NT.aln,
+    GTR+F+G4: L154_intron2.fasta.aln,
+    TIM3e+R3: L155_exon23_final_align_NT.aln,
+    GTR+F+R3: L155_intron22.fasta.aln,
+    TVMe+I+G4: L155_intron23.fasta.aln,
+    TVMe+R5: L156_exon2_final_align_NT.aln,
+    TVM+F+I+G4: L156_intron1.fasta.aln,
+    TIM2e+R3: L156_intron2.fasta.aln,
+    TPM2+F+R5: L157_exon9_final_align_NT.aln,
+    TVM+F+R3: L157_intron8.fasta.aln,
+    TIM3e+R4: L159_exon24_final_align_NT.aln,
+    K2P+R4: L15_3utr.fasta.aln,
+    TIM3+F+I+G4: L15_exon8_final_align_NT.aln,
+    TVM+F+R3: L15_intron7.fasta.aln,
+    TVMe+R5: L160_exon4_final_align_NT.aln,
+    TVMe+R4: L161_exon8_final_align_NT.aln,
+    HKY+F+R3: L161_intron8.fasta.aln,
+    TPM2+F+G4: L162_3utr.fasta.aln,
+    TPM3+F+G4: L162_5utr.fasta.aln,
+    TIM3+F+R5: L162_exon1_final_align_NT.aln,
+    GTR+F+R6: L163_exon15_final_align_NT.aln,
+    TVMe+G4: L163_intron14.fasta.aln,
+    GTR+F+G4: L163_intron15.fasta.aln,
+    TNe+R4: L164_exon5_final_align_NT.aln,
+    TIM2e+R4: L164_intron4.fasta.aln,
+    GTR+F+R3: L164_intron5.fasta.aln,
+    TVM+F+I+G4: L165_5utr.fasta.aln,
+    TIM3+F+R5: L165_exon1_final_align_NT.aln,
+    GTR+F+R3: L165_intron1.fasta.aln,
+    TIM3e+G4: L167_3utr.fasta.aln,
+    TVM+F+R6: L167_exon32_final_align_NT.aln,
+    TIM3+F+R3: L167_intron31.fasta.aln,
+    K2P+G4: L167_noncodingUnknown.fasta.aln,
+    TVM+F+R3: L169_3utr.fasta.aln,
+    TPM3+F+R4: L169_exon4_final_align_NT.aln,
+    TPM3+F+R3: L169_intron3.fasta.aln,
+    TVMe+R3: L16_3utr.fasta.aln,
+    TVMe+R4: L16_exon2_final_align_NT.aln,
+    TIM3+F+R4: L16_intron1.fasta.aln,
+    TIM3e+R6: L170_exon7_final_align_NT.aln,
+    SYM+R4: L170_intron6.fasta.aln,
+    TPM3+F+R3: L171_3utr.fasta.aln,
+    TIM3e+R5: L171_exon11_final_align_NT.aln,
+    TIM3+F+R4: L171_intron10.fasta.aln,
+    SYM+G4: L172_3utr.fasta.aln,
+    TIM3e+R4: L172_exon5_final_align_NT.aln,
+    TVM+F+R4: L173_3utr.fasta.aln,
+    TIM3e+R3: L173_exon5_final_align_NT.aln,
+    TIMe+R4: L173_intron4.fasta.aln,
+    TPM3+F+G4: L173_noncodingUnknown.fasta.aln,
+    TVMe+R5: L174_exon6_final_align_NT.aln,
+    TIM3+F+R5: L175_exon6_final_align_NT.aln,
+    GTR+F+R3: L175_intron6.fasta.aln,
+    TPM3+F+R4: L176_exon6_final_align_NT.aln,
+    TIM3e+R4: L177_exon3_final_align_NT.aln,
+    TVM+F+R2: L177_intron3.fasta.aln,
+    TIM3+F+I+G4: L178_exon8_final_align_NT.aln,
+    GTR+F+I+G4: L178_intron7.fasta.aln,
+    TIM+F+I+G4: L178_intron8.fasta.aln,
+    TIM3e+R5: L179_exon19_final_align_NT.aln,
+    K2P+R4: L179_exon20_final_align_NT.aln,
+    K2P+G4: L179_intron18.fasta.aln,
+    TIM2e+G4: L179_intron19.fasta.aln,
+    TVM+F+G4: L179_intron20.fasta.aln,
+    TIM+F+R5: L17_exon1_final_align_NT.aln,
+    TN+F+G4: L17_intron1.fasta.aln,
+    GTR+F+R5: L180_exon2_final_align_NT.aln,
+    TIM3+F+R3: L180_intron1.fasta.aln,
+    TPM3+F+G4: L182_3utr.fasta.aln,
+    TIMe+R3: L182_exon21_final_align_NT.aln,
+    K2P+G4: L183_exon10_final_align_NT.aln,
+    SYM+R5: L183_exon9_final_align_NT.aln,
+    TVM+F+R4: L183_intron10.fasta.aln,
+    TIM3+F+R3: L183_intron8.fasta.aln,
+    TVM+F+I+G4: L183_intron9.fasta.aln,
+    K2P+G4: L186_5utr.fasta.aln,
+    HKY+F+I+G4: L186_exon1_final_align_NT.aln,
+    HKY+F+I+G4: L186_exon2_final_align_NT.aln,
+    TN+F+R4: L186_exon3_final_align_NT.aln,
+    HKY+F+I+G4: L186_intron1.fasta.aln,
+    TVMe+I+G4: L186_intron2.fasta.aln,
+    TPM3+F+G4: L186_intron3.fasta.aln,
+    TIM3e+R5: L187_exon16_final_align_NT.aln,
+    TIM2e+R3: L187_intron15.fasta.aln,
+    HKY+F+R4: L188_exon7_final_align_NT.aln,
+    HKY+F+G4: L188_intron7.fasta.aln,
+    GTR+F+R5: L189_exon3_final_align_NT.aln,
+    GTR+F+I+G4: L18_3utr.fasta.aln,
+    TIM2+F+G4: L18_5utr.fasta.aln,
+    TIM2+F+R10: L18_exon1_final_align_NT.aln,
+    HKY+F+G4: L18_noncodingUnknown.fasta.aln,
+    GTR+F+R4: L190_5utr.fasta.aln,
+    TPM3+F+R4: L190_exon1_final_align_NT.aln,
+    GTR+F+I+G4: L190_exon2_final_align_NT.aln,
+    K2P+I+G4: L190_intron1.fasta.aln,
+    GTR+F+R3: L190_intron2.fasta.aln,
+    GTR+F+G4: L191_5utr.fasta.aln,
+    GTR+F+R5: L191_exon1_final_align_NT.aln,
+    TVM+F+R3: L191_intron1.fasta.aln,
+    GTR+F+R5: L192_exon3_final_align_NT.aln,
+    GTR+F+R2: L192_intron2.fasta.aln,
+    GTR+F+I+G4: L192_intron3.fasta.aln,
+    TNe+R5: L193_exon2_final_align_NT.aln,
+    TPM3+F+G4: L193_intron1.fasta.aln,
+    K2P+I+G4: L193_intron2.fasta.aln,
+    TIM+F+R5: L194_exon1_final_align_NT.aln,
+    HKY+F+G4: L194_intron1.fasta.aln,
+    TIM2+F+I+G4: L195_exon1_final_align_NT.aln,
+    TIM2+F+G4: L195_intron1.fasta.aln,
+    K2P+R4: L196_exon2_final_align_NT.aln,
+    TIM3+F+R5: L196_intron1.fasta.aln,
+    TVM+F+I+G4: L196_intron2.fasta.aln,
+    K2P+G4: L197_3utr.fasta.aln,
+    K2P+R4: L197_exon2_final_align_NT.aln,
+    TIM3e+R4: L197_exon3_final_align_NT.aln,
+    K2P+G4: L197_exon4_final_align_NT.aln,
+    K2P+R4: L197_intron1.fasta.aln,
+    K2P+G4: L197_intron3.fasta.aln,
+    TVMe+R5: L198_exon4_final_align_NT.aln,
+    GTR+F+G4: L198_intron3.fasta.aln,
+    TPM3+F+I+G4: L198_intron4.fasta.aln,
+    SYM+G4: L19_3utr.fasta.aln,
+    TIM3+F+R5: L19_exon3_final_align_NT.aln,
+    TVMe+G4: L19_intron2.fasta.aln,
+    GTR+F+R6: L1_exon9_final_align_NT.aln,
+    TVM+F+R4: L1_intron8.fasta.aln,
+    SYM+I+G4: L1_intron9.fasta.aln,
+    TVM+F+R3: L200_3utr.fasta.aln,
+    TVMe+R5: L200_exon3_final_align_NT.aln,
+    TVMe+R4: L200_intron2.fasta.aln,
+    SYM+R3: L201_exon3_final_align_NT.aln,
+    TVM+F+R2: L201_intron3.fasta.aln,
+    TIM3e+R8: L202_exon3_final_align_NT.aln,
+    GTR+F+R3: L202_intron2.fasta.aln,
+    GTR+F+G4: L202_intron3.fasta.aln,
+    SYM+R4: L203_exon1_final_align_NT.aln,
+    TPM3+F+R5: L205_exon9_final_align_NT.aln,
+    K3P+I+G4: L206_3utr.fasta.aln,
+    TIM3e+R5: L206_exon2_final_align_NT.aln,
+    GTR+F+I+G4: L206_intron1.fasta.aln,
+    TIM3e+R4: L207_exon6_final_align_NT.aln,
+    GTR+F+R3: L207_intron5.fasta.aln,
+    TPM3+F+R5: L208_exon2_final_align_NT.aln,
+    TPM3+F+R4: L209_exon2_final_align_NT.aln,
+    K3P+R3: L209_intron1.fasta.aln,
+    TVMe+R3: L209_intron2.fasta.aln,
+    TIM3+F+R6: L20_exon2_final_align_NT.aln,
+    TVMe+G4: L20_intron1.fasta.aln,
+    TVMe+G4: L20_intron2.fasta.aln,
+    SYM+I+G4: L210_exon2_final_align_NT.aln,
+    TVMe+R4: L210_intron1.fasta.aln,
+    GTR+F+R5: L212_3utr.fasta.aln,
+    K3P+R5: L212_exon2_final_align_NT.aln,
+    GTR+F+R3: L212_intron1.fasta.aln,
+    K3P+G4: L213_3utr.fasta.aln,
+    TIM2+F+R5: L213_exon1_final_align_NT.aln,
+    GTR+F+R4: L214_3utr.fasta.aln,
+    TIM3e+R5: L214_exon8_final_align_NT.aln,
+    TNe: L214_intron7.fasta.aln,
+    K3Pu+F+R5: L215_exon9_final_align_NT.aln,
+    GTR+F+G4: L215_intron8.fasta.aln,
+    TVMe+R5: L216_exon7_final_align_NT.aln,
+    K2P+G4: L216_intron6.fasta.aln,
+    HKY+F+I+G4: L216_intron7.fasta.aln,
+    HKY+F+R2: L219_3utr.fasta.aln,
+    GTR+F+R5: L219_exon25_final_align_NT.aln,
+    GTR+F+R3: L219_intron24.fasta.aln,
+    GTR+F+G4: L220_3utr.fasta.aln,
+    TIM3+F+R5: L220_exon24_final_align_NT.aln,
+    TVM+F+R2: L220_intron23.fasta.aln,
+    GTR+F+R4: L221_3utr.fasta.aln,
+    TVM+F+R5: L221_exon2_final_align_NT.aln,
+    TIM3+F+G4: L221_intron1.fasta.aln,
+    GTR+F+R3: L222_3utr.fasta.aln,
+    HKY+F+R4: L222_exon9_final_align_NT.aln,
+    GTR+F+G4: L222_intron8.fasta.aln,
+    TIM3e+G4: L223_3utr.fasta.aln,
+    TIM3e+I+G4: L223_exon7_final_align_NT.aln,
+    K3P+R4: L223_intron6.fasta.aln,
+    TNe+R6: L224_exon3_final_align_NT.aln,
+    GTR+F+R3: L224_intron2.fasta.aln,
+    TVM+F+R3: L224_intron3.fasta.aln,
+    TIM3+F+R4: L225_exon3_final_align_NT.aln,
+    TIM3e+R4: L226_exon37_final_align_NT.aln,
+    GTR+F+R3: L226_intron36.fasta.aln,
+    K2P+R3: L227_3utr.fasta.aln,
+    TIM3+F+R4: L227_exon3_final_align_NT.aln,
+    K2P+R4: L228_3utr.fasta.aln,
+    GTR+F+R5: L228_exon2_final_align_NT.aln,
+    TVM+F+I+G4: L228_intron1.fasta.aln,
+    K2P+G4: L229_3utr.fasta.aln,
+    TVMe+R7: L229_exon3_final_align_NT.aln,
+    GTR+F+R3: L229_intron2.fasta.aln,
+    TVMe+R5: L22_exon7_final_align_NT.aln,
+    TPM3+F+R3: L22_intron7.fasta.aln,
+    TVMe+R4: L230_exon13_final_align_NT.aln,
+    SYM+R4: L230_intron12.fasta.aln,
+    TIM3+F+R5: L231_exon3_final_align_NT.aln,
+    GTR+F+R4: L231_intron2.fasta.aln,
+    TVM+F+R3: L231_intron3.fasta.aln,
+    TIM2+F+G4: L232_3utr.fasta.aln,
+    TVMe+R4: L232_exon7_final_align_NT.aln,
+    TIM3+F+G4: L232_intron6.fasta.aln,
+    HKY+F+R5: L233_exon8_final_align_NT.aln,
+    TIM2+F+G4: L233_intron7.fasta.aln,
+    TPM3+F+R3: L233_intron8.fasta.aln,
+    TVMe+R5: L235_exon4_final_align_NT.aln,
+    TIM3e+I+G4: L235_intron3.fasta.aln,
+    GTR+F+R4: L236_exon7_final_align_NT.aln,
+    GTR+F+R3: L236_intron7.fasta.aln,
+    TVM+F+R3: L237_5utr.fasta.aln,
+    GTR+F+R5: L237_exon1_final_align_NT.aln,
+    TIM3e+I+G4: L238_3utr.fasta.aln,
+    TPM3+F+I+G4: L238_exon1_final_align_NT.aln,
+    TVM+F+R4: L239_exon35_final_align_NT.aln,
+    TVM+F+I+G4: L23_exon2_final_align_NT.aln,
+    GTR+F+I+G4: L23_intron2.fasta.aln,
+    TIMe+G4: L240_3utr.fasta.aln,
+    TVM+F+R5: L240_exon12_final_align_NT.aln,
+    TVM+F+R5: L241_exon8_final_align_NT.aln,
+    TIM3+F+R3: L241_intron8.fasta.aln,
+    TVM+F+R3: L241_intron9.fasta.aln,
+    K2P+G4: L242_3utr.fasta.aln,
+    TIM3+F+R5: L242_exon4_final_align_NT.aln,
+    TVM+F+R4: L243_exon5_final_align_NT.aln,
+    TIM3e+R4: L243_intron4.fasta.aln,
+    TVM+F+R3: L243_intron5.fasta.aln,
+    TIM2e+G4: L244_exon3_final_align_NT.aln,
+    GTR+F+I+G4: L244_intron2.fasta.aln,
+    TVM+F+I+G4: L244_intron3.fasta.aln,
+    TPM2+F+G4: L245_3utr.fasta.aln,
+    TIM2+F+R10: L245_exon18_final_align_NT.aln,
+    K3P+R5: L245_intron17.fasta.aln,
+    TIM3e+R5: L247_exon19_final_align_NT.aln,
+    GTR+F+I+G4: L247_intron18.fasta.aln,
+    TIM3e+R5: L248_exon8_final_align_NT.aln,
+    TPM3+F+R4: L248_intron7.fasta.aln,
+    TIM+F+R4: L24_exon16_final_align_NT.aln,
+    TVM+F+I+G4: L24_intron16.fasta.aln,
+    TNe+R3: L250_3utr.fasta.aln,
+    K2P+G4: L250_exon8_final_align_NT.aln,
+    TIM3+F+R5: L250_exon9_final_align_NT.aln,
+    K2P+G4: L250_intron7.fasta.aln,
+    TPM3+F+I+G4: L250_intron8.fasta.aln,
+    GTR+F+R5: L254_exon13_final_align_NT.aln,
+    GTR+F+R3: L257_5utr.fasta.aln,
+    TIM3e+R5: L257_exon1_final_align_NT.aln,
+    TIM2e+I+G4: L257_intron1.fasta.aln,
+    K3P+I+G4: L258_exon3_final_align_NT.aln,
+    TVMe+R5: L258_intron2.fasta.aln,
+    K2P+R2: L258_intron3.fasta.aln,
+    SYM+R5: L258_noncodingUnknown.fasta.aln,
+    TVMe+G4: L259_3utr.fasta.aln,
+    SYM+R4: L259_exon1_final_align_NT.aln,
+    SYM+G4: L25_3utr.fasta.aln,
+    TVMe+R4: L25_exon2_final_align_NT.aln,
+    TVM+F+G4: L25_intron1.fasta.aln,
+    F81+F: L260_3utr.fasta.aln,
+    TVMe+R4: L260_exon7_final_align_NT.aln,
+    TVMe+R4: L261_3utr.fasta.aln,
+    TIM3+F+R8: L261_exon2_final_align_NT.aln,
+    TIM2e+R3: L261_intron1.fasta.aln,
+    TIM2e+I+G4: L262_exon3_final_align_NT.aln,
+    TNe+I+G4: L262_exon4_final_align_NT.aln,
+    HKY+F+G4: L262_intron2.fasta.aln,
+    TIM2e+I+G4: L262_intron3.fasta.aln,
+    K2P+I: L262_intron4.fasta.aln,
+    K2P+G4: L262_noncodingUnknown.fasta.aln,
+    TVMe+R3: L264_3utr.fasta.aln,
+    TIM3e+I+G4: L264_exon4_final_align_NT.aln,
+    TIM2e+R3: L264_intron3.fasta.aln,
+    GTR+F+R4: L265_3utr.fasta.aln,
+    TVM+F+I+G4: L265_exon22_final_align_NT.aln,
+    TVMe+R4: L265_intron21.fasta.aln,
+    SYM+I+G4: L266_3utr.fasta.aln,
+    K2P+R3: L266_exon21_final_align_NT.aln,
+    SYM+R4: L266_intron20.fasta.aln,
+    TVMe+R5: L267_exon20_final_align_NT.aln,
+    SYM+R5: L268_exon4_final_align_NT.aln,
+    TVM+F+R3: L268_intron3.fasta.aln,
+    TIM3e+R5: L269_exon27_final_align_NT.aln,
+    GTR+F+R3: L269_intron26.fasta.aln,
+    GTR+F+R2: L269_intron27.fasta.aln,
+    TVM+F+R6: L26_exon12_final_align_NT.aln,
+    TIM2e+R3: L26_intron11.fasta.aln,
+    TVMe+G4: L26_intron12.fasta.aln,
+    TVM+F+R3: L270_3utr.fasta.aln,
+    TVMe+R4: L270_exon2_final_align_NT.aln,
+    TIM2e+R5: L270_intron1.fasta.aln,
+    TIM2+F+G4: L271_3utr.fasta.aln,
+    TVMe+R5: L271_exon2_final_align_NT.aln,
+    GTR+F+R3: L271_intron1.fasta.aln,
+    TIM3+F+R4: L272_3utr.fasta.aln,
+    K3Pu+F+R5: L272_exon10_final_align_NT.aln,
+    TIM2e+R4: L272_intron9.fasta.aln,
+    TIM3+F+R4: L273_exon10_final_align_NT.aln,
+    TVM+F+R4: L275_exon2_final_align_NT.aln,
+    TIM3+F+R4: L275_intron1.fasta.aln,
+    TPM2+F+G4: L275_intron2.fasta.aln,
+    K2P+R4: L276_3utr.fasta.aln,
+    TVM+F+R5: L276_exon6_final_align_NT.aln,
+    TNe+R6: L276_intron5.fasta.aln,
+    TVMe+G4: L277_3utr.fasta.aln,
+    SYM+R5: L277_exon5_final_align_NT.aln,
+    SYM+R4: L277_intron4.fasta.aln,
+    GTR+F+I+G4: L278_exon3_final_align_NT.aln,
+    SYM+R3: L278_intron2.fasta.aln,
+    TVM+F+R8: L279_exon26_final_align_NT.aln,
+    TPM2+F+I+G4: L279_exon27_final_align_NT.aln,
+    SYM+I+G4: L27_exon3_final_align_NT.aln,
+    SYM+R4: L27_intron2.fasta.aln,
+    TVM+F+R3: L27_intron3.fasta.aln,
+    GTR+F+R6: L281_exon12_final_align_NT.aln,
+    TPM3+F+G4: L282_3utr.fasta.aln,
+    TIM2+F+R5: L282_exon9_final_align_NT.aln,
+    TVMe+R4: L282_intron8.fasta.aln,
+    TVMe+R6: L284_exon13_final_align_NT.aln,
+    TPM3+F+R3: L284_intron12.fasta.aln,
+    TIM3e+R5: L285_exon5_final_align_NT.aln,
+    GTR+F+R4: L285_intron4.fasta.aln,
+    TIM2e+R3: L285_intron5.fasta.aln,
+    TVM+F+R4: L286_exon2_final_align_NT.aln,
+    HKY+F+R2: L286_intron1.fasta.aln,
+    TIM2e+R4: L286_intron2.fasta.aln,
+    GTR+F+I+G4: L287_3utr.fasta.aln,
+    TIM3+F+R4: L287_exon9_final_align_NT.aln,
+    TIM3+F+I+G4: L288_exon10_final_align_NT.aln,
+    GTR+F+G4: L288_intron10.fasta.aln,
+    TVM+F+R2: L288_intron9.fasta.aln,
+    TPM3+F: L289_3utr.fasta.aln,
+    TIM3e+R5: L289_exon4_final_align_NT.aln,
+    TPM3+F+I+G4: L289_intron3.fasta.aln,
+    TVMe+G4: L28_3utr.fasta.aln,
+    TIM3e+R5: L28_exon2_final_align_NT.aln,
+    GTR+F+I+G4: L28_intron1.fasta.aln,
+    TIM3e+R4: L290_exon11_final_align_NT.aln,
+    GTR+F+R2: L290_intron10.fasta.aln,
+    TVM+F+I+G4: L290_intron11.fasta.aln,
+    TNe+R3: L291_3utr.fasta.aln,
+    K2P+R5: L291_exon7_final_align_NT.aln,
+    GTR+F+R3: L291_intron6.fasta.aln,
+    TVMe+I+G4: L293_3utr.fasta.aln,
+    GTR+F+R5: L293_exon3_final_align_NT.aln,
+    TVMe+R4: L293_intron2.fasta.aln,
+    K3P+R3: L294_3utr.fasta.aln,
+    TVMe+R4: L294_exon9_final_align_NT.aln,
+    TIM3+F+R3: L294_intron8.fasta.aln,
+    TPM3+F+R4: L295_exon12_final_align_NT.aln,
+    TIM3+F+R5: L296_exon7_final_align_NT.aln,
+    GTR+F+R4: L296_intron6.fasta.aln,
+    TVM+F+G4: L296_intron7.fasta.aln,
+    TVMe+R3: L297_3utr.fasta.aln,
+    TVMe+R4: L297_exon2_final_align_NT.aln,
+    K2P+R5: L297_intron1.fasta.aln,
+    TIM3+F+R4: L298_exon8_final_align_NT.aln,
+    TIM2+F+G4: L298_intron7.fasta.aln,
+    TIM3+F+G4: L298_intron8.fasta.aln,
+    K2P+R5: L299_exon1_final_align_NT.aln,
+    SYM+R4: L29_exon18_final_align_NT.aln,
+    TIM2+F+R4: L2_exon8_final_align_NT.aln,
+    SYM+R3: L2_intron7.fasta.aln,
+    TVM+F+R5: L300_exon7_final_align_NT.aln,
+    TIM3e+I+G4: L301_exon1_final_align_NT.aln,
+    HKY+F+R4: L302_exon2_final_align_NT.aln,
+    GTR+F+R4: L302_intron1.fasta.aln,
+    GTR+F+G4: L302_intron2.fasta.aln,
+    TVM+F+R6: L303_exon56_final_align_NT.aln,
+    TNe+G4: L303_intron55.fasta.aln,
+    GTR+F+R2: L303_intron56.fasta.aln,
+    K2P+G4: L304_3utr.fasta.aln,
+    GTR+F+R5: L304_exon2_final_align_NT.aln,
+    GTR+F+R3: L304_intron1.fasta.aln,
+    TPM3+F+I: L305_3utr.fasta.aln,
+    TIM2e+I+G4: L305_exon7_final_align_NT.aln,
+    TPM3+F+I+G4: L305_intron6.fasta.aln,
+    TPM3+F+R2: L306_3utr.fasta.aln,
+    K3Pu+F+R3: L306_exon13_final_align_NT.aln,
+    GTR+F+R3: L306_intron12.fasta.aln,
+    GTR+F+G4: L307_3utr.fasta.aln,
+    TVMe+R5: L307_exon2_final_align_NT.aln,
+    TVMe+R5: L307_intron1.fasta.aln,
+    TN+F+G4: L308_3utr.fasta.aln,
+    GTR+F+R5: L308_exon4_final_align_NT.aln,
+    GTR+F+R3: L308_intron3.fasta.aln,
+    TIM3e+R7: L309_exon2_final_align_NT.aln,
+    TIM3+F+I+G4: L309_intron1.fasta.aln,
+    TIM2+F+R3: L30_3utr.fasta.aln,
+    K2P+R4: L30_exon4_final_align_NT.aln,
+    K2P+I+G4: L30_intron3.fasta.aln,
+    TIM3e+R5: L311_exon6_final_align_NT.aln,
+    GTR+F+I+G4: L311_intron5.fasta.aln,
+    TVM+F+R3: L311_intron6.fasta.aln,
+    K2P+G4: L312_3utr.fasta.aln,
+    GTR+F+G4: L312_5utr.fasta.aln,
+    TIM3e+R5: L312_exon1_final_align_NT.aln,
+    GTR+F+R5: L313_exon10_final_align_NT.aln,
+    GTR+F+G4: L313_intron10.fasta.aln,
+    TVM+F+I+G4: L314_3utr.fasta.aln,
+    TIM3e+R5: L314_exon9_final_align_NT.aln,
+    TVM+F+R3: L314_intron8.fasta.aln,
+    TIM3e+R6: L315_exon4_final_align_NT.aln,
+    TVM+F+R2: L315_intron3.fasta.aln,
+    GTR+F+I+G4: L315_intron4.fasta.aln,
+    GTR+F+G4: L315_noncodingUnknown.fasta.aln,
+    TPM3+F+R5: L316_exon11_final_align_NT.aln,
+    GTR+F+R4: L316_intron10.fasta.aln,
+    TN+F+G4: L317_3utr.fasta.aln,
+    GTR+F+R4: L317_exon2_final_align_NT.aln,
+    TIMe+G4: L317_intron1.fasta.aln,
+    TIM3+F+G4: L318_3utr.fasta.aln,
+    TVM+F+R4: L318_exon3_final_align_NT.aln,
+    TVM+F+G4: L318_intron2.fasta.aln,
+    GTR+F+R5: L319_exon8_final_align_NT.aln,
+    SYM+R4: L31_exon12_final_align_NT.aln,
+    TVM+F+I+G4: L31_intron12.fasta.aln,
+    K2P+R3: L320_3utr.fasta.aln,
+    K3P+R4: L320_exon3_final_align_NT.aln,
+    TPM3+F+R4: L320_intron1.fasta.aln,
+    HKY+F+R3: L320_intron2.fasta.aln,
+    TIM3e+R5: L321_exon6_final_align_NT.aln,
+    TIM2+F+G4: L321_intron5.fasta.aln,
+    TVM+F+G4: L322_3utr.fasta.aln,
+    TIM3e+I+G4: L322_exon4_final_align_NT.aln,
+    TPM3+F+R3: L322_intron3.fasta.aln,
+    TVMe+R5: L323_exon1_final_align_NT.aln,
+    TIM3e+R4: L324_exon13_final_align_NT.aln,
+    GTR+F+R3: L324_intron12.fasta.aln,
+    TVM+F+G4: L324_intron13.fasta.aln,
+    TVMe+R5: L325_exon6_final_align_NT.aln,
+    K3P+R4: L326_3utr.fasta.aln,
+    TVM+F+R4: L326_exon18_final_align_NT.aln,
+    SYM+G4: L326_intron17.fasta.aln,
+    TVMe+R5: L327_exon11_final_align_NT.aln,
+    GTR+F+R3: L327_intron10.fasta.aln,
+    TVM+F+I+G4: L327_intron11.fasta.aln,
+    TN+F+G4: L328_3utr.fasta.aln,
+    K3Pu+F+I+G4: L328_exon1_final_align_NT.aln,
+    TVMe+R7: L329_exon8_final_align_NT.aln,
+    TVMe+R3: L329_intron8.fasta.aln,
+    TPM3+F+G4: L32_3utr.fasta.aln,
+    GTR+F+R5: L32_exon18_final_align_NT.aln,
+    K2P+R3: L32_intron17.fasta.aln,
+    GTR+F+R5: L331_exon24_final_align_NT.aln,
+    TIM2e+R3: L331_intron23.fasta.aln,
+    GTR+F+I+G4: L332_exon8_final_align_NT.aln,
+    TPM2+F+R3: L332_intron7.fasta.aln,
+    TVMe+G4: L333_3utr.fasta.aln,
+    GTR+F+R5: L333_exon2_final_align_NT.aln,
+    TVMe+R4: L334_exon2_final_align_NT.aln,
+    TIM3e+R5: L335_exon4_final_align_NT.aln,
+    TVM+F+R3: L335_intron3.fasta.aln,
+    K3Pu+F+R4: L337_exon2_final_align_NT.aln,
+    K2P+G4: L337_intron2.fasta.aln,
+    TIM3e+R5: L338_exon49_final_align_NT.aln,
+    K2P+R5: L339_exon5_final_align_NT.aln,
+    TNe+R4: L339_intron4.fasta.aln,
+    GTR+F+R6: L340_exon4_final_align_NT.aln,
+    TVMe+R5: L340_intron3.fasta.aln,
+    GTR+F+R3: L340_intron4.fasta.aln,
+    TIM3+F+R5: L341_exon2_final_align_NT.aln,
+    TVM+F+G4: L341_intron1.fasta.aln,
+    GTR+F+I+G4: L341_intron2.fasta.aln,
+    TIM+F+R7: L342_exon8_final_align_NT.aln,
+    SYM+I+G4: L342_intron8.fasta.aln,
+    GTR+F+R4: L343_exon9_final_align_NT.aln,
+    GTR+F+R5: L343_intron8.fasta.aln,
+    GTR+F+R5: L344_exon18_final_align_NT.aln,
+    TVM+F+I+G4: L344_intron17.fasta.aln,
+    TVMe+R8: L345_exon3_final_align_NT.aln,
+    TPM2+F+R4: L346_5utr.fasta.aln,
+    TVM+F+R6: L346_exon1_final_align_NT.aln,
+    GTR+F+I+G4: L347_exon14_final_align_NT.aln,
+    GTR+F+R3: L348_3utr.fasta.aln,
+    TVM+F+R5: L348_exon3_final_align_NT.aln,
+    TN+F+R4: L348_intron2.fasta.aln,
+    SYM+G4: L349_3utr.fasta.aln,
+    TVMe+R5: L349_exon2_final_align_NT.aln,
+    TPM3+F+G4: L349_intron1.fasta.aln,
+    TVM+F+R5: L34_exon2_final_align_NT.aln,
+    TVMe+R4: L34_intron1.fasta.aln,
+    TVM+F+I+G4: L34_intron2.fasta.aln,
+    TVMe+I+G4: L350_3utr.fasta.aln,
+    SYM+I+G4: L350_exon2_final_align_NT.aln,
+    TVMe+R3: L350_intron1.fasta.aln,
+    TVMe+R5: L351_exon3_final_align_NT.aln,
+    GTR+F+R3: L351_intron2.fasta.aln,
+    TVM+F+R3: L352_3utr.fasta.aln,
+    SYM+R4: L352_exon2_final_align_NT.aln,
+    K2P: L352_intron1.fasta.aln,
+    TN+F+G4: L353_3utr.fasta.aln,
+    TIM2+F+I+G4: L353_exon2_final_align_NT.aln,
+    TN+F+R4: L353_intron1.fasta.aln,
+    TNe+R3: L354_3utr.fasta.aln,
+    TPM2+F+I+G4: L354_exon3_final_align_NT.aln,
+    K2P+R3: L354_intron2.fasta.aln,
+    GTR+F+R4: L355_exon22_final_align_NT.aln,
+    K2P+G4: L356_3utr.fasta.aln,
+    TIM2+F+R4: L356_exon2_final_align_NT.aln,
+    TVMe+R3: L356_intron1.fasta.aln,
+    TIM2+F+R3: L357_exon2_final_align_NT.aln,
+    TIM+F+R3: L358_3utr.fasta.aln,
+    GTR+F+R5: L358_5utr.fasta.aln,
+    TPM3+F+R9: L358_exon1_final_align_NT.aln,
+    TVMe+R5: L359_exon4_final_align_NT.aln,
+    K3P+R3: L359_intron3.fasta.aln,
+    TVM+F+R5: L35_exon62_final_align_NT.aln,
+    TIM2+F+R3: L35_intron61.fasta.aln,
+    TVM+F+I+G4: L35_intron62.fasta.aln,
+    K2P+R3: L360_exonNone_final_align_NT.aln,
+    TVM+F+R5: L360_noncodingUnknown.fasta.aln,
+    GTR+F+R5: L361_exon14_final_align_NT.aln,
+    TPM3+F+R3: L361_intron13.fasta.aln,
+    K3P+R3: L361_intron14.fasta.aln,
+    TVMe+R7: L362_exon5_final_align_NT.aln,
+    GTR+F+R4: L362_intron5.fasta.aln,
+    TVM+F+R3: L363_3utr.fasta.aln,
+    TIM3e+R5: L363_exon5_final_align_NT.aln,
+    HKY+F+G4: L364_3utr.fasta.aln,
+    TVMe+R4: L364_exon14_final_align_NT.aln,
+    K3Pu+F+R4: L365_exon2_final_align_NT.aln,
+    TVM+F+R5: L366_exon2_final_align_NT.aln,
+    GTR+F+R5: L367_exon2_final_align_NT.aln,
+    TIM2+F+R6: L368_exon2_final_align_NT.aln,
+    TVMe+R5: L368_intron1.fasta.aln,
+    TIM2+F+R4: L369_exon2_final_align_NT.aln,
+    TIM3+F+R3: L369_intron1.fasta.aln,
+    TIM3+F+R3: L369_intron2.fasta.aln,
+    TIM3e+R4: L36_exon8_final_align_NT.aln,
+    TIMe+R3: L370_3utr.fasta.aln,
+    SYM+R6: L370_exon6_final_align_NT.aln,
+    TIM3+F+R4: L371_exon7_final_align_NT.aln,
+    GTR+F+G4: L371_intron6.fasta.aln,
+    TVMe+R2: L372_3utr.fasta.aln,
+    TVMe+R4: L372_exon8_final_align_NT.aln,
+    TIM2+F+R4: L373_exon3_final_align_NT.aln,
+    TVMe+R5: L374_exon2_final_align_NT.aln,
+    TIM3e+I+G4: L376_exon22_final_align_NT.aln,
+    SYM+I+G4: L376_exon23_final_align_NT.aln,
+    TVMe+R2: L376_intron21.fasta.aln,
+    TVMe+I+G4: L376_intron22.fasta.aln,
+    TVMe+G4: L376_intron23.fasta.aln,
+    TVM+F+G4: L376_noncodingUnknown.fasta.aln,
+    TVMe+R6: L377_exon3_final_align_NT.aln,
+    TVMe+R4: L377_intron2.fasta.aln,
+    TVM+F+R5: L378_exon9_final_align_NT.aln,
+    K2P+R3: L378_intron8.fasta.aln,
+    TVMe+I+G4: L378_intron9.fasta.aln,
+    SYM+R5: L379_exon10_final_align_NT.aln,
+    SYM+G4: L379_intron9.fasta.aln,
+    TN+F+R4: L37_exon7_final_align_NT.aln,
+    GTR+F+I+G4: L37_intron6.fasta.aln,
+    SYM+R4: L37_intron7.fasta.aln,
+    TIM3+F+R5: L380_exon4_final_align_NT.aln,
+    K2P+I: L380_intron3.fasta.aln,
+    SYM+I+G4: L381_exon5_final_align_NT.aln,
+    GTR+F+G4: L382_3utr.fasta.aln,
+    TIM3e+R4: L382_exon2_final_align_NT.aln,
+    TVMe+G4: L383_3utr.fasta.aln,
+    K2P+G4: L383_5utr.fasta.aln,
+    TVM+F+R5: L383_exon1_final_align_NT.aln,
+    K3P+G4: L384_3utr.fasta.aln,
+    TVMe+R4: L384_exon5_final_align_NT.aln,
+    K3P+G4: L384_intron4.fasta.aln,
+    TVM+F+R5: L385_exon9_final_align_NT.aln,
+    TVMe+R5: L386_exon2_final_align_NT.aln,
+    TIM2+F+R5: L387_exon2_final_align_NT.aln,
+    TIM3+F+R2: L387_intron1.fasta.aln,
+    TIM2e+R3: L387_intron2.fasta.aln,
+    TVMe+R5: L388_exon19_final_align_NT.aln,
+    TIM2e+G4: L388_intron19.fasta.aln,
+    TVM+F+G4: L389_3utr.fasta.aln,
+    TIM3e+R4: L389_exon2_final_align_NT.aln,
+    GTR+F+R3: L389_intron1.fasta.aln,
+    SYM+R6: L38_exon3_final_align_NT.aln,
+    GTR+F+R3: L38_intron2.fasta.aln,
+    K2P: L390_3utr.fasta.aln,
+    SYM+R4: L390_exon2_final_align_NT.aln,
+    TIM2+F+R5: L391_exon27_final_align_NT.aln,
+    TIM2e+R3: L391_intron27.fasta.aln,
+    K2P+G4: L392_3utr.fasta.aln,
+    TIM3e+R4: L392_exon2_final_align_NT.aln,
+    K2P+G4: L392_intron1.fasta.aln,
+    TPM3+F+R4: L394_exon2_final_align_NT.aln,
+    GTR+F+R3: L394_intron2.fasta.aln,
+    TVMe+R6: L395_exon6_final_align_NT.aln,
+    TIM3+F+G4: L396_3utr.fasta.aln,
+    SYM+R6: L396_exon3_final_align_NT.aln,
+    TVMe+G4: L396_intron2.fasta.aln,
+    TVM+F+R3: L397_3utr.fasta.aln,
+    TVMe+I+G4: L397_exon3_final_align_NT.aln,
+    GTR+F+G4: L397_intron2.fasta.aln,
+    GTR+F+R3: L397_noncodingUnknown.fasta.aln,
+    TIM3e+R5: L399_exon4_final_align_NT.aln,
+    GTR+F+R4: L399_intron3.fasta.aln,
+    TIM3+F+R6: L39_exon3_final_align_NT.aln,
+    TVM+F+I+G4: L39_intron2.fasta.aln,
+    GTR+F+R4: L39_intron3.fasta.aln,
+    SYM+I+G4: L3_3utr.fasta.aln,
+    SYM+R5: L3_exon22_final_align_NT.aln,
+    TIM3+F+I: L3_intron21.fasta.aln,
+    TVMe+R4: L400_exon4_final_align_NT.aln,
+    SYM+I+G4: L401_3utr.fasta.aln,
+    TVMe+I+G4: L401_exon9_final_align_NT.aln,
+    SYM+G4: L401_intron8.fasta.aln,
+    GTR+F+R4: L402_exon1_final_align_NT.aln,
+    TIM2+F+R6: L403_exon3_final_align_NT.aln,
+    TIM2+F+G4: L403_intron3.fasta.aln,
+    TIM2e+R3: L40_3utr.fasta.aln,
+    TPM3+F+R5: L40_exon4_final_align_NT.aln,
+    TPM3+F+R5: L41_exon11_final_align_NT.aln,
+    TIM3+F+R3: L41_intron10.fasta.aln,
+    TIM3+F+R7: L42_exon17_final_align_NT.aln,
+    TVM+F+R3: L42_intron16.fasta.aln,
+    TVM+F+R3: L42_intron17.fasta.aln,
+    K2P+R4: L43_3utr.fasta.aln,
+    TIM3e+R4: L43_exon3_final_align_NT.aln,
+    TVMe+G4: L43_intron2.fasta.aln,
+    TIM3+F+G4: L44_3utr.fasta.aln,
+    TIM3+F+R4: L44_exon2_final_align_NT.aln,
+    GTR+F+G4: L44_intron1.fasta.aln,
+    TVM+F+R4: L46_exon28_final_align_NT.aln,
+    TIM3e+R6: L47_exon28_final_align_NT.aln,
+    TVM+F+G4: L47_intron27.fasta.aln,
+    GTR+F+R4: L48_5utr.fasta.aln,
+    GTR+F+R5: L48_exon1_final_align_NT.aln,
+    GTR+F+R3: L48_intron1.fasta.aln,
+    TPM3+F+R3: L49_exon11_final_align_NT.aln,
+    GTR+F+R3: L49_intron10.fasta.aln,
+    GTR+F+R3: L49_intron11.fasta.aln,
+    TIM2+F+R6: L4_exon8_final_align_NT.aln,
+    TVM+F+I+G4: L4_intron8.fasta.aln,
+    TVMe+R6: L50_exon3_final_align_NT.aln,
+    TIM2e+G4: L50_intron3.fasta.aln,
+    GTR+F+R6: L51_exon2_final_align_NT.aln,
+    TVM+F+R3: L51_intron2.fasta.aln,
+    SYM+I+G4: L52_3utr.fasta.aln,
+    TPM3+F+R2: L52_5utr.fasta.aln,
+    GTR+F+R5: L52_exon1_final_align_NT.aln,
+    TIM3+F+I+G4: L53_exon28_final_align_NT.aln,
+    TIM2e+R3: L53_intron27.fasta.aln,
+    TIM2e+G4: L53_intron28.fasta.aln,
+    TIM3+F+G4: L53_noncodingUnknown.fasta.aln,
+    GTR+F+R5: L54_exon5_final_align_NT.aln,
+    TVMe+R4: L54_intron4.fasta.aln,
+    TVM+F+R3: L54_intron5.fasta.aln,
+    TIM3e+I+G4: L55_exon3_final_align_NT.aln,
+    TIM2e+R5: L55_intron2.fasta.aln,
+    HKY+F+I: L55_intron3.fasta.aln,
+    GTR+F+R3: L56_5utr.fasta.aln,
+    SYM+R3: L56_exon1_final_align_NT.aln,
+    TIM+F+I+G4: L56_exon2_final_align_NT.aln,
+    GTR+F+I+G4: L56_intron1.fasta.aln,
+    SYM+R5: L57_exon4_final_align_NT.aln,
+    SYM+R4: L57_intron3.fasta.aln,
+    TVM+F+R5: L58_exon20_final_align_NT.aln,
+    GTR+F+R4: L58_intron19.fasta.aln,
+    K2P+I+G4: L59_exon2_final_align_NT.aln,
+    GTR+F+R5: L59_intron1.fasta.aln,
+    TVM+F+R2: L59_intron2.fasta.aln,
+    TIMe+R2: L5_3utr.fasta.aln,
+    TIM3+F+R5: L5_exon2_final_align_NT.aln,
+    HKY+F+R3: L5_intron1.fasta.aln,
+    TN+F+R3: L60_exon10_final_align_NT.aln,
+    TIM2e+R3: L60_intron10.fasta.aln,
+    K2P+R6: L61_exon3_final_align_NT.aln,
+    TIM3+F+R3: L61_intron2.fasta.aln,
+    TIM2+F+G4: L63_3utr.fasta.aln,
+    GTR+F+G4: L63_exon4_final_align_NT.aln,
+    TPM3+F+I+G4: L63_exon7_final_align_NT.aln,
+    TIM3+F+R4: L63_intron3.fasta.aln,
+    TIM3+F+I+G4: L63_intron6.fasta.aln,
+    TIM3+F+R5: L64_exon2_final_align_NT.aln,
+    K3P+I+G4: L64_exon3_final_align_NT.aln,
+    HKY+F+R4: L64_intron1.fasta.aln,
+    K2P+R3: L64_intron2.fasta.aln,
+    HKY+F+G4: L65_5utr.fasta.aln,
+    GTR+F+R4: L65_exon1_final_align_NT.aln,
+    HKY+F+R3: L66_5utr.fasta.aln,
+    TN+F+G4: L66_exon1_final_align_NT.aln,
+    TN+F+I+G4: L66_exon3_final_align_NT.aln,
+    HKY+F+G4: L66_intron1.fasta.aln,
+    TPM3+F+I+G4: L66_intron3.fasta.aln,
+    GTR+F+R3: L66_noncodingUnknown.fasta.aln,
+    TPM3+F+I+G4: L67_exon2_final_align_NT.aln,
+    TIM3+F+R5: L67_exon3_final_align_NT.aln,
+    GTR+F+I+G4: L67_intron1.fasta.aln,
+    K2P+R4: L68_exon4_final_align_NT.aln,
+    TPM3+F+R5: L68_intron3.fasta.aln,
+    TPM3+F+R5: L68_intron4.fasta.aln,
+    TIM3+F+R4: L69_5utr.fasta.aln,
+    TIMe+R4: L69_exon1_final_align_NT.aln,
+    TIM3e+R4: L69_exon2_final_align_NT.aln,
+    K2P+I+G4: L69_exon3_final_align_NT.aln,
+    TIM3+F+G4: L69_intron1.fasta.aln,
+    TIM3+F+I+G4: L69_intron2.fasta.aln,
+    TIM3+F+I+G4: L69_intron3.fasta.aln,
+    TIM2e+I+G4: L70_exon2_final_align_NT.aln,
+    K2P+R4: L70_exon3_final_align_NT.aln,
+    TPM3+F+R5: L70_intron1.fasta.aln,
+    GTR+F+I+G4: L70_intron2.fasta.aln,
+    GTR+F+I+G4: L70_intron3.fasta.aln,
+    TIM3+F: L70_noncodingUnknown.fasta.aln,
+    TN+F+I+G4: L71_exon2_final_align_NT.aln,
+    TNe+I+G4: L71_exon3_final_align_NT.aln,
+    K2P+I+G4: L71_exon4_final_align_NT.aln,
+    TIM3+F+I+G4: L71_intron1.fasta.aln,
+    TIM3+F+I+G4: L71_intron2.fasta.aln,
+    TIM3+F+G4: L71_intron3.fasta.aln,
+    TIM3+F+I+G4: L71_noncodingUnknown.fasta.aln,
+    K2P+G4: L72_3utr.fasta.aln,
+    K3P+G4: L72_exon2_final_align_NT.aln,
+    TIM3e+R4: L72_exon3_final_align_NT.aln,
+    K3Pu+F+R3: L72_intron1.fasta.aln,
+    TPM3+F+G4: L72_intron2.fasta.aln,
+    K2P+R4: L72_intron3.fasta.aln,
+    HKY+F+G4: L72_noncodingUnknown.fasta.aln,
+    HKY+F: L73_3utr.fasta.aln,
+    TIM3e+R5: L73_exon1_final_align_NT.aln,
+    SYM+R5: L74_exon4_final_align_NT.aln,
+    TIM3e+R4: L74_intron3.fasta.aln,
+    TVM+F+G4: L74_intron4.fasta.aln,
+    TVMe+R4: L75_exon2_final_align_NT.aln,
+    GTR+F+R3: L75_intron1.fasta.aln,
+    TVMe+R5: L76_exon12_final_align_NT.aln,
+    GTR+F+G4: L76_intron11.fasta.aln,
+    TIM3e+I+G4: L76_intron12.fasta.aln,
+    TVMe+R3: L77_3utr.fasta.aln,
+    TIM2+F+R5: L77_exon13_final_align_NT.aln,
+    TIM2e+G4: L78_3utr.fasta.aln,
+    TVM+F+R4: L78_exon2_final_align_NT.aln,
+    TVM+F+R2: L78_intron1.fasta.aln,
+    TNe+R5: L80_exon2_final_align_NT.aln,
+    GTR+F+R3: L80_intron1.fasta.aln,
+    GTR+F+R3: L80_intron2.fasta.aln,
+    TVMe+R5: L81_exon6_final_align_NT.aln,
+    TN+F+G4: L81_intron6.fasta.aln,
+    SYM+R6: L82_exon5_final_align_NT.aln,
+    TIM3e+R3: L82_intron5.fasta.aln,
+    TVM+F+G4: L83_3utr.fasta.aln,
+    SYM+R5: L83_exon1_final_align_NT.aln,
+    TPM3+F+R4: L84_exon4_final_align_NT.aln,
+    K2P+G4: L84_intron3.fasta.aln,
+    TVM+F+R3: L85_3utr.fasta.aln,
+    GTR+F+R5: L85_exon2_final_align_NT.aln,
+    SYM+R4: L85_intron1.fasta.aln,
+    SYM+R5: L86_exon2_final_align_NT.aln,
+    TVMe+R3: L86_intron1.fasta.aln,
+    SYM+I+G4: L87_exon4_final_align_NT.aln,
+    SYM+R4: L87_intron3.fasta.aln,
+    TIM2e+I+G4: L87_intron4.fasta.aln,
+    TVMe+R4: L88_3utr.fasta.aln,
+    GTR+F+I+G4: L88_exon4_final_align_NT.aln,
+    TVMe+R3: L88_intron3.fasta.aln,
+    K2P+R6: L89_exon4_final_align_NT.aln,
+    GTR+F+R3: L89_intron3.fasta.aln,
+    TVMe+R4: L8_exon8_final_align_NT.aln,
+    TVM+F+R3: L8_intron7.fasta.aln,
+    GTR+F+R5: L90_exon15_final_align_NT.aln,
+    TIM3e+R6: L91_exon13_final_align_NT.aln,
+    TVM+F+R3: L91_intron12.fasta.aln,
+    TIM3e+I+G4: L92_5utr.fasta.aln,
+    TVMe+R4: L92_exon1_final_align_NT.aln,
+    TIM2e+I+G4: L92_intron1.fasta.aln,
+    K3P+R4: L93_3utr.fasta.aln,
+    SYM+R5: L93_exon7_final_align_NT.aln,
+    GTR+F+R5: L94_exon2_final_align_NT.aln,
+    SYM+R8: L95_exon5_final_align_NT.aln,
+    GTR+F+R4: L96_exon1_final_align_NT.aln,
+    SYM+R5: L97_exon17_final_align_NT.aln,
+    TVM+F+R4: L97_intron16.fasta.aln,
+    TIM2e+I+G4: L97_intron17.fasta.aln,
+    TIMe+G4: L98_3utr.fasta.aln,
+    GTR+F+R4: L98_exon8_final_align_NT.aln,
+    K2P+R3: L98_intron7.fasta.aln,
+    TN+F+R5: L99_exon2_final_align_NT.aln,
+    TVM+F+G4: L99_intron2.fasta.aln,
+    TVM+F+R5: L9_exon3_final_align_NT.aln,
+    TVMe+R3: L9_intron3.fasta.aln;
+end;

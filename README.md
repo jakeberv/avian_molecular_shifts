@@ -1,67 +1,45 @@
-pre-print available: https://www.biorxiv.org/content/10.1101/2022.10.21.513146v1
+pre-print available: https://www.biorxiv.org/content/10.1101/2022.10.21.513146v2
 
-# Molecular early burst associated with the diversification of birds at the K–Pg boundary
-Author details: Jacob S. Berv<sup>1,2,*</sup>, Sonal Singhal<sup>3</sup>, Daniel J.
-Field<sup>4,5</sup>, Nathanael Walker-Hale<sup>6</sup>, Sean W. McHugh<sup>7</sup>, J. Ryan
-Shipley<sup>8</sup>, Eliot T. Miller<sup>9</sup>, Rebecca T. Kimball<sup>10</sup>, Edward L.
-Braun<sup>10</sup>, Alex Dornburg<sup>11</sup>, C. Tomomi Parins-Fukuchi<sup>12</sup>, Richard
-O. Prum<sup>13,14</sup>, Matt Friedman<sup>2, 15</sup>, Stephen A. Smith<sup>1</sup>
+# Jacob S. Berv<sup>1,2,3,*</sup>, Sonal Singhal<sup>4</sup>, Daniel J. Field<sup>5,6</sup>, Nathanael Walker-Hale<sup>7</sup>, Sean W. McHugh<sup>8</sup>, J. Ryan Shipley<sup>9</sup>, Eliot T. Miller<sup>10</sup>, Rebecca T. Kimball<sup>11</sup>, Edward L. Braun<sup>11</sup>, Alex Dornburg<sup>12</sup>, C. Tomomi Parins-Fukuchi<sup>13</sup>, Richard O. Prum<sup>14,15</sup>, Benjamin M. Winger<sup>1,3</sup>, Matt Friedman<sup>2, 16</sup>, Stephen A. Smith<sup>1</sup>
 
-Corresponding Author: *Jacob S. Berv, jberv@umich.edu,
-jacob.berv@gmail.com
+Corresponding Author: *Jacob S. Berv, jberv@umich.edu, jacob.berv@gmail.com
 
 Author affiliations:
 
-1.	Department of Ecology and Evolutionary Biology, 1105 North
-University Avenue, Biological Sciences Building, University of Michigan,
-Ann Arbor, Michigan, 48109-1085, USA
+1.	Department of Ecology and Evolutionary Biology, 1105 North University Avenue, Biological Sciences Building, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
 
-2.	University of Michigan Museum of Paleontology, 1105 North
-University Avenue, Biological Sciences Building, University of Michigan,
-Ann Arbor, Michigan, 48109-1085, USA
+2.	University of Michigan Museum of Paleontology, 1105 North University Avenue, Biological Sciences Building, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
 
-3.	Department of Biology, California State University, Dominguez
-Hills, Carson, California 90747, USA
+3.	University of Michigan Museum of Zoology, 1105 North University Avenue, Biological Sciences Building, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
 
-4.	Department of Earth Sciences, Downing Street, University of
-Cambridge, Cambridge CB2 3EQ, UK
+4.	Department of Biology, California State University, Dominguez Hills, Carson, California 90747, USA
 
-5.	Museum of Zoology, Downing Street, University of Cambridge,
-Cambridge CB2 3EJ, UK
+5.	Department of Earth Sciences, Downing Street, University of Cambridge, Cambridge CB2 3EQ, UK
 
-6.	Department of Plant Sciences, Downing Street, University of
-Cambridge, Cambridge, CB2 3EA, UK
+6.	Museum of Zoology, Downing Street, University of Cambridge, Cambridge CB2 3EJ, UK
 
-7.	Department of Evolution, Ecology, and Population Biology,
-Washington University in St Louis, St Louis, Missouri, USA
+7.	Department of Plant Sciences, Downing Street, University of Cambridge, Cambridge, CB2 3EA, UK
 
-8.	Department of Forest Dynamics Swiss Federal Institute for Forest,
-Snow, and Landscape Research WSL Zürcherstrasse 111 8903 Birmensdorf,
-Switzerland
+8.	Department of Evolution, Ecology, and Population Biology, Washington University in St Louis, St Louis, Missouri, USA
 
-9.	Macaulay Library, Cornell Lab of Ornithology, Ithaca, New York,
-14850, USA
+9.	Department of Forest Dynamics Swiss Federal Institute for Forest, Snow, and Landscape Research WSL Zürcherstrasse 111 8903 Birmensdorf, Switzerland
 
-10.	Department of Biology, University of Florida, Gainesville,
-Florida 32611, USA
+10.	Macaulay Library, Cornell Lab of Ornithology, Ithaca, New York, 14850, USA
 
-11.	Department of Bioinformatics and Genomics, University of North
-Carolina at Charlotte, Charlotte, North Carolina, USA
+11.	Department of Biology, University of Florida, Gainesville, Florida 32611, USA
 
-12.	Department of Ecology and Evolutionary Biology, University of
-Toronto, Toronto, Ontario, Canada, M5S 3B2
+12.	Department of Bioinformatics and Genomics, University of North Carolina at Charlotte, Charlotte, North Carolina, USA
 
-13.	Department of Ecology and Evolutionary Biology, Yale University,
-New Haven, Connecticut, 06520, USA
+13.	Department of Ecology and Evolutionary Biology, University of Toronto, Toronto, Ontario, Canada, M5S 3B2
 
-14.	Peabody Museum of Natural History, Yale University, New Haven,
-Connecticut, 06520, USA
+14.	Department of Ecology and Evolutionary Biology, Yale University, New Haven, Connecticut, 06520, USA
 
-15.	Department of Earth and Environmental Sciences, 1100 North
-University Avenue, University of Michigan, Ann Arbor, Michigan,
-48109-1085, USA
+15.	Peabody Museum of Natural History, Yale University, New Haven, Connecticut, 06520, USA
 
-## Last updated 4 November 2022
+16.	Department of Earth and Environmental Sciences, 1100 North University Avenue, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
+
+
+## Last updated 10 April 2023
 
 ## Primary files
 
@@ -88,6 +66,20 @@ classification using the tidymodels framework. This code is
 adapted from the Physalia course examples for machine learning 
 in R.
 
+**mtDNA_supp_table.xlsx**
+
+Supplementary Table 3, as noted in the manuscript. This file
+describes assembly details for assembly and extraction of 
+mtDNA genome data from the original AHE target capture data.
+
+**LHT_reference.xlsx_**
+
+This reference table contains a database of life-history traits
+analyzed in the present study, which are collated from a variety 
+of sources (as described in the manuscript). This table 
+contains only raw data, and does not include estimated values
+(See R code and RDS files).
+
 **RDS folder**
 
 This folder contains RDS files (R data objects). These files 
@@ -95,8 +87,21 @@ correspond to intermediate or final R data objects
 generated in the course of analysis and which are called/loaded 
 by the primary analysis script "constrained_species_tree.R".
 
-**mtDNA_supp_table.xlsx**
+**AHE_REASSEMBLY**
 
-Supplementary Table 3, as noted in the manuscript. This file
-describes assembly details for assembly and extraction of 
-mtDNA genome data from the original AHE target capture data.
+This folder contains files related to assembly of the AHE dataset.
+
+**mtDNA_REASSEMBLY**
+
+This folder contains files related to assembly of the mtDNA dataset.
+
+**BMR**
+
+This folder contains scripts and files related to 
+analysis of the BMR dataset.
+
+**janus_output**
+
+This folder contains the relevant results from janus 
+(e.g.,input/output files)
+

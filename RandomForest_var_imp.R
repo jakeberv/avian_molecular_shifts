@@ -10,12 +10,12 @@ library("themis")
 library('ape')
 library('phytools')
 library('vita')
-library('modelStudio')
-library('DALEX')
+#library('modelStudio')
+#library('DALEX')
 
 #set up the input data and read in the files
 {
-setwd("/Users/cotinga/jsb439@cornell.edu/Code/avian_molecular_shifts")
+#setwd("/Users/cotinga/jsb439@cornell.edu/Code/avian_molecular_shifts")
 
 LHT<-as.data.frame(readRDS(file="./RDS/RF_test_data.RDS"))
 megaLHT<-readRDS(file="./RDS/megaLHT.RDS")
@@ -78,7 +78,6 @@ merged_split <- initial_split(merged_dt, strata = exon_models, prop = 0.7)
 merged_train <- training(merged_split)
 merged_test <- testing(merged_split)
 }
-
 
 #### Preprocessing
 #We use tidymodels to build a recipe for data preprocessing:
@@ -288,37 +287,5 @@ final_res %>%
   extract_fit_engine() %>% 
   plot_min_depth_distribution()
 }
-
-#### Predictions
-
-#We collect the predictions on the test set: for each test observations we get the probabilities of belonging to each of the four classes.
-
-final_res %>%
-  collect_predictions() 
-
-
-cm <- final_res %>%
-  collect_predictions() %>%
-  conf_mat(exon_models, .pred_class)
-
-autoplot(cm, type = "heatmap")
-
-
-#testing explainer
-
-explainer <- DALEXtra::explain_tidymodels(model = final_rf)
-
-
-explain_tidymodels(
-  extract_(final_rf)
-
-
-explainer<- DALEX::explain(model = final_rf,
-                           data = merged_test[,c(-1)],
-                           y = merged_test[,c(1)],
-                           label = 'rf')
-
-modelStudio::modelStudio(explainer)
-
 
 

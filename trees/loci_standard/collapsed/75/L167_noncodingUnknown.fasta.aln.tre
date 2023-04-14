@@ -1,0 +1,73 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:20 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 30;
+	TAXLABELS
+		Acanthisitta_chloris_1
+		Accipiter_superciliosus_1
+		Chelidoptera_tenebrosa_1
+		Porphyrio_porphyrio_1
+		Calandrella_brachydactyla_1
+		Poecile_lugubris_1
+		Spizella_arborea_1
+		Malurus_splendens_1
+		Eurylaimus_ochromalus_1
+		Smithornis_rufolateralis_1
+		Centropus_bengalensis_1
+		Ciconia_nigra_1
+		Leptoptilos_crumeniferus_1
+		Fregata_magnificens_1
+		Chaetura_brachyura_1
+		Hemiprocne_comata_1
+		Cariama_cristata_1
+		Chunga_burmeisteri_1
+		Chordeiles_pusillus_1
+		Nyctibius_griseus_1
+		Phaethon_rubricauda_1
+		Pandion_haliaetus_1
+		Psittacus_erithacus_1
+		Phaethornis_superciliosus_1
+		Nestor_meridionalis_1
+		Deroptyus_accipitrinus_1
+		Leipoa_ocellata_1
+		Numida_malagris_1
+		Psittrichas_fulgidus_1
+		Probosciger_aterrimus_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Acanthisitta_chloris_1,
+		2	Accipiter_superciliosus_1,
+		3	Chelidoptera_tenebrosa_1,
+		4	Porphyrio_porphyrio_1,
+		5	Calandrella_brachydactyla_1,
+		6	Poecile_lugubris_1,
+		7	Spizella_arborea_1,
+		8	Malurus_splendens_1,
+		9	Eurylaimus_ochromalus_1,
+		10	Smithornis_rufolateralis_1,
+		11	Centropus_bengalensis_1,
+		12	Ciconia_nigra_1,
+		13	Leptoptilos_crumeniferus_1,
+		14	Fregata_magnificens_1,
+		15	Chaetura_brachyura_1,
+		16	Hemiprocne_comata_1,
+		17	Cariama_cristata_1,
+		18	Chunga_burmeisteri_1,
+		19	Chordeiles_pusillus_1,
+		20	Nyctibius_griseus_1,
+		21	Phaethon_rubricauda_1,
+		22	Pandion_haliaetus_1,
+		23	Psittacus_erithacus_1,
+		24	Phaethornis_superciliosus_1,
+		25	Nestor_meridionalis_1,
+		26	Deroptyus_accipitrinus_1,
+		27	Leipoa_ocellata_1,
+		28	Numida_malagris_1,
+		29	Psittrichas_fulgidus_1,
+		30	Probosciger_aterrimus_1
+	;
+	TREE * UNTITLED = [&U] (1:0.0426017286,2:0.040879137,3:4.103557409,4:0.0667749226,(((5:0.0250483185,6:0.0256361652)96:0.0082106895,7:0.025030821)89:0.0155141002,8:0.0076115959,(9:0.0168870134,10:0.0163520841)91:0.0087848004)89:0.0409304236,11:0.1014359405,(12:1e-06,13:0.0080905759)97:0.0487982676,14:0.048963721,(15:0.0078480752,16:0.0082825317)95:0.0504938407,((17:0.0079773352,18:2.578e-06)90:0.0079788566,(19:0.0244993412,20:2.1619e-06)87:0.0081302322,21:0.0161470485)77:0.0239412683,22:0.0729669377,23:0.0239728406,24:0.0675698379,25:0.0328390777,26:0.00798091,27:0.0647356645,28:0.0821877009,29:0.0159547757,30:2.2398e-06);
+END;

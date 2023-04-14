@@ -1,0 +1,99 @@
+#NEXUS
+[R-package APE, Wed Nov 10 15:27:08 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 43;
+	TAXLABELS
+		Apaloderma_aequatoriale_1
+		Ardeotis_kori_1
+		Odontophorus_gujanensis_1
+		Ortalis_motmot_1
+		Bucco_capensis_1
+		Elaenia_flavogaster_1
+		Tyrannus_albogularis_1
+		Climacteris_melanura_1
+		Ptilonorhynchus_violaceus_1
+		Sericulus_bakeri_1
+		Fringilla_coelebs_1
+		Cryptopipo_aenigma_1
+		Myrmornis_torquata_1
+		Piprites_chloris_1
+		Ptilinopus_magnificus_1
+		Sclerurus_mexicanus_1
+		Terenura_callinota_1
+		Smithornis_rufolateralis_1
+		Micropygia_schomburgkii_1
+		Atelornis_pittoides_1
+		Columba_livia_1
+		Leptotila_rufaxilla_1
+		Falco_sparverius_1
+		Pedionomus_torquatus_1
+		Leipoa_ocellata_1
+		Porphyrio_porphyrio_1
+		Monias_benschi_1
+		Rynchops_niger_1
+		Bonasa_umbellus_1
+		Colius_colius_1
+		Eudromia_elegans_1
+		Cariama_cristata_1
+		Chunga_burmeisteri_1
+		Jacana_jacana_1
+		Pelecanus_occidentalis_1
+		Psophia_crepitans_1
+		Phalacrocorax_brasili_1
+		Eurostopodus_macrotis_1
+		Aythya_valisineria_1
+		Chordeiles_pusillus_1
+		Rollulus_rouloul_1
+		Coccyzus_melacoryphus_1
+		Nyctibius_griseus_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Apaloderma_aequatoriale_1,
+		2	Ardeotis_kori_1,
+		3	Odontophorus_gujanensis_1,
+		4	Ortalis_motmot_1,
+		5	Bucco_capensis_1,
+		6	Elaenia_flavogaster_1,
+		7	Tyrannus_albogularis_1,
+		8	Climacteris_melanura_1,
+		9	Ptilonorhynchus_violaceus_1,
+		10	Sericulus_bakeri_1,
+		11	Fringilla_coelebs_1,
+		12	Cryptopipo_aenigma_1,
+		13	Myrmornis_torquata_1,
+		14	Piprites_chloris_1,
+		15	Ptilinopus_magnificus_1,
+		16	Sclerurus_mexicanus_1,
+		17	Terenura_callinota_1,
+		18	Smithornis_rufolateralis_1,
+		19	Micropygia_schomburgkii_1,
+		20	Atelornis_pittoides_1,
+		21	Columba_livia_1,
+		22	Leptotila_rufaxilla_1,
+		23	Falco_sparverius_1,
+		24	Pedionomus_torquatus_1,
+		25	Leipoa_ocellata_1,
+		26	Porphyrio_porphyrio_1,
+		27	Monias_benschi_1,
+		28	Rynchops_niger_1,
+		29	Bonasa_umbellus_1,
+		30	Colius_colius_1,
+		31	Eudromia_elegans_1,
+		32	Cariama_cristata_1,
+		33	Chunga_burmeisteri_1,
+		34	Jacana_jacana_1,
+		35	Pelecanus_occidentalis_1,
+		36	Psophia_crepitans_1,
+		37	Phalacrocorax_brasili_1,
+		38	Eurostopodus_macrotis_1,
+		39	Aythya_valisineria_1,
+		40	Chordeiles_pusillus_1,
+		41	Rollulus_rouloul_1,
+		42	Coccyzus_melacoryphus_1,
+		43	Nyctibius_griseus_1
+	;
+	TREE * UNTITLED = [&U] (1:1e-06,2:0.0434967719,3:0.0446150201,4:0.0434934116,5:0.0408879718,6:0.0408903449,7:0.040892269,8:0.0596578363,9:0.0788665218,10:0.069289449,11:0.0596557969,12:0.0239803923,13:0.0239790541,14:0.014738169,15:0.0147360433,16:0.0147339993,17:0.0147311819,18:0.0147301819,19:0.0141069176,20:1.63537e-05,21:0.0205808222,22:0.0103030608,23:2.35718e-05,24:2.35718e-05,25:1.99471e-05,26:1.73537e-05,27:1.53537e-05,28:1.43537e-05,29:1.33537e-05,30:1.23537e-05,31:1.13537e-05,32:0.012220966,33:0.012220966,34:8.2795e-06,35:7.2795e-06,36:5e-06,37:4e-06,38:0.0139107908,39:2e-06,40:5e-06,41:5e-06,42:4e-06,43:3e-06);
+END;

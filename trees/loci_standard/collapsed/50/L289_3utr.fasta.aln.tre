@@ -1,0 +1,67 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:02 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 27;
+	TAXLABELS
+		Aegotheles_insignis_1
+		Alcedo_quadribrachys_1
+		Cariama_cristata_1
+		Chunga_burmeisteri_1
+		Apteryx_sp._1
+		Treron_calvus_1
+		Eudromia_elegans_1
+		Nyctibius_griseus_1
+		Theristicus_caerulescens_1
+		Rynchops_niger_1
+		Spheniscus_humboldti_1
+		Crax_alector_1
+		Tockus_camurus_1
+		Galbula_dea_1
+		Glareola_nuchalis_1
+		Morus_serrator_1
+		Elaenia_flavogaster_1
+		Tyrannus_albogularis_1
+		Sericulus_bakeri_1
+		Smithornis_rufolateralis_1
+		Caiman_croccodilus_1
+		Caracara_cheriway_1
+		Falco_sparverius_1
+		Pedionomus_torquatus_1
+		Porphyrio_porphyrio_1
+		Bonasa_umbellus_1
+		Urocolius_indicus_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Aegotheles_insignis_1,
+		2	Alcedo_quadribrachys_1,
+		3	Cariama_cristata_1,
+		4	Chunga_burmeisteri_1,
+		5	Apteryx_sp._1,
+		6	Treron_calvus_1,
+		7	Eudromia_elegans_1,
+		8	Nyctibius_griseus_1,
+		9	Theristicus_caerulescens_1,
+		10	Rynchops_niger_1,
+		11	Spheniscus_humboldti_1,
+		12	Crax_alector_1,
+		13	Tockus_camurus_1,
+		14	Galbula_dea_1,
+		15	Glareola_nuchalis_1,
+		16	Morus_serrator_1,
+		17	Elaenia_flavogaster_1,
+		18	Tyrannus_albogularis_1,
+		19	Sericulus_bakeri_1,
+		20	Smithornis_rufolateralis_1,
+		21	Caiman_croccodilus_1,
+		22	Caracara_cheriway_1,
+		23	Falco_sparverius_1,
+		24	Pedionomus_torquatus_1,
+		25	Porphyrio_porphyrio_1,
+		26	Bonasa_umbellus_1,
+		27	Urocolius_indicus_1
+	;
+	TREE * UNTITLED = [&U] (1:0.024445984,((((((2:0.0590190603,3:0.0034270566)69:0.0100535825,4:1e-06)64:2.0594e-06,5:2.2403e-06)79:0.0135741151,6:0.0274644922)56:6.9446e-06,7:1.31738e-05,(8:0.0147368597,9:0.0103903092)59:0.014775943,10:1.03998e-05,11:8.1548e-06,((12:0.0173483314,13:0.0232250247)72:2.4317e-06,14:0.0161146959)83:0.02705572,15:0.0083772572,16:5.3272e-06,((17:2.2968e-06,18:2.2703e-06)82:0.0105071926,(19:0.015283923,20:2.2046e-06)56:2.5509e-06)73:0.0234256376)61:0.007276447,((21:0.147506568,22:0.0094030535)55:2.0569e-06,(23:1e-06,(24:1e-06,25:1e-06)64:2.4326e-06)84:0.0087554948)79:0.0090411095,26:0.0284822368)57:2.1757e-06,27:0.0630927421);
+END;

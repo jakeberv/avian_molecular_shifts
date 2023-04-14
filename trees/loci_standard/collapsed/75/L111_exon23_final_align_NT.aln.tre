@@ -1,0 +1,109 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:17 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 48;
+	TAXLABELS
+		Acanthisitta_chloris_1
+		Malurus_splendens_1
+		Menura_novaehollandiae_1
+		Spizella_arborea_1
+		Fringilla_coelebs_1
+		Pycnonotus_macrotis_1
+		Calandrella_brachydactyla_1
+		Regulus_ignicapilla_1
+		Poecile_lugubris_1
+		Lophorina_superba_1
+		Corvus_albus_1
+		Ptilonorhynchus_violaceus_1
+		Sericulus_bakeri_1
+		Climacteris_melanura_1
+		Myiobius_barbatus_1
+		Schiffornis_turdina_1
+		Hymenops_perspicillatus_1
+		Tyrannus_albogularis_1
+		Elaenia_flavogaster_1
+		Cotinga_cayana_1
+		Rupicola_rupicola_1
+		Oxyruncus_cristatus_1
+		Neopelma_chrysocephalum_1
+		Cryptopipo_aenigma_1
+		Pipra_erythrocephala_1
+		Pitta_angolensis_1
+		Eurylaimus_ochromalus_1
+		Smithornis_rufolateralis_1
+		Calyptomena_viridis_1
+		Jynx_torquilla_1
+		Picus_canus_1
+		Indicator_exilis_1
+		Megalaima_chrysopogon_1
+		Buccanodon_duchaillui_1
+		Capito_niger_1
+		Ramphastos_ambiguus_1
+		Anas_superciliosa_1
+		Anser_canagicus_1
+		Crax_alector_1
+		Leipoa_ocellata_1
+		Casuarius_bennetti_1
+		Aythya_valisineria_1
+		Treron_calvus_1
+		Ptilinopus_magnificus_1
+		Jacana_jacana_1
+		Todus_mexicanus_1
+		Atelornis_pittoides_1
+		Galbula_dea_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Acanthisitta_chloris_1,
+		2	Malurus_splendens_1,
+		3	Menura_novaehollandiae_1,
+		4	Spizella_arborea_1,
+		5	Fringilla_coelebs_1,
+		6	Pycnonotus_macrotis_1,
+		7	Calandrella_brachydactyla_1,
+		8	Regulus_ignicapilla_1,
+		9	Poecile_lugubris_1,
+		10	Lophorina_superba_1,
+		11	Corvus_albus_1,
+		12	Ptilonorhynchus_violaceus_1,
+		13	Sericulus_bakeri_1,
+		14	Climacteris_melanura_1,
+		15	Myiobius_barbatus_1,
+		16	Schiffornis_turdina_1,
+		17	Hymenops_perspicillatus_1,
+		18	Tyrannus_albogularis_1,
+		19	Elaenia_flavogaster_1,
+		20	Cotinga_cayana_1,
+		21	Rupicola_rupicola_1,
+		22	Oxyruncus_cristatus_1,
+		23	Neopelma_chrysocephalum_1,
+		24	Cryptopipo_aenigma_1,
+		25	Pipra_erythrocephala_1,
+		26	Pitta_angolensis_1,
+		27	Eurylaimus_ochromalus_1,
+		28	Smithornis_rufolateralis_1,
+		29	Calyptomena_viridis_1,
+		30	Jynx_torquilla_1,
+		31	Picus_canus_1,
+		32	Indicator_exilis_1,
+		33	Megalaima_chrysopogon_1,
+		34	Buccanodon_duchaillui_1,
+		35	Capito_niger_1,
+		36	Ramphastos_ambiguus_1,
+		37	Anas_superciliosa_1,
+		38	Anser_canagicus_1,
+		39	Crax_alector_1,
+		40	Leipoa_ocellata_1,
+		41	Casuarius_bennetti_1,
+		42	Aythya_valisineria_1,
+		43	Treron_calvus_1,
+		44	Ptilinopus_magnificus_1,
+		45	Jacana_jacana_1,
+		46	Todus_mexicanus_1,
+		47	Atelornis_pittoides_1,
+		48	Galbula_dea_1
+	;
+	TREE * UNTITLED = [&U] (1:0.0615933054,(((2:0.026494639,3:0.0776889785,4:0.052880063,5:0.0709726147,(6:0.0202517212,7:0.0575862294)93:0.0563991085,8:0.05985005,9:0.0455995934,(10:0.0076186528,11:0.0092422487)93:0.0334548577,((12:0.0040560617,13:0.0080220297)95:0.0233201501,14:0.0660792889)94:0.0667264411)99:0.0568272772,((((15:0.0112230694,16:0.027484723)93:0.0182147483,17:0.0138856609,(18:0.0096467804,19:0.0164475941)79:0.0103305367)81:0.0059749565,(20:0.0116159167,21:0.0130203456)99:0.0265211754)84:0.0117090729,22:0.0159042053,(23:0.0242779224,(24:0.0039667226,25:0.003969659)98:0.0093239966)98:0.0191605236)98:0.0536993913)87:0.0323165258,(26:0.0882410403,27:0.0439106432)83:0.0441970991,(28:0.0135513043,29:0.0151119994)97:0.0372486934)98:0.0605273177,((((30:0.0609363911,31:0.0334024887)87:0.040233643,32:2.5308e-06)88:0.0309391338,((33:0.0296179115,34:0.0125281168,35:0.0084037684)75:0.0039731581,36:0.0131272643)96:0.0220962946)84:0.0309789579,((((((37:0.0355680649,38:0.0287966206)97:0.0227899606,(39:0.0671122998,40:0.0432094643)98:0.0370543818)97:0.0613400058,41:0.1622253427,42:0.0081976232)75:0.0447923859,(43:0.036353647,44:0.0252088923)99:0.0558061325,45:0.0511124245)87:0.0494688315,46:0.0507248426,47:0.0501042393)80:0.0158029187,48:0.0674920553)90:0.0297132967)98:0.088196264);
+END;

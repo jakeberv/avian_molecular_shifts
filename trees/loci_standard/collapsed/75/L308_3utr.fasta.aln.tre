@@ -1,0 +1,65 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:26 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 26;
+	TAXLABELS
+		Anseranas_semipalmata_1
+		Atelornis_pittoides_1
+		Rallus_longirostris_1
+		Centropus_bengalensis_1
+		Coracias_cyanogaster_1
+		Chaetura_brachyura_1
+		Hemiprocne_comata_1
+		Streptoprocne_zonaris_1
+		Columbina_minuta_1
+		Ptilinopus_magnificus_1
+		Calyptomena_viridis_1
+		Eurylaimus_ochromalus_1
+		Neodrepanis_coruscans_1
+		Pitta_angolensis_1
+		Monias_benschi_1
+		Coccyzus_melacoryphus_1
+		Tockus_camurus_1
+		Bonasa_umbellus_1
+		Rollulus_rouloul_1
+		Climacteris_melanura_1
+		Numida_malagris_1
+		Colinus_cristatus_1
+		Odontophorus_gujanensis_1
+		Leipoa_ocellata_1
+		Oxyura_jamaicensis_1
+		Casuarius_bennetti_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Anseranas_semipalmata_1,
+		2	Atelornis_pittoides_1,
+		3	Rallus_longirostris_1,
+		4	Centropus_bengalensis_1,
+		5	Coracias_cyanogaster_1,
+		6	Chaetura_brachyura_1,
+		7	Hemiprocne_comata_1,
+		8	Streptoprocne_zonaris_1,
+		9	Columbina_minuta_1,
+		10	Ptilinopus_magnificus_1,
+		11	Calyptomena_viridis_1,
+		12	Eurylaimus_ochromalus_1,
+		13	Neodrepanis_coruscans_1,
+		14	Pitta_angolensis_1,
+		15	Monias_benschi_1,
+		16	Coccyzus_melacoryphus_1,
+		17	Tockus_camurus_1,
+		18	Bonasa_umbellus_1,
+		19	Rollulus_rouloul_1,
+		20	Climacteris_melanura_1,
+		21	Numida_malagris_1,
+		22	Colinus_cristatus_1,
+		23	Odontophorus_gujanensis_1,
+		24	Leipoa_ocellata_1,
+		25	Oxyura_jamaicensis_1,
+		26	Casuarius_bennetti_1
+	;
+	TREE * UNTITLED = [&U] (1:0.0478668767,((2:0.0294935716,3:0.0802471712,4:0.1062710521)79:0.0448149019,5:0.0284308334)77:0.1630783257,6:0.205112323,7:0.249488285,8:0.2165376176,(9:0.0362087496,10:0.0355631298)95:0.212805805,(((11:0.0276495789,12:2.0329e-06)85:0.0236429802,13:0.0350323277)89:0.0149693741,14:0.0244635858)89:0.1731417323,15:0.1715290428,16:0.1877427376,17:0.1215947333,18:0.2370160653,19:0.2695259135,20:4.877002101,21:0.1831423213,(22:0.0393210254,23:0.0184996433)92:0.1919314107,24:0.12994933,25:0.0791597227,26:0.0887602955);
+END;

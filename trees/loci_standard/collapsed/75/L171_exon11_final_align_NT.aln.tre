@@ -1,0 +1,413 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:20 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 200;
+	TAXLABELS
+		Acanthisitta_chloris_1
+		Urocolius_indicus_1
+		Colius_colius_1
+		Rollulus_rouloul_1
+		Gallus_gallus_1
+		Bonasa_umbellus_1
+		Colinus_cristatus_1
+		Odontophorus_gujanensis_1
+		Numida_malagris_1
+		Leipoa_ocellata_1
+		Ortalis_motmot_1
+		Crax_alector_1
+		Chauna_torquata_1
+		Anseranas_semipalmata_1
+		Anas_superciliosa_1
+		Aythya_valisineria_1
+		Oxyura_jamaicensis_1
+		Anser_canagicus_1
+		Dendrocygna_viduata_1
+		Rhea_americana_1
+		Nothoprocta_ornata_1
+		Eudromia_elegans_1
+		Crypturellus_tataupa_1
+		Tinamus_major_1
+		Dromaius_novaehollandiae_1
+		Casuarius_bennetti_1
+		Apteryx_sp._1
+		Struthio_camelus_1
+		Caiman_croccodilus_1
+		Crocodylus_porosus_1
+		Vultur_gryphus_1
+		Aramus_guarauna_1
+		Porphyrio_porphyrio_1
+		Micropygia_schomburgkii_1
+		Rallus_longirostris_1
+		Heliornis_fulica_1
+		Sarothrura_rufa_1
+		Psophia_crepitans_1
+		Grus_canadensis_1
+		Balearica_regulorum_1
+		Opisthocomus_hoazin_1
+		Streptoprocne_zonaris_1
+		Chaetura_brachyura_1
+		Hemiprocne_comata_1
+		Megalaima_chrysopogon_1
+		Capito_niger_1
+		Ramphastos_ambiguus_1
+		Buccanodon_duchaillui_1
+		Indicator_exilis_1
+		Picus_canus_1
+		Jynx_torquilla_1
+		Treron_calvus_1
+		Cathartes_burrovianus_1
+		Ptilinopus_magnificus_1
+		Columba_livia_1
+		Columbina_minuta_1
+		Leptotila_rufaxilla_1
+		Turnix_ocellata_1
+		Chordeiles_pusillus_1
+		Caprimulgus_europaeus_1
+		Eurostopodus_macrotis_1
+		Burhinus_oedicnemus_1
+		Corythaeola_cristata_1
+		Tauraco_macrorhynchus_1
+		Charadrius_hiaticula_1
+		Haematopus_palliatus_1
+		Recurvirostra_americana_1
+		Uria_aalge_1
+		Rynchops_niger_1
+		Chroicocephalus_cirrocephalus_1
+		Sterna_hirundo_1
+		Tringa_solitaria_1
+		Arenaria_interpres_1
+		Limosa_lapponica_1
+		Rostratula_benghalensis_1
+		Pedionomus_torquatus_1
+		Falco_sparverius_1
+		Jacana_jacana_1
+		Phoenicopterus_ruber_1
+		Rollandia_rolland_1
+		Podargus_strigoides_1
+		Glareola_nuchalis_1
+		Topaza_pella_1
+		Archilochus_colubris_1
+		Phaethornis_superciliosus_1
+		Monias_benschi_1
+		Mesitornis_unicolor_1
+		Nyctibius_griseus_1
+		Pterodroma_externa_1
+		Pelecanoides_urinatrix_1
+		Fulmarus_glacialoides_1
+		Puffinus_griseus_1
+		Cariama_cristata_1
+		Chunga_burmeisteri_1
+		Anhinga_anhinga_1
+		Morus_serrator_1
+		Theristicus_caerulescens_1
+		Phalacrocorax_brasili_1
+		Tigrisoma_lineatum_1
+		Ixobrychus_minutus_1
+		Ardea_herodias_1
+		Phaethon_rubricauda_1
+		Ciconia_nigra_1
+		Leptoptilos_crumeniferus_1
+		Pelecanus_occidentalis_1
+		Fregata_magnificens_1
+		Spheniscus_humboldti_1
+		Gavia_immer_1
+		Eurypyga_helias_1
+		Oceanites_oceanicus_1
+		Pelagodroma_marina_1
+		Phoebastria_nigripes_1
+		Ardeotis_kori_1
+		Oceanodroma_leucorhoa_1
+		Elanus_leucurus_1
+		Pandion_haliaetus_1
+		Accipiter_superciliosus_1
+		Buteo_jamaicensis_1
+		Sagittarius_serpentarius_1
+		Coccyzus_melacoryphus_1
+		Cuculus_optatus_1
+		Tapera_naevia_1
+		Centropus_bengalensis_1
+		Aegotheles_insignis_1
+		Pterocles_bicinctus_1
+		Syrrhaptes_paradoxus_1
+		Bucorvus_leadbeateri_1
+		Tockus_camurus_1
+		Upupa_epops_1
+		Phoeniculus_purpureus_1
+		Apaloderma_aequatoriale_1
+		Trogon_elegans_1
+		Todus_mexicanus_1
+		Momotus_lessonii_1
+		Chloroceryle_inda_1
+		Alcedo_quadribrachys_1
+		Merops_muelleri_1
+		Atelornis_pittoides_1
+		Coracias_cyanogaster_1
+		Scopus_umbretta_1
+		Steatornis_caripensi_1
+		Leptosomus_discolor_1
+		Strix_varia_1
+		Tyto_alba_1
+		Balaeniceps_rex_1
+		Galbula_dea_1
+		Bucco_capensis_1
+		Chelidoptera_tenebrosa_1
+		Barnardius_zonarius_1
+		Probosciger_aterrimus_1
+		Psittacus_erithacus_1
+		Psittrichas_fulgidus_1
+		Deroptyus_accipitrinus_1
+		Nestor_meridionalis_1
+		Caracara_cheriway_1
+		Ibycter_americanus_1
+		Micrastur_gilvicollis_1
+		Climacteris_melanura_1
+		Pycnonotus_macrotis_1
+		Calandrella_brachydactyla_1
+		Sylvia_melanocephala_1
+		Poecile_lugubris_1
+		Fringilla_coelebs_1
+		Spizella_arborea_1
+		Turdus_olivater_1
+		Regulus_ignicapilla_1
+		Corvus_albus_1
+		Lophorina_superba_1
+		Malurus_splendens_1
+		Ptilonorhynchus_violaceus_1
+		Sericulus_bakeri_1
+		Menura_novaehollandiae_1
+		Smithornis_rufolateralis_1
+		Calyptomena_viridis_1
+		Pitta_angolensis_1
+		Eurylaimus_ochromalus_1
+		Neodrepanis_coruscans_1
+		Tityra_cayana_1
+		Schiffornis_turdina_1
+		Neopelma_chrysocephalum_1
+		Rupicola_rupicola_1
+		Cotinga_cayana_1
+		Myiobius_barbatus_1
+		Piprites_chloris_1
+		Pipra_erythrocephala_1
+		Cryptopipo_aenigma_1
+		Oxyruncus_cristatus_1
+		Elaenia_flavogaster_1
+		Hirundinea_ferruginea_1
+		Hymenops_perspicillatus_1
+		Tyrannus_albogularis_1
+		Rhynchocyclus_olivaceus_1
+		Myrmothera_campanisona_1
+		Terenura_callinota_1
+		Thamnophilus_ruficapillu_1
+		Myrmornis_torquata_1
+		Melanopareia_maximilian_1
+		Lepidocolaptes_angustirostr_1
+		Sclerurus_mexicanus_1
+		Furnarius_rufus_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Acanthisitta_chloris_1,
+		2	Urocolius_indicus_1,
+		3	Colius_colius_1,
+		4	Rollulus_rouloul_1,
+		5	Gallus_gallus_1,
+		6	Bonasa_umbellus_1,
+		7	Colinus_cristatus_1,
+		8	Odontophorus_gujanensis_1,
+		9	Numida_malagris_1,
+		10	Leipoa_ocellata_1,
+		11	Ortalis_motmot_1,
+		12	Crax_alector_1,
+		13	Chauna_torquata_1,
+		14	Anseranas_semipalmata_1,
+		15	Anas_superciliosa_1,
+		16	Aythya_valisineria_1,
+		17	Oxyura_jamaicensis_1,
+		18	Anser_canagicus_1,
+		19	Dendrocygna_viduata_1,
+		20	Rhea_americana_1,
+		21	Nothoprocta_ornata_1,
+		22	Eudromia_elegans_1,
+		23	Crypturellus_tataupa_1,
+		24	Tinamus_major_1,
+		25	Dromaius_novaehollandiae_1,
+		26	Casuarius_bennetti_1,
+		27	Apteryx_sp._1,
+		28	Struthio_camelus_1,
+		29	Caiman_croccodilus_1,
+		30	Crocodylus_porosus_1,
+		31	Vultur_gryphus_1,
+		32	Aramus_guarauna_1,
+		33	Porphyrio_porphyrio_1,
+		34	Micropygia_schomburgkii_1,
+		35	Rallus_longirostris_1,
+		36	Heliornis_fulica_1,
+		37	Sarothrura_rufa_1,
+		38	Psophia_crepitans_1,
+		39	Grus_canadensis_1,
+		40	Balearica_regulorum_1,
+		41	Opisthocomus_hoazin_1,
+		42	Streptoprocne_zonaris_1,
+		43	Chaetura_brachyura_1,
+		44	Hemiprocne_comata_1,
+		45	Megalaima_chrysopogon_1,
+		46	Capito_niger_1,
+		47	Ramphastos_ambiguus_1,
+		48	Buccanodon_duchaillui_1,
+		49	Indicator_exilis_1,
+		50	Picus_canus_1,
+		51	Jynx_torquilla_1,
+		52	Treron_calvus_1,
+		53	Cathartes_burrovianus_1,
+		54	Ptilinopus_magnificus_1,
+		55	Columba_livia_1,
+		56	Columbina_minuta_1,
+		57	Leptotila_rufaxilla_1,
+		58	Turnix_ocellata_1,
+		59	Chordeiles_pusillus_1,
+		60	Caprimulgus_europaeus_1,
+		61	Eurostopodus_macrotis_1,
+		62	Burhinus_oedicnemus_1,
+		63	Corythaeola_cristata_1,
+		64	Tauraco_macrorhynchus_1,
+		65	Charadrius_hiaticula_1,
+		66	Haematopus_palliatus_1,
+		67	Recurvirostra_americana_1,
+		68	Uria_aalge_1,
+		69	Rynchops_niger_1,
+		70	Chroicocephalus_cirrocephalus_1,
+		71	Sterna_hirundo_1,
+		72	Tringa_solitaria_1,
+		73	Arenaria_interpres_1,
+		74	Limosa_lapponica_1,
+		75	Rostratula_benghalensis_1,
+		76	Pedionomus_torquatus_1,
+		77	Falco_sparverius_1,
+		78	Jacana_jacana_1,
+		79	Phoenicopterus_ruber_1,
+		80	Rollandia_rolland_1,
+		81	Podargus_strigoides_1,
+		82	Glareola_nuchalis_1,
+		83	Topaza_pella_1,
+		84	Archilochus_colubris_1,
+		85	Phaethornis_superciliosus_1,
+		86	Monias_benschi_1,
+		87	Mesitornis_unicolor_1,
+		88	Nyctibius_griseus_1,
+		89	Pterodroma_externa_1,
+		90	Pelecanoides_urinatrix_1,
+		91	Fulmarus_glacialoides_1,
+		92	Puffinus_griseus_1,
+		93	Cariama_cristata_1,
+		94	Chunga_burmeisteri_1,
+		95	Anhinga_anhinga_1,
+		96	Morus_serrator_1,
+		97	Theristicus_caerulescens_1,
+		98	Phalacrocorax_brasili_1,
+		99	Tigrisoma_lineatum_1,
+		100	Ixobrychus_minutus_1,
+		101	Ardea_herodias_1,
+		102	Phaethon_rubricauda_1,
+		103	Ciconia_nigra_1,
+		104	Leptoptilos_crumeniferus_1,
+		105	Pelecanus_occidentalis_1,
+		106	Fregata_magnificens_1,
+		107	Spheniscus_humboldti_1,
+		108	Gavia_immer_1,
+		109	Eurypyga_helias_1,
+		110	Oceanites_oceanicus_1,
+		111	Pelagodroma_marina_1,
+		112	Phoebastria_nigripes_1,
+		113	Ardeotis_kori_1,
+		114	Oceanodroma_leucorhoa_1,
+		115	Elanus_leucurus_1,
+		116	Pandion_haliaetus_1,
+		117	Accipiter_superciliosus_1,
+		118	Buteo_jamaicensis_1,
+		119	Sagittarius_serpentarius_1,
+		120	Coccyzus_melacoryphus_1,
+		121	Cuculus_optatus_1,
+		122	Tapera_naevia_1,
+		123	Centropus_bengalensis_1,
+		124	Aegotheles_insignis_1,
+		125	Pterocles_bicinctus_1,
+		126	Syrrhaptes_paradoxus_1,
+		127	Bucorvus_leadbeateri_1,
+		128	Tockus_camurus_1,
+		129	Upupa_epops_1,
+		130	Phoeniculus_purpureus_1,
+		131	Apaloderma_aequatoriale_1,
+		132	Trogon_elegans_1,
+		133	Todus_mexicanus_1,
+		134	Momotus_lessonii_1,
+		135	Chloroceryle_inda_1,
+		136	Alcedo_quadribrachys_1,
+		137	Merops_muelleri_1,
+		138	Atelornis_pittoides_1,
+		139	Coracias_cyanogaster_1,
+		140	Scopus_umbretta_1,
+		141	Steatornis_caripensi_1,
+		142	Leptosomus_discolor_1,
+		143	Strix_varia_1,
+		144	Tyto_alba_1,
+		145	Balaeniceps_rex_1,
+		146	Galbula_dea_1,
+		147	Bucco_capensis_1,
+		148	Chelidoptera_tenebrosa_1,
+		149	Barnardius_zonarius_1,
+		150	Probosciger_aterrimus_1,
+		151	Psittacus_erithacus_1,
+		152	Psittrichas_fulgidus_1,
+		153	Deroptyus_accipitrinus_1,
+		154	Nestor_meridionalis_1,
+		155	Caracara_cheriway_1,
+		156	Ibycter_americanus_1,
+		157	Micrastur_gilvicollis_1,
+		158	Climacteris_melanura_1,
+		159	Pycnonotus_macrotis_1,
+		160	Calandrella_brachydactyla_1,
+		161	Sylvia_melanocephala_1,
+		162	Poecile_lugubris_1,
+		163	Fringilla_coelebs_1,
+		164	Spizella_arborea_1,
+		165	Turdus_olivater_1,
+		166	Regulus_ignicapilla_1,
+		167	Corvus_albus_1,
+		168	Lophorina_superba_1,
+		169	Malurus_splendens_1,
+		170	Ptilonorhynchus_violaceus_1,
+		171	Sericulus_bakeri_1,
+		172	Menura_novaehollandiae_1,
+		173	Smithornis_rufolateralis_1,
+		174	Calyptomena_viridis_1,
+		175	Pitta_angolensis_1,
+		176	Eurylaimus_ochromalus_1,
+		177	Neodrepanis_coruscans_1,
+		178	Tityra_cayana_1,
+		179	Schiffornis_turdina_1,
+		180	Neopelma_chrysocephalum_1,
+		181	Rupicola_rupicola_1,
+		182	Cotinga_cayana_1,
+		183	Myiobius_barbatus_1,
+		184	Piprites_chloris_1,
+		185	Pipra_erythrocephala_1,
+		186	Cryptopipo_aenigma_1,
+		187	Oxyruncus_cristatus_1,
+		188	Elaenia_flavogaster_1,
+		189	Hirundinea_ferruginea_1,
+		190	Hymenops_perspicillatus_1,
+		191	Tyrannus_albogularis_1,
+		192	Rhynchocyclus_olivaceus_1,
+		193	Myrmothera_campanisona_1,
+		194	Terenura_callinota_1,
+		195	Thamnophilus_ruficapillu_1,
+		196	Myrmornis_torquata_1,
+		197	Melanopareia_maximilian_1,
+		198	Lepidocolaptes_angustirostr_1,
+		199	Sclerurus_mexicanus_1,
+		200	Furnarius_rufus_1
+	;
+	TREE * UNTITLED = [&U] (1:0.0187702963,((2:0.0241685387,3:0.0142624299)99:0.0253593847,(((((((4:0.0082146797,(5:0.0189790549,6:0.0242873945)99:0.0039981264)96:0.0033465059,(7:0.006219738,8:0.0025696029)100:0.0206954951)84:2.6437e-06,9:0.0176708224)100:0.0187966907,10:0.0248839698)100:0.004162884,(11:0.005608091,12:0.0118895071)100:0.0262576165)100:0.0215280014,((13:0.0209930871,(14:0.0166114695,(((15:2.609e-06,16:0.0027719196)100:0.0145763097,17:0.0129327671)98:0.0021316944,(18:0.0068500375,19:0.0061497485)89:0.0011976009)98:0.0096530948)99:0.0040502755)99:0.0070602841,((20:0.0110577721,((((((21:0.0207764437,22:0.021353394)100:0.0011545738,23:0.0136040589)100:0.004778459,24:0.0037094429)100:0.0155330391,(25:0.0070999495,26:0.0133582407)100:0.0136876448)95:0.0028127057,27:0.0182770383)98:0.0018331174,28:0.0307416038)98:0.0021246352)100:0.0213003141,(29:0.0164263207,30:0.0091770728)100:0.1419049166)94:0.0088545143)79:0.0007534269)84:0.0034940223,31:0.0101319742)84:0.0082396239,(((32:0.0068887167,((33:0.0073892178,(34:0.0121217431,35:0.0116465381)99:0.0015527466)100:0.0121977069,(36:0.0212050608,37:0.0277908731)81:2.9823e-06)100:0.0072983484)82:0.0018633365,38:0.0216979617,(39:0.0031694058,40:0.0038124349)88:0.0014866383)87:0.0116248176,41:0.0317706618,((((42:0.0104648967,43:0.0237135114)99:0.0180047277,44:0.0235817078)95:0.0184378187,(((45:0.0318094033,(46:0.0149999223,47:0.0100395317)100:0.0263736088)97:0.0100230765,48:0.0250018905)100:0.0461925846,(49:0.0311069779,(50:0.0133560876,51:0.0509366835)88:0.0076311087)96:0.0053904168)100:0.0913181784)89:0.0047061927,(((52:0.002786115,53:0.0013939997)100:0.0092553326,54:0.00438334)99:0.0028090975,55:0.0168575907,56:0.0036325104,57:0.0150700471)100:0.0156455457,58:0.0542657595)83:0.0074074117,((59:0.0134191727,60:0.0117069525)99:0.0025048901,61:0.0151193247)100:0.0208665412,62:0.0182086756,(63:0.0102418007,64:0.0117653704)99:0.0201822978,65:0.0232082522,(66:0.0014368445,67:0.0056159681)97:0.0110309576,((68:0.0042196414,69:0.0085475865)99:0.0029526476,(70:0.0026029478,71:0.0103131062)98:0.0013580754)100:0.0113348039,((72:0.0089465774,73:0.0090060159)93:0.0021905349,74:0.0037058681)100:0.0192026253,(75:0.0189767617,(76:0.0118479027,77:0.0211563806)88:0.0109541782)77:0.0086633015,78:0.0268505584,79:0.0174133289,((80:0.0246262387,81:0.0196385014)89:0.0008827284,(82:0.030109924,(83:0.0049511477,(84:0.0163110254,85:0.0090322554)100:0.0035323462)100:0.0352784561)76:0.0004479922,(86:0.0108154557,87:0.0144864457)100:0.0231386639)77:0.0027813408,88:0.0160001656)80:0.0068691798,(89:0.0084194807,90:0.0055806475,91:0.004164004)77:0.0095331099,92:0.0148097928,(93:0.0074613758,94:0.0039204256)100:0.0311829306,(95:0.017539211,96:0.0112796432,97:0.0215950366,98:0.0100205339,99:0.01429676,100:0.0099915398,101:0.0268466788,102:0.0114301178,((103:0.0027691854,104:0.0027686047)100:0.0074904961,105:0.0056962195)99:0.0013214397,106:0.0069753128)76:0.00952494,107:0.0123013669,(108:0.0116301101,109:0.0190650258)83:0.0094061682,(110:0.0041612912,111:0.0114470307)100:0.0139024783,112:0.0095302155,113:0.0290412657,114:0.0172648684,(115:0.0098787338,((116:0.0099536575,(117:0.0029036408,118:0.0040808589)100:0.0071761998)75:2.7861e-06,119:0.0144388835)91:0.0014176619)95:0.0083147932,(((120:0.0248505492,121:0.013626958)100:0.009707584,122:0.0347628281)75:0.0014309049,123:0.0242824028)87:0.0078198839,((124:0.0187476637,(125:0.0064674339,126:0.0145641251)100:0.0190173123)85:0.0060719774,(127:0.0139769715,128:0.0166998544)100:0.0117270768,(129:0.0266771033,130:0.0199987188)100:0.0178952656)79:0.004545783,(131:0.0087424271,132:0.0102172738)100:0.019708343,(((133:0.0260484438,(134:0.0371616249,(135:0.0176794807,136:0.0244366285)100:0.0043378653)100:0.0043543901)93:0.0032759781,137:0.0482761079)92:0.0016378641,(138:0.0159330631,139:0.0204534058)100:0.0013307791)94:0.0072449643,((140:0.013939333,141:0.0293217623)80:0.0004662162,142:0.0191421939)78:0.0041066123,(143:0.0169358519,144:0.0142934961)81:0.0047666352,145:0.024669305,((146:0.018257898,(147:0.0157696412,148:0.0138515827)100:0.0053655393)100:0.0092930933,(((149:0.0100992967,(150:0.0061513729,151:0.0207957909)93:0.0011429066)93:0.0014210688,(152:0.0172859447,153:0.0162495269)100:0.0017534934)94:0.0055162761,154:0.0131447898)100:0.0204147702)90:0.0058497292,((155:2.1588e-06,156:0.0041792111)96:0.0093222351,157:0.0164106214)91:0.0067701922)100:0.0162021081,(((158:0.0101508425,((((159:0.017615902,160:0.0118563353)82:0.0055866384,161:0.0128743476,162:0.0250657871,(163:0.0184705418,164:0.0229599742)100:0.020816092,165:0.021983797,166:0.0343038169)84:0.0037269564,(167:0.0127384317,168:0.0064006102)100:0.0153492383)87:0.0031967502,169:0.0436227059)98:0.0106934186)75:0.0013981298,((170:2.8182e-06,171:0.0069935163)100:0.0212311406,172:0.022183852)80:2.5631e-06)90:0.0063438905,(((173:0.0207250125,174:0.0070444791)99:0.010174274,175:0.0456732064,(176:0.0114426457,177:0.0293945607)99:0.0098459662)99:0.0131321806,((((178:0.0096790955,179:0.007391718)91:0.0029629208,(180:0.0071545831,181:0.0235150934,182:0.0157916186,183:0.0147076926,184:0.0174538231,((185:0.007124577,186:0.0029468395)100:0.0012636389,187:0.0223620965)91:0.0044206396,(188:0.0066483097,(189:0.012525068,(190:0.0028220267,191:0.0131526283)100:0.0018053203)97:0.0027695162)99:0.0077046558)91:0.0009188803)88:2.483e-06,192:0.007438875)99:0.005438091,((193:0.0135283258,(((194:0.0128027277,195:0.0198629082)84:0.0024689489,196:0.0196998793)92:0.005285219,197:0.030713979)100:0.0020676997)100:0.0031929407,(198:0.0090671075,(199:0.0161434586,200:0.0153879476)95:2.8585e-06)100:0.0091817042)88:2.2086e-06)99:0.0044996025)98:0.004156157)96:0.0025276403);
+END;

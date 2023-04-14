@@ -1,0 +1,67 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:42 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 27;
+	TAXLABELS
+		Aegotheles_insignis_1
+		Anser_canagicus_1
+		Chauna_torquata_1
+		Buccanodon_duchaillui_1
+		Ramphastos_ambiguus_1
+		Trogon_elegans_1
+		Probosciger_aterrimus_1
+		Ardeotis_kori_1
+		Galbula_dea_1
+		Oceanodroma_leucorhoa_1
+		Pterodroma_externa_1
+		Eurostopodus_macrotis_1
+		Spheniscus_humboldti_1
+		Cuculus_optatus_1
+		Phalacrocorax_brasili_1
+		Fulmarus_glacialoides_1
+		Balearica_regulorum_1
+		Micropygia_schomburgkii_1
+		Rollandia_rolland_1
+		Sarothrura_rufa_1
+		Todus_mexicanus_1
+		Limosa_lapponica_1
+		Rostratula_benghalensis_1
+		Porphyrio_porphyrio_1
+		Urocolius_indicus_1
+		Ibycter_americanus_1
+		Chelidoptera_tenebrosa_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Aegotheles_insignis_1,
+		2	Anser_canagicus_1,
+		3	Chauna_torquata_1,
+		4	Buccanodon_duchaillui_1,
+		5	Ramphastos_ambiguus_1,
+		6	Trogon_elegans_1,
+		7	Probosciger_aterrimus_1,
+		8	Ardeotis_kori_1,
+		9	Galbula_dea_1,
+		10	Oceanodroma_leucorhoa_1,
+		11	Pterodroma_externa_1,
+		12	Eurostopodus_macrotis_1,
+		13	Spheniscus_humboldti_1,
+		14	Cuculus_optatus_1,
+		15	Phalacrocorax_brasili_1,
+		16	Fulmarus_glacialoides_1,
+		17	Balearica_regulorum_1,
+		18	Micropygia_schomburgkii_1,
+		19	Rollandia_rolland_1,
+		20	Sarothrura_rufa_1,
+		21	Todus_mexicanus_1,
+		22	Limosa_lapponica_1,
+		23	Rostratula_benghalensis_1,
+		24	Porphyrio_porphyrio_1,
+		25	Urocolius_indicus_1,
+		26	Ibycter_americanus_1,
+		27	Chelidoptera_tenebrosa_1
+	;
+	TREE * UNTITLED = [&U] (1:1.602398978,((2:0.0581976967,3:2.0473e-06)91:0.1818120443,(4:0.0403809831,5:0.023057828)99:0.2497718442,6:0.2264814753,7:0.1481564853,8:0.1750032428,9:0.4456808223,10:0.1336250499,11:0.1344083486,12:0.1168711608,13:0.1652162966,14:0.1521587802,15:0.1135333103,16:0.0855941001,17:0.1925282074,18:0.2713726817,19:0.1221456795,20:0.3911440182,21:0.1922180595,(22:0.0663007358,23:0.1067970616,24:1e-06)91:0.0900644144,25:0.0728037755,26:2.1792e-06)93:0.1160217511,27:2.3502e-06);
+END;

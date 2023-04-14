@@ -1,0 +1,57 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:45 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 22;
+	TAXLABELS
+		Acanthisitta_chloris_1
+		Anhinga_anhinga_1
+		Fulmarus_glacialoides_1
+		Pterodroma_externa_1
+		Porphyrio_porphyrio_1
+		Heliornis_fulica_1
+		Burhinus_oedicnemus_1
+		Haematopus_palliatus_1
+		Atelornis_pittoides_1
+		Coracias_cyanogaster_1
+		Aythya_valisineria_1
+		Barnardius_zonarius_1
+		Chloroceryle_inda_1
+		Fringilla_coelebs_1
+		Sericulus_bakeri_1
+		Ptilonorhynchus_violaceus_1
+		Momotus_lessonii_1
+		Indicator_exilis_1
+		Tapera_naevia_1
+		Phoebastria_nigripes_1
+		Phoenicopterus_ruber_1
+		Struthio_camelus_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Acanthisitta_chloris_1,
+		2	Anhinga_anhinga_1,
+		3	Fulmarus_glacialoides_1,
+		4	Pterodroma_externa_1,
+		5	Porphyrio_porphyrio_1,
+		6	Heliornis_fulica_1,
+		7	Burhinus_oedicnemus_1,
+		8	Haematopus_palliatus_1,
+		9	Atelornis_pittoides_1,
+		10	Coracias_cyanogaster_1,
+		11	Aythya_valisineria_1,
+		12	Barnardius_zonarius_1,
+		13	Chloroceryle_inda_1,
+		14	Fringilla_coelebs_1,
+		15	Sericulus_bakeri_1,
+		16	Ptilonorhynchus_violaceus_1,
+		17	Momotus_lessonii_1,
+		18	Indicator_exilis_1,
+		19	Tapera_naevia_1,
+		20	Phoebastria_nigripes_1,
+		21	Phoenicopterus_ruber_1,
+		22	Struthio_camelus_1
+	;
+	TREE * UNTITLED = [&U] (1:0.052662281,2:1.318773456,3:1.172260248,4:1.160292986,5:1.136001918,6:1.125693074,7:1.032719802,8:1.046495886,(9:0.1652930374,10:0.0696430091)93:1.103683529,11:1.067148978,12:1.290151568,13:1.242683568,14:1.491313952,15:1.111912413,16:1.082334145,17:0.9373125843,18:0.8920384099,19:0.2542870156,20:0.1051530398,21:0.1714850508,22:0.2721350883);
+END;

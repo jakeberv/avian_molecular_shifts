@@ -1,0 +1,97 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:25 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 42;
+	TAXLABELS
+		Acanthisitta_chloris_1
+		Ardeotis_kori_1
+		Falco_sparverius_1
+		Pedionomus_torquatus_1
+		Monias_benschi_1
+		Aythya_valisineria_1
+		Chauna_torquata_1
+		Gallus_gallus_1
+		Rollulus_rouloul_1
+		Odontophorus_gujanensis_1
+		Numida_malagris_1
+		Centropus_bengalensis_1
+		Ptilinopus_magnificus_1
+		Caracara_cheriway_1
+		Indicator_exilis_1
+		Theristicus_caerulescens_1
+		Atelornis_pittoides_1
+		Trogon_elegans_1
+		Chunga_burmeisteri_1
+		Barnardius_zonarius_1
+		Psittrichas_fulgidus_1
+		Psittacus_erithacus_1
+		Deroptyus_accipitrinus_1
+		Spizella_arborea_1
+		Haematopus_palliatus_1
+		Caprimulgus_europaeus_1
+		Turdus_olivater_1
+		Menura_novaehollandiae_1
+		Elaenia_flavogaster_1
+		Tyrannus_albogularis_1
+		Neopelma_chrysocephalum_1
+		Pipra_erythrocephala_1
+		Rhynchocyclus_olivaceus_1
+		Oxyruncus_cristatus_1
+		Schiffornis_turdina_1
+		Smithornis_rufolateralis_1
+		Heliornis_fulica_1
+		Tringa_solitaria_1
+		Oceanites_oceanicus_1
+		Todus_mexicanus_1
+		Ptilonorhynchus_violaceus_1
+		Sericulus_bakeri_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Acanthisitta_chloris_1,
+		2	Ardeotis_kori_1,
+		3	Falco_sparverius_1,
+		4	Pedionomus_torquatus_1,
+		5	Monias_benschi_1,
+		6	Aythya_valisineria_1,
+		7	Chauna_torquata_1,
+		8	Gallus_gallus_1,
+		9	Rollulus_rouloul_1,
+		10	Odontophorus_gujanensis_1,
+		11	Numida_malagris_1,
+		12	Centropus_bengalensis_1,
+		13	Ptilinopus_magnificus_1,
+		14	Caracara_cheriway_1,
+		15	Indicator_exilis_1,
+		16	Theristicus_caerulescens_1,
+		17	Atelornis_pittoides_1,
+		18	Trogon_elegans_1,
+		19	Chunga_burmeisteri_1,
+		20	Barnardius_zonarius_1,
+		21	Psittrichas_fulgidus_1,
+		22	Psittacus_erithacus_1,
+		23	Deroptyus_accipitrinus_1,
+		24	Spizella_arborea_1,
+		25	Haematopus_palliatus_1,
+		26	Caprimulgus_europaeus_1,
+		27	Turdus_olivater_1,
+		28	Menura_novaehollandiae_1,
+		29	Elaenia_flavogaster_1,
+		30	Tyrannus_albogularis_1,
+		31	Neopelma_chrysocephalum_1,
+		32	Pipra_erythrocephala_1,
+		33	Rhynchocyclus_olivaceus_1,
+		34	Oxyruncus_cristatus_1,
+		35	Schiffornis_turdina_1,
+		36	Smithornis_rufolateralis_1,
+		37	Heliornis_fulica_1,
+		38	Tringa_solitaria_1,
+		39	Oceanites_oceanicus_1,
+		40	Todus_mexicanus_1,
+		41	Ptilonorhynchus_violaceus_1,
+		42	Sericulus_bakeri_1
+	;
+	TREE * UNTITLED = [&U] (1:0.0465578438,((2:0.0685892608,(3:1e-06,4:1e-06)99:0.163170414,5:0.2252224617)84:0.0609142109,((6:0.1673527909,7:0.0631063991)85:0.0117687213,(((8:0.0372722295,9:0.0130315286)99:0.0302284235,10:0.0566040679)85:0.0441367285,11:2.8224e-06)84:0.1106356064)91:0.0965749387)76:0.0977085282,(12:0.1113922076,13:0.0468992835)93:0.1522005176,((14:0.0410112564,15:0.1454742109)87:0.0420184571,16:0.0462706227)81:0.0792162181,(17:0.0531473279,18:0.1050552368)79:0.1707748108,19:0.1116190911,((20:0.1045962764,21:2.55e-06)98:0.0353729359,22:0.0306772177)93:0.1823678539,23:0.2082084547,24:0.5661038492,25:0.142353808,26:0.1489701616,27:0.1489617733,28:0.1093695484,(((29:0.0399939386,30:0.0399432706)97:0.0681928908,(31:0.0447425783,32:0.0425989016,33:0.0553676993)87:0.0203222212,(34:0.0501291552,35:0.0157352725)96:0.0201078843)95:0.0245218903,36:0.0790468451)98:0.0931460513,37:0.2036443322,38:0.2699394773,39:0.0966834499,40:0.1418534744,(41:0.0239153053,42:0.0085617694)100:0.2190619589);
+END;

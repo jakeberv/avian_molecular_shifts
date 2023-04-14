@@ -1,0 +1,73 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:07 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 30;
+	TAXLABELS
+		Ardeotis_kori_1
+		Burhinus_oedicnemus_1
+		Gavia_immer_1
+		Casuarius_bennetti_1
+		Colius_colius_1
+		Myrmothera_campanisona_1
+		Nestor_meridionalis_1
+		Streptoprocne_zonaris_1
+		Columbina_minuta_1
+		Columba_livia_1
+		Odontophorus_gujanensis_1
+		Numida_malagris_1
+		Leipoa_ocellata_1
+		Coccyzus_melacoryphus_1
+		Galbula_dea_1
+		Indicator_exilis_1
+		Ramphastos_ambiguus_1
+		Leptosomus_discolor_1
+		Micrastur_gilvicollis_1
+		Hemiprocne_comata_1
+		Phaethornis_superciliosus_1
+		Jacana_jacana_1
+		Porphyrio_porphyrio_1
+		Fringilla_coelebs_1
+		Regulus_ignicapilla_1
+		Poecile_lugubris_1
+		Ptilonorhynchus_violaceus_1
+		Myrmornis_torquata_1
+		Deroptyus_accipitrinus_1
+		Pterocles_bicinctus_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Ardeotis_kori_1,
+		2	Burhinus_oedicnemus_1,
+		3	Gavia_immer_1,
+		4	Casuarius_bennetti_1,
+		5	Colius_colius_1,
+		6	Myrmothera_campanisona_1,
+		7	Nestor_meridionalis_1,
+		8	Streptoprocne_zonaris_1,
+		9	Columbina_minuta_1,
+		10	Columba_livia_1,
+		11	Odontophorus_gujanensis_1,
+		12	Numida_malagris_1,
+		13	Leipoa_ocellata_1,
+		14	Coccyzus_melacoryphus_1,
+		15	Galbula_dea_1,
+		16	Indicator_exilis_1,
+		17	Ramphastos_ambiguus_1,
+		18	Leptosomus_discolor_1,
+		19	Micrastur_gilvicollis_1,
+		20	Hemiprocne_comata_1,
+		21	Phaethornis_superciliosus_1,
+		22	Jacana_jacana_1,
+		23	Porphyrio_porphyrio_1,
+		24	Fringilla_coelebs_1,
+		25	Regulus_ignicapilla_1,
+		26	Poecile_lugubris_1,
+		27	Ptilonorhynchus_violaceus_1,
+		28	Myrmornis_torquata_1,
+		29	Deroptyus_accipitrinus_1,
+		30	Pterocles_bicinctus_1
+	;
+	TREE * UNTITLED = [&U] (1:0.1159561474,(((2:0.0388581985,3:0.0552984506)74:0.0255543189,(4:0.1803562581,(((((5:0.1286414757,(6:0.6439242316,7:2.9451e-06)76:0.0898004428)61:0.0280463235,8:0.1240747654)58:0.0872801026,9:0.0442179352,10:2.304e-06)92:0.6608385357,11:0.179664801,12:0.0721454244)75:0.0931632661,13:0.1800226305)78:0.0913343978)61:0.0733300549,14:0.1388512767,(15:0.0959805862,(16:0.1120566976,17:0.1411729958)98:0.1150720151)65:0.0614422081,(18:0.1217581858,19:0.0989410766)57:0.041656994,(20:0.1086329831,21:0.1193281113)95:0.0845454457,(22:0.0822142055,23:0.0683822165)95:0.0613605382)63:0.0115238819,((((24:0.0733601097,25:0.1060325103)90:0.0119808624,26:0.0442918562)98:0.0422443995,27:0.0508618171)91:0.0177280369,28:0.0948115028)100:0.0679175364)57:0.0111310417,(29:0.2163288618,30:0.1529341017)66:0.0008384776);
+END;

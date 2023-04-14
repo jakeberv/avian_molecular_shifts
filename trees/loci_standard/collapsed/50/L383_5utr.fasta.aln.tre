@@ -1,0 +1,87 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:08 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 37;
+	TAXLABELS
+		Acanthisitta_chloris_1
+		Anseranas_semipalmata_1
+		Oxyura_jamaicensis_1
+		Chauna_torquata_1
+		Crax_alector_1
+		Odontophorus_gujanensis_1
+		Eurypyga_helias_1
+		Sarothrura_rufa_1
+		Nyctibius_griseus_1
+		Aramus_guarauna_1
+		Porphyrio_porphyrio_1
+		Pterodroma_externa_1
+		Coccyzus_melacoryphus_1
+		Columbina_minuta_1
+		Haematopus_palliatus_1
+		Falco_sparverius_1
+		Pedionomus_torquatus_1
+		Jacana_jacana_1
+		Glareola_nuchalis_1
+		Uria_aalge_1
+		Phoenicopterus_ruber_1
+		Oceanites_oceanicus_1
+		Bucco_capensis_1
+		Galbula_dea_1
+		Caracara_cheriway_1
+		Micrastur_gilvicollis_1
+		Myrmothera_campanisona_1
+		Nestor_meridionalis_1
+		Psittacus_erithacus_1
+		Cariama_cristata_1
+		Chunga_burmeisteri_1
+		Indicator_exilis_1
+		Ramphastos_ambiguus_1
+		Pelagodroma_marina_1
+		Calyptomena_viridis_1
+		Smithornis_rufolateralis_1
+		Sericulus_bakeri_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Acanthisitta_chloris_1,
+		2	Anseranas_semipalmata_1,
+		3	Oxyura_jamaicensis_1,
+		4	Chauna_torquata_1,
+		5	Crax_alector_1,
+		6	Odontophorus_gujanensis_1,
+		7	Eurypyga_helias_1,
+		8	Sarothrura_rufa_1,
+		9	Nyctibius_griseus_1,
+		10	Aramus_guarauna_1,
+		11	Porphyrio_porphyrio_1,
+		12	Pterodroma_externa_1,
+		13	Coccyzus_melacoryphus_1,
+		14	Columbina_minuta_1,
+		15	Haematopus_palliatus_1,
+		16	Falco_sparverius_1,
+		17	Pedionomus_torquatus_1,
+		18	Jacana_jacana_1,
+		19	Glareola_nuchalis_1,
+		20	Uria_aalge_1,
+		21	Phoenicopterus_ruber_1,
+		22	Oceanites_oceanicus_1,
+		23	Bucco_capensis_1,
+		24	Galbula_dea_1,
+		25	Caracara_cheriway_1,
+		26	Micrastur_gilvicollis_1,
+		27	Myrmothera_campanisona_1,
+		28	Nestor_meridionalis_1,
+		29	Psittacus_erithacus_1,
+		30	Cariama_cristata_1,
+		31	Chunga_burmeisteri_1,
+		32	Indicator_exilis_1,
+		33	Ramphastos_ambiguus_1,
+		34	Pelagodroma_marina_1,
+		35	Calyptomena_viridis_1,
+		36	Smithornis_rufolateralis_1,
+		37	Sericulus_bakeri_1
+	;
+	TREE * UNTITLED = [&U] (1:0.1167741811,((((2:0.0432940676,3:0.363671256,4:1e-06)75:0.0346884729,(5:0.1573362915,6:0.0834376538)89:0.0978395359)79:0.0859710149,(7:0.081242941,8:0.0902553054)80:0.0337856375)52:0.0324804992,9:0.0456855948,10:0.0929518012,11:0.1831602104,12:0.0853304751,13:0.3249005569,14:0.0916087846,15:0.1336077841,(((16:0.0180742695,17:2.2934e-06)98:0.1538662301,18:0.0915894417)90:0.0341650976,(19:0.0578543379,20:0.0278697628)77:0.0392488725)61:0.0557824667,21:0.0699907278,22:3.8586e-06,(23:0.0842064059,24:0.0465177035)75:0.067033633,(25:0.0707696398,26:0.045301851)65:0.0627864263,27:1.242896157,28:0.1438454041,29:0.2098790456,(30:0.0064199925,31:0.027640679)100:0.0811523232,(32:0.1662974751,33:0.0366132984)92:0.0925297439,34:0.0233938333)74:0.0341372475,((35:0.0518085429,36:0.0846112364)97:0.1039617698,37:0.0699694425)77:0.0248691564);
+END;

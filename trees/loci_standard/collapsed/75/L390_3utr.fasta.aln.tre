@@ -1,0 +1,65 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:30 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 26;
+	TAXLABELS
+		Alcedo_quadribrachys_1
+		Apteryx_sp._1
+		Atelornis_pittoides_1
+		Chordeiles_pusillus_1
+		Chaetura_brachyura_1
+		Ptilinopus_magnificus_1
+		Pandion_haliaetus_1
+		Chunga_burmeisteri_1
+		Corythaeola_cristata_1
+		Falco_sparverius_1
+		Pedionomus_torquatus_1
+		Recurvirostra_americana_1
+		Glareola_nuchalis_1
+		Uria_aalge_1
+		Nyctibius_griseus_1
+		Trogon_elegans_1
+		Podargus_strigoides_1
+		Oceanites_oceanicus_1
+		Spheniscus_humboldti_1
+		Eudromia_elegans_1
+		Bonasa_umbellus_1
+		Gallus_gallus_1
+		Rollulus_rouloul_1
+		Numida_malagris_1
+		Crax_alector_1
+		Nothoprocta_ornata_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Alcedo_quadribrachys_1,
+		2	Apteryx_sp._1,
+		3	Atelornis_pittoides_1,
+		4	Chordeiles_pusillus_1,
+		5	Chaetura_brachyura_1,
+		6	Ptilinopus_magnificus_1,
+		7	Pandion_haliaetus_1,
+		8	Chunga_burmeisteri_1,
+		9	Corythaeola_cristata_1,
+		10	Falco_sparverius_1,
+		11	Pedionomus_torquatus_1,
+		12	Recurvirostra_americana_1,
+		13	Glareola_nuchalis_1,
+		14	Uria_aalge_1,
+		15	Nyctibius_griseus_1,
+		16	Trogon_elegans_1,
+		17	Podargus_strigoides_1,
+		18	Oceanites_oceanicus_1,
+		19	Spheniscus_humboldti_1,
+		20	Eudromia_elegans_1,
+		21	Bonasa_umbellus_1,
+		22	Gallus_gallus_1,
+		23	Rollulus_rouloul_1,
+		24	Numida_malagris_1,
+		25	Crax_alector_1,
+		26	Nothoprocta_ornata_1
+	;
+	TREE * UNTITLED = [&U] (1:0.0237527881,2:0.1413482692,3:0.1411779572,4:0.1211339757,5:0.1874965414,6:0.1513758547,7:0.1296919207,8:0.1227741361,9:0.1207524004,((10:2.6103e-06,11:2.6505e-06)95:0.0425493444,12:3.7388e-06,(13:2.4297e-06,14:0.0263293934)76:0.0117760913)91:0.1188613857,15:0.1407932378,16:0.1915915451,17:0.1364114562,18:0.1100850061,19:0.1250665817,20:0.1561220071,(21:0.0137550122,(22:2.7056e-06,23:0.03892544)85:0.0269049977,24:0.0400501965)100:0.1551777166,25:0.0427512919,26:0.230738083);
+END;

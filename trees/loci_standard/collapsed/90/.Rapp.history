@@ -1,0 +1,929 @@
+# we recommend running this is a fresh R session or restarting your current session#
+install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+install.packages("brms", dependencies=T)
+quit()
+require(brms)
+phylo <- ape::read.nexus("https://paul-buerkner.github.io/data/phylo.nex")#
+data_simple <- read.table(#
+  "https://paul-buerkner.github.io/data/data_simple.txt", #
+  header = TRUE#
+)#
+head(data_simple)#
+A <- ape::vcv.phylo(phylo)#
+#
+model_simple <- brm(#
+  phen ~ cofactor + (1|gr(phylo, cov = A)), #
+  data = data_simple, #
+  family = gaussian(), #
+  data2 = list(A = A),#
+  prior = c(#
+    prior(normal(0, 10), "b"),#
+    prior(normal(0, 50), "Intercept"),#
+    prior(student_t(3, 0, 20), "sd"),#
+    prior(student_t(3, 0, 20), "sigma")#
+  )#
+, cores=2, threads=2)
+devtools::install_github("traitecoevo/phyndr")
+require(phyndr)
+? phyndr_taxonomy
+install.packages('taxonlookup')
+devtools::install_github("ropenscilabs/datastorr")#
+devtools::install_github("wcornwell/taxonlookup")#
+library(taxonlookup)
+library(taxonlookup)#
+#
+tax_all <– plant_lookup()
+library(taxonlookup)
+devtools::install_github("ropenscilabs/datastorr")#
+devtools::install_github("wcornwell/taxonlookup")
+library(taxonlookup)
+tax_all <– plant_lookup()
+?plant_lookup
+tax_all <- plant_lookup()
+spp <- unique(c(phy$tip.label, rownames(dat))#
+#
+tax_spp <– lookup_table(spp, by_species=TRUE)#
+#
+tax_spp <– tax_spp[,c(‘genus’, ‘family’, ‘order’)]
+spp <- unique(c(phy$tip.label, rownames(dat))
+)
+phy
+devtools::install_github("richfitz/remake")#
+#
+## Re-run the analysis with remake#
+remake::install_missing_packages()#
+remake::make()
+require(remake)
+remake::install_missing_packages()
+mammals<-read.delim(file="~/Downloads/mammals-6aa8daca9c314569a9c4dd442279ed35.tsv", sep="\t", header=T, quote = "", row.names = NULL, stringsAsFactors = FALSE)#
+massvariance<-mammals#
+#
+#filtering out any rows with masses above what is impossible (modify for other taxa)#
+#massvariance <- massvariance[!massvariance$massing > 150000, ]#
+#
+#filtering out any rows with masses below what is impossible (modify for other taxa)#
+massvariance <- massvariance[!massvariance$massing < 1, ]#
+#
+#filtering out any rows with undefined masss (modify for other taxa)#
+massvariance <- massvariance[!is.na(massvariance$massing), ]#
+#
+#genereate base datasets of the unique taxon names and ranks#
+massvariance.uniques <-massvariance[!duplicated(massvariance$scientificname), ] #
+rownames(massvariance.uniques)<-massvariance.uniques$scientificname#
+massvariance.uniques <- massvariance.uniques[sort(massvariance.uniques$scientificname),]#
+#store list of species #
+species<-sort(unique(massvariance$scientificname))#
+#filtering ambiguous names#
+namesfiltering<-plyr::ldply((strsplit(species, split=" ")), rbind)#
+namesfiltering <-namesfiltering[,c(1,2)] #take only genus+species#
+namesfiltering <- namesfiltering[complete.cases((namesfiltering)), ] #take only complete cases#
+namesfiltering <-unique(paste(namesfiltering[,1], namesfiltering[,2])) #unique values#
+namesfiltering <- namesfiltering [!grepl(pattern="[^a-zA-Z ]", namesfiltering)] #anything not a letter or a space #
+#
+#anything that has a capital after first letter#
+#namesfiltering <- namesfiltering[grepl(pattern ="^([A-Z][a-z ]+)+$", namesfiltering)]#
+namesfiltering <- namesfiltering[!grepl(pattern ="[A-Z]", sub('.', '', namesfiltering))]#
+#
+#removing anything that ends in "sp"#
+namesfiltering <- namesfiltering[!grepl(pattern =" sp$", namesfiltering)]#
+#
+#removing anything that ends in "x"#
+namesfiltering <- namesfiltering[!grepl(pattern =" x$", namesfiltering)]#
+#now looks good#
+#recompile the uniques#
+massvariance.uniques.species <- massvariance.uniques[sort(namesfiltering),]#
+#
+#store filtered names#
+species<-namesfiltering#
+#
+#create list of unique genera#
+genera<- unique(unlist(strsplit(namesfiltering, split=" "))[c(TRUE, FALSE)])#
+#
+#recompile the uniques#
+massvariance.uniques.genera <- massvariance.uniques[sort(genera),]#
+#set up the dataset#
+collapsed.species<-data.frame(species=species, class= massvariance.uniques.species$class, family= massvariance.uniques.species$family, genus=massvariance.uniques.species$genus, specificepithet=massvariance.uniques.species$specificepithet)#
+#set up the dataset#
+collapsed.genera<-data.frame(genus=genera, class= massvariance.uniques.genera$class, family= massvariance.uniques.genera$family, genus=massvariance.uniques.genera$genus, specificepithet=massvariance.uniques.genera$specificepithet)#
+length(species)#
+#2950 species identified#
+#
+length(genera)#
+#1226 genera identified#
+#
+#calculate stats for the unique occurrences of these names#
+#
+for (i in 1:length(species)) {#
+  tmp<-massvariance[massvariance$scientificname==species[i],]#
+  mass<-tmp$massing#
+  #filterout any rows with values outside 99% quantiles#
+  #these are very likely to be data coding errors#
+  outliers<-quantile(log(mass), probs=c(.01, .99), na.rm = T)#
+  #print(i)#
+  if( any(is.na(outliers)) == FALSE) {#
+  	outliers <- findInterval(log(mass), outliers)#
+  	#only include those rows in the 98% interval#
+  	tmp<- tmp[outliers==1,]#
+  }#
+  collapsed.species$mass[i] <- mean(as.numeric(tmp$massing), na.rm=T)#
+  collapsed.species$sd[i] <- sd(as.numeric(tmp$massing), na.rm=T)#
+  collapsed.species$var[i] <- var(as.numeric(tmp$massing), na.rm=T)#
+  collapsed.species$n[i] <- length(as.numeric(tmp$massing[!is.na(tmp$massing)]))#
+  collapsed.species$se[i] <- collapsed.species$sd[i] / sqrt(collapsed.species$n[i])#
+  collapsed.species$cov[i] <- collapsed.species$sd[i] / collapsed.species$mass[i]#
+  print(round(i/length(species), 4))#
+}#
+#filter out rows with SD NA#
+collapsed.species.filter <-collapsed.species[!is.na(collapsed.species$sd),]#
+#
+#filter out rows with 0 SD (one record)#
+collapsed.species.filter <- collapsed.species.filter[! collapsed.species.filter $sd==0,]#
+#
+#filter out rows with n < 20#
+collapsed.species.filter <- collapsed.species.filter[!collapsed.species.filter$n<10,]#
+#
+#filter out rows with sd > mean#
+collapsed.species.filter <- collapsed.species.filter[!collapsed.species.filter$sd > collapsed.species.filter$mass,]#
+## repeat for genera#
+for (i in 1:length(genera)) {#
+  tmp<-massvariance[massvariance$genus==genera[i],]#
+  mass<-tmp$massing#
+  #filterout any rows with values outside 99% quantiles#
+  #these are very likely to be data coding errors#
+  outliers<-quantile(log(mass), probs=c(.01, .99), na.rm = T)#
+  #print(i)#
+  if( any(is.na(outliers)) == FALSE) {#
+  	outliers <- findInterval(log(mass), outliers)#
+  	#only include those rows with mass in the 98% interval#
+  	tmp<- tmp[outliers==1,]#
+  }#
+  collapsed.genera$mass[i] <- mean(as.numeric(tmp$massing), na.rm=T)#
+  collapsed.genera$sd[i] <- sd(as.numeric(tmp$massing), na.rm=T)#
+  collapsed.genera$var[i] <- var(as.numeric(tmp$massing), na.rm=T)#
+  collapsed.genera$n[i] <- length(as.numeric(tmp$massing[!is.na(tmp$massing)]))#
+  collapsed.genera$se[i] <- collapsed.genera$sd[i] / sqrt(collapsed.genera$n[i])#
+  collapsed.genera$cov[i] <- collapsed.genera$sd[i] / collapsed.genera$mass[i]#
+  print(round(i/length(genera), 4))#
+}#
+#filter out rows with SD NA#
+collapsed.genera.filter <-collapsed.genera[!is.na(collapsed.genera$sd),]#
+#
+#filter out rows with 0 SD (one record)#
+collapsed.genera.filter <- collapsed.genera[!collapsed.genera$sd==0,]#
+#
+#filter out rows with n < 20#
+collapsed.genera.filter <- collapsed.genera[!collapsed.genera$n<10,]#
+#
+#filter out rows with sd > mean#
+collapsed.genera.filter <- collapsed.genera.filter[! collapsed.genera.filter$sd > collapsed.genera.filter$mass,]#
+mammals.species<-collapsed.species.filter#
+mammals.genera<-collapsed.genera.filter
+plot(log(mammals.species$sd) ~ log(mammals.species $mass), pch=16, cex=0.5)#
+abline(lm(log(mammals.species $sd) ~ log(mammals.species $mass)), col='black')#
+summary(lm(log(mammals.species $sd) ~ log(mammals.species$mass)))
+mammals.genera
+plot(log(aves.species$sd) ~ log(aves.species$mass), pch=16, cex=0.5)
+plot(log(mammals.species$sd) ~ log(mammals.species $mass), pch=16, cex=0.5)#
+abline(lm(log(mammals.species $sd) ~ log(mammals.species $mass)), col='black')#
+summary(lm(log(mammals.species $sd) ~ log(mammals.species$mass)))
+points(log(aves.species$sd) ~ log(aves.species$mass), pch=16, cex=0.5)#
+abline(lm(log(aves.species$sd) ~ log(aves.species$mass)), col='red')#
+summary(lm(log(aves.species$sd) ~ log(aves.species$mass)))
+plot(log(mammals.species$sd) ~ log(mammals.species $mass), pch=16, cex=0.5)#
+abline(lm(log(mammals.species $sd) ~ log(mammals.species $mass)), col='black')#
+summary(lm(log(mammals.species $sd) ~ log(mammals.species$mass)))#
+points(log(aves.species$sd) ~ log(aves.species$mass), pch=16, cex=0.5, col='red')#
+abline(lm(log(aves.species$sd) ~ log(aves.species$mass)), col='red')#
+summary(lm(log(aves.species$sd) ~ log(aves.species$mass)))
+plot(log(mammals.species$sd) ~ log(mammals.species $mass), pch=16, cex=0.5)#
+abline(lm(log(mammals.species $sd) ~ log(mammals.species $mass)), col='black')#
+summary(lm(log(mammals.species $sd) ~ log(mammals.species$mass)))#
+points(log(aves.species$sd) ~ log(aves.species$mass), cex=0.5, col='red')#
+abline(lm(log(aves.species$sd) ~ log(aves.species$mass)), col='red')#
+summary(lm(log(aves.species$sd) ~ log(aves.species$mass)))
+plot(log(aves.species$sd) ~ log(aves.species$mass), cex=0.5, col='red')#
+abline(lm(log(aves.species$sd) ~ log(aves.species$mass)), col='red')#
+summary(lm(log(aves.species$sd) ~ log(aves.species$mass)))
+plot(log(mammals.species$sd) ~ log(mammals.species $mass), pch=16, cex=0.5)#
+abline(lm(log(mammals.species $sd) ~ log(mammals.species $mass)), col='black')#
+summary(lm(log(mammals.species $sd) ~ log(mammals.species$mass)))
+plot(log(mammals.species$sd) ~ log(mammals.species $mass), pch=16, cex=0.5, xlim=c(-1,14))
+plot(log(mammals.species$sd) ~ log(mammals.species $mass), pch=16, cex=0.5, xlim=c(0,14), ylim=c(-1, 14))#
+abline(lm(log(mammals.species $sd) ~ log(mammals.species $mass)), col='black')#
+summary(lm(log(mammals.species $sd) ~ log(mammals.species$mass)))
+plot(log(mammals.species$sd) ~ log(mammals.species $mass), pch=16, cex=0.5, xlim=c(0,14), ylim=c(0, 14))#
+abline(lm(log(mammals.species $sd) ~ log(mammals.species $mass)), col='black')#
+summary(lm(log(mammals.species $sd) ~ log(mammals.species$mass)))
+plot(log(mammals.species$sd) ~ log(mammals.species $mass), pch=16, cex=0.5, xlim=c(-1,14), ylim=c(-1, 14))
+plot(log(mammals.species$sd) ~ log(mammals.species $mass), pch=16, cex=0.5, xlim=c(0,14), ylim=c(0, 14))
+plot(log(mammals.species$sd) ~ log(mammals.species $mass), pch=16, cex=0.5, xlim=c(0,14), ylim=c(0, 14))#
+abline(lm(log(mammals.species $sd) ~ log(mammals.species $mass)), col='black')#
+summary(lm(log(mammals.species $sd) ~ log(mammals.species$mass)))#
+plot(log(aves.species$sd) ~ log(aves.species$mass), cex=0.5, col='red')#
+abline(lm(log(aves.species$sd) ~ log(aves.species$mass)), col='red')#
+summary(lm(log(aves.species$sd) ~ log(aves.species$mass)))
+plot(log(mammals.species$sd) ~ log(mammals.species $mass), pch=16, cex=0.5, xlim=c(0,14), ylim=c(0, 14))#
+abline(lm(log(mammals.species $sd) ~ log(mammals.species $mass)), col='black')#
+summary(lm(log(mammals.species $sd) ~ log(mammals.species$mass)))#
+points(log(aves.species$sd) ~ log(aves.species$mass), cex=0.5, col='red')#
+abline(lm(log(aves.species$sd) ~ log(aves.species$mass)), col='red')#
+summary(lm(log(aves.species$sd) ~ log(aves.species$mass)))
+plot(log(mammals.species$sd) ~ log(mammals.species $mass), pch=16, cex=0.5)#
+abline(lm(log(mammals.species $sd) ~ log(mammals.species $mass)), col='black')#
+summary(lm(log(mammals.species $sd) ~ log(mammals.species$mass)))
+points(log(aves.species$sd) ~ log(aves.species$mass), cex=0.5, col='red')#
+abline(lm(log(aves.species$sd) ~ log(aves.species$mass)), col='red')#
+summary(lm(log(aves.species$sd) ~ log(aves.species$mass)))
+plot(log(mammals.species$sd) ~ log(mammals.species $mass), pch=16, cex=0.5)#
+abline(lm(log(mammals.species $sd) ~ log(mammals.species $mass)), col='black')#
+summary(lm(log(mammals.species $sd) ~ log(mammals.species$mass)))#
+points(log(aves.species$sd) ~ log(aves.species$mass), cex=0.25, col='red')#
+abline(lm(log(aves.species$sd) ~ log(aves.species$mass)), col='red')#
+summary(lm(log(aves.species$sd) ~ log(aves.species$mass)))
+a<-exp(coef(lm.model)[1])#
+b<-coef(lm.model)[2]#
+paste("y=",a, "* x^", b)
+summary(lm.model)
+lm.model<-lm(log(mammals.species$sd) ~ log(mammals.species$mass) + log(mammals.species$mass)^2)
+lm.model
+summary(lm.model)
+lm.model<-lm(log(mammals.species$sd) ~ log(mammals.species$mass))
+summary(lm.model)
+lm.model<-lm(log(mammals.species$sd) ~ log(mammals.species$mass))
+summary(lm.model)
+lm.model<-lm(log(mammals.species$sd) ~ log(mammals.species$mass) + log(mammals.species$mass)^2)
+summary(lm.model)
+lm.model<-lm(log(mammals.species$sd) ~ log(mammals.species$mass)^2)
+lm.model
+summary(lm.model)
+quad<-log(mammals.species$mass)^2
+quad
+lm.model<-lm(log(mammals.species$sd) ~ log(mammals.species$mass) + quad)
+summary(lm.model)
+lm.model<-lm(log(mammals.species$sd) ~ log(mammals.species$mass))
+summary(lm.model)
+summary(lm(log(aves.species$sd) ~ log(aves.species$mass))
+)
+plot(log(mammals.species$cov) ~ log(mammals.species$mass), pch=16, cex=0.5)#
+abline(lm(log(mammals.species$cov) ~ log(mammals.species$mass)), col='black')#
+summary(lm(log(mammals.species$cov) ~ log(mammals.species$mass)))
+plot(log(mammals.species$sd) ~ log(mammals.species $mass), pch=16, cex=0.5)#
+abline(lm(log(mammals.species $sd) ~ log(mammals.species $mass)), col='black')#
+summary(lm(log(mammals.species $sd) ~ log(mammals.species$mass)))
+test<-rnorm(n=100, mean=10, sd=20)
+hist(test)
+test<-rnorm(n=100, mean=20, sd=20)
+hist(test)
+test<-rnorm(n=100, mean=20, sd=10)
+hist(test)
+test<-rnorm(n=1000, mean=100, sd=200)
+hist(test)
+test<-rnorm(n=1000, mean=100, sd=50)
+hist(test)
+plot(lm.model)
+cooksd <- cooks.distance(lm.model)
+cooksd
+plot(cooksd, pch="*", cex=2, main="Influential Obs by Cooks distance")  # plot cook's distance#
+abline(h = 4*mean(cooksd, na.rm=T), col="red")  # add cutoff line#
+text(x=1:length(cooksd)+1, y=cooksd, labels=ifelse(cooksd>4*mean(cooksd, na.rm=T),names(cooksd),""), col="red")  # add labels
+influential <- as.numeric(names(cooksd)[(cooksd > 4*mean(cooksd, na.rm=T))])  # influential row numbers#
+head(mammals.species[influential, ])
+mammals.species[influential, ]
+influential
+mammals.species[-influential, ]
+mammals.species.outliers<-mammals.species[-influential, ]
+lm.model<-lm(log(mammals.species$sd) ~ log(mammals.species$mass))
+summary(lm.model)
+lm.model<-lm(log(mammals.species.outliers$sd) ~ log(mammals.species.outliers$mass))
+lm.model
+summary(lm.model)
+plot(lm.model)
+plot(log(mammals.species.outliers$sd) ~ log(mammals.species.outliers$mass))
+cooksd <- cooks.distance(lm.model)#
+plot(cooksd, pch="*", cex=2, main="Influential Obs by Cooks distance")  # plot cook's distance
+cooksd <- cooks.distance(lm.model)#
+plot(cooksd, pch="*", cex=2, main="Influential Obs by Cooks distance")  # plot cook's distance#
+abline(h = 4*mean(cooksd, na.rm=T), col="red")  # add cutoff line#
+text(x=1:length(cooksd)+1, y=cooksd, labels=ifelse(cooksd>4*mean(cooksd, na.rm=T),names(cooksd),""), col="red")  # add labels
+lm.model<-lm(log(mammals.species.outliers$sd) ~ log(mammals.species.outliers$mass))#
+plot(lm.model)
+summary(lm.model)
+install.packages('readxl')
+install.packages('ape')
+install.packages('taxize')
+install.packages('phytools')
+install.packages('data.table')
+install.packages('rgbif')
+install.packages('rotl')
+install.packages('parallel')
+install.packages(pbmcapply)
+install.packages('remotes')
+install.packages('devtools')
+install.packages('pbmcapply')
+require(readxl)#
+require(ape)#
+require(taxize)#
+require(phytools)#
+require(data.table)#
+require(rgbif)#
+require(rotl)#
+require(parallel)#
+require(pbmcapply)
+devtools::install_github("onofriAndreaPG/aomisc")
+devtools::install_github("onofriAndreaPG/aomisc", force=T)
+require(nlme)#
+require(drc)#
+require(aomisc)
+require(data.table)#
+require(rgbif)#
+require(pbmcapply)#
+#
+aves<-read.delim(file="~/Downloads/aves-2fab5ccf6de94394ba48519c3c410ae2.tsv", sep="\t", header=T, quote = "", row.names = NULL, stringsAsFactors = FALSE)#
+#
+massvariance<-aves#
+#
+#filtering out any rows with undefined masss (modify for other taxa)#
+massvariance <- massvariance[!is.na(massvariance$massing), ]#
+#
+#filtering out any rows with masses below what is impossible (modify for other taxa)#
+massvariance <- massvariance[!massvariance$massing < 1, ]#
+#
+#filtering out any rows with masses above what is impossible (modify for other taxa)#
+massvariance <- massvariance[!massvariance$massing > 150000, ] #ostrich max at 156kg#
+#
+#adding in names for those that have a blank scientificname field#
+massvariance[massvariance$scientificname=="",]$scientificname <- paste(massvariance[massvariance$scientificname=="",]$genus, massvariance[massvariance$scientificname=="",]$family)#
+#
+#massvariance <- massvariance[grepl("ad", massvariance$lifestage),]#
+#
+#genereate base datasets of the unique taxon names and ranks#
+massvariance.uniques <-massvariance[!duplicated(massvariance$scientificname), ] #
+rownames(massvariance.uniques)<-massvariance.uniques$scientificname#
+massvariance.uniques <- massvariance.uniques[sort(massvariance.uniques$scientificname),]#
+#
+#store list of species #
+species<-sort(unique(massvariance$scientificname))#
+species<-trimws(species) #trim whitespaces#
+#
+#filtering ambiguous names#
+namesfiltering<-plyr::ldply((strsplit(species, split=" ")), rbind)#
+namesfiltering <-namesfiltering[,c(1,2)] #take only genus+species#
+namesfiltering <- namesfiltering[complete.cases((namesfiltering)), ] #take only complete cases#
+namesfiltering <-unique(paste(namesfiltering[,1], namesfiltering[,2])) #unique values#
+namesfiltering <- namesfiltering [!grepl(pattern="[^a-zA-Z ]", namesfiltering)] #anything not a letter or a space #
+#
+#anything that has a capital after first letter#
+#namesfiltering <- namesfiltering[grepl(pattern ="^([A-Z][a-z ]+)+$", namesfiltering)]#
+namesfiltering <- namesfiltering[!grepl(pattern ="[A-Z]", sub('.', '', namesfiltering))]#
+#
+#removing anything that ends in "sp"#
+namesfiltering <- namesfiltering[!grepl(pattern =" sp$", namesfiltering)]#
+#
+#removing anything that ends in "x"#
+namesfiltering <- namesfiltering[!grepl(pattern =" x$", namesfiltering)]#
+#
+#recompile the uniques#
+massvariance.uniques.species <- massvariance.uniques[sort(namesfiltering),]#
+#
+#store filtered names#
+species<-namesfiltering#
+#
+#create list of unique genera#
+genera<- unique(unlist(strsplit(namesfiltering, split=" "))[c(TRUE, FALSE)])#
+#
+#recompile the uniques#
+massvariance.uniques.genera <- massvariance.uniques[sort(genera),]#
+#
+#create list of unique familes#
+#generate gbif taxonomy for matching#
+system.time(#
+  family <-pbmclapply(namesfiltering, name_backbone, mc.cores=4)#
+)#
+#
+require(data.table)#
+#coerce to useable data frame#
+family <-rbindlist(family, fill=T)#
+family <- as.data.frame(family)#
+family <- family$family#
+family <- unique(family)#
+#
+#recompile the uniques#
+massvariance.uniques.family <- massvariance.uniques[sort(family),]#
+#set up the dataset#
+collapsed.species<-data.frame(species=species, class= massvariance.uniques.species$class, family= massvariance.uniques.species$family, genus=massvariance.uniques.species$genus, specificepithet=massvariance.uniques.species$specificepithet)#
+#set up the dataset#
+collapsed.genera<-data.frame(genus=genera, class= massvariance.uniques.genera$class, family= massvariance.uniques.genera$family, genus=massvariance.uniques.genera$genus, specificepithet=massvariance.uniques.genera$specificepithet)#
+#set up the dataset#
+collapsed.family<-data.frame(family=family)#
+length(species)#
+#9345 species identified#
+#
+length(genera)#
+#2291 genera identified#
+#
+length(family)#
+#236 families identified#
+#
+#calculate stats for the unique occurrences of these names#
+library(e1071)#
+#
+for (i in 1:length(species)) {#
+  tmp<-massvariance[massvariance$scientificname==species[i],]#
+  mass<-tmp$massing#
+  #filterout any rows with values outside 99% quantiles#
+  #these are very likely to be data coding errors#
+  outliers<-quantile(log(mass), probs=c(.01, .99), na.rm = T)#
+  #print(i)#
+  if( any(is.na(outliers)) == FALSE) {#
+  	outliers <- findInterval(log(mass), outliers)#
+  	#only include those rows in the 98% interval#
+  	tmp<- tmp[outliers==1,]#
+  }#
+  collapsed.species$mass[i] <- mean(as.numeric(tmp$massing), na.rm=T)#
+  collapsed.species$sd[i] <- sd(as.numeric(tmp$massing), na.rm=T)#
+  collapsed.species$var[i] <- var(as.numeric(tmp$massing), na.rm=T)#
+  collapsed.species$n[i] <- length(as.numeric(tmp$massing[!is.na(tmp$massing)]))#
+  collapsed.species$se[i] <- collapsed.species$sd[i] / sqrt(collapsed.species$n[i])#
+  collapsed.species$cov[i] <- collapsed.species$sd[i] / collapsed.species$mass[i]#
+  collapsed.species$skew[i] <- skewness(as.numeric(tmp$massing), na.rm=T)#
+  print(round(i/length(species), 4))#
+}#
+#
+#filter out rows with SD NA#
+collapsed.species.filter <-collapsed.species[!is.na(collapsed.species$sd),]#
+#
+#filter out rows with 0 SD (one record)#
+collapsed.species.filter <- collapsed.species.filter[! collapsed.species.filter $sd==0,]#
+#
+#filter out rows with n < 20#
+collapsed.species.filter <- collapsed.species.filter[!collapsed.species.filter$n<10,]#
+#
+#filter out rows with sd > mean#
+collapsed.species.filter <- collapsed.species.filter[!collapsed.species.filter$sd > collapsed.species.filter$mass,]#
+## repeat for genera#
+for (i in 1:length(genera)) {#
+  tmp<-massvariance[massvariance$genus==genera[i],]#
+  mass<-tmp$massing#
+  #filterout any rows with values outside 99% quantiles#
+  #these are very likely to be data coding errors#
+  outliers<-quantile(log(mass), probs=c(.01, .99), na.rm = T)#
+  #print(i)#
+  if( any(is.na(outliers)) == FALSE) {#
+  	outliers <- findInterval(log(mass), outliers)#
+  	#only include those rows with mass in the 98% interval#
+  	tmp<- tmp[outliers==1,]#
+  }#
+  collapsed.genera$mass[i] <- mean(as.numeric(tmp$massing), na.rm=T)#
+  collapsed.genera$sd[i] <- sd(as.numeric(tmp$massing), na.rm=T)#
+  collapsed.genera$var[i] <- var(as.numeric(tmp$massing), na.rm=T)#
+  collapsed.genera$n[i] <- length(as.numeric(tmp$massing[!is.na(tmp$massing)]))#
+  collapsed.genera$se[i] <- collapsed.genera$sd[i] / sqrt(collapsed.genera$n[i])#
+  collapsed.genera$cov[i] <- collapsed.genera$sd[i] / collapsed.genera$mass[i]#
+  print(round(i/length(genera), 4))#
+}#
+#filter out rows with SD NA#
+collapsed.genera.filter <-collapsed.genera[!is.na(collapsed.genera$sd),]#
+#
+#filter out rows with 0 SD (one record)#
+collapsed.genera.filter <- collapsed.genera[!collapsed.genera$sd==0,]#
+#
+#filter out rows with n < 20#
+collapsed.genera.filter <- collapsed.genera[!collapsed.genera$n<10,]#
+#
+#filter out rows with sd > mean#
+collapsed.genera.filter <- collapsed.genera.filter[! collapsed.genera.filter$sd > collapsed.genera.filter$mass,]#
+#repeat for families#
+for (i in 1:length(family)) {#
+  tmp<-massvariance[grepl(pattern=family[i], x=massvariance$family),]#
+  mass<-tmp$massing#
+  #filterout any rows with values outside 99% quantiles#
+  #these are very likely to be data coding errors#
+  outliers<-quantile(log(mass), probs=c(.01, .99), na.rm = T)#
+  #print(i)#
+  if( any(is.na(outliers)) == FALSE) {#
+  	outliers <- findInterval(log(mass), outliers)#
+  	#only include those rows in the 98% interval#
+  	tmp<- tmp[outliers==1,]#
+  }#
+  collapsed.family$mass[i] <- mean(as.numeric(tmp$massing), na.rm=T)#
+  collapsed.family$sd[i] <- sd(as.numeric(tmp$massing), na.rm=T)#
+  collapsed.family$var[i] <- var(as.numeric(tmp$massing), na.rm=T)#
+  collapsed.family$n[i] <- length(as.numeric(tmp$massing[!is.na(tmp$massing)]))#
+  collapsed.family$se[i] <- collapsed.family$sd[i] / sqrt(collapsed.family$n[i])#
+  collapsed.family$cov[i] <- collapsed.family$sd[i] / collapsed.family$mass[i]#
+  print(round(i/length(family), 4))#
+}#
+#filter out rows with SD NA#
+collapsed.family.filter <-collapsed.family[!is.na(collapsed.family$sd),]#
+#
+#filter out rows with 0 SD (one record)#
+collapsed.family.filter <- collapsed.family.filter[! collapsed.family.filter $sd==0,]#
+#
+#filter out rows with n < 20#
+collapsed.family.filter <- collapsed.family.filter[!collapsed.family.filter$n<10,]#
+#
+#filter out rows with sd > mean#
+collapsed.family.filter <- collapsed.family.filter[!collapsed.family.filter$sd > collapsed.family.filter$mass,]#
+aves.species<-collapsed.species.filter#
+aves.genera<-collapsed.genera.filter#
+aves.family<-collapsed.family.filter#
+plot((aves.species$sd) ~ log(aves.species$mass), pch=16, cex=0.5)#
+abline(lm(log(aves.species$sd) ~ log(aves.species$mass)), col='black')#
+summary(lm(log(aves.species$sd) ~ log(aves.species$mass)))#
+lm(log(aves.species$sd) ~ log(aves.species$mass))
+test
+require(nlme)#
+require(drc)#
+require(aomisc)
+cooksd <- cooks.distance(lm.model)#
+plot(cooksd, pch="*", cex=2, main="Influential Obs by Cooks distance")  # plot cook's distance#
+abline(h = 4*mean(cooksd, na.rm=T), col="red")  # add cutoff line#
+text(x=1:length(cooksd)+1, y=cooksd, labels=ifelse(cooksd>4*mean(cooksd, na.rm=T),names(cooksd),""), col="red")  # add labels#
+#
+influential <- as.numeric(names(cooksd)[(cooksd > 4*mean(cooksd, na.rm=T))])  # influential row numbers#
+aves.species.outliers<-aves.species[-influential, ]#
+lm.model<-lm(log(aves.species.outliers$sd) ~ log(aves.species.outliers$mass))#
+#
+plot(log(aves.species.outliers$sd) ~ log(aves.species.outliers$mass))#
+abline(lm.model)#
+summary(lm.model)
+lm.model<-lm(log(aves.species$sd) ~ log(aves.species$mass))#
+rlm.model<-MASS::rlm(log(aves.species$sd) ~ log(aves.species$mass))#
+plot(rlm.model)#
+cooksd <- cooks.distance(lm.model)#
+plot(cooksd, pch="*", cex=2, main="Influential Obs by Cooks distance")  # plot cook's distance#
+abline(h = 4*mean(cooksd, na.rm=T), col="red")  # add cutoff line#
+text(x=1:length(cooksd)+1, y=cooksd, labels=ifelse(cooksd>4*mean(cooksd, na.rm=T),names(cooksd),""), col="red")  # add labels#
+#
+influential <- as.numeric(names(cooksd)[(cooksd > 4*mean(cooksd, na.rm=T))])  # influential row numbers#
+aves.species.outliers<-aves.species[-influential, ]#
+lm.model<-lm(log(aves.species.outliers$sd) ~ log(aves.species.outliers$mass))#
+#
+plot(log(aves.species.outliers$sd) ~ log(aves.species.outliers$mass))#
+abline(lm.model)#
+summary(lm.model)
+plot(log(aves.species.outliers$sd) ~ log(aves.species.outliers$mass))
+lm.model<-lm(log(aves.species$sd) ~ log(aves.species$mass))
+cooksd <- cooks.distance(lm.model)#
+plot(cooksd, pch="*", cex=2, main="Influential Obs by Cooks distance")  # plot cook's distance#
+abline(h = 4*mean(cooksd, na.rm=T), col="red")  # add cutoff line#
+text(x=1:length(cooksd)+1, y=cooksd, labels=ifelse(cooksd>4*mean(cooksd, na.rm=T),names(cooksd),""), col="red")  # add labels
+influential <- as.numeric(names(cooksd)[(cooksd > 4*mean(cooksd, na.rm=T))])  # influential row numbers#
+aves.species.outliers<-aves.species[-influential, ]
+lm.model<-lm(log(aves.species.outliers$sd) ~ log(aves.species.outliers$mass))
+plot(log(aves.species.outliers$sd) ~ log(aves.species.outliers$mass))
+a<-exp(coef(lm.model)[1])#
+b<-coef(lm.model)[2]#
+paste("y=",a, "* x^", b)
+#trying asym fit#
+require(nlme)#
+require(drc)#
+require(aomisc)
+test<-nls(log(mass) ~ NLS.asymReg(sd, init, m, plateau), data= aves.species.outliers, trace=T)
+colnames(aves.species.outliers)
+plot(log(mass) ~ sd, data=aves.species.outliers)
+test<-nls(log(aves.species.outliers$mass) ~ NLS.asymReg(aves.species.outliers$sd, init, m, plateau), trace=T)
+? NLS.asymReg
+test<-nls(mass ~ NLS.asymReg(sd, init, m, plateau), data = aves.species.outliers, trace=T)
+test<-nlme::nls(mass ~ NLS.asymReg(sd, init, m, plateau), data = aves.species.outliers, trace=T)
+? nls
+plot(log(mass) ~ sd, data=aves.species.outliers)
+nls(mass ~ NLS.asymReg(sd, init, m, plateau), data = aves.species.outliers, trace=T)
+testdata<-aves.species.outliers
+testdata$logmass<-log(testdata$mass)
+test<- nls(logmass ~ NLS.asymReg(sd, init, m, plateau), data = testdata, trace=T)
+X <- c(1, 3, 5, 7, 9, 11, 13, 20)#
+Y <- c(8.22, 14.0, 17.2, 16.9, 19.2, 19.6, 19.4, 19.6)#
+# nls fit#
+model <- nls(Y ~ NLS.asymReg(X, init, m, plateau) )
+require(nlme)#
+require(drc)#
+require(aomisc)
+X <- c(1, 3, 5, 7, 9, 11, 13, 20)#
+Y <- c(8.22, 14.0, 17.2, 16.9, 19.2, 19.6, 19.4, 19.6)#
+# nls fit#
+model <- nls(Y ~ NLS.asymReg(X, init, m, plateau) )
+model <- drm(Y ~ X, fct = DRC.asymReg())
+model
+model <- nls(Y ~ NLS.asymReg(X, init, m, plateau) )
+install.packages("drc")
+install.packages("cpp11")
+devtools::install_github("onofriAndreaPG/aomisc")
+devtools::install_github("onofriAndreaPG/aomisc", force=T)
+tcltk" %in% loadedNamespaces()
+"tcltk" %in% loadedNamespaces()
+require(data.table)
+"tcltk" %in% loadedNamespaces()
+require(rgbif)
+"tcltk" %in% loadedNamespaces()
+require(pbmcapply)
+"tcltk" %in% loadedNamespaces()
+require(data.table)#
+#coerce to useable data frame#
+family <-rbindlist(family, fill=T)#
+family <- as.data.frame(family)#
+family <- family$family#
+family <- unique(family)
+length(species)
+length(genera)
+require(data.table)#
+require(rgbif)#
+require(pbmcapply)
+mammals<-read.delim(file="~/Downloads/mammals-6aa8daca9c314569a9c4dd442279ed35.tsv", sep="\t", header=T, quote = "", row.names = NULL, stringsAsFactors = FALSE)#
+#
+massvariance<-mammals#
+#
+#filtering out any rows with undefined masss (modify for other taxa)#
+massvariance <- massvariance[!is.na(massvariance$massing), ]#
+#
+#filtering out any rows with masses below what is impossible (modify for other taxa)#
+massvariance <- massvariance[!massvariance$massing < 1, ]#
+#
+#filtering out any rows with masses above what is impossible (modify for other taxa)#
+#massvariance <- massvariance[!massvariance$massing > 150000, ] #ostrich max at 156kg#
+#
+#adding in names for those that have a blank scientificname field#
+massvariance[massvariance$scientificname=="",]$scientificname <- paste(massvariance[massvariance$scientificname=="",]$genus, massvariance[massvariance$scientificname=="",]$family)#
+#
+#massvariance <- massvariance[grepl("ad", massvariance$lifestage),]#
+#
+#genereate base datasets of the unique taxon names and ranks#
+massvariance.uniques <-massvariance[!duplicated(massvariance$scientificname), ] #
+rownames(massvariance.uniques)<-massvariance.uniques$scientificname#
+massvariance.uniques <- massvariance.uniques[sort(massvariance.uniques$scientificname),]#
+#
+#store list of species #
+species<-sort(unique(massvariance$scientificname))#
+species<-trimws(species) #trim whitespaces#
+#
+#filtering ambiguous names#
+namesfiltering<-plyr::ldply((strsplit(species, split=" ")), rbind)#
+namesfiltering <-namesfiltering[,c(1,2)] #take only genus+species#
+namesfiltering <- namesfiltering[complete.cases((namesfiltering)), ] #take only complete cases#
+namesfiltering <-unique(paste(namesfiltering[,1], namesfiltering[,2])) #unique values#
+namesfiltering <- namesfiltering [!grepl(pattern="[^a-zA-Z ]", namesfiltering)] #anything not a letter or a space #
+#
+#anything that has a capital after first letter#
+#namesfiltering <- namesfiltering[grepl(pattern ="^([A-Z][a-z ]+)+$", namesfiltering)]#
+namesfiltering <- namesfiltering[!grepl(pattern ="[A-Z]", sub('.', '', namesfiltering))]#
+#
+#removing anything that ends in "sp"#
+namesfiltering <- namesfiltering[!grepl(pattern =" sp$", namesfiltering)]#
+#
+#removing anything that ends in "x"#
+namesfiltering <- namesfiltering[!grepl(pattern =" x$", namesfiltering)]#
+#
+#recompile the uniques#
+massvariance.uniques.species <- massvariance.uniques[sort(namesfiltering),]#
+#
+#store filtered names#
+species<-namesfiltering#
+#
+#create list of unique genera#
+genera<- unique(unlist(strsplit(namesfiltering, split=" "))[c(TRUE, FALSE)])#
+#
+#recompile the uniques#
+massvariance.uniques.genera <- massvariance.uniques[sort(genera),]
+system.time(#
+  family <-mclapply(namesfiltering, name_backbone, mc.cores=4)#
+)
+system.time(#
+  family <-mclapply(namesfiltering, name_backbone, mc.cores=4, mc.preschedule=F)#
+)
+options(fork.allowed = FALSE)
+system.time(#
+  family <-mclapply(namesfiltering, name_backbone, mc.cores=4, mc.preschedule=T)#
+)
+plot(sd ~ mass, data=testdata)
+testdata<-mammals.species
+testdata<-mammals.species#
+testdata$logmass<-log(testdata$mass)
+#filter out rows with SD NA#
+collapsed.species.filter <-collapsed.species[!is.na(collapsed.species$sd),]#
+#
+#filter out rows with 0 SD (one record)#
+collapsed.species.filter <- collapsed.species.filter[! collapsed.species.filter $sd==0,]#
+#
+#filter out rows with n < 20#
+collapsed.species.filter <- collapsed.species.filter[!collapsed.species.filter$n<5,]
+massvariance[massvariance$scientificname =="Loxodonta africana",]$massing
+hist(massvariance[massvariance$scientificname =="Loxodonta africana",]$massing)
+hist(log(massvariance[massvariance$scientificname =="Loxodonta africana",]$massing))
+massvariance[massvariance$scientificname =="Loxodonta africana",]$massing[massvariance[massvariance$scientificname =="Loxodonta africana",]$massing > 49]
+hist(log(massvariance[massvariance$scientificname =="Loxodonta africana",]$massing[massvariance[massvariance$scientificname =="Loxodonta africana",]$massing > 49]))
+exp(12.5)
+exp(15.5)
+head(testdata[rev(order(testdata$mass)),])
+hist(log(massvariance[massvariance$scientificname =="Sorex yukonicus",]$massing[massvariance[massvariance$scientificname =="Sorex yukonicus",]$massing > 49]))
+hist(log(massvariance[massvariance$scientificname =="Sorex yukonicus",]$massing[massvariance[massvariance$scientificname =="Sorex yukonicus",]$massing]))
+?SSasymp()
+ux <- par("usr")[1:2]; x <- seq(ux[1], ux[2], length.out=250)
+ux <- par("usr")[1:2]#
+x <- seq(ux[1], ux[2], length.out=250)
+getInitial(log(mass) ~ SSweibull(sd, Asym, Drop, lrc, pwr), data = testdata)
+plot((sd) ~log(mass), data=testdata, xlim=c(0,22))#
+#
+ux <- par("usr")[1:2]#
+x <- seq(ux[1], ux[2], length.out=250)
+lines(log(x), do.call(SSweibull, c(list(x=x), coef(fm1))), col = "red", lwd=2)
+plot((sd) ~log(mass), data=testdata)
+? SSasymp
+?AR.2()
+hist(do.call(SSweibull, c(list(x=x), coef(fm1))))
+?lines
+test<-nls(logmass ~ SSasymp(sd, Asym, R0, lrc), data=testdata)
+require(mvMORPH)
+fix(mvBM)
+?mvOU
+require(data.table)#
+require(rgbif)#
+require(pbmcapply)#
+require(aomisc)
+lm.model
+as.formula(#
+  paste0("y ~ ", round(coefficients lm.model model)[1],2), " + ", #
+    paste(sprintf("%.2f * %s", #
+                  coefficients(lm.model)[-1],  #
+                  names(coefficients(lm.model)[-1])), #
+          collapse=" + ")#
+  )#
+)
+as.formula(#
+  paste0("y ~ ", round(coefficients(lm.model)[1],2), " + ", #
+    paste(sprintf("%.2f * %s", #
+                  coefficients(lm.model)[-1],  #
+                  names(coefficients(lm.model)[-1])), #
+          collapse=" + ")#
+  )#
+)
+as.formula(#
+  paste0("y ~ ", round(coefficients(lm.model)[1],10), " + ", #
+    paste(sprintf("%.2f * %s", #
+                  coefficients(lm.model)[-1],  #
+                  names(coefficients(lm.model)[-1])), #
+          collapse=" + ")#
+  )#
+)
+coefficients(lm.model)
+as.formula(#
+  paste0("y ~ ", round(coefficients(lm.model)[1],10), " + ", #
+    paste(sprintf("%.2f * %s", #
+                  coefficients(lm.model)[-1],  #
+                  names(coefficients(lm.model)[-1])), #
+          collapse=" + ")#
+  )#
+)
+require(treeio)
+?read.beast
+require(ips)
+require("ips")
+install.packages("ips")
+require(ape)#
+require(phytools)
+test<-read.tree(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/loci.treefile")
+test
+require('ips')
+require(ips)
+test
+names(test)
+collapseUnsupportedEdges(test, value = "node.label", 50)
+test[[1]]
+collapseUnsupportedEdges(test[[1]], value = "node.label", 50)
+? collapseUnsupportedEdges
+length(test)
+test<-read.tree(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/loci.treefile")
+test
+test[[1]]
+test[[1]]$node.label
+? collapseUnsupportedEdges
+fix(collapseUnsupportedEdges)
+for(i in 1:length(test)){#
+	test[[i]]<-collapseUnsupportedEdges(test[[i]], value = "node.label", 50)#
+}
+test[[1]]
+test[[1]]$node.label
+plot(test[[1]])
+getwd()
+test<-read.tree(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/loci.treefile")#
+setwd("/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/50")#
+for(i in 1:length(test)){#
+	test[[i]]<-collapseUnsupportedEdges(test[[i]], value = "node.label", 50)#
+}
+write.tree(phy=test, file="collapse50.tre")
+setwd("/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/75")#
+for(i in 1:length(test)){#
+	test[[i]]<-collapseUnsupportedEdges(test[[i]], value = "node.label", 75)#
+}
+write.tree(phy=test, file="collapse75.tre")
+setwd("/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/90")#
+for(i in 1:length(test)){#
+	test[[i]]<-collapseUnsupportedEdges(test[[i]], value = "node.label", 90)#
+}#
+#
+write.tree(phy=test, file="collapse90.tre")
+?write.tree
+read.beast(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/50/collapse50.tre")
+?read.beast
+paste("tree", 1)
+paste("tree", 1,".tre", sep="_")
+paste("tree", 1,".tre", sep="")
+paste(names[[1]],".tre", sep=""))
+paste(names[[1]],".tre", sep="")
+names<-c("L100_3utr.fasta.aln", "L100_exon6_final_align_NT.aln", "L101_exon6_final_align_NT.aln", "L102_exon2_final_align_NT.aln", "L102_intron1.fasta.aln", "L102_intron2.fasta.aln", "L103_3utr.fasta.aln", "L103_exon6_final_align_NT.aln", "L104_exon2_final_align_NT.aln", "L104_intron1.fasta.aln", "L104_intron2.fasta.aln", "L105_exon3_final_align_NT.aln", "L105_intron2.fasta.aln", "L105_intron3.fasta.aln", "L106_3utr.fasta.aln", "L106_exon2_final_align_NT.aln", "L107_exon3_final_align_NT.aln", "L107_intron2.fasta.aln", "L107_intron3.fasta.aln", "L108_3utr.fasta.aln", "L108_exon2_final_align_NT.aln", "L108_intron1.fasta.aln", "L109_3utr.fasta.aln", "L109_exon2_final_align_NT.aln", "L109_intron1.fasta.aln", "L10_exon29_final_align_NT.aln", "L10_intron28.fasta.aln", "L110_exon6_final_align_NT.aln", "L110_intron5.fasta.aln", "L111_3utr.fasta.aln", "L111_exon23_final_align_NT.aln", "L111_intron22.fasta.aln", "L112_exon2_final_align_NT.aln", "L112_intron1.fasta.aln", "L112_intron2.fasta.aln", "L114_3utr.fasta.aln", "L114_exon6_final_align_NT.aln", "L114_intron5.fasta.aln", "L115_5utr.fasta.aln", "L115_exon1_final_align_NT.aln", "L116_3utr.fasta.aln", "L116_exon2_final_align_NT.aln", "L118_exon6_final_align_NT.aln", "L119_3utr.fasta.aln", "L119_exon7_final_align_NT.aln", "L11_3utr.fasta.aln", "L11_exon2_final_align_NT.aln", "L11_intron1.fasta.aln", "L120_exon11_final_align_NT.aln", "L121_exon5_final_align_NT.aln", "L121_intron4.fasta.aln", "L122_exon1_final_align_NT.aln", "L122_intron1.fasta.aln", "L124_3utr.fasta.aln", "L124_exon4_final_align_NT.aln", "L124_intron3.fasta.aln", "L125_3utr.fasta.aln", "L125_exon4_final_align_NT.aln", "L126_exon1_final_align_NT.aln", "L127_exon5_final_align_NT.aln", "L127_intron4.fasta.aln", "L127_intron5.fasta.aln", "L128_exon9_final_align_NT.aln", "L129_exon1_final_align_NT.aln", "L129_intron1.fasta.aln", "L12_exon3_final_align_NT.aln", "L12_intron2.fasta.aln", "L12_intron3.fasta.aln", "L130_exon2_final_align_NT.aln", "L130_intron1.fasta.aln", "L130_intron2.fasta.aln", "L131_exon10_final_align_NT.aln", "L131_intron10.fasta.aln", "L131_intron9.fasta.aln", "L132_3utr.fasta.aln", "L132_exon12_final_align_NT.aln", "L133_exon2_final_align_NT.aln", "L133_intron1.fasta.aln", "L133_intron2.fasta.aln", "L135_exon16_final_align_NT.aln", "L135_intron15.fasta.aln", "L135_intron16.fasta.aln", "L136_exon5_final_align_NT.aln", "L136_intron4.fasta.aln", "L136_intron5.fasta.aln", "L137_exon2_final_align_NT.aln", "L137_intron2.fasta.aln", "L139_exon1_final_align_NT.aln", "L139_intron1.fasta.aln", "L13_exon5_final_align_NT.aln", "L13_intron4.fasta.aln", "L13_intron5.fasta.aln", "L140_3utr.fasta.aln", "L140_5utr.fasta.aln", "L140_exon1_final_align_NT.aln", "L141_5utr.fasta.aln", "L141_exon1_final_align_NT.aln", "L142_exon3_final_align_NT.aln", "L142_intron2.fasta.aln", "L142_intron3.fasta.aln", "L143_3utr.fasta.aln", "L143_exon2_final_align_NT.aln", "L143_intron1.fasta.aln", "L144_3utr.fasta.aln", "L144_exon15_final_align_NT.aln", "L145_3utr.fasta.aln", "L145_exon18_final_align_NT.aln", "L145_intron17.fasta.aln", "L146_exon17_final_align_NT.aln", "L146_intron16.fasta.aln", "L146_intron17.fasta.aln", "L147_3utr.fasta.aln", "L147_5utr.fasta.aln", "L147_exon1_final_align_NT.aln", "L148_exon28_final_align_NT.aln", "L148_intron27.fasta.aln", "L148_intron28.fasta.aln", "L149_exon1_final_align_NT.aln", "L149_intron1.fasta.aln", "L14_exon4_final_align_NT.aln", "L14_intron4.fasta.aln", "L150_exon10_final_align_NT.aln", "L150_exon11_final_align_NT.aln", "L150_intron10.fasta.aln", "L150_intron11.fasta.aln", "L151_3utr.fasta.aln", "L151_exon3_final_align_NT.aln", "L151_intron2.fasta.aln", "L152_3utr.fasta.aln", "L152_exon2_final_align_NT.aln", "L152_intron1.fasta.aln", "L153_exon10_final_align_NT.aln", "L154_exon2_final_align_NT.aln", "L154_intron2.fasta.aln", "L155_exon23_final_align_NT.aln", "L155_intron22.fasta.aln", "L155_intron23.fasta.aln", "L156_exon2_final_align_NT.aln", "L156_intron1.fasta.aln", "L156_intron2.fasta.aln", "L157_exon9_final_align_NT.aln", "L157_intron8.fasta.aln", "L159_exon24_final_align_NT.aln", "L15_3utr.fasta.aln", "L15_exon8_final_align_NT.aln", "L15_intron7.fasta.aln", "L160_exon4_final_align_NT.aln", "L161_exon8_final_align_NT.aln", "L161_intron8.fasta.aln", "L162_3utr.fasta.aln", "L162_5utr.fasta.aln", "L162_exon1_final_align_NT.aln", "L163_exon15_final_align_NT.aln", "L163_intron14.fasta.aln", "L163_intron15.fasta.aln", "L164_exon5_final_align_NT.aln", "L164_intron4.fasta.aln", "L164_intron5.fasta.aln", "L165_5utr.fasta.aln", "L165_exon1_final_align_NT.aln", "L165_intron1.fasta.aln", "L167_3utr.fasta.aln", "L167_exon32_final_align_NT.aln", "L167_intron31.fasta.aln", "L167_noncodingUnknown.fasta.aln", "L169_3utr.fasta.aln", "L169_exon4_final_align_NT.aln", "L169_intron3.fasta.aln", "L16_3utr.fasta.aln", "L16_exon2_final_align_NT.aln", "L16_intron1.fasta.aln", "L170_exon7_final_align_NT.aln", "L170_intron6.fasta.aln", "L171_3utr.fasta.aln", "L171_exon11_final_align_NT.aln", "L171_intron10.fasta.aln", "L172_3utr.fasta.aln", "L172_exon5_final_align_NT.aln", "L173_3utr.fasta.aln", "L173_exon5_final_align_NT.aln", "L173_intron4.fasta.aln", "L173_noncodingUnknown.fasta.aln", "L174_exon6_final_align_NT.aln", "L175_exon6_final_align_NT.aln", "L175_intron6.fasta.aln", "L176_exon6_final_align_NT.aln", "L177_exon3_final_align_NT.aln", "L177_intron3.fasta.aln", "L178_exon8_final_align_NT.aln", "L178_intron7.fasta.aln", "L178_intron8.fasta.aln", "L179_exon19_final_align_NT.aln", "L179_exon20_final_align_NT.aln", "L179_intron18.fasta.aln", "L179_intron19.fasta.aln", "L179_intron20.fasta.aln", "L17_exon1_final_align_NT.aln", "L17_intron1.fasta.aln", "L180_exon2_final_align_NT.aln", "L180_intron1.fasta.aln", "L182_3utr.fasta.aln", "L182_exon21_final_align_NT.aln", "L183_exon10_final_align_NT.aln", "L183_exon9_final_align_NT.aln", "L183_intron10.fasta.aln", "L183_intron8.fasta.aln", "L183_intron9.fasta.aln", "L186_5utr.fasta.aln", "L186_exon1_final_align_NT.aln", "L186_exon2_final_align_NT.aln", "L186_exon3_final_align_NT.aln", "L186_intron1.fasta.aln", "L186_intron2.fasta.aln", "L186_intron3.fasta.aln", "L187_exon16_final_align_NT.aln", "L187_intron15.fasta.aln", "L188_exon7_final_align_NT.aln", "L188_intron7.fasta.aln", "L189_exon3_final_align_NT.aln", "L18_3utr.fasta.aln", "L18_5utr.fasta.aln", "L18_exon1_final_align_NT.aln", "L18_noncodingUnknown.fasta.aln", "L190_5utr.fasta.aln", "L190_exon1_final_align_NT.aln", "L190_exon2_final_align_NT.aln", "L190_intron1.fasta.aln", "L190_intron2.fasta.aln", "L191_5utr.fasta.aln", "L191_exon1_final_align_NT.aln", "L191_intron1.fasta.aln", "L192_exon3_final_align_NT.aln", "L192_intron2.fasta.aln", "L192_intron3.fasta.aln", "L193_exon2_final_align_NT.aln", "L193_intron1.fasta.aln", "L193_intron2.fasta.aln", "L194_exon1_final_align_NT.aln", "L194_intron1.fasta.aln", "L195_exon1_final_align_NT.aln", "L195_intron1.fasta.aln", "L196_exon2_final_align_NT.aln", "L196_intron1.fasta.aln", "L196_intron2.fasta.aln", "L197_3utr.fasta.aln", "L197_exon2_final_align_NT.aln", "L197_exon3_final_align_NT.aln", "L197_exon4_final_align_NT.aln", "L197_intron1.fasta.aln", "L197_intron3.fasta.aln", "L198_exon4_final_align_NT.aln", "L198_intron3.fasta.aln", "L198_intron4.fasta.aln", "L19_3utr.fasta.aln", "L19_exon3_final_align_NT.aln", "L19_intron2.fasta.aln", "L1_exon9_final_align_NT.aln", "L1_intron8.fasta.aln", "L1_intron9.fasta.aln", "L200_3utr.fasta.aln", "L200_exon3_final_align_NT.aln", "L200_intron2.fasta.aln", "L201_exon3_final_align_NT.aln", "L201_intron3.fasta.aln", "L202_exon3_final_align_NT.aln", "L202_intron2.fasta.aln", "L202_intron3.fasta.aln", "L203_exon1_final_align_NT.aln", "L205_exon9_final_align_NT.aln", "L206_3utr.fasta.aln", "L206_exon2_final_align_NT.aln", "L206_intron1.fasta.aln", "L207_exon6_final_align_NT.aln", "L207_intron5.fasta.aln", "L208_exon2_final_align_NT.aln", "L209_exon2_final_align_NT.aln", "L209_intron1.fasta.aln", "L209_intron2.fasta.aln", "L20_exon2_final_align_NT.aln", "L20_intron1.fasta.aln", "L20_intron2.fasta.aln", "L210_exon2_final_align_NT.aln", "L210_intron1.fasta.aln", "L212_3utr.fasta.aln", "L212_exon2_final_align_NT.aln", "L212_intron1.fasta.aln", "L213_3utr.fasta.aln", "L213_exon1_final_align_NT.aln", "L214_3utr.fasta.aln", "L214_exon8_final_align_NT.aln", "L214_intron7.fasta.aln", "L215_exon9_final_align_NT.aln", "L215_intron8.fasta.aln", "L216_exon7_final_align_NT.aln", "L216_intron6.fasta.aln", "L216_intron7.fasta.aln", "L219_3utr.fasta.aln", "L219_exon25_final_align_NT.aln", "L219_intron24.fasta.aln", "L220_3utr.fasta.aln", "L220_exon24_final_align_NT.aln", "L220_intron23.fasta.aln", "L221_3utr.fasta.aln", "L221_exon2_final_align_NT.aln", "L221_intron1.fasta.aln", "L222_3utr.fasta.aln", "L222_exon9_final_align_NT.aln", "L222_intron8.fasta.aln", "L223_3utr.fasta.aln", "L223_exon7_final_align_NT.aln", "L223_intron6.fasta.aln", "L224_exon3_final_align_NT.aln", "L224_intron2.fasta.aln", "L224_intron3.fasta.aln", "L225_exon3_final_align_NT.aln", "L226_exon37_final_align_NT.aln", "L226_intron36.fasta.aln", "L227_3utr.fasta.aln", "L227_exon3_final_align_NT.aln", "L228_3utr.fasta.aln", "L228_exon2_final_align_NT.aln", "L228_intron1.fasta.aln", "L229_3utr.fasta.aln", "L229_exon3_final_align_NT.aln", "L229_intron2.fasta.aln", "L22_exon7_final_align_NT.aln", "L22_intron7.fasta.aln", "L230_exon13_final_align_NT.aln", "L230_intron12.fasta.aln", "L231_exon3_final_align_NT.aln", "L231_intron2.fasta.aln", "L231_intron3.fasta.aln", "L232_3utr.fasta.aln", "L232_exon7_final_align_NT.aln", "L232_intron6.fasta.aln", "L233_exon8_final_align_NT.aln", "L233_intron7.fasta.aln", "L233_intron8.fasta.aln", "L235_exon4_final_align_NT.aln", "L235_intron3.fasta.aln", "L236_exon7_final_align_NT.aln", "L236_intron7.fasta.aln", "L237_5utr.fasta.aln", "L237_exon1_final_align_NT.aln", "L238_3utr.fasta.aln", "L238_exon1_final_align_NT.aln", "L239_exon35_final_align_NT.aln", "L23_exon2_final_align_NT.aln", "L23_intron2.fasta.aln", "L240_3utr.fasta.aln", "L240_exon12_final_align_NT.aln", "L241_exon8_final_align_NT.aln", "L241_intron8.fasta.aln", "L241_intron9.fasta.aln", "L242_3utr.fasta.aln", "L242_exon4_final_align_NT.aln", "L243_exon5_final_align_NT.aln", "L243_intron4.fasta.aln", "L243_intron5.fasta.aln", "L244_exon3_final_align_NT.aln", "L244_intron2.fasta.aln", "L244_intron3.fasta.aln", "L245_3utr.fasta.aln", "L245_exon18_final_align_NT.aln", "L245_intron17.fasta.aln", "L247_exon19_final_align_NT.aln", "L247_intron18.fasta.aln", "L248_exon8_final_align_NT.aln", "L248_intron7.fasta.aln", "L24_exon16_final_align_NT.aln", "L24_intron16.fasta.aln", "L250_3utr.fasta.aln", "L250_exon8_final_align_NT.aln", "L250_exon9_final_align_NT.aln", "L250_intron7.fasta.aln", "L250_intron8.fasta.aln", "L254_exon13_final_align_NT.aln", "L257_5utr.fasta.aln", "L257_exon1_final_align_NT.aln", "L257_intron1.fasta.aln", "L258_exon3_final_align_NT.aln", "L258_intron2.fasta.aln", "L258_intron3.fasta.aln", "L258_noncodingUnknown.fasta.aln", "L259_3utr.fasta.aln", "L259_exon1_final_align_NT.aln", "L25_3utr.fasta.aln", "L25_exon2_final_align_NT.aln", "L25_intron1.fasta.aln", "L260_3utr.fasta.aln", "L260_exon7_final_align_NT.aln", "L261_3utr.fasta.aln", "L261_exon2_final_align_NT.aln", "L261_intron1.fasta.aln", "L262_exon3_final_align_NT.aln", "L262_exon4_final_align_NT.aln", "L262_intron2.fasta.aln", "L262_intron3.fasta.aln", "L262_intron4.fasta.aln", "L262_noncodingUnknown.fasta.aln", "L264_3utr.fasta.aln", "L264_exon4_final_align_NT.aln", "L264_intron3.fasta.aln", "L265_3utr.fasta.aln", "L265_exon22_final_align_NT.aln", "L265_intron21.fasta.aln", "L266_3utr.fasta.aln", "L266_exon21_final_align_NT.aln", "L266_intron20.fasta.aln", "L267_exon20_final_align_NT.aln", "L268_exon4_final_align_NT.aln", "L268_intron3.fasta.aln", "L269_exon27_final_align_NT.aln", "L269_intron26.fasta.aln", "L269_intron27.fasta.aln", "L26_exon12_final_align_NT.aln", "L26_intron11.fasta.aln", "L26_intron12.fasta.aln", "L270_3utr.fasta.aln", "L270_exon2_final_align_NT.aln", "L270_intron1.fasta.aln", "L271_3utr.fasta.aln", "L271_exon2_final_align_NT.aln", "L271_intron1.fasta.aln", "L272_3utr.fasta.aln", "L272_exon10_final_align_NT.aln", "L272_intron9.fasta.aln", "L273_exon10_final_align_NT.aln", "L275_exon2_final_align_NT.aln", "L275_intron1.fasta.aln", "L275_intron2.fasta.aln", "L276_3utr.fasta.aln", "L276_exon6_final_align_NT.aln", "L276_intron5.fasta.aln", "L277_3utr.fasta.aln", "L277_exon5_final_align_NT.aln", "L277_intron4.fasta.aln", "L278_exon3_final_align_NT.aln", "L278_intron2.fasta.aln", "L279_exon26_final_align_NT.aln", "L279_exon27_final_align_NT.aln", "L27_exon3_final_align_NT.aln", "L27_intron2.fasta.aln", "L27_intron3.fasta.aln", "L281_exon12_final_align_NT.aln", "L282_3utr.fasta.aln", "L282_exon9_final_align_NT.aln", "L282_intron8.fasta.aln", "L284_exon13_final_align_NT.aln", "L284_intron12.fasta.aln", "L285_exon5_final_align_NT.aln", "L285_intron4.fasta.aln", "L285_intron5.fasta.aln", "L286_exon2_final_align_NT.aln", "L286_intron1.fasta.aln", "L286_intron2.fasta.aln", "L287_3utr.fasta.aln", "L287_exon9_final_align_NT.aln", "L288_exon10_final_align_NT.aln", "L288_intron10.fasta.aln", "L288_intron9.fasta.aln", "L289_3utr.fasta.aln", "L289_exon4_final_align_NT.aln", "L289_intron3.fasta.aln", "L28_3utr.fasta.aln", "L28_exon2_final_align_NT.aln", "L28_intron1.fasta.aln", "L290_exon11_final_align_NT.aln", "L290_intron10.fasta.aln", "L290_intron11.fasta.aln", "L291_3utr.fasta.aln", "L291_exon7_final_align_NT.aln", "L291_intron6.fasta.aln", "L293_3utr.fasta.aln", "L293_exon3_final_align_NT.aln", "L293_intron2.fasta.aln", "L294_3utr.fasta.aln", "L294_exon9_final_align_NT.aln", "L294_intron8.fasta.aln", "L295_exon12_final_align_NT.aln", "L296_exon7_final_align_NT.aln", "L296_intron6.fasta.aln", "L296_intron7.fasta.aln", "L297_3utr.fasta.aln", "L297_exon2_final_align_NT.aln", "L297_intron1.fasta.aln", "L298_exon8_final_align_NT.aln", "L298_intron7.fasta.aln", "L298_intron8.fasta.aln", "L299_exon1_final_align_NT.aln", "L29_exon18_final_align_NT.aln", "L2_exon8_final_align_NT.aln", "L2_intron7.fasta.aln", "L300_exon7_final_align_NT.aln", "L301_exon1_final_align_NT.aln", "L302_exon2_final_align_NT.aln", "L302_intron1.fasta.aln", "L302_intron2.fasta.aln", "L303_exon56_final_align_NT.aln", "L303_intron55.fasta.aln", "L303_intron56.fasta.aln", "L304_3utr.fasta.aln", "L304_exon2_final_align_NT.aln", "L304_intron1.fasta.aln", "L305_3utr.fasta.aln", "L305_exon7_final_align_NT.aln", "L305_intron6.fasta.aln", "L306_3utr.fasta.aln", "L306_exon13_final_align_NT.aln", "L306_intron12.fasta.aln", "L307_3utr.fasta.aln", "L307_exon2_final_align_NT.aln", "L307_intron1.fasta.aln", "L308_3utr.fasta.aln", "L308_exon4_final_align_NT.aln", "L308_intron3.fasta.aln", "L309_exon2_final_align_NT.aln", "L309_intron1.fasta.aln", "L30_3utr.fasta.aln", "L30_exon4_final_align_NT.aln", "L30_intron3.fasta.aln", "L311_exon6_final_align_NT.aln", "L311_intron5.fasta.aln", "L311_intron6.fasta.aln", "L312_3utr.fasta.aln", "L312_5utr.fasta.aln", "L312_exon1_final_align_NT.aln", "L313_exon10_final_align_NT.aln", "L313_intron10.fasta.aln", "L314_3utr.fasta.aln", "L314_exon9_final_align_NT.aln", "L314_intron8.fasta.aln", "L315_exon4_final_align_NT.aln", "L315_intron3.fasta.aln", "L315_intron4.fasta.aln", "L315_noncodingUnknown.fasta.aln", "L316_exon11_final_align_NT.aln", "L316_intron10.fasta.aln", "L317_3utr.fasta.aln", "L317_exon2_final_align_NT.aln", "L317_intron1.fasta.aln", "L318_3utr.fasta.aln", "L318_exon3_final_align_NT.aln", "L318_intron2.fasta.aln", "L319_exon8_final_align_NT.aln", "L31_exon12_final_align_NT.aln", "L31_intron12.fasta.aln", "L320_3utr.fasta.aln", "L320_exon3_final_align_NT.aln", "L320_intron1.fasta.aln", "L320_intron2.fasta.aln", "L321_exon6_final_align_NT.aln", "L321_intron5.fasta.aln", "L322_3utr.fasta.aln", "L322_exon4_final_align_NT.aln", "L322_intron3.fasta.aln", "L323_exon1_final_align_NT.aln", "L324_exon13_final_align_NT.aln", "L324_intron12.fasta.aln", "L324_intron13.fasta.aln", "L325_exon6_final_align_NT.aln", "L326_3utr.fasta.aln", "L326_exon18_final_align_NT.aln", "L326_intron17.fasta.aln", "L327_exon11_final_align_NT.aln", "L327_intron10.fasta.aln", "L327_intron11.fasta.aln", "L328_3utr.fasta.aln", "L328_exon1_final_align_NT.aln", "L329_exon8_final_align_NT.aln", "L329_intron8.fasta.aln", "L32_3utr.fasta.aln", "L32_exon18_final_align_NT.aln", "L32_intron17.fasta.aln", "L331_exon24_final_align_NT.aln", "L331_intron23.fasta.aln", "L332_exon8_final_align_NT.aln", "L332_intron7.fasta.aln", "L333_3utr.fasta.aln", "L333_exon2_final_align_NT.aln", "L334_exon2_final_align_NT.aln", "L335_exon4_final_align_NT.aln", "L335_intron3.fasta.aln", "L337_exon2_final_align_NT.aln", "L337_intron2.fasta.aln", "L338_exon49_final_align_NT.aln", "L339_exon5_final_align_NT.aln", "L339_intron4.fasta.aln", "L340_exon4_final_align_NT.aln", "L340_intron3.fasta.aln", "L340_intron4.fasta.aln", "L341_exon2_final_align_NT.aln", "L341_intron1.fasta.aln", "L341_intron2.fasta.aln", "L342_exon8_final_align_NT.aln", "L342_intron8.fasta.aln", "L343_exon9_final_align_NT.aln", "L343_intron8.fasta.aln", "L344_exon18_final_align_NT.aln", "L344_intron17.fasta.aln", "L345_exon3_final_align_NT.aln", "L346_5utr.fasta.aln", "L346_exon1_final_align_NT.aln", "L347_exon14_final_align_NT.aln", "L348_3utr.fasta.aln", "L348_exon3_final_align_NT.aln", "L348_intron2.fasta.aln", "L349_3utr.fasta.aln", "L349_exon2_final_align_NT.aln", "L349_intron1.fasta.aln", "L34_exon2_final_align_NT.aln", "L34_intron1.fasta.aln", "L34_intron2.fasta.aln", "L350_3utr.fasta.aln", "L350_exon2_final_align_NT.aln", "L350_intron1.fasta.aln", "L351_exon3_final_align_NT.aln", "L351_intron2.fasta.aln", "L352_3utr.fasta.aln", "L352_exon2_final_align_NT.aln", "L352_intron1.fasta.aln", "L353_3utr.fasta.aln", "L353_exon2_final_align_NT.aln", "L353_intron1.fasta.aln", "L354_3utr.fasta.aln", "L354_exon3_final_align_NT.aln", "L354_intron2.fasta.aln", "L355_exon22_final_align_NT.aln", "L356_3utr.fasta.aln", "L356_exon2_final_align_NT.aln", "L356_intron1.fasta.aln", "L357_exon2_final_align_NT.aln", "L358_3utr.fasta.aln", "L358_5utr.fasta.aln", "L358_exon1_final_align_NT.aln", "L359_exon4_final_align_NT.aln", "L359_intron3.fasta.aln", "L35_exon62_final_align_NT.aln", "L35_intron61.fasta.aln", "L35_intron62.fasta.aln", "L360_exonNone_final_align_NT.aln", "L360_noncodingUnknown.fasta.aln", "L361_exon14_final_align_NT.aln", "L361_intron13.fasta.aln", "L361_intron14.fasta.aln", "L362_exon5_final_align_NT.aln", "L362_intron5.fasta.aln", "L363_3utr.fasta.aln", "L363_exon5_final_align_NT.aln", "L364_3utr.fasta.aln", "L364_exon14_final_align_NT.aln", "L365_exon2_final_align_NT.aln", "L366_exon2_final_align_NT.aln", "L367_exon2_final_align_NT.aln", "L368_exon2_final_align_NT.aln", "L368_intron1.fasta.aln", "L369_exon2_final_align_NT.aln", "L369_intron1.fasta.aln", "L369_intron2.fasta.aln", "L36_exon8_final_align_NT.aln", "L370_3utr.fasta.aln", "L370_exon6_final_align_NT.aln", "L371_exon7_final_align_NT.aln", "L371_intron6.fasta.aln", "L372_3utr.fasta.aln", "L372_exon8_final_align_NT.aln", "L373_exon3_final_align_NT.aln", "L374_exon2_final_align_NT.aln", "L376_exon22_final_align_NT.aln", "L376_exon23_final_align_NT.aln", "L376_intron21.fasta.aln", "L376_intron22.fasta.aln", "L376_intron23.fasta.aln", "L376_noncodingUnknown.fasta.aln", "L377_exon3_final_align_NT.aln", "L377_intron2.fasta.aln", "L378_exon9_final_align_NT.aln", "L378_intron8.fasta.aln", "L378_intron9.fasta.aln", "L379_exon10_final_align_NT.aln", "L379_intron9.fasta.aln", "L37_exon7_final_align_NT.aln", "L37_intron6.fasta.aln", "L37_intron7.fasta.aln", "L380_exon4_final_align_NT.aln", "L380_intron3.fasta.aln", "L381_exon5_final_align_NT.aln", "L382_3utr.fasta.aln", "L382_exon2_final_align_NT.aln", "L383_3utr.fasta.aln", "L383_5utr.fasta.aln", "L383_exon1_final_align_NT.aln", "L384_3utr.fasta.aln", "L384_exon5_final_align_NT.aln", "L384_intron4.fasta.aln", "L385_exon9_final_align_NT.aln", "L386_exon2_final_align_NT.aln", "L387_exon2_final_align_NT.aln", "L387_intron1.fasta.aln", "L387_intron2.fasta.aln", "L388_exon19_final_align_NT.aln", "L388_intron19.fasta.aln", "L389_3utr.fasta.aln", "L389_exon2_final_align_NT.aln", "L389_intron1.fasta.aln", "L38_exon3_final_align_NT.aln", "L38_intron2.fasta.aln", "L390_3utr.fasta.aln", "L390_exon2_final_align_NT.aln", "L391_exon27_final_align_NT.aln", "L391_intron27.fasta.aln", "L392_3utr.fasta.aln", "L392_exon2_final_align_NT.aln", "L392_intron1.fasta.aln", "L394_exon2_final_align_NT.aln", "L394_intron2.fasta.aln", "L395_exon6_final_align_NT.aln", "L396_3utr.fasta.aln", "L396_exon3_final_align_NT.aln", "L396_intron2.fasta.aln", "L397_3utr.fasta.aln", "L397_exon3_final_align_NT.aln", "L397_intron2.fasta.aln", "L397_noncodingUnknown.fasta.aln", "L399_exon4_final_align_NT.aln", "L399_intron3.fasta.aln", "L39_exon3_final_align_NT.aln", "L39_intron2.fasta.aln", "L39_intron3.fasta.aln", "L3_3utr.fasta.aln", "L3_exon22_final_align_NT.aln", "L3_intron21.fasta.aln", "L400_exon4_final_align_NT.aln", "L401_3utr.fasta.aln", "L401_exon9_final_align_NT.aln", "L401_intron8.fasta.aln", "L402_exon1_final_align_NT.aln", "L403_exon3_final_align_NT.aln", "L403_intron3.fasta.aln", "L40_3utr.fasta.aln", "L40_exon4_final_align_NT.aln", "L41_exon11_final_align_NT.aln", "L41_intron10.fasta.aln", "L42_exon17_final_align_NT.aln", "L42_intron16.fasta.aln", "L42_intron17.fasta.aln", "L43_3utr.fasta.aln", "L43_exon3_final_align_NT.aln", "L43_intron2.fasta.aln", "L44_3utr.fasta.aln", "L44_exon2_final_align_NT.aln", "L44_intron1.fasta.aln", "L46_exon28_final_align_NT.aln", "L47_exon28_final_align_NT.aln", "L47_intron27.fasta.aln", "L48_5utr.fasta.aln", "L48_exon1_final_align_NT.aln", "L48_intron1.fasta.aln", "L49_exon11_final_align_NT.aln", "L49_intron10.fasta.aln", "L49_intron11.fasta.aln", "L4_exon8_final_align_NT.aln", "L4_intron8.fasta.aln", "L50_exon3_final_align_NT.aln", "L50_intron3.fasta.aln", "L51_exon2_final_align_NT.aln", "L51_intron2.fasta.aln", "L52_3utr.fasta.aln", "L52_5utr.fasta.aln", "L52_exon1_final_align_NT.aln", "L53_exon28_final_align_NT.aln", "L53_intron27.fasta.aln", "L53_intron28.fasta.aln", "L53_noncodingUnknown.fasta.aln", "L54_exon5_final_align_NT.aln", "L54_intron4.fasta.aln", "L54_intron5.fasta.aln", "L55_exon3_final_align_NT.aln", "L55_intron2.fasta.aln", "L55_intron3.fasta.aln", "L56_5utr.fasta.aln", "L56_exon1_final_align_NT.aln", "L56_exon2_final_align_NT.aln", "L56_intron1.fasta.aln", "L57_exon4_final_align_NT.aln", "L57_intron3.fasta.aln", "L58_exon20_final_align_NT.aln", "L58_intron19.fasta.aln", "L59_exon2_final_align_NT.aln", "L59_intron1.fasta.aln", "L59_intron2.fasta.aln", "L5_3utr.fasta.aln", "L5_exon2_final_align_NT.aln", "L5_intron1.fasta.aln", "L60_exon10_final_align_NT.aln", "L60_intron10.fasta.aln", "L61_exon3_final_align_NT.aln", "L61_intron2.fasta.aln", "L63_3utr.fasta.aln", "L63_exon4_final_align_NT.aln", "L63_exon7_final_align_NT.aln", "L63_intron3.fasta.aln", "L63_intron6.fasta.aln", "L64_exon2_final_align_NT.aln", "L64_exon3_final_align_NT.aln", "L64_intron1.fasta.aln", "L64_intron2.fasta.aln", "L65_5utr.fasta.aln", "L65_exon1_final_align_NT.aln", "L66_5utr.fasta.aln", "L66_exon1_final_align_NT.aln", "L66_exon3_final_align_NT.aln", "L66_intron1.fasta.aln", "L66_intron3.fasta.aln", "L66_noncodingUnknown.fasta.aln", "L67_exon2_final_align_NT.aln", "L67_exon3_final_align_NT.aln", "L67_intron1.fasta.aln", "L68_exon4_final_align_NT.aln", "L68_intron3.fasta.aln", "L68_intron4.fasta.aln", "L69_5utr.fasta.aln", "L69_exon1_final_align_NT.aln", "L69_exon2_final_align_NT.aln", "L69_exon3_final_align_NT.aln", "L69_intron1.fasta.aln", "L69_intron2.fasta.aln", "L69_intron3.fasta.aln", "L70_exon2_final_align_NT.aln", "L70_exon3_final_align_NT.aln", "L70_intron1.fasta.aln", "L70_intron2.fasta.aln", "L70_intron3.fasta.aln", "L70_noncodingUnknown.fasta.aln", "L71_exon2_final_align_NT.aln", "L71_exon3_final_align_NT.aln", "L71_exon4_final_align_NT.aln", "L71_intron1.fasta.aln", "L71_intron2.fasta.aln", "L71_intron3.fasta.aln", "L71_noncodingUnknown.fasta.aln", "L72_3utr.fasta.aln", "L72_exon2_final_align_NT.aln", "L72_exon3_final_align_NT.aln", "L72_intron1.fasta.aln", "L72_intron2.fasta.aln", "L72_intron3.fasta.aln", "L72_noncodingUnknown.fasta.aln", "L73_3utr.fasta.aln", "L73_exon1_final_align_NT.aln", "L74_exon4_final_align_NT.aln", "L74_intron3.fasta.aln", "L74_intron4.fasta.aln", "L75_exon2_final_align_NT.aln", "L75_intron1.fasta.aln", "L76_exon12_final_align_NT.aln", "L76_intron11.fasta.aln", "L76_intron12.fasta.aln", "L77_3utr.fasta.aln", "L77_exon13_final_align_NT.aln", "L78_3utr.fasta.aln", "L78_exon2_final_align_NT.aln", "L78_intron1.fasta.aln", "L80_exon2_final_align_NT.aln", "L80_intron1.fasta.aln", "L80_intron2.fasta.aln", "L81_exon6_final_align_NT.aln", "L81_intron6.fasta.aln", "L82_exon5_final_align_NT.aln", "L82_intron5.fasta.aln", "L83_3utr.fasta.aln", "L83_exon1_final_align_NT.aln", "L84_exon4_final_align_NT.aln", "L84_intron3.fasta.aln", "L85_3utr.fasta.aln", "L85_exon2_final_align_NT.aln", "L85_intron1.fasta.aln", "L86_exon2_final_align_NT.aln", "L86_intron1.fasta.aln", "L87_exon4_final_align_NT.aln", "L87_intron3.fasta.aln", "L87_intron4.fasta.aln", "L88_3utr.fasta.aln", "L88_exon4_final_align_NT.aln", "L88_intron3.fasta.aln", "L89_exon4_final_align_NT.aln", "L89_intron3.fasta.aln", "L8_exon8_final_align_NT.aln", "L8_intron7.fasta.aln", "L90_exon15_final_align_NT.aln", "L91_exon13_final_align_NT.aln", "L91_intron12.fasta.aln", "L92_5utr.fasta.aln", "L92_exon1_final_align_NT.aln", "L92_intron1.fasta.aln", "L93_3utr.fasta.aln", "L93_exon7_final_align_NT.aln", "L94_exon2_final_align_NT.aln", "L95_exon5_final_align_NT.aln", "L96_exon1_final_align_NT.aln", "L97_exon17_final_align_NT.aln", "L97_intron16.fasta.aln", "L97_intron17.fasta.aln", "L98_3utr.fasta.aln", "L98_exon8_final_align_NT.aln", "L98_intron7.fasta.aln", "L99_exon2_final_align_NT.aln", "L99_intron2.fasta.aln", "L9_exon3_final_align_NT.aln", "L9_intron3.fasta.aln")
+paste(names[[1]],".tre", sep="")
+#script to collapse low support edges#
+#
+require(ape)#
+require(phytools)#
+require(ips)#
+#
+names<-c("L100_3utr.fasta.aln", "L100_exon6_final_align_NT.aln", "L101_exon6_final_align_NT.aln", "L102_exon2_final_align_NT.aln", "L102_intron1.fasta.aln", "L102_intron2.fasta.aln", "L103_3utr.fasta.aln", "L103_exon6_final_align_NT.aln", "L104_exon2_final_align_NT.aln", "L104_intron1.fasta.aln", "L104_intron2.fasta.aln", "L105_exon3_final_align_NT.aln", "L105_intron2.fasta.aln", "L105_intron3.fasta.aln", "L106_3utr.fasta.aln", "L106_exon2_final_align_NT.aln", "L107_exon3_final_align_NT.aln", "L107_intron2.fasta.aln", "L107_intron3.fasta.aln", "L108_3utr.fasta.aln", "L108_exon2_final_align_NT.aln", "L108_intron1.fasta.aln", "L109_3utr.fasta.aln", "L109_exon2_final_align_NT.aln", "L109_intron1.fasta.aln", "L10_exon29_final_align_NT.aln", "L10_intron28.fasta.aln", "L110_exon6_final_align_NT.aln", "L110_intron5.fasta.aln", "L111_3utr.fasta.aln", "L111_exon23_final_align_NT.aln", "L111_intron22.fasta.aln", "L112_exon2_final_align_NT.aln", "L112_intron1.fasta.aln", "L112_intron2.fasta.aln", "L114_3utr.fasta.aln", "L114_exon6_final_align_NT.aln", "L114_intron5.fasta.aln", "L115_5utr.fasta.aln", "L115_exon1_final_align_NT.aln", "L116_3utr.fasta.aln", "L116_exon2_final_align_NT.aln", "L118_exon6_final_align_NT.aln", "L119_3utr.fasta.aln", "L119_exon7_final_align_NT.aln", "L11_3utr.fasta.aln", "L11_exon2_final_align_NT.aln", "L11_intron1.fasta.aln", "L120_exon11_final_align_NT.aln", "L121_exon5_final_align_NT.aln", "L121_intron4.fasta.aln", "L122_exon1_final_align_NT.aln", "L122_intron1.fasta.aln", "L124_3utr.fasta.aln", "L124_exon4_final_align_NT.aln", "L124_intron3.fasta.aln", "L125_3utr.fasta.aln", "L125_exon4_final_align_NT.aln", "L126_exon1_final_align_NT.aln", "L127_exon5_final_align_NT.aln", "L127_intron4.fasta.aln", "L127_intron5.fasta.aln", "L128_exon9_final_align_NT.aln", "L129_exon1_final_align_NT.aln", "L129_intron1.fasta.aln", "L12_exon3_final_align_NT.aln", "L12_intron2.fasta.aln", "L12_intron3.fasta.aln", "L130_exon2_final_align_NT.aln", "L130_intron1.fasta.aln", "L130_intron2.fasta.aln", "L131_exon10_final_align_NT.aln", "L131_intron10.fasta.aln", "L131_intron9.fasta.aln", "L132_3utr.fasta.aln", "L132_exon12_final_align_NT.aln", "L133_exon2_final_align_NT.aln", "L133_intron1.fasta.aln", "L133_intron2.fasta.aln", "L135_exon16_final_align_NT.aln", "L135_intron15.fasta.aln", "L135_intron16.fasta.aln", "L136_exon5_final_align_NT.aln", "L136_intron4.fasta.aln", "L136_intron5.fasta.aln", "L137_exon2_final_align_NT.aln", "L137_intron2.fasta.aln", "L139_exon1_final_align_NT.aln", "L139_intron1.fasta.aln", "L13_exon5_final_align_NT.aln", "L13_intron4.fasta.aln", "L13_intron5.fasta.aln", "L140_3utr.fasta.aln", "L140_5utr.fasta.aln", "L140_exon1_final_align_NT.aln", "L141_5utr.fasta.aln", "L141_exon1_final_align_NT.aln", "L142_exon3_final_align_NT.aln", "L142_intron2.fasta.aln", "L142_intron3.fasta.aln", "L143_3utr.fasta.aln", "L143_exon2_final_align_NT.aln", "L143_intron1.fasta.aln", "L144_3utr.fasta.aln", "L144_exon15_final_align_NT.aln", "L145_3utr.fasta.aln", "L145_exon18_final_align_NT.aln", "L145_intron17.fasta.aln", "L146_exon17_final_align_NT.aln", "L146_intron16.fasta.aln", "L146_intron17.fasta.aln", "L147_3utr.fasta.aln", "L147_5utr.fasta.aln", "L147_exon1_final_align_NT.aln", "L148_exon28_final_align_NT.aln", "L148_intron27.fasta.aln", "L148_intron28.fasta.aln", "L149_exon1_final_align_NT.aln", "L149_intron1.fasta.aln", "L14_exon4_final_align_NT.aln", "L14_intron4.fasta.aln", "L150_exon10_final_align_NT.aln", "L150_exon11_final_align_NT.aln", "L150_intron10.fasta.aln", "L150_intron11.fasta.aln", "L151_3utr.fasta.aln", "L151_exon3_final_align_NT.aln", "L151_intron2.fasta.aln", "L152_3utr.fasta.aln", "L152_exon2_final_align_NT.aln", "L152_intron1.fasta.aln", "L153_exon10_final_align_NT.aln", "L154_exon2_final_align_NT.aln", "L154_intron2.fasta.aln", "L155_exon23_final_align_NT.aln", "L155_intron22.fasta.aln", "L155_intron23.fasta.aln", "L156_exon2_final_align_NT.aln", "L156_intron1.fasta.aln", "L156_intron2.fasta.aln", "L157_exon9_final_align_NT.aln", "L157_intron8.fasta.aln", "L159_exon24_final_align_NT.aln", "L15_3utr.fasta.aln", "L15_exon8_final_align_NT.aln", "L15_intron7.fasta.aln", "L160_exon4_final_align_NT.aln", "L161_exon8_final_align_NT.aln", "L161_intron8.fasta.aln", "L162_3utr.fasta.aln", "L162_5utr.fasta.aln", "L162_exon1_final_align_NT.aln", "L163_exon15_final_align_NT.aln", "L163_intron14.fasta.aln", "L163_intron15.fasta.aln", "L164_exon5_final_align_NT.aln", "L164_intron4.fasta.aln", "L164_intron5.fasta.aln", "L165_5utr.fasta.aln", "L165_exon1_final_align_NT.aln", "L165_intron1.fasta.aln", "L167_3utr.fasta.aln", "L167_exon32_final_align_NT.aln", "L167_intron31.fasta.aln", "L167_noncodingUnknown.fasta.aln", "L169_3utr.fasta.aln", "L169_exon4_final_align_NT.aln", "L169_intron3.fasta.aln", "L16_3utr.fasta.aln", "L16_exon2_final_align_NT.aln", "L16_intron1.fasta.aln", "L170_exon7_final_align_NT.aln", "L170_intron6.fasta.aln", "L171_3utr.fasta.aln", "L171_exon11_final_align_NT.aln", "L171_intron10.fasta.aln", "L172_3utr.fasta.aln", "L172_exon5_final_align_NT.aln", "L173_3utr.fasta.aln", "L173_exon5_final_align_NT.aln", "L173_intron4.fasta.aln", "L173_noncodingUnknown.fasta.aln", "L174_exon6_final_align_NT.aln", "L175_exon6_final_align_NT.aln", "L175_intron6.fasta.aln", "L176_exon6_final_align_NT.aln", "L177_exon3_final_align_NT.aln", "L177_intron3.fasta.aln", "L178_exon8_final_align_NT.aln", "L178_intron7.fasta.aln", "L178_intron8.fasta.aln", "L179_exon19_final_align_NT.aln", "L179_exon20_final_align_NT.aln", "L179_intron18.fasta.aln", "L179_intron19.fasta.aln", "L179_intron20.fasta.aln", "L17_exon1_final_align_NT.aln", "L17_intron1.fasta.aln", "L180_exon2_final_align_NT.aln", "L180_intron1.fasta.aln", "L182_3utr.fasta.aln", "L182_exon21_final_align_NT.aln", "L183_exon10_final_align_NT.aln", "L183_exon9_final_align_NT.aln", "L183_intron10.fasta.aln", "L183_intron8.fasta.aln", "L183_intron9.fasta.aln", "L186_5utr.fasta.aln", "L186_exon1_final_align_NT.aln", "L186_exon2_final_align_NT.aln", "L186_exon3_final_align_NT.aln", "L186_intron1.fasta.aln", "L186_intron2.fasta.aln", "L186_intron3.fasta.aln", "L187_exon16_final_align_NT.aln", "L187_intron15.fasta.aln", "L188_exon7_final_align_NT.aln", "L188_intron7.fasta.aln", "L189_exon3_final_align_NT.aln", "L18_3utr.fasta.aln", "L18_5utr.fasta.aln", "L18_exon1_final_align_NT.aln", "L18_noncodingUnknown.fasta.aln", "L190_5utr.fasta.aln", "L190_exon1_final_align_NT.aln", "L190_exon2_final_align_NT.aln", "L190_intron1.fasta.aln", "L190_intron2.fasta.aln", "L191_5utr.fasta.aln", "L191_exon1_final_align_NT.aln", "L191_intron1.fasta.aln", "L192_exon3_final_align_NT.aln", "L192_intron2.fasta.aln", "L192_intron3.fasta.aln", "L193_exon2_final_align_NT.aln", "L193_intron1.fasta.aln", "L193_intron2.fasta.aln", "L194_exon1_final_align_NT.aln", "L194_intron1.fasta.aln", "L195_exon1_final_align_NT.aln", "L195_intron1.fasta.aln", "L196_exon2_final_align_NT.aln", "L196_intron1.fasta.aln", "L196_intron2.fasta.aln", "L197_3utr.fasta.aln", "L197_exon2_final_align_NT.aln", "L197_exon3_final_align_NT.aln", "L197_exon4_final_align_NT.aln", "L197_intron1.fasta.aln", "L197_intron3.fasta.aln", "L198_exon4_final_align_NT.aln", "L198_intron3.fasta.aln", "L198_intron4.fasta.aln", "L19_3utr.fasta.aln", "L19_exon3_final_align_NT.aln", "L19_intron2.fasta.aln", "L1_exon9_final_align_NT.aln", "L1_intron8.fasta.aln", "L1_intron9.fasta.aln", "L200_3utr.fasta.aln", "L200_exon3_final_align_NT.aln", "L200_intron2.fasta.aln", "L201_exon3_final_align_NT.aln", "L201_intron3.fasta.aln", "L202_exon3_final_align_NT.aln", "L202_intron2.fasta.aln", "L202_intron3.fasta.aln", "L203_exon1_final_align_NT.aln", "L205_exon9_final_align_NT.aln", "L206_3utr.fasta.aln", "L206_exon2_final_align_NT.aln", "L206_intron1.fasta.aln", "L207_exon6_final_align_NT.aln", "L207_intron5.fasta.aln", "L208_exon2_final_align_NT.aln", "L209_exon2_final_align_NT.aln", "L209_intron1.fasta.aln", "L209_intron2.fasta.aln", "L20_exon2_final_align_NT.aln", "L20_intron1.fasta.aln", "L20_intron2.fasta.aln", "L210_exon2_final_align_NT.aln", "L210_intron1.fasta.aln", "L212_3utr.fasta.aln", "L212_exon2_final_align_NT.aln", "L212_intron1.fasta.aln", "L213_3utr.fasta.aln", "L213_exon1_final_align_NT.aln", "L214_3utr.fasta.aln", "L214_exon8_final_align_NT.aln", "L214_intron7.fasta.aln", "L215_exon9_final_align_NT.aln", "L215_intron8.fasta.aln", "L216_exon7_final_align_NT.aln", "L216_intron6.fasta.aln", "L216_intron7.fasta.aln", "L219_3utr.fasta.aln", "L219_exon25_final_align_NT.aln", "L219_intron24.fasta.aln", "L220_3utr.fasta.aln", "L220_exon24_final_align_NT.aln", "L220_intron23.fasta.aln", "L221_3utr.fasta.aln", "L221_exon2_final_align_NT.aln", "L221_intron1.fasta.aln", "L222_3utr.fasta.aln", "L222_exon9_final_align_NT.aln", "L222_intron8.fasta.aln", "L223_3utr.fasta.aln", "L223_exon7_final_align_NT.aln", "L223_intron6.fasta.aln", "L224_exon3_final_align_NT.aln", "L224_intron2.fasta.aln", "L224_intron3.fasta.aln", "L225_exon3_final_align_NT.aln", "L226_exon37_final_align_NT.aln", "L226_intron36.fasta.aln", "L227_3utr.fasta.aln", "L227_exon3_final_align_NT.aln", "L228_3utr.fasta.aln", "L228_exon2_final_align_NT.aln", "L228_intron1.fasta.aln", "L229_3utr.fasta.aln", "L229_exon3_final_align_NT.aln", "L229_intron2.fasta.aln", "L22_exon7_final_align_NT.aln", "L22_intron7.fasta.aln", "L230_exon13_final_align_NT.aln", "L230_intron12.fasta.aln", "L231_exon3_final_align_NT.aln", "L231_intron2.fasta.aln", "L231_intron3.fasta.aln", "L232_3utr.fasta.aln", "L232_exon7_final_align_NT.aln", "L232_intron6.fasta.aln", "L233_exon8_final_align_NT.aln", "L233_intron7.fasta.aln", "L233_intron8.fasta.aln", "L235_exon4_final_align_NT.aln", "L235_intron3.fasta.aln", "L236_exon7_final_align_NT.aln", "L236_intron7.fasta.aln", "L237_5utr.fasta.aln", "L237_exon1_final_align_NT.aln", "L238_3utr.fasta.aln", "L238_exon1_final_align_NT.aln", "L239_exon35_final_align_NT.aln", "L23_exon2_final_align_NT.aln", "L23_intron2.fasta.aln", "L240_3utr.fasta.aln", "L240_exon12_final_align_NT.aln", "L241_exon8_final_align_NT.aln", "L241_intron8.fasta.aln", "L241_intron9.fasta.aln", "L242_3utr.fasta.aln", "L242_exon4_final_align_NT.aln", "L243_exon5_final_align_NT.aln", "L243_intron4.fasta.aln", "L243_intron5.fasta.aln", "L244_exon3_final_align_NT.aln", "L244_intron2.fasta.aln", "L244_intron3.fasta.aln", "L245_3utr.fasta.aln", "L245_exon18_final_align_NT.aln", "L245_intron17.fasta.aln", "L247_exon19_final_align_NT.aln", "L247_intron18.fasta.aln", "L248_exon8_final_align_NT.aln", "L248_intron7.fasta.aln", "L24_exon16_final_align_NT.aln", "L24_intron16.fasta.aln", "L250_3utr.fasta.aln", "L250_exon8_final_align_NT.aln", "L250_exon9_final_align_NT.aln", "L250_intron7.fasta.aln", "L250_intron8.fasta.aln", "L254_exon13_final_align_NT.aln", "L257_5utr.fasta.aln", "L257_exon1_final_align_NT.aln", "L257_intron1.fasta.aln", "L258_exon3_final_align_NT.aln", "L258_intron2.fasta.aln", "L258_intron3.fasta.aln", "L258_noncodingUnknown.fasta.aln", "L259_3utr.fasta.aln", "L259_exon1_final_align_NT.aln", "L25_3utr.fasta.aln", "L25_exon2_final_align_NT.aln", "L25_intron1.fasta.aln", "L260_3utr.fasta.aln", "L260_exon7_final_align_NT.aln", "L261_3utr.fasta.aln", "L261_exon2_final_align_NT.aln", "L261_intron1.fasta.aln", "L262_exon3_final_align_NT.aln", "L262_exon4_final_align_NT.aln", "L262_intron2.fasta.aln", "L262_intron3.fasta.aln", "L262_intron4.fasta.aln", "L262_noncodingUnknown.fasta.aln", "L264_3utr.fasta.aln", "L264_exon4_final_align_NT.aln", "L264_intron3.fasta.aln", "L265_3utr.fasta.aln", "L265_exon22_final_align_NT.aln", "L265_intron21.fasta.aln", "L266_3utr.fasta.aln", "L266_exon21_final_align_NT.aln", "L266_intron20.fasta.aln", "L267_exon20_final_align_NT.aln", "L268_exon4_final_align_NT.aln", "L268_intron3.fasta.aln", "L269_exon27_final_align_NT.aln", "L269_intron26.fasta.aln", "L269_intron27.fasta.aln", "L26_exon12_final_align_NT.aln", "L26_intron11.fasta.aln", "L26_intron12.fasta.aln", "L270_3utr.fasta.aln", "L270_exon2_final_align_NT.aln", "L270_intron1.fasta.aln", "L271_3utr.fasta.aln", "L271_exon2_final_align_NT.aln", "L271_intron1.fasta.aln", "L272_3utr.fasta.aln", "L272_exon10_final_align_NT.aln", "L272_intron9.fasta.aln", "L273_exon10_final_align_NT.aln", "L275_exon2_final_align_NT.aln", "L275_intron1.fasta.aln", "L275_intron2.fasta.aln", "L276_3utr.fasta.aln", "L276_exon6_final_align_NT.aln", "L276_intron5.fasta.aln", "L277_3utr.fasta.aln", "L277_exon5_final_align_NT.aln", "L277_intron4.fasta.aln", "L278_exon3_final_align_NT.aln", "L278_intron2.fasta.aln", "L279_exon26_final_align_NT.aln", "L279_exon27_final_align_NT.aln", "L27_exon3_final_align_NT.aln", "L27_intron2.fasta.aln", "L27_intron3.fasta.aln", "L281_exon12_final_align_NT.aln", "L282_3utr.fasta.aln", "L282_exon9_final_align_NT.aln", "L282_intron8.fasta.aln", "L284_exon13_final_align_NT.aln", "L284_intron12.fasta.aln", "L285_exon5_final_align_NT.aln", "L285_intron4.fasta.aln", "L285_intron5.fasta.aln", "L286_exon2_final_align_NT.aln", "L286_intron1.fasta.aln", "L286_intron2.fasta.aln", "L287_3utr.fasta.aln", "L287_exon9_final_align_NT.aln", "L288_exon10_final_align_NT.aln", "L288_intron10.fasta.aln", "L288_intron9.fasta.aln", "L289_3utr.fasta.aln", "L289_exon4_final_align_NT.aln", "L289_intron3.fasta.aln", "L28_3utr.fasta.aln", "L28_exon2_final_align_NT.aln", "L28_intron1.fasta.aln", "L290_exon11_final_align_NT.aln", "L290_intron10.fasta.aln", "L290_intron11.fasta.aln", "L291_3utr.fasta.aln", "L291_exon7_final_align_NT.aln", "L291_intron6.fasta.aln", "L293_3utr.fasta.aln", "L293_exon3_final_align_NT.aln", "L293_intron2.fasta.aln", "L294_3utr.fasta.aln", "L294_exon9_final_align_NT.aln", "L294_intron8.fasta.aln", "L295_exon12_final_align_NT.aln", "L296_exon7_final_align_NT.aln", "L296_intron6.fasta.aln", "L296_intron7.fasta.aln", "L297_3utr.fasta.aln", "L297_exon2_final_align_NT.aln", "L297_intron1.fasta.aln", "L298_exon8_final_align_NT.aln", "L298_intron7.fasta.aln", "L298_intron8.fasta.aln", "L299_exon1_final_align_NT.aln", "L29_exon18_final_align_NT.aln", "L2_exon8_final_align_NT.aln", "L2_intron7.fasta.aln", "L300_exon7_final_align_NT.aln", "L301_exon1_final_align_NT.aln", "L302_exon2_final_align_NT.aln", "L302_intron1.fasta.aln", "L302_intron2.fasta.aln", "L303_exon56_final_align_NT.aln", "L303_intron55.fasta.aln", "L303_intron56.fasta.aln", "L304_3utr.fasta.aln", "L304_exon2_final_align_NT.aln", "L304_intron1.fasta.aln", "L305_3utr.fasta.aln", "L305_exon7_final_align_NT.aln", "L305_intron6.fasta.aln", "L306_3utr.fasta.aln", "L306_exon13_final_align_NT.aln", "L306_intron12.fasta.aln", "L307_3utr.fasta.aln", "L307_exon2_final_align_NT.aln", "L307_intron1.fasta.aln", "L308_3utr.fasta.aln", "L308_exon4_final_align_NT.aln", "L308_intron3.fasta.aln", "L309_exon2_final_align_NT.aln", "L309_intron1.fasta.aln", "L30_3utr.fasta.aln", "L30_exon4_final_align_NT.aln", "L30_intron3.fasta.aln", "L311_exon6_final_align_NT.aln", "L311_intron5.fasta.aln", "L311_intron6.fasta.aln", "L312_3utr.fasta.aln", "L312_5utr.fasta.aln", "L312_exon1_final_align_NT.aln", "L313_exon10_final_align_NT.aln", "L313_intron10.fasta.aln", "L314_3utr.fasta.aln", "L314_exon9_final_align_NT.aln", "L314_intron8.fasta.aln", "L315_exon4_final_align_NT.aln", "L315_intron3.fasta.aln", "L315_intron4.fasta.aln", "L315_noncodingUnknown.fasta.aln", "L316_exon11_final_align_NT.aln", "L316_intron10.fasta.aln", "L317_3utr.fasta.aln", "L317_exon2_final_align_NT.aln", "L317_intron1.fasta.aln", "L318_3utr.fasta.aln", "L318_exon3_final_align_NT.aln", "L318_intron2.fasta.aln", "L319_exon8_final_align_NT.aln", "L31_exon12_final_align_NT.aln", "L31_intron12.fasta.aln", "L320_3utr.fasta.aln", "L320_exon3_final_align_NT.aln", "L320_intron1.fasta.aln", "L320_intron2.fasta.aln", "L321_exon6_final_align_NT.aln", "L321_intron5.fasta.aln", "L322_3utr.fasta.aln", "L322_exon4_final_align_NT.aln", "L322_intron3.fasta.aln", "L323_exon1_final_align_NT.aln", "L324_exon13_final_align_NT.aln", "L324_intron12.fasta.aln", "L324_intron13.fasta.aln", "L325_exon6_final_align_NT.aln", "L326_3utr.fasta.aln", "L326_exon18_final_align_NT.aln", "L326_intron17.fasta.aln", "L327_exon11_final_align_NT.aln", "L327_intron10.fasta.aln", "L327_intron11.fasta.aln", "L328_3utr.fasta.aln", "L328_exon1_final_align_NT.aln", "L329_exon8_final_align_NT.aln", "L329_intron8.fasta.aln", "L32_3utr.fasta.aln", "L32_exon18_final_align_NT.aln", "L32_intron17.fasta.aln", "L331_exon24_final_align_NT.aln", "L331_intron23.fasta.aln", "L332_exon8_final_align_NT.aln", "L332_intron7.fasta.aln", "L333_3utr.fasta.aln", "L333_exon2_final_align_NT.aln", "L334_exon2_final_align_NT.aln", "L335_exon4_final_align_NT.aln", "L335_intron3.fasta.aln", "L337_exon2_final_align_NT.aln", "L337_intron2.fasta.aln", "L338_exon49_final_align_NT.aln", "L339_exon5_final_align_NT.aln", "L339_intron4.fasta.aln", "L340_exon4_final_align_NT.aln", "L340_intron3.fasta.aln", "L340_intron4.fasta.aln", "L341_exon2_final_align_NT.aln", "L341_intron1.fasta.aln", "L341_intron2.fasta.aln", "L342_exon8_final_align_NT.aln", "L342_intron8.fasta.aln", "L343_exon9_final_align_NT.aln", "L343_intron8.fasta.aln", "L344_exon18_final_align_NT.aln", "L344_intron17.fasta.aln", "L345_exon3_final_align_NT.aln", "L346_5utr.fasta.aln", "L346_exon1_final_align_NT.aln", "L347_exon14_final_align_NT.aln", "L348_3utr.fasta.aln", "L348_exon3_final_align_NT.aln", "L348_intron2.fasta.aln", "L349_3utr.fasta.aln", "L349_exon2_final_align_NT.aln", "L349_intron1.fasta.aln", "L34_exon2_final_align_NT.aln", "L34_intron1.fasta.aln", "L34_intron2.fasta.aln", "L350_3utr.fasta.aln", "L350_exon2_final_align_NT.aln", "L350_intron1.fasta.aln", "L351_exon3_final_align_NT.aln", "L351_intron2.fasta.aln", "L352_3utr.fasta.aln", "L352_exon2_final_align_NT.aln", "L352_intron1.fasta.aln", "L353_3utr.fasta.aln", "L353_exon2_final_align_NT.aln", "L353_intron1.fasta.aln", "L354_3utr.fasta.aln", "L354_exon3_final_align_NT.aln", "L354_intron2.fasta.aln", "L355_exon22_final_align_NT.aln", "L356_3utr.fasta.aln", "L356_exon2_final_align_NT.aln", "L356_intron1.fasta.aln", "L357_exon2_final_align_NT.aln", "L358_3utr.fasta.aln", "L358_5utr.fasta.aln", "L358_exon1_final_align_NT.aln", "L359_exon4_final_align_NT.aln", "L359_intron3.fasta.aln", "L35_exon62_final_align_NT.aln", "L35_intron61.fasta.aln", "L35_intron62.fasta.aln", "L360_exonNone_final_align_NT.aln", "L360_noncodingUnknown.fasta.aln", "L361_exon14_final_align_NT.aln", "L361_intron13.fasta.aln", "L361_intron14.fasta.aln", "L362_exon5_final_align_NT.aln", "L362_intron5.fasta.aln", "L363_3utr.fasta.aln", "L363_exon5_final_align_NT.aln", "L364_3utr.fasta.aln", "L364_exon14_final_align_NT.aln", "L365_exon2_final_align_NT.aln", "L366_exon2_final_align_NT.aln", "L367_exon2_final_align_NT.aln", "L368_exon2_final_align_NT.aln", "L368_intron1.fasta.aln", "L369_exon2_final_align_NT.aln", "L369_intron1.fasta.aln", "L369_intron2.fasta.aln", "L36_exon8_final_align_NT.aln", "L370_3utr.fasta.aln", "L370_exon6_final_align_NT.aln", "L371_exon7_final_align_NT.aln", "L371_intron6.fasta.aln", "L372_3utr.fasta.aln", "L372_exon8_final_align_NT.aln", "L373_exon3_final_align_NT.aln", "L374_exon2_final_align_NT.aln", "L376_exon22_final_align_NT.aln", "L376_exon23_final_align_NT.aln", "L376_intron21.fasta.aln", "L376_intron22.fasta.aln", "L376_intron23.fasta.aln", "L376_noncodingUnknown.fasta.aln", "L377_exon3_final_align_NT.aln", "L377_intron2.fasta.aln", "L378_exon9_final_align_NT.aln", "L378_intron8.fasta.aln", "L378_intron9.fasta.aln", "L379_exon10_final_align_NT.aln", "L379_intron9.fasta.aln", "L37_exon7_final_align_NT.aln", "L37_intron6.fasta.aln", "L37_intron7.fasta.aln", "L380_exon4_final_align_NT.aln", "L380_intron3.fasta.aln", "L381_exon5_final_align_NT.aln", "L382_3utr.fasta.aln", "L382_exon2_final_align_NT.aln", "L383_3utr.fasta.aln", "L383_5utr.fasta.aln", "L383_exon1_final_align_NT.aln", "L384_3utr.fasta.aln", "L384_exon5_final_align_NT.aln", "L384_intron4.fasta.aln", "L385_exon9_final_align_NT.aln", "L386_exon2_final_align_NT.aln", "L387_exon2_final_align_NT.aln", "L387_intron1.fasta.aln", "L387_intron2.fasta.aln", "L388_exon19_final_align_NT.aln", "L388_intron19.fasta.aln", "L389_3utr.fasta.aln", "L389_exon2_final_align_NT.aln", "L389_intron1.fasta.aln", "L38_exon3_final_align_NT.aln", "L38_intron2.fasta.aln", "L390_3utr.fasta.aln", "L390_exon2_final_align_NT.aln", "L391_exon27_final_align_NT.aln", "L391_intron27.fasta.aln", "L392_3utr.fasta.aln", "L392_exon2_final_align_NT.aln", "L392_intron1.fasta.aln", "L394_exon2_final_align_NT.aln", "L394_intron2.fasta.aln", "L395_exon6_final_align_NT.aln", "L396_3utr.fasta.aln", "L396_exon3_final_align_NT.aln", "L396_intron2.fasta.aln", "L397_3utr.fasta.aln", "L397_exon3_final_align_NT.aln", "L397_intron2.fasta.aln", "L397_noncodingUnknown.fasta.aln", "L399_exon4_final_align_NT.aln", "L399_intron3.fasta.aln", "L39_exon3_final_align_NT.aln", "L39_intron2.fasta.aln", "L39_intron3.fasta.aln", "L3_3utr.fasta.aln", "L3_exon22_final_align_NT.aln", "L3_intron21.fasta.aln", "L400_exon4_final_align_NT.aln", "L401_3utr.fasta.aln", "L401_exon9_final_align_NT.aln", "L401_intron8.fasta.aln", "L402_exon1_final_align_NT.aln", "L403_exon3_final_align_NT.aln", "L403_intron3.fasta.aln", "L40_3utr.fasta.aln", "L40_exon4_final_align_NT.aln", "L41_exon11_final_align_NT.aln", "L41_intron10.fasta.aln", "L42_exon17_final_align_NT.aln", "L42_intron16.fasta.aln", "L42_intron17.fasta.aln", "L43_3utr.fasta.aln", "L43_exon3_final_align_NT.aln", "L43_intron2.fasta.aln", "L44_3utr.fasta.aln", "L44_exon2_final_align_NT.aln", "L44_intron1.fasta.aln", "L46_exon28_final_align_NT.aln", "L47_exon28_final_align_NT.aln", "L47_intron27.fasta.aln", "L48_5utr.fasta.aln", "L48_exon1_final_align_NT.aln", "L48_intron1.fasta.aln", "L49_exon11_final_align_NT.aln", "L49_intron10.fasta.aln", "L49_intron11.fasta.aln", "L4_exon8_final_align_NT.aln", "L4_intron8.fasta.aln", "L50_exon3_final_align_NT.aln", "L50_intron3.fasta.aln", "L51_exon2_final_align_NT.aln", "L51_intron2.fasta.aln", "L52_3utr.fasta.aln", "L52_5utr.fasta.aln", "L52_exon1_final_align_NT.aln", "L53_exon28_final_align_NT.aln", "L53_intron27.fasta.aln", "L53_intron28.fasta.aln", "L53_noncodingUnknown.fasta.aln", "L54_exon5_final_align_NT.aln", "L54_intron4.fasta.aln", "L54_intron5.fasta.aln", "L55_exon3_final_align_NT.aln", "L55_intron2.fasta.aln", "L55_intron3.fasta.aln", "L56_5utr.fasta.aln", "L56_exon1_final_align_NT.aln", "L56_exon2_final_align_NT.aln", "L56_intron1.fasta.aln", "L57_exon4_final_align_NT.aln", "L57_intron3.fasta.aln", "L58_exon20_final_align_NT.aln", "L58_intron19.fasta.aln", "L59_exon2_final_align_NT.aln", "L59_intron1.fasta.aln", "L59_intron2.fasta.aln", "L5_3utr.fasta.aln", "L5_exon2_final_align_NT.aln", "L5_intron1.fasta.aln", "L60_exon10_final_align_NT.aln", "L60_intron10.fasta.aln", "L61_exon3_final_align_NT.aln", "L61_intron2.fasta.aln", "L63_3utr.fasta.aln", "L63_exon4_final_align_NT.aln", "L63_exon7_final_align_NT.aln", "L63_intron3.fasta.aln", "L63_intron6.fasta.aln", "L64_exon2_final_align_NT.aln", "L64_exon3_final_align_NT.aln", "L64_intron1.fasta.aln", "L64_intron2.fasta.aln", "L65_5utr.fasta.aln", "L65_exon1_final_align_NT.aln", "L66_5utr.fasta.aln", "L66_exon1_final_align_NT.aln", "L66_exon3_final_align_NT.aln", "L66_intron1.fasta.aln", "L66_intron3.fasta.aln", "L66_noncodingUnknown.fasta.aln", "L67_exon2_final_align_NT.aln", "L67_exon3_final_align_NT.aln", "L67_intron1.fasta.aln", "L68_exon4_final_align_NT.aln", "L68_intron3.fasta.aln", "L68_intron4.fasta.aln", "L69_5utr.fasta.aln", "L69_exon1_final_align_NT.aln", "L69_exon2_final_align_NT.aln", "L69_exon3_final_align_NT.aln", "L69_intron1.fasta.aln", "L69_intron2.fasta.aln", "L69_intron3.fasta.aln", "L70_exon2_final_align_NT.aln", "L70_exon3_final_align_NT.aln", "L70_intron1.fasta.aln", "L70_intron2.fasta.aln", "L70_intron3.fasta.aln", "L70_noncodingUnknown.fasta.aln", "L71_exon2_final_align_NT.aln", "L71_exon3_final_align_NT.aln", "L71_exon4_final_align_NT.aln", "L71_intron1.fasta.aln", "L71_intron2.fasta.aln", "L71_intron3.fasta.aln", "L71_noncodingUnknown.fasta.aln", "L72_3utr.fasta.aln", "L72_exon2_final_align_NT.aln", "L72_exon3_final_align_NT.aln", "L72_intron1.fasta.aln", "L72_intron2.fasta.aln", "L72_intron3.fasta.aln", "L72_noncodingUnknown.fasta.aln", "L73_3utr.fasta.aln", "L73_exon1_final_align_NT.aln", "L74_exon4_final_align_NT.aln", "L74_intron3.fasta.aln", "L74_intron4.fasta.aln", "L75_exon2_final_align_NT.aln", "L75_intron1.fasta.aln", "L76_exon12_final_align_NT.aln", "L76_intron11.fasta.aln", "L76_intron12.fasta.aln", "L77_3utr.fasta.aln", "L77_exon13_final_align_NT.aln", "L78_3utr.fasta.aln", "L78_exon2_final_align_NT.aln", "L78_intron1.fasta.aln", "L80_exon2_final_align_NT.aln", "L80_intron1.fasta.aln", "L80_intron2.fasta.aln", "L81_exon6_final_align_NT.aln", "L81_intron6.fasta.aln", "L82_exon5_final_align_NT.aln", "L82_intron5.fasta.aln", "L83_3utr.fasta.aln", "L83_exon1_final_align_NT.aln", "L84_exon4_final_align_NT.aln", "L84_intron3.fasta.aln", "L85_3utr.fasta.aln", "L85_exon2_final_align_NT.aln", "L85_intron1.fasta.aln", "L86_exon2_final_align_NT.aln", "L86_intron1.fasta.aln", "L87_exon4_final_align_NT.aln", "L87_intron3.fasta.aln", "L87_intron4.fasta.aln", "L88_3utr.fasta.aln", "L88_exon4_final_align_NT.aln", "L88_intron3.fasta.aln", "L89_exon4_final_align_NT.aln", "L89_intron3.fasta.aln", "L8_exon8_final_align_NT.aln", "L8_intron7.fasta.aln", "L90_exon15_final_align_NT.aln", "L91_exon13_final_align_NT.aln", "L91_intron12.fasta.aln", "L92_5utr.fasta.aln", "L92_exon1_final_align_NT.aln", "L92_intron1.fasta.aln", "L93_3utr.fasta.aln", "L93_exon7_final_align_NT.aln", "L94_exon2_final_align_NT.aln", "L95_exon5_final_align_NT.aln", "L96_exon1_final_align_NT.aln", "L97_exon17_final_align_NT.aln", "L97_intron16.fasta.aln", "L97_intron17.fasta.aln", "L98_3utr.fasta.aln", "L98_exon8_final_align_NT.aln", "L98_intron7.fasta.aln", "L99_exon2_final_align_NT.aln", "L99_intron2.fasta.aln", "L9_exon3_final_align_NT.aln", "L9_intron3.fasta.aln")#
+test<-read.tree(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/loci.treefile")#
+setwd("/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/50")#
+for(i in 1:length(test)){#
+	test[[i]]<-collapseUnsupportedEdges(test[[i]], value = "node.label", 50)#
+}#
+for(i in 1:length(test)){#
+	write.tree(phy=test[[i]], file=paste(names[[1]],".tre", sep=""))#
+}#
+setwd("/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/75")#
+#
+for(i in 1:length(test)){#
+	test[[i]]<-collapseUnsupportedEdges(test[[i]], value = "node.label", 75)#
+}#
+for(i in 1:length(test)){#
+	write.tree(phy=test[[i]], file=paste(names[[1]],".tre", sep=""))#
+}#
+#
+setwd("/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/90")#
+for(i in 1:length(test)){#
+	test[[i]]<-collapseUnsupportedEdges(test[[i]], value = "node.label", 90)#
+}#
+for(i in 1:length(test)){#
+	write.tree(phy=test[[i]], file=paste(names[[1]],".tre", sep=""))#
+}
+#script to collapse low support edges#
+#
+require(ape)#
+require(phytools)#
+require(ips)#
+#
+names<-c("L100_3utr.fasta.aln", "L100_exon6_final_align_NT.aln", "L101_exon6_final_align_NT.aln", "L102_exon2_final_align_NT.aln", "L102_intron1.fasta.aln", "L102_intron2.fasta.aln", "L103_3utr.fasta.aln", "L103_exon6_final_align_NT.aln", "L104_exon2_final_align_NT.aln", "L104_intron1.fasta.aln", "L104_intron2.fasta.aln", "L105_exon3_final_align_NT.aln", "L105_intron2.fasta.aln", "L105_intron3.fasta.aln", "L106_3utr.fasta.aln", "L106_exon2_final_align_NT.aln", "L107_exon3_final_align_NT.aln", "L107_intron2.fasta.aln", "L107_intron3.fasta.aln", "L108_3utr.fasta.aln", "L108_exon2_final_align_NT.aln", "L108_intron1.fasta.aln", "L109_3utr.fasta.aln", "L109_exon2_final_align_NT.aln", "L109_intron1.fasta.aln", "L10_exon29_final_align_NT.aln", "L10_intron28.fasta.aln", "L110_exon6_final_align_NT.aln", "L110_intron5.fasta.aln", "L111_3utr.fasta.aln", "L111_exon23_final_align_NT.aln", "L111_intron22.fasta.aln", "L112_exon2_final_align_NT.aln", "L112_intron1.fasta.aln", "L112_intron2.fasta.aln", "L114_3utr.fasta.aln", "L114_exon6_final_align_NT.aln", "L114_intron5.fasta.aln", "L115_5utr.fasta.aln", "L115_exon1_final_align_NT.aln", "L116_3utr.fasta.aln", "L116_exon2_final_align_NT.aln", "L118_exon6_final_align_NT.aln", "L119_3utr.fasta.aln", "L119_exon7_final_align_NT.aln", "L11_3utr.fasta.aln", "L11_exon2_final_align_NT.aln", "L11_intron1.fasta.aln", "L120_exon11_final_align_NT.aln", "L121_exon5_final_align_NT.aln", "L121_intron4.fasta.aln", "L122_exon1_final_align_NT.aln", "L122_intron1.fasta.aln", "L124_3utr.fasta.aln", "L124_exon4_final_align_NT.aln", "L124_intron3.fasta.aln", "L125_3utr.fasta.aln", "L125_exon4_final_align_NT.aln", "L126_exon1_final_align_NT.aln", "L127_exon5_final_align_NT.aln", "L127_intron4.fasta.aln", "L127_intron5.fasta.aln", "L128_exon9_final_align_NT.aln", "L129_exon1_final_align_NT.aln", "L129_intron1.fasta.aln", "L12_exon3_final_align_NT.aln", "L12_intron2.fasta.aln", "L12_intron3.fasta.aln", "L130_exon2_final_align_NT.aln", "L130_intron1.fasta.aln", "L130_intron2.fasta.aln", "L131_exon10_final_align_NT.aln", "L131_intron10.fasta.aln", "L131_intron9.fasta.aln", "L132_3utr.fasta.aln", "L132_exon12_final_align_NT.aln", "L133_exon2_final_align_NT.aln", "L133_intron1.fasta.aln", "L133_intron2.fasta.aln", "L135_exon16_final_align_NT.aln", "L135_intron15.fasta.aln", "L135_intron16.fasta.aln", "L136_exon5_final_align_NT.aln", "L136_intron4.fasta.aln", "L136_intron5.fasta.aln", "L137_exon2_final_align_NT.aln", "L137_intron2.fasta.aln", "L139_exon1_final_align_NT.aln", "L139_intron1.fasta.aln", "L13_exon5_final_align_NT.aln", "L13_intron4.fasta.aln", "L13_intron5.fasta.aln", "L140_3utr.fasta.aln", "L140_5utr.fasta.aln", "L140_exon1_final_align_NT.aln", "L141_5utr.fasta.aln", "L141_exon1_final_align_NT.aln", "L142_exon3_final_align_NT.aln", "L142_intron2.fasta.aln", "L142_intron3.fasta.aln", "L143_3utr.fasta.aln", "L143_exon2_final_align_NT.aln", "L143_intron1.fasta.aln", "L144_3utr.fasta.aln", "L144_exon15_final_align_NT.aln", "L145_3utr.fasta.aln", "L145_exon18_final_align_NT.aln", "L145_intron17.fasta.aln", "L146_exon17_final_align_NT.aln", "L146_intron16.fasta.aln", "L146_intron17.fasta.aln", "L147_3utr.fasta.aln", "L147_5utr.fasta.aln", "L147_exon1_final_align_NT.aln", "L148_exon28_final_align_NT.aln", "L148_intron27.fasta.aln", "L148_intron28.fasta.aln", "L149_exon1_final_align_NT.aln", "L149_intron1.fasta.aln", "L14_exon4_final_align_NT.aln", "L14_intron4.fasta.aln", "L150_exon10_final_align_NT.aln", "L150_exon11_final_align_NT.aln", "L150_intron10.fasta.aln", "L150_intron11.fasta.aln", "L151_3utr.fasta.aln", "L151_exon3_final_align_NT.aln", "L151_intron2.fasta.aln", "L152_3utr.fasta.aln", "L152_exon2_final_align_NT.aln", "L152_intron1.fasta.aln", "L153_exon10_final_align_NT.aln", "L154_exon2_final_align_NT.aln", "L154_intron2.fasta.aln", "L155_exon23_final_align_NT.aln", "L155_intron22.fasta.aln", "L155_intron23.fasta.aln", "L156_exon2_final_align_NT.aln", "L156_intron1.fasta.aln", "L156_intron2.fasta.aln", "L157_exon9_final_align_NT.aln", "L157_intron8.fasta.aln", "L159_exon24_final_align_NT.aln", "L15_3utr.fasta.aln", "L15_exon8_final_align_NT.aln", "L15_intron7.fasta.aln", "L160_exon4_final_align_NT.aln", "L161_exon8_final_align_NT.aln", "L161_intron8.fasta.aln", "L162_3utr.fasta.aln", "L162_5utr.fasta.aln", "L162_exon1_final_align_NT.aln", "L163_exon15_final_align_NT.aln", "L163_intron14.fasta.aln", "L163_intron15.fasta.aln", "L164_exon5_final_align_NT.aln", "L164_intron4.fasta.aln", "L164_intron5.fasta.aln", "L165_5utr.fasta.aln", "L165_exon1_final_align_NT.aln", "L165_intron1.fasta.aln", "L167_3utr.fasta.aln", "L167_exon32_final_align_NT.aln", "L167_intron31.fasta.aln", "L167_noncodingUnknown.fasta.aln", "L169_3utr.fasta.aln", "L169_exon4_final_align_NT.aln", "L169_intron3.fasta.aln", "L16_3utr.fasta.aln", "L16_exon2_final_align_NT.aln", "L16_intron1.fasta.aln", "L170_exon7_final_align_NT.aln", "L170_intron6.fasta.aln", "L171_3utr.fasta.aln", "L171_exon11_final_align_NT.aln", "L171_intron10.fasta.aln", "L172_3utr.fasta.aln", "L172_exon5_final_align_NT.aln", "L173_3utr.fasta.aln", "L173_exon5_final_align_NT.aln", "L173_intron4.fasta.aln", "L173_noncodingUnknown.fasta.aln", "L174_exon6_final_align_NT.aln", "L175_exon6_final_align_NT.aln", "L175_intron6.fasta.aln", "L176_exon6_final_align_NT.aln", "L177_exon3_final_align_NT.aln", "L177_intron3.fasta.aln", "L178_exon8_final_align_NT.aln", "L178_intron7.fasta.aln", "L178_intron8.fasta.aln", "L179_exon19_final_align_NT.aln", "L179_exon20_final_align_NT.aln", "L179_intron18.fasta.aln", "L179_intron19.fasta.aln", "L179_intron20.fasta.aln", "L17_exon1_final_align_NT.aln", "L17_intron1.fasta.aln", "L180_exon2_final_align_NT.aln", "L180_intron1.fasta.aln", "L182_3utr.fasta.aln", "L182_exon21_final_align_NT.aln", "L183_exon10_final_align_NT.aln", "L183_exon9_final_align_NT.aln", "L183_intron10.fasta.aln", "L183_intron8.fasta.aln", "L183_intron9.fasta.aln", "L186_5utr.fasta.aln", "L186_exon1_final_align_NT.aln", "L186_exon2_final_align_NT.aln", "L186_exon3_final_align_NT.aln", "L186_intron1.fasta.aln", "L186_intron2.fasta.aln", "L186_intron3.fasta.aln", "L187_exon16_final_align_NT.aln", "L187_intron15.fasta.aln", "L188_exon7_final_align_NT.aln", "L188_intron7.fasta.aln", "L189_exon3_final_align_NT.aln", "L18_3utr.fasta.aln", "L18_5utr.fasta.aln", "L18_exon1_final_align_NT.aln", "L18_noncodingUnknown.fasta.aln", "L190_5utr.fasta.aln", "L190_exon1_final_align_NT.aln", "L190_exon2_final_align_NT.aln", "L190_intron1.fasta.aln", "L190_intron2.fasta.aln", "L191_5utr.fasta.aln", "L191_exon1_final_align_NT.aln", "L191_intron1.fasta.aln", "L192_exon3_final_align_NT.aln", "L192_intron2.fasta.aln", "L192_intron3.fasta.aln", "L193_exon2_final_align_NT.aln", "L193_intron1.fasta.aln", "L193_intron2.fasta.aln", "L194_exon1_final_align_NT.aln", "L194_intron1.fasta.aln", "L195_exon1_final_align_NT.aln", "L195_intron1.fasta.aln", "L196_exon2_final_align_NT.aln", "L196_intron1.fasta.aln", "L196_intron2.fasta.aln", "L197_3utr.fasta.aln", "L197_exon2_final_align_NT.aln", "L197_exon3_final_align_NT.aln", "L197_exon4_final_align_NT.aln", "L197_intron1.fasta.aln", "L197_intron3.fasta.aln", "L198_exon4_final_align_NT.aln", "L198_intron3.fasta.aln", "L198_intron4.fasta.aln", "L19_3utr.fasta.aln", "L19_exon3_final_align_NT.aln", "L19_intron2.fasta.aln", "L1_exon9_final_align_NT.aln", "L1_intron8.fasta.aln", "L1_intron9.fasta.aln", "L200_3utr.fasta.aln", "L200_exon3_final_align_NT.aln", "L200_intron2.fasta.aln", "L201_exon3_final_align_NT.aln", "L201_intron3.fasta.aln", "L202_exon3_final_align_NT.aln", "L202_intron2.fasta.aln", "L202_intron3.fasta.aln", "L203_exon1_final_align_NT.aln", "L205_exon9_final_align_NT.aln", "L206_3utr.fasta.aln", "L206_exon2_final_align_NT.aln", "L206_intron1.fasta.aln", "L207_exon6_final_align_NT.aln", "L207_intron5.fasta.aln", "L208_exon2_final_align_NT.aln", "L209_exon2_final_align_NT.aln", "L209_intron1.fasta.aln", "L209_intron2.fasta.aln", "L20_exon2_final_align_NT.aln", "L20_intron1.fasta.aln", "L20_intron2.fasta.aln", "L210_exon2_final_align_NT.aln", "L210_intron1.fasta.aln", "L212_3utr.fasta.aln", "L212_exon2_final_align_NT.aln", "L212_intron1.fasta.aln", "L213_3utr.fasta.aln", "L213_exon1_final_align_NT.aln", "L214_3utr.fasta.aln", "L214_exon8_final_align_NT.aln", "L214_intron7.fasta.aln", "L215_exon9_final_align_NT.aln", "L215_intron8.fasta.aln", "L216_exon7_final_align_NT.aln", "L216_intron6.fasta.aln", "L216_intron7.fasta.aln", "L219_3utr.fasta.aln", "L219_exon25_final_align_NT.aln", "L219_intron24.fasta.aln", "L220_3utr.fasta.aln", "L220_exon24_final_align_NT.aln", "L220_intron23.fasta.aln", "L221_3utr.fasta.aln", "L221_exon2_final_align_NT.aln", "L221_intron1.fasta.aln", "L222_3utr.fasta.aln", "L222_exon9_final_align_NT.aln", "L222_intron8.fasta.aln", "L223_3utr.fasta.aln", "L223_exon7_final_align_NT.aln", "L223_intron6.fasta.aln", "L224_exon3_final_align_NT.aln", "L224_intron2.fasta.aln", "L224_intron3.fasta.aln", "L225_exon3_final_align_NT.aln", "L226_exon37_final_align_NT.aln", "L226_intron36.fasta.aln", "L227_3utr.fasta.aln", "L227_exon3_final_align_NT.aln", "L228_3utr.fasta.aln", "L228_exon2_final_align_NT.aln", "L228_intron1.fasta.aln", "L229_3utr.fasta.aln", "L229_exon3_final_align_NT.aln", "L229_intron2.fasta.aln", "L22_exon7_final_align_NT.aln", "L22_intron7.fasta.aln", "L230_exon13_final_align_NT.aln", "L230_intron12.fasta.aln", "L231_exon3_final_align_NT.aln", "L231_intron2.fasta.aln", "L231_intron3.fasta.aln", "L232_3utr.fasta.aln", "L232_exon7_final_align_NT.aln", "L232_intron6.fasta.aln", "L233_exon8_final_align_NT.aln", "L233_intron7.fasta.aln", "L233_intron8.fasta.aln", "L235_exon4_final_align_NT.aln", "L235_intron3.fasta.aln", "L236_exon7_final_align_NT.aln", "L236_intron7.fasta.aln", "L237_5utr.fasta.aln", "L237_exon1_final_align_NT.aln", "L238_3utr.fasta.aln", "L238_exon1_final_align_NT.aln", "L239_exon35_final_align_NT.aln", "L23_exon2_final_align_NT.aln", "L23_intron2.fasta.aln", "L240_3utr.fasta.aln", "L240_exon12_final_align_NT.aln", "L241_exon8_final_align_NT.aln", "L241_intron8.fasta.aln", "L241_intron9.fasta.aln", "L242_3utr.fasta.aln", "L242_exon4_final_align_NT.aln", "L243_exon5_final_align_NT.aln", "L243_intron4.fasta.aln", "L243_intron5.fasta.aln", "L244_exon3_final_align_NT.aln", "L244_intron2.fasta.aln", "L244_intron3.fasta.aln", "L245_3utr.fasta.aln", "L245_exon18_final_align_NT.aln", "L245_intron17.fasta.aln", "L247_exon19_final_align_NT.aln", "L247_intron18.fasta.aln", "L248_exon8_final_align_NT.aln", "L248_intron7.fasta.aln", "L24_exon16_final_align_NT.aln", "L24_intron16.fasta.aln", "L250_3utr.fasta.aln", "L250_exon8_final_align_NT.aln", "L250_exon9_final_align_NT.aln", "L250_intron7.fasta.aln", "L250_intron8.fasta.aln", "L254_exon13_final_align_NT.aln", "L257_5utr.fasta.aln", "L257_exon1_final_align_NT.aln", "L257_intron1.fasta.aln", "L258_exon3_final_align_NT.aln", "L258_intron2.fasta.aln", "L258_intron3.fasta.aln", "L258_noncodingUnknown.fasta.aln", "L259_3utr.fasta.aln", "L259_exon1_final_align_NT.aln", "L25_3utr.fasta.aln", "L25_exon2_final_align_NT.aln", "L25_intron1.fasta.aln", "L260_3utr.fasta.aln", "L260_exon7_final_align_NT.aln", "L261_3utr.fasta.aln", "L261_exon2_final_align_NT.aln", "L261_intron1.fasta.aln", "L262_exon3_final_align_NT.aln", "L262_exon4_final_align_NT.aln", "L262_intron2.fasta.aln", "L262_intron3.fasta.aln", "L262_intron4.fasta.aln", "L262_noncodingUnknown.fasta.aln", "L264_3utr.fasta.aln", "L264_exon4_final_align_NT.aln", "L264_intron3.fasta.aln", "L265_3utr.fasta.aln", "L265_exon22_final_align_NT.aln", "L265_intron21.fasta.aln", "L266_3utr.fasta.aln", "L266_exon21_final_align_NT.aln", "L266_intron20.fasta.aln", "L267_exon20_final_align_NT.aln", "L268_exon4_final_align_NT.aln", "L268_intron3.fasta.aln", "L269_exon27_final_align_NT.aln", "L269_intron26.fasta.aln", "L269_intron27.fasta.aln", "L26_exon12_final_align_NT.aln", "L26_intron11.fasta.aln", "L26_intron12.fasta.aln", "L270_3utr.fasta.aln", "L270_exon2_final_align_NT.aln", "L270_intron1.fasta.aln", "L271_3utr.fasta.aln", "L271_exon2_final_align_NT.aln", "L271_intron1.fasta.aln", "L272_3utr.fasta.aln", "L272_exon10_final_align_NT.aln", "L272_intron9.fasta.aln", "L273_exon10_final_align_NT.aln", "L275_exon2_final_align_NT.aln", "L275_intron1.fasta.aln", "L275_intron2.fasta.aln", "L276_3utr.fasta.aln", "L276_exon6_final_align_NT.aln", "L276_intron5.fasta.aln", "L277_3utr.fasta.aln", "L277_exon5_final_align_NT.aln", "L277_intron4.fasta.aln", "L278_exon3_final_align_NT.aln", "L278_intron2.fasta.aln", "L279_exon26_final_align_NT.aln", "L279_exon27_final_align_NT.aln", "L27_exon3_final_align_NT.aln", "L27_intron2.fasta.aln", "L27_intron3.fasta.aln", "L281_exon12_final_align_NT.aln", "L282_3utr.fasta.aln", "L282_exon9_final_align_NT.aln", "L282_intron8.fasta.aln", "L284_exon13_final_align_NT.aln", "L284_intron12.fasta.aln", "L285_exon5_final_align_NT.aln", "L285_intron4.fasta.aln", "L285_intron5.fasta.aln", "L286_exon2_final_align_NT.aln", "L286_intron1.fasta.aln", "L286_intron2.fasta.aln", "L287_3utr.fasta.aln", "L287_exon9_final_align_NT.aln", "L288_exon10_final_align_NT.aln", "L288_intron10.fasta.aln", "L288_intron9.fasta.aln", "L289_3utr.fasta.aln", "L289_exon4_final_align_NT.aln", "L289_intron3.fasta.aln", "L28_3utr.fasta.aln", "L28_exon2_final_align_NT.aln", "L28_intron1.fasta.aln", "L290_exon11_final_align_NT.aln", "L290_intron10.fasta.aln", "L290_intron11.fasta.aln", "L291_3utr.fasta.aln", "L291_exon7_final_align_NT.aln", "L291_intron6.fasta.aln", "L293_3utr.fasta.aln", "L293_exon3_final_align_NT.aln", "L293_intron2.fasta.aln", "L294_3utr.fasta.aln", "L294_exon9_final_align_NT.aln", "L294_intron8.fasta.aln", "L295_exon12_final_align_NT.aln", "L296_exon7_final_align_NT.aln", "L296_intron6.fasta.aln", "L296_intron7.fasta.aln", "L297_3utr.fasta.aln", "L297_exon2_final_align_NT.aln", "L297_intron1.fasta.aln", "L298_exon8_final_align_NT.aln", "L298_intron7.fasta.aln", "L298_intron8.fasta.aln", "L299_exon1_final_align_NT.aln", "L29_exon18_final_align_NT.aln", "L2_exon8_final_align_NT.aln", "L2_intron7.fasta.aln", "L300_exon7_final_align_NT.aln", "L301_exon1_final_align_NT.aln", "L302_exon2_final_align_NT.aln", "L302_intron1.fasta.aln", "L302_intron2.fasta.aln", "L303_exon56_final_align_NT.aln", "L303_intron55.fasta.aln", "L303_intron56.fasta.aln", "L304_3utr.fasta.aln", "L304_exon2_final_align_NT.aln", "L304_intron1.fasta.aln", "L305_3utr.fasta.aln", "L305_exon7_final_align_NT.aln", "L305_intron6.fasta.aln", "L306_3utr.fasta.aln", "L306_exon13_final_align_NT.aln", "L306_intron12.fasta.aln", "L307_3utr.fasta.aln", "L307_exon2_final_align_NT.aln", "L307_intron1.fasta.aln", "L308_3utr.fasta.aln", "L308_exon4_final_align_NT.aln", "L308_intron3.fasta.aln", "L309_exon2_final_align_NT.aln", "L309_intron1.fasta.aln", "L30_3utr.fasta.aln", "L30_exon4_final_align_NT.aln", "L30_intron3.fasta.aln", "L311_exon6_final_align_NT.aln", "L311_intron5.fasta.aln", "L311_intron6.fasta.aln", "L312_3utr.fasta.aln", "L312_5utr.fasta.aln", "L312_exon1_final_align_NT.aln", "L313_exon10_final_align_NT.aln", "L313_intron10.fasta.aln", "L314_3utr.fasta.aln", "L314_exon9_final_align_NT.aln", "L314_intron8.fasta.aln", "L315_exon4_final_align_NT.aln", "L315_intron3.fasta.aln", "L315_intron4.fasta.aln", "L315_noncodingUnknown.fasta.aln", "L316_exon11_final_align_NT.aln", "L316_intron10.fasta.aln", "L317_3utr.fasta.aln", "L317_exon2_final_align_NT.aln", "L317_intron1.fasta.aln", "L318_3utr.fasta.aln", "L318_exon3_final_align_NT.aln", "L318_intron2.fasta.aln", "L319_exon8_final_align_NT.aln", "L31_exon12_final_align_NT.aln", "L31_intron12.fasta.aln", "L320_3utr.fasta.aln", "L320_exon3_final_align_NT.aln", "L320_intron1.fasta.aln", "L320_intron2.fasta.aln", "L321_exon6_final_align_NT.aln", "L321_intron5.fasta.aln", "L322_3utr.fasta.aln", "L322_exon4_final_align_NT.aln", "L322_intron3.fasta.aln", "L323_exon1_final_align_NT.aln", "L324_exon13_final_align_NT.aln", "L324_intron12.fasta.aln", "L324_intron13.fasta.aln", "L325_exon6_final_align_NT.aln", "L326_3utr.fasta.aln", "L326_exon18_final_align_NT.aln", "L326_intron17.fasta.aln", "L327_exon11_final_align_NT.aln", "L327_intron10.fasta.aln", "L327_intron11.fasta.aln", "L328_3utr.fasta.aln", "L328_exon1_final_align_NT.aln", "L329_exon8_final_align_NT.aln", "L329_intron8.fasta.aln", "L32_3utr.fasta.aln", "L32_exon18_final_align_NT.aln", "L32_intron17.fasta.aln", "L331_exon24_final_align_NT.aln", "L331_intron23.fasta.aln", "L332_exon8_final_align_NT.aln", "L332_intron7.fasta.aln", "L333_3utr.fasta.aln", "L333_exon2_final_align_NT.aln", "L334_exon2_final_align_NT.aln", "L335_exon4_final_align_NT.aln", "L335_intron3.fasta.aln", "L337_exon2_final_align_NT.aln", "L337_intron2.fasta.aln", "L338_exon49_final_align_NT.aln", "L339_exon5_final_align_NT.aln", "L339_intron4.fasta.aln", "L340_exon4_final_align_NT.aln", "L340_intron3.fasta.aln", "L340_intron4.fasta.aln", "L341_exon2_final_align_NT.aln", "L341_intron1.fasta.aln", "L341_intron2.fasta.aln", "L342_exon8_final_align_NT.aln", "L342_intron8.fasta.aln", "L343_exon9_final_align_NT.aln", "L343_intron8.fasta.aln", "L344_exon18_final_align_NT.aln", "L344_intron17.fasta.aln", "L345_exon3_final_align_NT.aln", "L346_5utr.fasta.aln", "L346_exon1_final_align_NT.aln", "L347_exon14_final_align_NT.aln", "L348_3utr.fasta.aln", "L348_exon3_final_align_NT.aln", "L348_intron2.fasta.aln", "L349_3utr.fasta.aln", "L349_exon2_final_align_NT.aln", "L349_intron1.fasta.aln", "L34_exon2_final_align_NT.aln", "L34_intron1.fasta.aln", "L34_intron2.fasta.aln", "L350_3utr.fasta.aln", "L350_exon2_final_align_NT.aln", "L350_intron1.fasta.aln", "L351_exon3_final_align_NT.aln", "L351_intron2.fasta.aln", "L352_3utr.fasta.aln", "L352_exon2_final_align_NT.aln", "L352_intron1.fasta.aln", "L353_3utr.fasta.aln", "L353_exon2_final_align_NT.aln", "L353_intron1.fasta.aln", "L354_3utr.fasta.aln", "L354_exon3_final_align_NT.aln", "L354_intron2.fasta.aln", "L355_exon22_final_align_NT.aln", "L356_3utr.fasta.aln", "L356_exon2_final_align_NT.aln", "L356_intron1.fasta.aln", "L357_exon2_final_align_NT.aln", "L358_3utr.fasta.aln", "L358_5utr.fasta.aln", "L358_exon1_final_align_NT.aln", "L359_exon4_final_align_NT.aln", "L359_intron3.fasta.aln", "L35_exon62_final_align_NT.aln", "L35_intron61.fasta.aln", "L35_intron62.fasta.aln", "L360_exonNone_final_align_NT.aln", "L360_noncodingUnknown.fasta.aln", "L361_exon14_final_align_NT.aln", "L361_intron13.fasta.aln", "L361_intron14.fasta.aln", "L362_exon5_final_align_NT.aln", "L362_intron5.fasta.aln", "L363_3utr.fasta.aln", "L363_exon5_final_align_NT.aln", "L364_3utr.fasta.aln", "L364_exon14_final_align_NT.aln", "L365_exon2_final_align_NT.aln", "L366_exon2_final_align_NT.aln", "L367_exon2_final_align_NT.aln", "L368_exon2_final_align_NT.aln", "L368_intron1.fasta.aln", "L369_exon2_final_align_NT.aln", "L369_intron1.fasta.aln", "L369_intron2.fasta.aln", "L36_exon8_final_align_NT.aln", "L370_3utr.fasta.aln", "L370_exon6_final_align_NT.aln", "L371_exon7_final_align_NT.aln", "L371_intron6.fasta.aln", "L372_3utr.fasta.aln", "L372_exon8_final_align_NT.aln", "L373_exon3_final_align_NT.aln", "L374_exon2_final_align_NT.aln", "L376_exon22_final_align_NT.aln", "L376_exon23_final_align_NT.aln", "L376_intron21.fasta.aln", "L376_intron22.fasta.aln", "L376_intron23.fasta.aln", "L376_noncodingUnknown.fasta.aln", "L377_exon3_final_align_NT.aln", "L377_intron2.fasta.aln", "L378_exon9_final_align_NT.aln", "L378_intron8.fasta.aln", "L378_intron9.fasta.aln", "L379_exon10_final_align_NT.aln", "L379_intron9.fasta.aln", "L37_exon7_final_align_NT.aln", "L37_intron6.fasta.aln", "L37_intron7.fasta.aln", "L380_exon4_final_align_NT.aln", "L380_intron3.fasta.aln", "L381_exon5_final_align_NT.aln", "L382_3utr.fasta.aln", "L382_exon2_final_align_NT.aln", "L383_3utr.fasta.aln", "L383_5utr.fasta.aln", "L383_exon1_final_align_NT.aln", "L384_3utr.fasta.aln", "L384_exon5_final_align_NT.aln", "L384_intron4.fasta.aln", "L385_exon9_final_align_NT.aln", "L386_exon2_final_align_NT.aln", "L387_exon2_final_align_NT.aln", "L387_intron1.fasta.aln", "L387_intron2.fasta.aln", "L388_exon19_final_align_NT.aln", "L388_intron19.fasta.aln", "L389_3utr.fasta.aln", "L389_exon2_final_align_NT.aln", "L389_intron1.fasta.aln", "L38_exon3_final_align_NT.aln", "L38_intron2.fasta.aln", "L390_3utr.fasta.aln", "L390_exon2_final_align_NT.aln", "L391_exon27_final_align_NT.aln", "L391_intron27.fasta.aln", "L392_3utr.fasta.aln", "L392_exon2_final_align_NT.aln", "L392_intron1.fasta.aln", "L394_exon2_final_align_NT.aln", "L394_intron2.fasta.aln", "L395_exon6_final_align_NT.aln", "L396_3utr.fasta.aln", "L396_exon3_final_align_NT.aln", "L396_intron2.fasta.aln", "L397_3utr.fasta.aln", "L397_exon3_final_align_NT.aln", "L397_intron2.fasta.aln", "L397_noncodingUnknown.fasta.aln", "L399_exon4_final_align_NT.aln", "L399_intron3.fasta.aln", "L39_exon3_final_align_NT.aln", "L39_intron2.fasta.aln", "L39_intron3.fasta.aln", "L3_3utr.fasta.aln", "L3_exon22_final_align_NT.aln", "L3_intron21.fasta.aln", "L400_exon4_final_align_NT.aln", "L401_3utr.fasta.aln", "L401_exon9_final_align_NT.aln", "L401_intron8.fasta.aln", "L402_exon1_final_align_NT.aln", "L403_exon3_final_align_NT.aln", "L403_intron3.fasta.aln", "L40_3utr.fasta.aln", "L40_exon4_final_align_NT.aln", "L41_exon11_final_align_NT.aln", "L41_intron10.fasta.aln", "L42_exon17_final_align_NT.aln", "L42_intron16.fasta.aln", "L42_intron17.fasta.aln", "L43_3utr.fasta.aln", "L43_exon3_final_align_NT.aln", "L43_intron2.fasta.aln", "L44_3utr.fasta.aln", "L44_exon2_final_align_NT.aln", "L44_intron1.fasta.aln", "L46_exon28_final_align_NT.aln", "L47_exon28_final_align_NT.aln", "L47_intron27.fasta.aln", "L48_5utr.fasta.aln", "L48_exon1_final_align_NT.aln", "L48_intron1.fasta.aln", "L49_exon11_final_align_NT.aln", "L49_intron10.fasta.aln", "L49_intron11.fasta.aln", "L4_exon8_final_align_NT.aln", "L4_intron8.fasta.aln", "L50_exon3_final_align_NT.aln", "L50_intron3.fasta.aln", "L51_exon2_final_align_NT.aln", "L51_intron2.fasta.aln", "L52_3utr.fasta.aln", "L52_5utr.fasta.aln", "L52_exon1_final_align_NT.aln", "L53_exon28_final_align_NT.aln", "L53_intron27.fasta.aln", "L53_intron28.fasta.aln", "L53_noncodingUnknown.fasta.aln", "L54_exon5_final_align_NT.aln", "L54_intron4.fasta.aln", "L54_intron5.fasta.aln", "L55_exon3_final_align_NT.aln", "L55_intron2.fasta.aln", "L55_intron3.fasta.aln", "L56_5utr.fasta.aln", "L56_exon1_final_align_NT.aln", "L56_exon2_final_align_NT.aln", "L56_intron1.fasta.aln", "L57_exon4_final_align_NT.aln", "L57_intron3.fasta.aln", "L58_exon20_final_align_NT.aln", "L58_intron19.fasta.aln", "L59_exon2_final_align_NT.aln", "L59_intron1.fasta.aln", "L59_intron2.fasta.aln", "L5_3utr.fasta.aln", "L5_exon2_final_align_NT.aln", "L5_intron1.fasta.aln", "L60_exon10_final_align_NT.aln", "L60_intron10.fasta.aln", "L61_exon3_final_align_NT.aln", "L61_intron2.fasta.aln", "L63_3utr.fasta.aln", "L63_exon4_final_align_NT.aln", "L63_exon7_final_align_NT.aln", "L63_intron3.fasta.aln", "L63_intron6.fasta.aln", "L64_exon2_final_align_NT.aln", "L64_exon3_final_align_NT.aln", "L64_intron1.fasta.aln", "L64_intron2.fasta.aln", "L65_5utr.fasta.aln", "L65_exon1_final_align_NT.aln", "L66_5utr.fasta.aln", "L66_exon1_final_align_NT.aln", "L66_exon3_final_align_NT.aln", "L66_intron1.fasta.aln", "L66_intron3.fasta.aln", "L66_noncodingUnknown.fasta.aln", "L67_exon2_final_align_NT.aln", "L67_exon3_final_align_NT.aln", "L67_intron1.fasta.aln", "L68_exon4_final_align_NT.aln", "L68_intron3.fasta.aln", "L68_intron4.fasta.aln", "L69_5utr.fasta.aln", "L69_exon1_final_align_NT.aln", "L69_exon2_final_align_NT.aln", "L69_exon3_final_align_NT.aln", "L69_intron1.fasta.aln", "L69_intron2.fasta.aln", "L69_intron3.fasta.aln", "L70_exon2_final_align_NT.aln", "L70_exon3_final_align_NT.aln", "L70_intron1.fasta.aln", "L70_intron2.fasta.aln", "L70_intron3.fasta.aln", "L70_noncodingUnknown.fasta.aln", "L71_exon2_final_align_NT.aln", "L71_exon3_final_align_NT.aln", "L71_exon4_final_align_NT.aln", "L71_intron1.fasta.aln", "L71_intron2.fasta.aln", "L71_intron3.fasta.aln", "L71_noncodingUnknown.fasta.aln", "L72_3utr.fasta.aln", "L72_exon2_final_align_NT.aln", "L72_exon3_final_align_NT.aln", "L72_intron1.fasta.aln", "L72_intron2.fasta.aln", "L72_intron3.fasta.aln", "L72_noncodingUnknown.fasta.aln", "L73_3utr.fasta.aln", "L73_exon1_final_align_NT.aln", "L74_exon4_final_align_NT.aln", "L74_intron3.fasta.aln", "L74_intron4.fasta.aln", "L75_exon2_final_align_NT.aln", "L75_intron1.fasta.aln", "L76_exon12_final_align_NT.aln", "L76_intron11.fasta.aln", "L76_intron12.fasta.aln", "L77_3utr.fasta.aln", "L77_exon13_final_align_NT.aln", "L78_3utr.fasta.aln", "L78_exon2_final_align_NT.aln", "L78_intron1.fasta.aln", "L80_exon2_final_align_NT.aln", "L80_intron1.fasta.aln", "L80_intron2.fasta.aln", "L81_exon6_final_align_NT.aln", "L81_intron6.fasta.aln", "L82_exon5_final_align_NT.aln", "L82_intron5.fasta.aln", "L83_3utr.fasta.aln", "L83_exon1_final_align_NT.aln", "L84_exon4_final_align_NT.aln", "L84_intron3.fasta.aln", "L85_3utr.fasta.aln", "L85_exon2_final_align_NT.aln", "L85_intron1.fasta.aln", "L86_exon2_final_align_NT.aln", "L86_intron1.fasta.aln", "L87_exon4_final_align_NT.aln", "L87_intron3.fasta.aln", "L87_intron4.fasta.aln", "L88_3utr.fasta.aln", "L88_exon4_final_align_NT.aln", "L88_intron3.fasta.aln", "L89_exon4_final_align_NT.aln", "L89_intron3.fasta.aln", "L8_exon8_final_align_NT.aln", "L8_intron7.fasta.aln", "L90_exon15_final_align_NT.aln", "L91_exon13_final_align_NT.aln", "L91_intron12.fasta.aln", "L92_5utr.fasta.aln", "L92_exon1_final_align_NT.aln", "L92_intron1.fasta.aln", "L93_3utr.fasta.aln", "L93_exon7_final_align_NT.aln", "L94_exon2_final_align_NT.aln", "L95_exon5_final_align_NT.aln", "L96_exon1_final_align_NT.aln", "L97_exon17_final_align_NT.aln", "L97_intron16.fasta.aln", "L97_intron17.fasta.aln", "L98_3utr.fasta.aln", "L98_exon8_final_align_NT.aln", "L98_intron7.fasta.aln", "L99_exon2_final_align_NT.aln", "L99_intron2.fasta.aln", "L9_exon3_final_align_NT.aln", "L9_intron3.fasta.aln")#
+test<-read.tree(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/loci.treefile")#
+setwd("/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/50")#
+for(i in 1:length(test)){#
+	test[[i]]<-collapseUnsupportedEdges(test[[i]], value = "node.label", 50)#
+}#
+for(i in 1:length(test)){#
+	write.tree(phy=test[[i]], file=paste(names[[i]],".tre", sep=""))#
+}#
+setwd("/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/75")#
+#
+for(i in 1:length(test)){#
+	test[[i]]<-collapseUnsupportedEdges(test[[i]], value = "node.label", 75)#
+}#
+for(i in 1:length(test)){#
+	write.tree(phy=test[[i]], file=paste(names[[i]],".tre", sep=""))#
+}#
+#
+setwd("/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/90")#
+for(i in 1:length(test)){#
+	test[[i]]<-collapseUnsupportedEdges(test[[i]], value = "node.label", 90)#
+}#
+for(i in 1:length(test)){#
+	write.tree(phy=test[[i]], file=paste(names[[i]],".tre", sep=""))#
+}
+?write.nexus
+#script to collapse low support edges#
+#
+require(ape)#
+require(phytools)#
+require(ips)#
+#
+names<-c("L100_3utr.fasta.aln", "L100_exon6_final_align_NT.aln", "L101_exon6_final_align_NT.aln", "L102_exon2_final_align_NT.aln", "L102_intron1.fasta.aln", "L102_intron2.fasta.aln", "L103_3utr.fasta.aln", "L103_exon6_final_align_NT.aln", "L104_exon2_final_align_NT.aln", "L104_intron1.fasta.aln", "L104_intron2.fasta.aln", "L105_exon3_final_align_NT.aln", "L105_intron2.fasta.aln", "L105_intron3.fasta.aln", "L106_3utr.fasta.aln", "L106_exon2_final_align_NT.aln", "L107_exon3_final_align_NT.aln", "L107_intron2.fasta.aln", "L107_intron3.fasta.aln", "L108_3utr.fasta.aln", "L108_exon2_final_align_NT.aln", "L108_intron1.fasta.aln", "L109_3utr.fasta.aln", "L109_exon2_final_align_NT.aln", "L109_intron1.fasta.aln", "L10_exon29_final_align_NT.aln", "L10_intron28.fasta.aln", "L110_exon6_final_align_NT.aln", "L110_intron5.fasta.aln", "L111_3utr.fasta.aln", "L111_exon23_final_align_NT.aln", "L111_intron22.fasta.aln", "L112_exon2_final_align_NT.aln", "L112_intron1.fasta.aln", "L112_intron2.fasta.aln", "L114_3utr.fasta.aln", "L114_exon6_final_align_NT.aln", "L114_intron5.fasta.aln", "L115_5utr.fasta.aln", "L115_exon1_final_align_NT.aln", "L116_3utr.fasta.aln", "L116_exon2_final_align_NT.aln", "L118_exon6_final_align_NT.aln", "L119_3utr.fasta.aln", "L119_exon7_final_align_NT.aln", "L11_3utr.fasta.aln", "L11_exon2_final_align_NT.aln", "L11_intron1.fasta.aln", "L120_exon11_final_align_NT.aln", "L121_exon5_final_align_NT.aln", "L121_intron4.fasta.aln", "L122_exon1_final_align_NT.aln", "L122_intron1.fasta.aln", "L124_3utr.fasta.aln", "L124_exon4_final_align_NT.aln", "L124_intron3.fasta.aln", "L125_3utr.fasta.aln", "L125_exon4_final_align_NT.aln", "L126_exon1_final_align_NT.aln", "L127_exon5_final_align_NT.aln", "L127_intron4.fasta.aln", "L127_intron5.fasta.aln", "L128_exon9_final_align_NT.aln", "L129_exon1_final_align_NT.aln", "L129_intron1.fasta.aln", "L12_exon3_final_align_NT.aln", "L12_intron2.fasta.aln", "L12_intron3.fasta.aln", "L130_exon2_final_align_NT.aln", "L130_intron1.fasta.aln", "L130_intron2.fasta.aln", "L131_exon10_final_align_NT.aln", "L131_intron10.fasta.aln", "L131_intron9.fasta.aln", "L132_3utr.fasta.aln", "L132_exon12_final_align_NT.aln", "L133_exon2_final_align_NT.aln", "L133_intron1.fasta.aln", "L133_intron2.fasta.aln", "L135_exon16_final_align_NT.aln", "L135_intron15.fasta.aln", "L135_intron16.fasta.aln", "L136_exon5_final_align_NT.aln", "L136_intron4.fasta.aln", "L136_intron5.fasta.aln", "L137_exon2_final_align_NT.aln", "L137_intron2.fasta.aln", "L139_exon1_final_align_NT.aln", "L139_intron1.fasta.aln", "L13_exon5_final_align_NT.aln", "L13_intron4.fasta.aln", "L13_intron5.fasta.aln", "L140_3utr.fasta.aln", "L140_5utr.fasta.aln", "L140_exon1_final_align_NT.aln", "L141_5utr.fasta.aln", "L141_exon1_final_align_NT.aln", "L142_exon3_final_align_NT.aln", "L142_intron2.fasta.aln", "L142_intron3.fasta.aln", "L143_3utr.fasta.aln", "L143_exon2_final_align_NT.aln", "L143_intron1.fasta.aln", "L144_3utr.fasta.aln", "L144_exon15_final_align_NT.aln", "L145_3utr.fasta.aln", "L145_exon18_final_align_NT.aln", "L145_intron17.fasta.aln", "L146_exon17_final_align_NT.aln", "L146_intron16.fasta.aln", "L146_intron17.fasta.aln", "L147_3utr.fasta.aln", "L147_5utr.fasta.aln", "L147_exon1_final_align_NT.aln", "L148_exon28_final_align_NT.aln", "L148_intron27.fasta.aln", "L148_intron28.fasta.aln", "L149_exon1_final_align_NT.aln", "L149_intron1.fasta.aln", "L14_exon4_final_align_NT.aln", "L14_intron4.fasta.aln", "L150_exon10_final_align_NT.aln", "L150_exon11_final_align_NT.aln", "L150_intron10.fasta.aln", "L150_intron11.fasta.aln", "L151_3utr.fasta.aln", "L151_exon3_final_align_NT.aln", "L151_intron2.fasta.aln", "L152_3utr.fasta.aln", "L152_exon2_final_align_NT.aln", "L152_intron1.fasta.aln", "L153_exon10_final_align_NT.aln", "L154_exon2_final_align_NT.aln", "L154_intron2.fasta.aln", "L155_exon23_final_align_NT.aln", "L155_intron22.fasta.aln", "L155_intron23.fasta.aln", "L156_exon2_final_align_NT.aln", "L156_intron1.fasta.aln", "L156_intron2.fasta.aln", "L157_exon9_final_align_NT.aln", "L157_intron8.fasta.aln", "L159_exon24_final_align_NT.aln", "L15_3utr.fasta.aln", "L15_exon8_final_align_NT.aln", "L15_intron7.fasta.aln", "L160_exon4_final_align_NT.aln", "L161_exon8_final_align_NT.aln", "L161_intron8.fasta.aln", "L162_3utr.fasta.aln", "L162_5utr.fasta.aln", "L162_exon1_final_align_NT.aln", "L163_exon15_final_align_NT.aln", "L163_intron14.fasta.aln", "L163_intron15.fasta.aln", "L164_exon5_final_align_NT.aln", "L164_intron4.fasta.aln", "L164_intron5.fasta.aln", "L165_5utr.fasta.aln", "L165_exon1_final_align_NT.aln", "L165_intron1.fasta.aln", "L167_3utr.fasta.aln", "L167_exon32_final_align_NT.aln", "L167_intron31.fasta.aln", "L167_noncodingUnknown.fasta.aln", "L169_3utr.fasta.aln", "L169_exon4_final_align_NT.aln", "L169_intron3.fasta.aln", "L16_3utr.fasta.aln", "L16_exon2_final_align_NT.aln", "L16_intron1.fasta.aln", "L170_exon7_final_align_NT.aln", "L170_intron6.fasta.aln", "L171_3utr.fasta.aln", "L171_exon11_final_align_NT.aln", "L171_intron10.fasta.aln", "L172_3utr.fasta.aln", "L172_exon5_final_align_NT.aln", "L173_3utr.fasta.aln", "L173_exon5_final_align_NT.aln", "L173_intron4.fasta.aln", "L173_noncodingUnknown.fasta.aln", "L174_exon6_final_align_NT.aln", "L175_exon6_final_align_NT.aln", "L175_intron6.fasta.aln", "L176_exon6_final_align_NT.aln", "L177_exon3_final_align_NT.aln", "L177_intron3.fasta.aln", "L178_exon8_final_align_NT.aln", "L178_intron7.fasta.aln", "L178_intron8.fasta.aln", "L179_exon19_final_align_NT.aln", "L179_exon20_final_align_NT.aln", "L179_intron18.fasta.aln", "L179_intron19.fasta.aln", "L179_intron20.fasta.aln", "L17_exon1_final_align_NT.aln", "L17_intron1.fasta.aln", "L180_exon2_final_align_NT.aln", "L180_intron1.fasta.aln", "L182_3utr.fasta.aln", "L182_exon21_final_align_NT.aln", "L183_exon10_final_align_NT.aln", "L183_exon9_final_align_NT.aln", "L183_intron10.fasta.aln", "L183_intron8.fasta.aln", "L183_intron9.fasta.aln", "L186_5utr.fasta.aln", "L186_exon1_final_align_NT.aln", "L186_exon2_final_align_NT.aln", "L186_exon3_final_align_NT.aln", "L186_intron1.fasta.aln", "L186_intron2.fasta.aln", "L186_intron3.fasta.aln", "L187_exon16_final_align_NT.aln", "L187_intron15.fasta.aln", "L188_exon7_final_align_NT.aln", "L188_intron7.fasta.aln", "L189_exon3_final_align_NT.aln", "L18_3utr.fasta.aln", "L18_5utr.fasta.aln", "L18_exon1_final_align_NT.aln", "L18_noncodingUnknown.fasta.aln", "L190_5utr.fasta.aln", "L190_exon1_final_align_NT.aln", "L190_exon2_final_align_NT.aln", "L190_intron1.fasta.aln", "L190_intron2.fasta.aln", "L191_5utr.fasta.aln", "L191_exon1_final_align_NT.aln", "L191_intron1.fasta.aln", "L192_exon3_final_align_NT.aln", "L192_intron2.fasta.aln", "L192_intron3.fasta.aln", "L193_exon2_final_align_NT.aln", "L193_intron1.fasta.aln", "L193_intron2.fasta.aln", "L194_exon1_final_align_NT.aln", "L194_intron1.fasta.aln", "L195_exon1_final_align_NT.aln", "L195_intron1.fasta.aln", "L196_exon2_final_align_NT.aln", "L196_intron1.fasta.aln", "L196_intron2.fasta.aln", "L197_3utr.fasta.aln", "L197_exon2_final_align_NT.aln", "L197_exon3_final_align_NT.aln", "L197_exon4_final_align_NT.aln", "L197_intron1.fasta.aln", "L197_intron3.fasta.aln", "L198_exon4_final_align_NT.aln", "L198_intron3.fasta.aln", "L198_intron4.fasta.aln", "L19_3utr.fasta.aln", "L19_exon3_final_align_NT.aln", "L19_intron2.fasta.aln", "L1_exon9_final_align_NT.aln", "L1_intron8.fasta.aln", "L1_intron9.fasta.aln", "L200_3utr.fasta.aln", "L200_exon3_final_align_NT.aln", "L200_intron2.fasta.aln", "L201_exon3_final_align_NT.aln", "L201_intron3.fasta.aln", "L202_exon3_final_align_NT.aln", "L202_intron2.fasta.aln", "L202_intron3.fasta.aln", "L203_exon1_final_align_NT.aln", "L205_exon9_final_align_NT.aln", "L206_3utr.fasta.aln", "L206_exon2_final_align_NT.aln", "L206_intron1.fasta.aln", "L207_exon6_final_align_NT.aln", "L207_intron5.fasta.aln", "L208_exon2_final_align_NT.aln", "L209_exon2_final_align_NT.aln", "L209_intron1.fasta.aln", "L209_intron2.fasta.aln", "L20_exon2_final_align_NT.aln", "L20_intron1.fasta.aln", "L20_intron2.fasta.aln", "L210_exon2_final_align_NT.aln", "L210_intron1.fasta.aln", "L212_3utr.fasta.aln", "L212_exon2_final_align_NT.aln", "L212_intron1.fasta.aln", "L213_3utr.fasta.aln", "L213_exon1_final_align_NT.aln", "L214_3utr.fasta.aln", "L214_exon8_final_align_NT.aln", "L214_intron7.fasta.aln", "L215_exon9_final_align_NT.aln", "L215_intron8.fasta.aln", "L216_exon7_final_align_NT.aln", "L216_intron6.fasta.aln", "L216_intron7.fasta.aln", "L219_3utr.fasta.aln", "L219_exon25_final_align_NT.aln", "L219_intron24.fasta.aln", "L220_3utr.fasta.aln", "L220_exon24_final_align_NT.aln", "L220_intron23.fasta.aln", "L221_3utr.fasta.aln", "L221_exon2_final_align_NT.aln", "L221_intron1.fasta.aln", "L222_3utr.fasta.aln", "L222_exon9_final_align_NT.aln", "L222_intron8.fasta.aln", "L223_3utr.fasta.aln", "L223_exon7_final_align_NT.aln", "L223_intron6.fasta.aln", "L224_exon3_final_align_NT.aln", "L224_intron2.fasta.aln", "L224_intron3.fasta.aln", "L225_exon3_final_align_NT.aln", "L226_exon37_final_align_NT.aln", "L226_intron36.fasta.aln", "L227_3utr.fasta.aln", "L227_exon3_final_align_NT.aln", "L228_3utr.fasta.aln", "L228_exon2_final_align_NT.aln", "L228_intron1.fasta.aln", "L229_3utr.fasta.aln", "L229_exon3_final_align_NT.aln", "L229_intron2.fasta.aln", "L22_exon7_final_align_NT.aln", "L22_intron7.fasta.aln", "L230_exon13_final_align_NT.aln", "L230_intron12.fasta.aln", "L231_exon3_final_align_NT.aln", "L231_intron2.fasta.aln", "L231_intron3.fasta.aln", "L232_3utr.fasta.aln", "L232_exon7_final_align_NT.aln", "L232_intron6.fasta.aln", "L233_exon8_final_align_NT.aln", "L233_intron7.fasta.aln", "L233_intron8.fasta.aln", "L235_exon4_final_align_NT.aln", "L235_intron3.fasta.aln", "L236_exon7_final_align_NT.aln", "L236_intron7.fasta.aln", "L237_5utr.fasta.aln", "L237_exon1_final_align_NT.aln", "L238_3utr.fasta.aln", "L238_exon1_final_align_NT.aln", "L239_exon35_final_align_NT.aln", "L23_exon2_final_align_NT.aln", "L23_intron2.fasta.aln", "L240_3utr.fasta.aln", "L240_exon12_final_align_NT.aln", "L241_exon8_final_align_NT.aln", "L241_intron8.fasta.aln", "L241_intron9.fasta.aln", "L242_3utr.fasta.aln", "L242_exon4_final_align_NT.aln", "L243_exon5_final_align_NT.aln", "L243_intron4.fasta.aln", "L243_intron5.fasta.aln", "L244_exon3_final_align_NT.aln", "L244_intron2.fasta.aln", "L244_intron3.fasta.aln", "L245_3utr.fasta.aln", "L245_exon18_final_align_NT.aln", "L245_intron17.fasta.aln", "L247_exon19_final_align_NT.aln", "L247_intron18.fasta.aln", "L248_exon8_final_align_NT.aln", "L248_intron7.fasta.aln", "L24_exon16_final_align_NT.aln", "L24_intron16.fasta.aln", "L250_3utr.fasta.aln", "L250_exon8_final_align_NT.aln", "L250_exon9_final_align_NT.aln", "L250_intron7.fasta.aln", "L250_intron8.fasta.aln", "L254_exon13_final_align_NT.aln", "L257_5utr.fasta.aln", "L257_exon1_final_align_NT.aln", "L257_intron1.fasta.aln", "L258_exon3_final_align_NT.aln", "L258_intron2.fasta.aln", "L258_intron3.fasta.aln", "L258_noncodingUnknown.fasta.aln", "L259_3utr.fasta.aln", "L259_exon1_final_align_NT.aln", "L25_3utr.fasta.aln", "L25_exon2_final_align_NT.aln", "L25_intron1.fasta.aln", "L260_3utr.fasta.aln", "L260_exon7_final_align_NT.aln", "L261_3utr.fasta.aln", "L261_exon2_final_align_NT.aln", "L261_intron1.fasta.aln", "L262_exon3_final_align_NT.aln", "L262_exon4_final_align_NT.aln", "L262_intron2.fasta.aln", "L262_intron3.fasta.aln", "L262_intron4.fasta.aln", "L262_noncodingUnknown.fasta.aln", "L264_3utr.fasta.aln", "L264_exon4_final_align_NT.aln", "L264_intron3.fasta.aln", "L265_3utr.fasta.aln", "L265_exon22_final_align_NT.aln", "L265_intron21.fasta.aln", "L266_3utr.fasta.aln", "L266_exon21_final_align_NT.aln", "L266_intron20.fasta.aln", "L267_exon20_final_align_NT.aln", "L268_exon4_final_align_NT.aln", "L268_intron3.fasta.aln", "L269_exon27_final_align_NT.aln", "L269_intron26.fasta.aln", "L269_intron27.fasta.aln", "L26_exon12_final_align_NT.aln", "L26_intron11.fasta.aln", "L26_intron12.fasta.aln", "L270_3utr.fasta.aln", "L270_exon2_final_align_NT.aln", "L270_intron1.fasta.aln", "L271_3utr.fasta.aln", "L271_exon2_final_align_NT.aln", "L271_intron1.fasta.aln", "L272_3utr.fasta.aln", "L272_exon10_final_align_NT.aln", "L272_intron9.fasta.aln", "L273_exon10_final_align_NT.aln", "L275_exon2_final_align_NT.aln", "L275_intron1.fasta.aln", "L275_intron2.fasta.aln", "L276_3utr.fasta.aln", "L276_exon6_final_align_NT.aln", "L276_intron5.fasta.aln", "L277_3utr.fasta.aln", "L277_exon5_final_align_NT.aln", "L277_intron4.fasta.aln", "L278_exon3_final_align_NT.aln", "L278_intron2.fasta.aln", "L279_exon26_final_align_NT.aln", "L279_exon27_final_align_NT.aln", "L27_exon3_final_align_NT.aln", "L27_intron2.fasta.aln", "L27_intron3.fasta.aln", "L281_exon12_final_align_NT.aln", "L282_3utr.fasta.aln", "L282_exon9_final_align_NT.aln", "L282_intron8.fasta.aln", "L284_exon13_final_align_NT.aln", "L284_intron12.fasta.aln", "L285_exon5_final_align_NT.aln", "L285_intron4.fasta.aln", "L285_intron5.fasta.aln", "L286_exon2_final_align_NT.aln", "L286_intron1.fasta.aln", "L286_intron2.fasta.aln", "L287_3utr.fasta.aln", "L287_exon9_final_align_NT.aln", "L288_exon10_final_align_NT.aln", "L288_intron10.fasta.aln", "L288_intron9.fasta.aln", "L289_3utr.fasta.aln", "L289_exon4_final_align_NT.aln", "L289_intron3.fasta.aln", "L28_3utr.fasta.aln", "L28_exon2_final_align_NT.aln", "L28_intron1.fasta.aln", "L290_exon11_final_align_NT.aln", "L290_intron10.fasta.aln", "L290_intron11.fasta.aln", "L291_3utr.fasta.aln", "L291_exon7_final_align_NT.aln", "L291_intron6.fasta.aln", "L293_3utr.fasta.aln", "L293_exon3_final_align_NT.aln", "L293_intron2.fasta.aln", "L294_3utr.fasta.aln", "L294_exon9_final_align_NT.aln", "L294_intron8.fasta.aln", "L295_exon12_final_align_NT.aln", "L296_exon7_final_align_NT.aln", "L296_intron6.fasta.aln", "L296_intron7.fasta.aln", "L297_3utr.fasta.aln", "L297_exon2_final_align_NT.aln", "L297_intron1.fasta.aln", "L298_exon8_final_align_NT.aln", "L298_intron7.fasta.aln", "L298_intron8.fasta.aln", "L299_exon1_final_align_NT.aln", "L29_exon18_final_align_NT.aln", "L2_exon8_final_align_NT.aln", "L2_intron7.fasta.aln", "L300_exon7_final_align_NT.aln", "L301_exon1_final_align_NT.aln", "L302_exon2_final_align_NT.aln", "L302_intron1.fasta.aln", "L302_intron2.fasta.aln", "L303_exon56_final_align_NT.aln", "L303_intron55.fasta.aln", "L303_intron56.fasta.aln", "L304_3utr.fasta.aln", "L304_exon2_final_align_NT.aln", "L304_intron1.fasta.aln", "L305_3utr.fasta.aln", "L305_exon7_final_align_NT.aln", "L305_intron6.fasta.aln", "L306_3utr.fasta.aln", "L306_exon13_final_align_NT.aln", "L306_intron12.fasta.aln", "L307_3utr.fasta.aln", "L307_exon2_final_align_NT.aln", "L307_intron1.fasta.aln", "L308_3utr.fasta.aln", "L308_exon4_final_align_NT.aln", "L308_intron3.fasta.aln", "L309_exon2_final_align_NT.aln", "L309_intron1.fasta.aln", "L30_3utr.fasta.aln", "L30_exon4_final_align_NT.aln", "L30_intron3.fasta.aln", "L311_exon6_final_align_NT.aln", "L311_intron5.fasta.aln", "L311_intron6.fasta.aln", "L312_3utr.fasta.aln", "L312_5utr.fasta.aln", "L312_exon1_final_align_NT.aln", "L313_exon10_final_align_NT.aln", "L313_intron10.fasta.aln", "L314_3utr.fasta.aln", "L314_exon9_final_align_NT.aln", "L314_intron8.fasta.aln", "L315_exon4_final_align_NT.aln", "L315_intron3.fasta.aln", "L315_intron4.fasta.aln", "L315_noncodingUnknown.fasta.aln", "L316_exon11_final_align_NT.aln", "L316_intron10.fasta.aln", "L317_3utr.fasta.aln", "L317_exon2_final_align_NT.aln", "L317_intron1.fasta.aln", "L318_3utr.fasta.aln", "L318_exon3_final_align_NT.aln", "L318_intron2.fasta.aln", "L319_exon8_final_align_NT.aln", "L31_exon12_final_align_NT.aln", "L31_intron12.fasta.aln", "L320_3utr.fasta.aln", "L320_exon3_final_align_NT.aln", "L320_intron1.fasta.aln", "L320_intron2.fasta.aln", "L321_exon6_final_align_NT.aln", "L321_intron5.fasta.aln", "L322_3utr.fasta.aln", "L322_exon4_final_align_NT.aln", "L322_intron3.fasta.aln", "L323_exon1_final_align_NT.aln", "L324_exon13_final_align_NT.aln", "L324_intron12.fasta.aln", "L324_intron13.fasta.aln", "L325_exon6_final_align_NT.aln", "L326_3utr.fasta.aln", "L326_exon18_final_align_NT.aln", "L326_intron17.fasta.aln", "L327_exon11_final_align_NT.aln", "L327_intron10.fasta.aln", "L327_intron11.fasta.aln", "L328_3utr.fasta.aln", "L328_exon1_final_align_NT.aln", "L329_exon8_final_align_NT.aln", "L329_intron8.fasta.aln", "L32_3utr.fasta.aln", "L32_exon18_final_align_NT.aln", "L32_intron17.fasta.aln", "L331_exon24_final_align_NT.aln", "L331_intron23.fasta.aln", "L332_exon8_final_align_NT.aln", "L332_intron7.fasta.aln", "L333_3utr.fasta.aln", "L333_exon2_final_align_NT.aln", "L334_exon2_final_align_NT.aln", "L335_exon4_final_align_NT.aln", "L335_intron3.fasta.aln", "L337_exon2_final_align_NT.aln", "L337_intron2.fasta.aln", "L338_exon49_final_align_NT.aln", "L339_exon5_final_align_NT.aln", "L339_intron4.fasta.aln", "L340_exon4_final_align_NT.aln", "L340_intron3.fasta.aln", "L340_intron4.fasta.aln", "L341_exon2_final_align_NT.aln", "L341_intron1.fasta.aln", "L341_intron2.fasta.aln", "L342_exon8_final_align_NT.aln", "L342_intron8.fasta.aln", "L343_exon9_final_align_NT.aln", "L343_intron8.fasta.aln", "L344_exon18_final_align_NT.aln", "L344_intron17.fasta.aln", "L345_exon3_final_align_NT.aln", "L346_5utr.fasta.aln", "L346_exon1_final_align_NT.aln", "L347_exon14_final_align_NT.aln", "L348_3utr.fasta.aln", "L348_exon3_final_align_NT.aln", "L348_intron2.fasta.aln", "L349_3utr.fasta.aln", "L349_exon2_final_align_NT.aln", "L349_intron1.fasta.aln", "L34_exon2_final_align_NT.aln", "L34_intron1.fasta.aln", "L34_intron2.fasta.aln", "L350_3utr.fasta.aln", "L350_exon2_final_align_NT.aln", "L350_intron1.fasta.aln", "L351_exon3_final_align_NT.aln", "L351_intron2.fasta.aln", "L352_3utr.fasta.aln", "L352_exon2_final_align_NT.aln", "L352_intron1.fasta.aln", "L353_3utr.fasta.aln", "L353_exon2_final_align_NT.aln", "L353_intron1.fasta.aln", "L354_3utr.fasta.aln", "L354_exon3_final_align_NT.aln", "L354_intron2.fasta.aln", "L355_exon22_final_align_NT.aln", "L356_3utr.fasta.aln", "L356_exon2_final_align_NT.aln", "L356_intron1.fasta.aln", "L357_exon2_final_align_NT.aln", "L358_3utr.fasta.aln", "L358_5utr.fasta.aln", "L358_exon1_final_align_NT.aln", "L359_exon4_final_align_NT.aln", "L359_intron3.fasta.aln", "L35_exon62_final_align_NT.aln", "L35_intron61.fasta.aln", "L35_intron62.fasta.aln", "L360_exonNone_final_align_NT.aln", "L360_noncodingUnknown.fasta.aln", "L361_exon14_final_align_NT.aln", "L361_intron13.fasta.aln", "L361_intron14.fasta.aln", "L362_exon5_final_align_NT.aln", "L362_intron5.fasta.aln", "L363_3utr.fasta.aln", "L363_exon5_final_align_NT.aln", "L364_3utr.fasta.aln", "L364_exon14_final_align_NT.aln", "L365_exon2_final_align_NT.aln", "L366_exon2_final_align_NT.aln", "L367_exon2_final_align_NT.aln", "L368_exon2_final_align_NT.aln", "L368_intron1.fasta.aln", "L369_exon2_final_align_NT.aln", "L369_intron1.fasta.aln", "L369_intron2.fasta.aln", "L36_exon8_final_align_NT.aln", "L370_3utr.fasta.aln", "L370_exon6_final_align_NT.aln", "L371_exon7_final_align_NT.aln", "L371_intron6.fasta.aln", "L372_3utr.fasta.aln", "L372_exon8_final_align_NT.aln", "L373_exon3_final_align_NT.aln", "L374_exon2_final_align_NT.aln", "L376_exon22_final_align_NT.aln", "L376_exon23_final_align_NT.aln", "L376_intron21.fasta.aln", "L376_intron22.fasta.aln", "L376_intron23.fasta.aln", "L376_noncodingUnknown.fasta.aln", "L377_exon3_final_align_NT.aln", "L377_intron2.fasta.aln", "L378_exon9_final_align_NT.aln", "L378_intron8.fasta.aln", "L378_intron9.fasta.aln", "L379_exon10_final_align_NT.aln", "L379_intron9.fasta.aln", "L37_exon7_final_align_NT.aln", "L37_intron6.fasta.aln", "L37_intron7.fasta.aln", "L380_exon4_final_align_NT.aln", "L380_intron3.fasta.aln", "L381_exon5_final_align_NT.aln", "L382_3utr.fasta.aln", "L382_exon2_final_align_NT.aln", "L383_3utr.fasta.aln", "L383_5utr.fasta.aln", "L383_exon1_final_align_NT.aln", "L384_3utr.fasta.aln", "L384_exon5_final_align_NT.aln", "L384_intron4.fasta.aln", "L385_exon9_final_align_NT.aln", "L386_exon2_final_align_NT.aln", "L387_exon2_final_align_NT.aln", "L387_intron1.fasta.aln", "L387_intron2.fasta.aln", "L388_exon19_final_align_NT.aln", "L388_intron19.fasta.aln", "L389_3utr.fasta.aln", "L389_exon2_final_align_NT.aln", "L389_intron1.fasta.aln", "L38_exon3_final_align_NT.aln", "L38_intron2.fasta.aln", "L390_3utr.fasta.aln", "L390_exon2_final_align_NT.aln", "L391_exon27_final_align_NT.aln", "L391_intron27.fasta.aln", "L392_3utr.fasta.aln", "L392_exon2_final_align_NT.aln", "L392_intron1.fasta.aln", "L394_exon2_final_align_NT.aln", "L394_intron2.fasta.aln", "L395_exon6_final_align_NT.aln", "L396_3utr.fasta.aln", "L396_exon3_final_align_NT.aln", "L396_intron2.fasta.aln", "L397_3utr.fasta.aln", "L397_exon3_final_align_NT.aln", "L397_intron2.fasta.aln", "L397_noncodingUnknown.fasta.aln", "L399_exon4_final_align_NT.aln", "L399_intron3.fasta.aln", "L39_exon3_final_align_NT.aln", "L39_intron2.fasta.aln", "L39_intron3.fasta.aln", "L3_3utr.fasta.aln", "L3_exon22_final_align_NT.aln", "L3_intron21.fasta.aln", "L400_exon4_final_align_NT.aln", "L401_3utr.fasta.aln", "L401_exon9_final_align_NT.aln", "L401_intron8.fasta.aln", "L402_exon1_final_align_NT.aln", "L403_exon3_final_align_NT.aln", "L403_intron3.fasta.aln", "L40_3utr.fasta.aln", "L40_exon4_final_align_NT.aln", "L41_exon11_final_align_NT.aln", "L41_intron10.fasta.aln", "L42_exon17_final_align_NT.aln", "L42_intron16.fasta.aln", "L42_intron17.fasta.aln", "L43_3utr.fasta.aln", "L43_exon3_final_align_NT.aln", "L43_intron2.fasta.aln", "L44_3utr.fasta.aln", "L44_exon2_final_align_NT.aln", "L44_intron1.fasta.aln", "L46_exon28_final_align_NT.aln", "L47_exon28_final_align_NT.aln", "L47_intron27.fasta.aln", "L48_5utr.fasta.aln", "L48_exon1_final_align_NT.aln", "L48_intron1.fasta.aln", "L49_exon11_final_align_NT.aln", "L49_intron10.fasta.aln", "L49_intron11.fasta.aln", "L4_exon8_final_align_NT.aln", "L4_intron8.fasta.aln", "L50_exon3_final_align_NT.aln", "L50_intron3.fasta.aln", "L51_exon2_final_align_NT.aln", "L51_intron2.fasta.aln", "L52_3utr.fasta.aln", "L52_5utr.fasta.aln", "L52_exon1_final_align_NT.aln", "L53_exon28_final_align_NT.aln", "L53_intron27.fasta.aln", "L53_intron28.fasta.aln", "L53_noncodingUnknown.fasta.aln", "L54_exon5_final_align_NT.aln", "L54_intron4.fasta.aln", "L54_intron5.fasta.aln", "L55_exon3_final_align_NT.aln", "L55_intron2.fasta.aln", "L55_intron3.fasta.aln", "L56_5utr.fasta.aln", "L56_exon1_final_align_NT.aln", "L56_exon2_final_align_NT.aln", "L56_intron1.fasta.aln", "L57_exon4_final_align_NT.aln", "L57_intron3.fasta.aln", "L58_exon20_final_align_NT.aln", "L58_intron19.fasta.aln", "L59_exon2_final_align_NT.aln", "L59_intron1.fasta.aln", "L59_intron2.fasta.aln", "L5_3utr.fasta.aln", "L5_exon2_final_align_NT.aln", "L5_intron1.fasta.aln", "L60_exon10_final_align_NT.aln", "L60_intron10.fasta.aln", "L61_exon3_final_align_NT.aln", "L61_intron2.fasta.aln", "L63_3utr.fasta.aln", "L63_exon4_final_align_NT.aln", "L63_exon7_final_align_NT.aln", "L63_intron3.fasta.aln", "L63_intron6.fasta.aln", "L64_exon2_final_align_NT.aln", "L64_exon3_final_align_NT.aln", "L64_intron1.fasta.aln", "L64_intron2.fasta.aln", "L65_5utr.fasta.aln", "L65_exon1_final_align_NT.aln", "L66_5utr.fasta.aln", "L66_exon1_final_align_NT.aln", "L66_exon3_final_align_NT.aln", "L66_intron1.fasta.aln", "L66_intron3.fasta.aln", "L66_noncodingUnknown.fasta.aln", "L67_exon2_final_align_NT.aln", "L67_exon3_final_align_NT.aln", "L67_intron1.fasta.aln", "L68_exon4_final_align_NT.aln", "L68_intron3.fasta.aln", "L68_intron4.fasta.aln", "L69_5utr.fasta.aln", "L69_exon1_final_align_NT.aln", "L69_exon2_final_align_NT.aln", "L69_exon3_final_align_NT.aln", "L69_intron1.fasta.aln", "L69_intron2.fasta.aln", "L69_intron3.fasta.aln", "L70_exon2_final_align_NT.aln", "L70_exon3_final_align_NT.aln", "L70_intron1.fasta.aln", "L70_intron2.fasta.aln", "L70_intron3.fasta.aln", "L70_noncodingUnknown.fasta.aln", "L71_exon2_final_align_NT.aln", "L71_exon3_final_align_NT.aln", "L71_exon4_final_align_NT.aln", "L71_intron1.fasta.aln", "L71_intron2.fasta.aln", "L71_intron3.fasta.aln", "L71_noncodingUnknown.fasta.aln", "L72_3utr.fasta.aln", "L72_exon2_final_align_NT.aln", "L72_exon3_final_align_NT.aln", "L72_intron1.fasta.aln", "L72_intron2.fasta.aln", "L72_intron3.fasta.aln", "L72_noncodingUnknown.fasta.aln", "L73_3utr.fasta.aln", "L73_exon1_final_align_NT.aln", "L74_exon4_final_align_NT.aln", "L74_intron3.fasta.aln", "L74_intron4.fasta.aln", "L75_exon2_final_align_NT.aln", "L75_intron1.fasta.aln", "L76_exon12_final_align_NT.aln", "L76_intron11.fasta.aln", "L76_intron12.fasta.aln", "L77_3utr.fasta.aln", "L77_exon13_final_align_NT.aln", "L78_3utr.fasta.aln", "L78_exon2_final_align_NT.aln", "L78_intron1.fasta.aln", "L80_exon2_final_align_NT.aln", "L80_intron1.fasta.aln", "L80_intron2.fasta.aln", "L81_exon6_final_align_NT.aln", "L81_intron6.fasta.aln", "L82_exon5_final_align_NT.aln", "L82_intron5.fasta.aln", "L83_3utr.fasta.aln", "L83_exon1_final_align_NT.aln", "L84_exon4_final_align_NT.aln", "L84_intron3.fasta.aln", "L85_3utr.fasta.aln", "L85_exon2_final_align_NT.aln", "L85_intron1.fasta.aln", "L86_exon2_final_align_NT.aln", "L86_intron1.fasta.aln", "L87_exon4_final_align_NT.aln", "L87_intron3.fasta.aln", "L87_intron4.fasta.aln", "L88_3utr.fasta.aln", "L88_exon4_final_align_NT.aln", "L88_intron3.fasta.aln", "L89_exon4_final_align_NT.aln", "L89_intron3.fasta.aln", "L8_exon8_final_align_NT.aln", "L8_intron7.fasta.aln", "L90_exon15_final_align_NT.aln", "L91_exon13_final_align_NT.aln", "L91_intron12.fasta.aln", "L92_5utr.fasta.aln", "L92_exon1_final_align_NT.aln", "L92_intron1.fasta.aln", "L93_3utr.fasta.aln", "L93_exon7_final_align_NT.aln", "L94_exon2_final_align_NT.aln", "L95_exon5_final_align_NT.aln", "L96_exon1_final_align_NT.aln", "L97_exon17_final_align_NT.aln", "L97_intron16.fasta.aln", "L97_intron17.fasta.aln", "L98_3utr.fasta.aln", "L98_exon8_final_align_NT.aln", "L98_intron7.fasta.aln", "L99_exon2_final_align_NT.aln", "L99_intron2.fasta.aln", "L9_exon3_final_align_NT.aln", "L9_intron3.fasta.aln")#
+test<-read.tree(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/loci.treefile")#
+setwd("/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/50")#
+for(i in 1:length(test)){#
+	test[[i]]<-collapseUnsupportedEdges(test[[i]], value = "node.label", 50)#
+}#
+?write.nexus#
+#
+for(i in 1:length(test)){#
+	write.nexus(test[[i]], file=paste(names[[i]],".tre", sep=""))#
+}#
+setwd("/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/75")#
+#
+for(i in 1:length(test)){#
+	test[[i]]<-collapseUnsupportedEdges(test[[i]], value = "node.label", 75)#
+}#
+for(i in 1:length(test)){#
+	write.nexus(test[[i]], file=paste(names[[i]],".tre", sep=""))#
+}#
+#
+setwd("/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/90")#
+for(i in 1:length(test)){#
+	test[[i]]<-collapseUnsupportedEdges(test[[i]], value = "node.label", 90)#
+}#
+for(i in 1:length(test)){#
+	write.nexus(test[[i]], file=paste(names[[i]],".tre", sep=""))#
+}

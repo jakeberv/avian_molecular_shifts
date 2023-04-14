@@ -1,0 +1,91 @@
+#NEXUS
+[R-package APE, Wed Nov 10 15:27:11 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 39;
+	TAXLABELS
+		Acanthisitta_chloris_1
+		Apaloderma_aequatoriale_1
+		Colius_colius_1
+		Urocolius_indicus_1
+		Phaethon_rubricauda_1
+		Heliornis_fulica_1
+		Psophia_crepitans_1
+		Ixobrychus_minutus_1
+		Phalacrocorax_brasili_1
+		Archilochus_colubris_1
+		Topaza_pella_1
+		Opisthocomus_hoazin_1
+		Bonasa_umbellus_1
+		Chauna_torquata_1
+		Casuarius_bennetti_1
+		Dromaius_novaehollandiae_1
+		Eudromia_elegans_1
+		Tapera_naevia_1
+		Coracias_cyanogaster_1
+		Merops_muelleri_1
+		Fregata_magnificens_1
+		Fulmarus_glacialoides_1
+		Oceanites_oceanicus_1
+		Pelagodroma_marina_1
+		Haematopus_palliatus_1
+		Rynchops_niger_1
+		Calandrella_brachydactyla_1
+		Poecile_lugubris_1
+		Turdus_olivater_1
+		Fringilla_coelebs_1
+		Spizella_arborea_1
+		Cryptopipo_aenigma_1
+		Piprites_chloris_1
+		Tyrannus_albogularis_1
+		Furnarius_rufus_1
+		Melanopareia_maximilian_1
+		Ptilonorhynchus_violaceus_1
+		Eurylaimus_ochromalus_1
+		Smithornis_rufolateralis_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Acanthisitta_chloris_1,
+		2	Apaloderma_aequatoriale_1,
+		3	Colius_colius_1,
+		4	Urocolius_indicus_1,
+		5	Phaethon_rubricauda_1,
+		6	Heliornis_fulica_1,
+		7	Psophia_crepitans_1,
+		8	Ixobrychus_minutus_1,
+		9	Phalacrocorax_brasili_1,
+		10	Archilochus_colubris_1,
+		11	Topaza_pella_1,
+		12	Opisthocomus_hoazin_1,
+		13	Bonasa_umbellus_1,
+		14	Chauna_torquata_1,
+		15	Casuarius_bennetti_1,
+		16	Dromaius_novaehollandiae_1,
+		17	Eudromia_elegans_1,
+		18	Tapera_naevia_1,
+		19	Coracias_cyanogaster_1,
+		20	Merops_muelleri_1,
+		21	Fregata_magnificens_1,
+		22	Fulmarus_glacialoides_1,
+		23	Oceanites_oceanicus_1,
+		24	Pelagodroma_marina_1,
+		25	Haematopus_palliatus_1,
+		26	Rynchops_niger_1,
+		27	Calandrella_brachydactyla_1,
+		28	Poecile_lugubris_1,
+		29	Turdus_olivater_1,
+		30	Fringilla_coelebs_1,
+		31	Spizella_arborea_1,
+		32	Cryptopipo_aenigma_1,
+		33	Piprites_chloris_1,
+		34	Tyrannus_albogularis_1,
+		35	Furnarius_rufus_1,
+		36	Melanopareia_maximilian_1,
+		37	Ptilonorhynchus_violaceus_1,
+		38	Eurylaimus_ochromalus_1,
+		39	Smithornis_rufolateralis_1
+	;
+	TREE * UNTITLED = [&U] (1:0.1170604942,((2:0.083469919,(3:0.0783917482,4:0.0305265803)100:0.1304813557)96:0.0699407184,5:0.0908492005,(6:0.1030183702,7:0.0956188159)98:0.0658877359,8:0.1211940809,9:0.0874706484,(10:0.0696898119,11:0.0525824263)100:0.1224105789,12:0.0948262495,(13:0.1858269097,14:0.0741808431)96:0.0820941055,((15:0.013162162,16:0.0280870107)98:0.0317509219,17:0.1885312617)100:0.1620116019,18:0.205751558,19:0.1483024782,20:0.1421125221,21:0.0392290308,22:0.0521967266,(23:0.0290475892,24:0.019422915)100:0.0454167119,25:0.0499904047,26:0.0878421988)100:0.0599486434,27:0.1034742282,28:0.0684977797,29:0.0870055465,30:0.094578566,31:0.0926259538,(32:0.0251245633,(33:0.0529234988,34:0.0468576605)97:0.0178745581)99:0.0835853689,35:0.1594442249,36:0.1925482782,37:0.1053320624,(38:0.0946134042,39:0.0870445593)99:0.0632560315);
+END;

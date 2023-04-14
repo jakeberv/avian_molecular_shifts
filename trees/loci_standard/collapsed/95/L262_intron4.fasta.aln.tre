@@ -1,0 +1,71 @@
+#NEXUS
+[R-package APE, Wed Nov 10 15:27:05 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 29;
+	TAXLABELS
+		Acanthisitta_chloris_1
+		Atelornis_pittoides_1
+		Nyctibius_griseus_1
+		Psophia_crepitans_1
+		Cariama_cristata_1
+		Coracias_cyanogaster_1
+		Nestor_meridionalis_1
+		Psittrichas_fulgidus_1
+		Columba_livia_1
+		Ptilinopus_magnificus_1
+		Columbina_minuta_1
+		Jynx_torquilla_1
+		Ramphastos_ambiguus_1
+		Fulmarus_glacialoides_1
+		Haematopus_palliatus_1
+		Jacana_jacana_1
+		Pedionomus_torquatus_1
+		Porphyrio_porphyrio_1
+		Ixobrychus_minutus_1
+		Monias_benschi_1
+		Heliornis_fulica_1
+		Sericulus_bakeri_1
+		Calyptomena_viridis_1
+		Smithornis_rufolateralis_1
+		Melanopareia_maximilian_1
+		Sclerurus_mexicanus_1
+		Cotinga_cayana_1
+		Elaenia_flavogaster_1
+		Piprites_chloris_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Acanthisitta_chloris_1,
+		2	Atelornis_pittoides_1,
+		3	Nyctibius_griseus_1,
+		4	Psophia_crepitans_1,
+		5	Cariama_cristata_1,
+		6	Coracias_cyanogaster_1,
+		7	Nestor_meridionalis_1,
+		8	Psittrichas_fulgidus_1,
+		9	Columba_livia_1,
+		10	Ptilinopus_magnificus_1,
+		11	Columbina_minuta_1,
+		12	Jynx_torquilla_1,
+		13	Ramphastos_ambiguus_1,
+		14	Fulmarus_glacialoides_1,
+		15	Haematopus_palliatus_1,
+		16	Jacana_jacana_1,
+		17	Pedionomus_torquatus_1,
+		18	Porphyrio_porphyrio_1,
+		19	Ixobrychus_minutus_1,
+		20	Monias_benschi_1,
+		21	Heliornis_fulica_1,
+		22	Sericulus_bakeri_1,
+		23	Calyptomena_viridis_1,
+		24	Smithornis_rufolateralis_1,
+		25	Melanopareia_maximilian_1,
+		26	Sclerurus_mexicanus_1,
+		27	Cotinga_cayana_1,
+		28	Elaenia_flavogaster_1,
+		29	Piprites_chloris_1
+	;
+	TREE * UNTITLED = [&U] (1:0.1450102458,(2:0.0782912892,3:0.1036219337,4:0.1251207745,5:0.054483945,6:0.0723710483,7:0.1432045176,8:0.1098762211,9:0.1220701399,10:0.1706486991,11:0.1289919445,12:0.2153385918,13:0.2731107228,14:0.0432894576,15:0.0711427393,(16:0.0750598501,(17:2.5813e-06,18:2.2768e-06)99:0.0523044215)98:0.1609845582,19:0.1475741159,20:0.1687199562,21:0.1226167224)97:0.0735266882,22:0.0891912849,(23:2.1391e-06,24:0.0826008884)96:0.0920688299,(25:0.0696884118,26:0.0523520855)97:0.1076338492,(27:0.0126793395,28:0.0559462088,29:0.0597167401)95:0.064117564);
+END;

@@ -1,0 +1,67 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:45 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 27;
+	TAXLABELS
+		Aegotheles_insignis_1
+		Alcedo_quadribrachys_1
+		Cariama_cristata_1
+		Chunga_burmeisteri_1
+		Apteryx_sp._1
+		Treron_calvus_1
+		Eudromia_elegans_1
+		Nyctibius_griseus_1
+		Theristicus_caerulescens_1
+		Rynchops_niger_1
+		Spheniscus_humboldti_1
+		Crax_alector_1
+		Tockus_camurus_1
+		Galbula_dea_1
+		Glareola_nuchalis_1
+		Morus_serrator_1
+		Elaenia_flavogaster_1
+		Tyrannus_albogularis_1
+		Sericulus_bakeri_1
+		Smithornis_rufolateralis_1
+		Caiman_croccodilus_1
+		Caracara_cheriway_1
+		Falco_sparverius_1
+		Pedionomus_torquatus_1
+		Porphyrio_porphyrio_1
+		Bonasa_umbellus_1
+		Urocolius_indicus_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Aegotheles_insignis_1,
+		2	Alcedo_quadribrachys_1,
+		3	Cariama_cristata_1,
+		4	Chunga_burmeisteri_1,
+		5	Apteryx_sp._1,
+		6	Treron_calvus_1,
+		7	Eudromia_elegans_1,
+		8	Nyctibius_griseus_1,
+		9	Theristicus_caerulescens_1,
+		10	Rynchops_niger_1,
+		11	Spheniscus_humboldti_1,
+		12	Crax_alector_1,
+		13	Tockus_camurus_1,
+		14	Galbula_dea_1,
+		15	Glareola_nuchalis_1,
+		16	Morus_serrator_1,
+		17	Elaenia_flavogaster_1,
+		18	Tyrannus_albogularis_1,
+		19	Sericulus_bakeri_1,
+		20	Smithornis_rufolateralis_1,
+		21	Caiman_croccodilus_1,
+		22	Caracara_cheriway_1,
+		23	Falco_sparverius_1,
+		24	Pedionomus_torquatus_1,
+		25	Porphyrio_porphyrio_1,
+		26	Bonasa_umbellus_1,
+		27	Urocolius_indicus_1
+	;
+	TREE * UNTITLED = [&U] (1:0.024445984,2:0.0899343846,3:0.0343423809,4:0.0208627418,5:0.0208619227,6:0.0347500595,7:0.0072917965,8:0.0367914254,9:0.0324448749,10:0.0072890225,11:0.0072867775,12:0.0516851058,13:0.0575617991,14:0.0504490386,15:0.0156558799,16:0.0072839499,17:0.0412137497,18:0.0412137232,19:0.0459907342,20:0.0307090158,21:0.1565519101,22:0.0184483956,23:0.01779978,24:0.0178022126,25:0.0178022126,26:0.0284844125,27:0.0630927421);
+END;

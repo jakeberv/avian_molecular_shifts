@@ -1,0 +1,59 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:07 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 23;
+	TAXLABELS
+		Acanthisitta_chloris_1
+		Anser_canagicus_1
+		Aramus_guarauna_1
+		Chordeiles_pusillus_1
+		Balaeniceps_rex_1
+		Falco_sparverius_1
+		Pedionomus_torquatus_1
+		Pitta_angolensis_1
+		Smithornis_rufolateralis_1
+		Psittacus_erithacus_1
+		Hemiprocne_comata_1
+		Nyctibius_griseus_1
+		Podargus_strigoides_1
+		Neopelma_chrysocephalum_1
+		Pipra_erythrocephala_1
+		Oceanites_oceanicus_1
+		Jacana_jacana_1
+		Phalacrocorax_brasili_1
+		Coracias_cyanogaster_1
+		Pterodroma_externa_1
+		Glareola_nuchalis_1
+		Chauna_torquata_1
+		Rollulus_rouloul_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Acanthisitta_chloris_1,
+		2	Anser_canagicus_1,
+		3	Aramus_guarauna_1,
+		4	Chordeiles_pusillus_1,
+		5	Balaeniceps_rex_1,
+		6	Falco_sparverius_1,
+		7	Pedionomus_torquatus_1,
+		8	Pitta_angolensis_1,
+		9	Smithornis_rufolateralis_1,
+		10	Psittacus_erithacus_1,
+		11	Hemiprocne_comata_1,
+		12	Nyctibius_griseus_1,
+		13	Podargus_strigoides_1,
+		14	Neopelma_chrysocephalum_1,
+		15	Pipra_erythrocephala_1,
+		16	Oceanites_oceanicus_1,
+		17	Jacana_jacana_1,
+		18	Phalacrocorax_brasili_1,
+		19	Coracias_cyanogaster_1,
+		20	Pterodroma_externa_1,
+		21	Glareola_nuchalis_1,
+		22	Chauna_torquata_1,
+		23	Rollulus_rouloul_1
+	;
+	TREE * UNTITLED = [&U] (1:1e-06,2:1e-06,(((3:0.0417919955,4:0.0481441378)81:0.0235594211,(5:0.0336365901,((6:1e-06,7:1e-06)97:0.0339266203,((8:0.1110807601,9:0.0587364054)76:0.0176139295,10:1e-06)79:0.0447413657)67:0.0511752312,11:0.0612068768,(12:0.0228950166,13:0.0697577167)57:0.0228055859,(14:1e-06,15:1e-06)98:0.1179227957,16:0.0400862619,17:6.0635e-06,18:0.0662675888,19:0.0678036169,20:0.0369085987)61:0.0146589355,21:0.0326052128)60:0.0306263554,(22:0.0611303406,23:0.149820868)68:0.0487542788)95:0.2116973931);
+END;

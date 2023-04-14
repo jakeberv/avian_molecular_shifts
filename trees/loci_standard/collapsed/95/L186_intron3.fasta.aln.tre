@@ -1,0 +1,69 @@
+#NEXUS
+[R-package APE, Wed Nov 10 15:27:02 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 28;
+	TAXLABELS
+		Anser_canagicus_1
+		Ardeotis_kori_1
+		Heliornis_fulica_1
+		Falco_sparverius_1
+		Micropygia_schomburgkii_1
+		Porphyrio_porphyrio_1
+		Leptoptilos_crumeniferus_1
+		Oceanites_oceanicus_1
+		Puffinus_griseus_1
+		Phoebastria_nigripes_1
+		Phalacrocorax_brasili_1
+		Nyctibius_griseus_1
+		Bucco_capensis_1
+		Galbula_dea_1
+		Upupa_epops_1
+		Coccyzus_melacoryphus_1
+		Monias_benschi_1
+		Pitta_angolensis_1
+		Ramphastos_ambiguus_1
+		Phaethon_rubricauda_1
+		Casuarius_bennetti_1
+		Dromaius_novaehollandiae_1
+		Aythya_valisineria_1
+		Gallus_gallus_1
+		Crax_alector_1
+		Rollulus_rouloul_1
+		Leipoa_ocellata_1
+		Oxyura_jamaicensis_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Anser_canagicus_1,
+		2	Ardeotis_kori_1,
+		3	Heliornis_fulica_1,
+		4	Falco_sparverius_1,
+		5	Micropygia_schomburgkii_1,
+		6	Porphyrio_porphyrio_1,
+		7	Leptoptilos_crumeniferus_1,
+		8	Oceanites_oceanicus_1,
+		9	Puffinus_griseus_1,
+		10	Phoebastria_nigripes_1,
+		11	Phalacrocorax_brasili_1,
+		12	Nyctibius_griseus_1,
+		13	Bucco_capensis_1,
+		14	Galbula_dea_1,
+		15	Upupa_epops_1,
+		16	Coccyzus_melacoryphus_1,
+		17	Monias_benschi_1,
+		18	Pitta_angolensis_1,
+		19	Ramphastos_ambiguus_1,
+		20	Phaethon_rubricauda_1,
+		21	Casuarius_bennetti_1,
+		22	Dromaius_novaehollandiae_1,
+		23	Aythya_valisineria_1,
+		24	Gallus_gallus_1,
+		25	Crax_alector_1,
+		26	Rollulus_rouloul_1,
+		27	Leipoa_ocellata_1,
+		28	Oxyura_jamaicensis_1
+	;
+	TREE * UNTITLED = [&U] (1:0.0576049987,2:0.4872755606,3:0.4946339321,4:0.4274881959,5:0.4102452689,6:0.3937901216,7:0.3809982738,8:0.3607781464,9:0.3607771464,10:0.3979002741,11:0.4560693916,12:0.4162190611,13:0.5398988772,14:0.4812092155,15:0.5860887839,16:1.613730677,17:0.3971611141,18:0.8853299343,19:0.4660900646,20:0.2609539087,(21:2.2255e-06,22:0.0328377533)98:0.3430708994,23:0.1612388139,24:0.339780152,25:0.297870224,26:0.3204727649,27:0.1831347511,28:0.010848335);
+END;

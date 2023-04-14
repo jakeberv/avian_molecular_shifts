@@ -1,0 +1,105 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:52 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 46;
+	TAXLABELS
+		Acanthisitta_chloris_1
+		Aegotheles_insignis_1
+		Galbula_dea_1
+		Psittacus_erithacus_1
+		Smithornis_rufolateralis_1
+		Caracara_cheriway_1
+		Micrastur_gilvicollis_1
+		Centropus_bengalensis_1
+		Sagittarius_serpentarius_1
+		Anhinga_anhinga_1
+		Pterocles_bicinctus_1
+		Ixobrychus_minutus_1
+		Ardea_herodias_1
+		Crax_alector_1
+		Gallus_gallus_1
+		Morus_serrator_1
+		Eurostopodus_macrotis_1
+		Pelecanoides_urinatrix_1
+		Hemiprocne_comata_1
+		Falco_sparverius_1
+		Pedionomus_torquatus_1
+		Porphyrio_porphyrio_1
+		Rynchops_niger_1
+		Nyctibius_griseus_1
+		Treron_calvus_1
+		Ptilinopus_magnificus_1
+		Caiman_croccodilus_1
+		Eudromia_elegans_1
+		Nothoprocta_ornata_1
+		Rhea_americana_1
+		Monias_benschi_1
+		Phalacrocorax_brasili_1
+		Atelornis_pittoides_1
+		Coracias_cyanogaster_1
+		Momotus_lessonii_1
+		Corvus_albus_1
+		Ptilonorhynchus_violaceus_1
+		Sericulus_bakeri_1
+		Regulus_ignicapilla_1
+		Elanus_leucurus_1
+		Hymenops_perspicillatus_1
+		Rhynchocyclus_olivaceus_1
+		Rupicola_rupicola_1
+		Sclerurus_mexicanus_1
+		Pitta_angolensis_1
+		Chunga_burmeisteri_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Acanthisitta_chloris_1,
+		2	Aegotheles_insignis_1,
+		3	Galbula_dea_1,
+		4	Psittacus_erithacus_1,
+		5	Smithornis_rufolateralis_1,
+		6	Caracara_cheriway_1,
+		7	Micrastur_gilvicollis_1,
+		8	Centropus_bengalensis_1,
+		9	Sagittarius_serpentarius_1,
+		10	Anhinga_anhinga_1,
+		11	Pterocles_bicinctus_1,
+		12	Ixobrychus_minutus_1,
+		13	Ardea_herodias_1,
+		14	Crax_alector_1,
+		15	Gallus_gallus_1,
+		16	Morus_serrator_1,
+		17	Eurostopodus_macrotis_1,
+		18	Pelecanoides_urinatrix_1,
+		19	Hemiprocne_comata_1,
+		20	Falco_sparverius_1,
+		21	Pedionomus_torquatus_1,
+		22	Porphyrio_porphyrio_1,
+		23	Rynchops_niger_1,
+		24	Nyctibius_griseus_1,
+		25	Treron_calvus_1,
+		26	Ptilinopus_magnificus_1,
+		27	Caiman_croccodilus_1,
+		28	Eudromia_elegans_1,
+		29	Nothoprocta_ornata_1,
+		30	Rhea_americana_1,
+		31	Monias_benschi_1,
+		32	Phalacrocorax_brasili_1,
+		33	Atelornis_pittoides_1,
+		34	Coracias_cyanogaster_1,
+		35	Momotus_lessonii_1,
+		36	Corvus_albus_1,
+		37	Ptilonorhynchus_violaceus_1,
+		38	Sericulus_bakeri_1,
+		39	Regulus_ignicapilla_1,
+		40	Elanus_leucurus_1,
+		41	Hymenops_perspicillatus_1,
+		42	Rhynchocyclus_olivaceus_1,
+		43	Rupicola_rupicola_1,
+		44	Sclerurus_mexicanus_1,
+		45	Pitta_angolensis_1,
+		46	Chunga_burmeisteri_1
+	;
+	TREE * UNTITLED = [&U] (1:0.0554201296,2:0.0735716832,3:0.143542849,4:0.0672014587,5:0.0270386196,(6:0.0405101817,7:2.162e-06)97:0.087274778,8:0.117316428,9:0.0716647075,10:0.0668241944,11:0.1142352062,12:0.066820214,13:0.0608713078,14:0.1180117571,15:0.1283329435,16:0.0773994715,17:0.0435708005,18:0.0591488369,19:0.0495197353,((20:2.1182e-06,21:1e-06)93:0.0074100996,22:0.0050568047)99:0.0932905229,23:0.0333954035,24:0.0382279233,25:0.0382270613,26:0.0546086676,27:0.5175996184,28:0.1938731574,29:0.1410973583,30:0.1867350366,31:0.021944837,32:0.0219425401,33:0.0858053621,34:0.1122142398,35:0.1109839602,36:0.1071367195,((37:1e-06,38:1e-06)90:2.0534e-06,39:0.0441734477)91:0.0771295327,40:0.0841592458,41:0.0732936768,42:0.1418183162,43:0.128957487,44:0.0610477861,45:0.1003513386,46:2.8236e-06);
+END;

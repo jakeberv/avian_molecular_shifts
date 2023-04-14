@@ -1,0 +1,71 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:10 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 29;
+	TAXLABELS
+		Acanthisitta_chloris_1
+		Anseranas_semipalmata_1
+		Crax_alector_1
+		Casuarius_bennetti_1
+		Phoebastria_nigripes_1
+		Arenaria_interpres_1
+		Pedionomus_torquatus_1
+		Pelagodroma_marina_1
+		Pelecanoides_urinatrix_1
+		Rostratula_benghalensis_1
+		Phoeniculus_purpureus_1
+		Uria_aalge_1
+		Balearica_regulorum_1
+		Grus_canadensis_1
+		Bucco_capensis_1
+		Psophia_crepitans_1
+		Caprimulgus_europaeus_1
+		Mesitornis_unicolor_1
+		Micrastur_gilvicollis_1
+		Buteo_jamaicensis_1
+		Crocodylus_porosus_1
+		Psittacus_erithacus_1
+		Psittrichas_fulgidus_1
+		Trogon_elegans_1
+		Treron_calvus_1
+		Streptoprocne_zonaris_1
+		Cryptopipo_aenigma_1
+		Lepidocolaptes_angustirostr_1
+		Myrmornis_torquata_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Acanthisitta_chloris_1,
+		2	Anseranas_semipalmata_1,
+		3	Crax_alector_1,
+		4	Casuarius_bennetti_1,
+		5	Phoebastria_nigripes_1,
+		6	Arenaria_interpres_1,
+		7	Pedionomus_torquatus_1,
+		8	Pelagodroma_marina_1,
+		9	Pelecanoides_urinatrix_1,
+		10	Rostratula_benghalensis_1,
+		11	Phoeniculus_purpureus_1,
+		12	Uria_aalge_1,
+		13	Balearica_regulorum_1,
+		14	Grus_canadensis_1,
+		15	Bucco_capensis_1,
+		16	Psophia_crepitans_1,
+		17	Caprimulgus_europaeus_1,
+		18	Mesitornis_unicolor_1,
+		19	Micrastur_gilvicollis_1,
+		20	Buteo_jamaicensis_1,
+		21	Crocodylus_porosus_1,
+		22	Psittacus_erithacus_1,
+		23	Psittrichas_fulgidus_1,
+		24	Trogon_elegans_1,
+		25	Treron_calvus_1,
+		26	Streptoprocne_zonaris_1,
+		27	Cryptopipo_aenigma_1,
+		28	Lepidocolaptes_angustirostr_1,
+		29	Myrmornis_torquata_1
+	;
+	TREE * UNTITLED = [&U] (1:0.0688848619,((((2:0.042319742,3:0.0901858353)65:0.0131043135,4:0.1704837568)67:0.0101112692,5:0.0430321684,(6:0.0658546192,(7:2.3724e-06,(((8:0.0131927678,9:0.0091985594)95:0.0627278854,10:0.265646643)93:0.1082127579,11:2.2278e-06)100:0.3219322722)70:0.0540304168)66:0.0299822331,12:0.02628159,(13:0.0219480594,14:1e-06)90:0.0212538733,15:0.0764687514,16:0.036549587,(17:0.0364632139,18:0.0219006262)82:0.0166971464,19:0.0648135689,20:0.0485648324,(((21:0.4502780549,22:2.2412e-06)65:0.0357140089,23:0.0045336944)65:0.026345493,24:0.0697195094)56:0.0157539863,25:0.0854196489)57:0.0050434372,26:0.0791199247)90:0.009167559,(27:0.040425156,(28:0.0565488614,29:0.0403670687)98:0.0155965477)99:0.022564801);
+END;

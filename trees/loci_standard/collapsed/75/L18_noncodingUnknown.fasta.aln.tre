@@ -1,0 +1,99 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:21 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 43;
+	TAXLABELS
+		Accipiter_superciliosus_1
+		Anas_superciliosa_1
+		Anser_canagicus_1
+		Oxyura_jamaicensis_1
+		Dendrocygna_viduata_1
+		Momotus_lessonii_1
+		Ardea_herodias_1
+		Tigrisoma_lineatum_1
+		Falco_sparverius_1
+		Pedionomus_torquatus_1
+		Phoeniculus_purpureus_1
+		Upupa_epops_1
+		Ardeotis_kori_1
+		Ixobrychus_minutus_1
+		Todus_mexicanus_1
+		Archilochus_colubris_1
+		Atelornis_pittoides_1
+		Limosa_lapponica_1
+		Haematopus_palliatus_1
+		Recurvirostra_americana_1
+		Barnardius_zonarius_1
+		Psittrichas_fulgidus_1
+		Psittacus_erithacus_1
+		Deroptyus_accipitrinus_1
+		Nestor_meridionalis_1
+		Jacana_jacana_1
+		Apaloderma_aequatoriale_1
+		Bonasa_umbellus_1
+		Colinus_cristatus_1
+		Rollulus_rouloul_1
+		Coracias_cyanogaster_1
+		Monias_benschi_1
+		Burhinus_oedicnemus_1
+		Phaethon_rubricauda_1
+		Leptosomus_discolor_1
+		Phoenicopterus_ruber_1
+		Cathartes_burrovianus_1
+		Cariama_cristata_1
+		Chunga_burmeisteri_1
+		Strix_varia_1
+		Buteo_jamaicensis_1
+		Elanus_leucurus_1
+		Furnarius_rufus_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Accipiter_superciliosus_1,
+		2	Anas_superciliosa_1,
+		3	Anser_canagicus_1,
+		4	Oxyura_jamaicensis_1,
+		5	Dendrocygna_viduata_1,
+		6	Momotus_lessonii_1,
+		7	Ardea_herodias_1,
+		8	Tigrisoma_lineatum_1,
+		9	Falco_sparverius_1,
+		10	Pedionomus_torquatus_1,
+		11	Phoeniculus_purpureus_1,
+		12	Upupa_epops_1,
+		13	Ardeotis_kori_1,
+		14	Ixobrychus_minutus_1,
+		15	Todus_mexicanus_1,
+		16	Archilochus_colubris_1,
+		17	Atelornis_pittoides_1,
+		18	Limosa_lapponica_1,
+		19	Haematopus_palliatus_1,
+		20	Recurvirostra_americana_1,
+		21	Barnardius_zonarius_1,
+		22	Psittrichas_fulgidus_1,
+		23	Psittacus_erithacus_1,
+		24	Deroptyus_accipitrinus_1,
+		25	Nestor_meridionalis_1,
+		26	Jacana_jacana_1,
+		27	Apaloderma_aequatoriale_1,
+		28	Bonasa_umbellus_1,
+		29	Colinus_cristatus_1,
+		30	Rollulus_rouloul_1,
+		31	Coracias_cyanogaster_1,
+		32	Monias_benschi_1,
+		33	Burhinus_oedicnemus_1,
+		34	Phaethon_rubricauda_1,
+		35	Leptosomus_discolor_1,
+		36	Phoenicopterus_ruber_1,
+		37	Cathartes_burrovianus_1,
+		38	Cariama_cristata_1,
+		39	Chunga_burmeisteri_1,
+		40	Strix_varia_1,
+		41	Buteo_jamaicensis_1,
+		42	Elanus_leucurus_1,
+		43	Furnarius_rufus_1
+	;
+	TREE * UNTITLED = [&U] (1:2.8558e-06,(2:0.0078684421,(3:0.0380536187,4:2.7292e-06)87:0.0077123484,5:0.0367178322)88:0.2459257991,6:0.3117037257,(7:3.0914e-06,8:3.0914e-06,(9:0.0083728908,10:0.0078232806)99:0.0262271314,(11:0.0177881497,12:0.0066649495)99:0.0357495955)94:0.2035505708,13:0.2210974462,14:0.1713618813,15:0.168796332,16:0.168893919,17:0.1307646421,18:0.1051125883,19:0.106404893,20:0.1164624421,((((21:0.0097497981,22:0.0411712676,23:0.0098322264)95:0.0099012757,24:0.0098737967)95:0.0099506221,25:2.0958e-06)83:2.0546e-06,26:0.0794332919)85:0.0872088613,27:0.1205217096,((28:0.0133970823,29:0.0962358626)93:0.0137918803,30:2.0668e-06)95:0.1865954372,31:0.1164738015,32:0.102075218,33:0.0510017097,34:0.039716849,35:0.0505916331,36:0.0298349459,37:0.0197692333,(38:2.3631e-06,39:1e-06)97:0.0294253282,40:0.030447964,(41:2.1313e-06,(42:2.6525e-06,43:0.2675475174)91:0.0207196122)76:0.0100166612);
+END;

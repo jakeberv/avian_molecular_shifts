@@ -1,0 +1,81 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:38 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 34;
+	TAXLABELS
+		Aegotheles_insignis_1
+		Aramus_guarauna_1
+		Ardea_herodias_1
+		Colinus_cristatus_1
+		Gallus_gallus_1
+		Nothoprocta_ornata_1
+		Columba_livia_1
+		Ptilinopus_magnificus_1
+		Scopus_umbretta_1
+		Caprimulgus_europaeus_1
+		Caracara_cheriway_1
+		Ibycter_americanus_1
+		Falco_sparverius_1
+		Pedionomus_torquatus_1
+		Psittacus_erithacus_1
+		Pterodroma_externa_1
+		Chauna_torquata_1
+		Urocolius_indicus_1
+		Glareola_nuchalis_1
+		Rynchops_niger_1
+		Bucco_capensis_1
+		Porphyrio_porphyrio_1
+		Chunga_burmeisteri_1
+		Cotinga_cayana_1
+		Sclerurus_mexicanus_1
+		Pipra_erythrocephala_1
+		Climacteris_melanura_1
+		Ptilonorhynchus_violaceus_1
+		Sericulus_bakeri_1
+		Galbula_dea_1
+		Micropygia_schomburgkii_1
+		Tapera_naevia_1
+		Recurvirostra_americana_1
+		Nyctibius_griseus_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Aegotheles_insignis_1,
+		2	Aramus_guarauna_1,
+		3	Ardea_herodias_1,
+		4	Colinus_cristatus_1,
+		5	Gallus_gallus_1,
+		6	Nothoprocta_ornata_1,
+		7	Columba_livia_1,
+		8	Ptilinopus_magnificus_1,
+		9	Scopus_umbretta_1,
+		10	Caprimulgus_europaeus_1,
+		11	Caracara_cheriway_1,
+		12	Ibycter_americanus_1,
+		13	Falco_sparverius_1,
+		14	Pedionomus_torquatus_1,
+		15	Psittacus_erithacus_1,
+		16	Pterodroma_externa_1,
+		17	Chauna_torquata_1,
+		18	Urocolius_indicus_1,
+		19	Glareola_nuchalis_1,
+		20	Rynchops_niger_1,
+		21	Bucco_capensis_1,
+		22	Porphyrio_porphyrio_1,
+		23	Chunga_burmeisteri_1,
+		24	Cotinga_cayana_1,
+		25	Sclerurus_mexicanus_1,
+		26	Pipra_erythrocephala_1,
+		27	Climacteris_melanura_1,
+		28	Ptilonorhynchus_violaceus_1,
+		29	Sericulus_bakeri_1,
+		30	Galbula_dea_1,
+		31	Micropygia_schomburgkii_1,
+		32	Tapera_naevia_1,
+		33	Recurvirostra_americana_1,
+		34	Nyctibius_griseus_1
+	;
+	TREE * UNTITLED = [&U] (1:0.044725267,2:0.0797159989,3:0.1007386538,((4:0.093281241,5:0.0267491337)100:0.1667415487,6:0.3104691687)91:0.1598665264,(7:2.2111e-06,8:0.053930351)99:0.1615308631,9:0.0940128955,10:0.1566448073,(11:0.0142143609,12:2.0256e-06)98:0.107196633,(13:2.7476e-06,14:0.0067636544)100:0.1304094841,15:0.1292266791,16:0.0711083364,17:0.1845190942,18:0.1413224602,19:0.1207774509,20:0.1391348866,21:0.1245307965,22:0.0793328662,23:0.1505864726,((24:0.010886758,25:0.0244464356)97:0.0069327075,26:0.0324777803)98:0.1230978814,(27:0.109590478,28:3.3749e-06,29:3.3749e-06)93:0.1012361859,30:0.1233075217,31:0.1467361693,32:0.1404219796,33:0.0774700512,34:0.0301455604);
+END;

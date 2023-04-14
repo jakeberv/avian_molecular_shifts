@@ -1,5 +1,5 @@
-#Last updated 9 March 2023
-#Master R code for executing analyses for
+# Last updated 13 April 2023
+# Master R code for executing analyses for
 # Molecular early burst associated with the diversification of birds at the K–Pg boundary
 
 #load packages to get started
@@ -46,6 +46,135 @@ require(autoimage)
 #read in function definitions
 source("Functions_consensus_genetrees.R")
 
+#system report and package references
+{
+#require(report)
+#session <- sessionInfo()
+#r <- report(session)
+#saveRDS(r, file='./RDS/session_report.RDS')
+
+##Note, treePL must be installed in your path for congruification to work
+  
+#report_system()
+#Analyses were conducted using the R Statistical language (version 4.2.2; R Core Team, 2022) on macOS Ventura 13.2.1
+
+#report_packages(include_R = FALSE)
+#- geiger (version 2.0.10; Alfaro M et al., 2009)
+#- iterators (version 1.0.14; Analytics R, Weston S, 2022)
+#- magrittr (version 2.0.3; Bache S, Wickham H, 2022)
+#- OUwie (version 2.10; Beaulieu JM, O'Meara B, 2022)
+#- maps (version 3.4.1; Becker OScbRA et al., 2022)
+#- ggradar (version 0.2; Bion R, 2022)
+#- maptools (version 1.1.6; Bivand R, Lewin-Koh N, 2022)
+#- rgeos (version 0.6.1; Bivand R, Rundel C, 2022)
+#- GISTools (version 0.7.4; Brunsdon C, Chen H, 2014)
+#- ratematrix (version 1.2.4; Caetano D, Harmon L, 2022)
+#- seqinr (version 4.2.23; Charif D, Lobry J, 2007)
+#- mvMORPH (version 1.1.6; Clavel J et al., 2015)
+#- doParallel (version 1.0.17; Corporation M, Weston S, 2022)
+#- doSNOW (version 1.0.20; Corporation M, Weston S, 2022)
+#- coRdon (version 1.16.0; Elek A et al., 2022)
+#- english (version 1.2.6; Fox J et al., 2021)
+#- car (version 3.1.1; Fox J, Weisberg S, 2019)
+#- carData (version 3.0.5; Fox J et al., 2022)
+#- autoimage (version 2.2.3; French JP, 2017)
+#- viridis (version 0.6.2; Garnier et al., 2021)
+#- viridisLite (version 0.4.1; Garnier et al., 2022)
+#- mvtnorm (version 1.1.3; Genz A et al., 2021)
+#- mapplots (version 1.5.1; Gerritsen H, 2018)
+#- Rphylopars (version 0.3.9; Goolsby E et al., 2022)
+#- phylolm (version 2.6.2; Ho LST, Ane C, 2014)
+#- Biobase (version 2.58.0; Huber W et al., 2015)
+#- BiocGenerics (version 0.44.0; Huber et al., 2015)
+#- rr2 (version 1.1.0; Ives AR, 2018)
+#- nloptr (version 2.0.3; Johnson SG, ?)
+#- ggpubr (version 0.5.0; Kassambara A, 2022)
+#- subplex (version 1.8; King AA, Rowan T, 2022)
+#- pheatmap (version 1.0.12; Kolde R, 2019)
+#- pbmcapply (version 1.5.1; Kuang K et al., 2022)
+#- report (version 0.5.7; Makowski D et al., 2023)
+#- foreach (version 1.5.2; Microsoft, Weston S, 2022)
+#- fmsb (version 0.7.5; Nakazawa M, 2023)
+#- RColorBrewer (version 1.1.3; Neuwirth E, 2022)
+#- caper (version 1.0.1; Orme D et al., 2018)
+#- pegas (version 1.1; Paradis E, 2010)
+#- ape (version 5.7; Paradis E, Schliep K, 2019)
+#- sp (version 1.6.0; Pebesma EJ, Bivand RS, 2005)
+#- phytools (version 1.2.0; Revell LJ, 2012)
+#- corpcor (version 1.6.10; Schafer J et al., 2021)
+#- Quartet (version 1.2.5; Smith MR, 2019)
+#- TreeTools (version 1.9.0; Smith MR, 2019)
+#- TeachingDemos (version 2.12; Snow G, 2020)
+#- snow (version 0.4.4; Tierney L et al., 2021)
+#- MASS (version 7.3.58.1; Venables WN, Ripley BD, 2002)
+#- words2number (version 0.2.0; Vera Oteo J, Marwick B, 2018)
+#- ggplot2 (version 3.4.1; Wickham H, 2016)
+#- readxl (version 1.4.1; Wickham H, Bryan J, 2022)
+#- dplyr (version 1.1.0; Wickham H et al., 2023)
+#- ggridges (version 0.5.4; Wilke C, 2022)
+#- treeio (version 1.22.0; Yu G, 2022)
+#- ggtree (version 3.6.2; Yu G, 2022)
+
+#cite_packages()
+#- Alfaro M, Santini F, Brock C, Alamillo H, Dornburg A, Rabosky D, Carnevale G, Harmon L (2009). “Nine exceptional radiations plus high turnover explain species diversity in jawed vertebrates.” _Proceedings of the National Academy of Sciences of the United States of America_, *106*, 13410-13414. Eastman J, Alfaro M, Joyce P, Hipp A, Harmon L (2011). “A novel comparative method for identifying shifts in the rate of character evolution on trees.” _Evolution_, *65*, 3578-3589. Slater G, Harmon L, Wegmann D, Joyce P, Revell L, Alfaro M (2012). “Fitting models of continuous trait evolution to incompletely sampled comparative data using approximate Bayesian computation.” _Evolution_, *66*, 752-762. Harmon L, Weir J, Brock C, Glor R, Challenger W (2008). “GEIGER: investigating evolutionary radiations.” _Bioinformatics_, *24*, 129-131. Pennell M, Eastman J, Slater G, Brown J, Uyeda J, Fitzjohn R, Alfaro M, Harmon L (2014). “geiger v2.0: an expanded suite of methods for fitting macroevolutionary models to phylogenetic trees.” _Bioinformatics_, *30*, 2216-2218.
+#- Analytics R, Weston S (2022). _iterators: Provides Iterator Construct_. R package version 1.0.14, <https://CRAN.R-project.org/package=iterators>.
+#- Bache S, Wickham H (2022). _magrittr: A Forward-Pipe Operator for R_. R package version 2.0.3, <https://CRAN.R-project.org/package=magrittr>.
+#- Beaulieu JM, O'Meara B (2022). _OUwie: Analysis of Evolutionary Rates in an OU Framework_. R package version 2.10, <https://github.com/thej022214/OUwie>.
+#- Becker OScbRA, Minka ARWRvbRBEbTP, Deckmyn. A (2022). _maps: Draw Geographical Maps_. R package version 3.4.1, <https://CRAN.R-project.org/package=maps>.
+#- Bion R (2022). _ggradar: Create radar charts using ggplot2_. R package version 0.2.
+#- Bivand R, Lewin-Koh N (2022). _maptools: Tools for Handling Spatial Objects_. R package version 1.1-6, <https://CRAN.R-project.org/package=maptools>.
+#- Bivand R, Rundel C (2022). _rgeos: Interface to Geometry Engine - Open Source ('GEOS')_. R package version 0.6-1, <https://CRAN.R-project.org/package=rgeos>.
+#- Brunsdon C, Chen H (2014). _GISTools: Some further GIS capabilities for R_. R package version 0.7-4, <https://CRAN.R-project.org/package=GISTools>.
+#- Caetano D, Harmon L (2022). _ratematrix: Bayesian Estimation of the Evolutionary Rate Matrix_. R package version 1.2.4, <https://CRAN.R-project.org/package=ratematrix>.
+#- Charif D, Lobry J (2007). “SeqinR 1.0-2: a contributed package to the R project for statistical computing devoted to biological sequences retrieval and analysis.” In Bastolla U, Porto M, Roman H, Vendruscolo M (eds.), _Structural approaches to sequence evolution: Molecules, networks, populations_, series Biological and Medical Physics, Biomedical Engineering, 207-232. Springer Verlag, New York. ISBN : 978-3-540-35305-8.
+#- Clavel J, Escarguel G, Merceron G (2015). “mvMORPH: an R package for fitting multivariate evolutionary models to morphometric data.” _Methods in Ecology and Evolution_, *6*, 1311-1319.
+#- Corporation M, Weston S (2022). _doParallel: Foreach Parallel Adaptor for the 'parallel' Package_. R package version 1.0.17, <https://CRAN.R-project.org/package=doParallel>.
+#- Corporation M, Weston S (2022). _doSNOW: Foreach Parallel Adaptor for the 'snow' Package_. R package version 1.0.20, <https://CRAN.R-project.org/package=doSNOW>.
+#- Elek A, Kuzman M, Vlahovicek K (2022). _coRdon: Codon Usage Analysis and Prediction of Gene Expressivity_. R package version 1.16.0, <https://github.com/BioinfoHR/coRdon>.
+#- Fox J, Venables B, Damico A, Salverda AP (2021). _english: Translate Integers into English_. R package version 1.2-6, <https://CRAN.R-project.org/package=english>.
+#- Fox J, Weisberg S (2019). _An R Companion to Applied Regression_, Third edition. Sage, Thousand Oaks CA. <https://socialsciences.mcmaster.ca/jfox/Books/Companion/>.
+#- Fox J, Weisberg S, Price B (2022). _carData: Companion to Applied Regression Data Sets_. R package version 3.0-5, <https://CRAN.R-project.org/package=carData>.
+#- French JP (2017). “autoimage: Multiple Heat Maps for Projected Coordinates.” _The R Journal_, *9*, 284-297. <https://journal.r-project.org/archive/2017/RJ-2017-025/RJ-2017-025.pdf>.
+#- Garnier, Simon, Ross, Noam, Rudis, Robert, Camargo, Pedro A, Sciaini, Marco, Scherer, Cédric (2021). _viridis - Colorblind-Friendly Color Maps for R_. doi:10.5281/zenodo.4679424 <https://doi.org/10.5281/zenodo.4679424>, R package version 0.6.2, <https://sjmgarnier.github.io/viridis/>.
+#- Garnier, Simon, Ross, Noam, Rudis, Robert, Camargo, Pedro A, Sciaini, Marco, Scherer, Cédric (2022). _viridis - Colorblind-Friendly Color Maps for R_. doi:10.5281/zenodo.4679424 <https://doi.org/10.5281/zenodo.4679424>, R package version 0.4.1, <https://sjmgarnier.github.io/viridis/>.
+#- Genz A, Bretz F, Miwa T, Mi X, Leisch F, Scheipl F, Hothorn T (2021). _mvtnorm: Multivariate Normal and t Distributions_. R package version 1.1-3, <https://CRAN.R-project.org/package=mvtnorm>. Genz A, Bretz F (2009). _Computation of Multivariate Normal and t Probabilities_, series Lecture Notes in Statistics. Springer-Verlag, Heidelberg. ISBN 978-3-642-01688-2.
+#- Gerritsen H (2018). _mapplots: Data Visualisation on Maps_. R package version 1.5.1, <https://CRAN.R-project.org/package=mapplots>.
+#- Goolsby E, Bruggeman J, Ane C (2022). _Rphylopars: Phylogenetic Comparative Tools for Missing Data and Within-Species Variation_. R package version 0.3.9, <https://CRAN.R-project.org/package=Rphylopars>.
+#- Ho LST, Ane C (2014). “A linear-time algorithm for Gaussian and non-Gaussian trait evolution models.” _Systematic Biology_, *63*, 397-408.
+#- Huber W, Carey VJ, Gentleman R, Anders S, Carlson M, Carvalho BS, Bravo HC, Davis S, Gatto L, Girke T, Gottardo R, Hahne F, Hansen KD, Irizarry RA, Lawrence M, Love MI, MacDonald J, Obenchain V, Ole's AK, Pag`es H, Reyes A, Shannon P, Smyth GK, Tenenbaum D, Waldron L, Morgan M (2015). “Orchestrating high-throughput genomic analysis with Bioconductor.” _Nature Methods_, *12*(2), 115-121. <http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html>.
+#- Huber, W., Carey, J. V, Gentleman, R., Anders, S., Carlson, M., Carvalho, S. B, Bravo, C. H, Davis, S., Gatto, L., Girke, T., Gottardo, R., Hahne, F., Hansen, D. K, Irizarry, A. R, Lawrence, M., Love, I. M, MacDonald, J., Obenchain, V., Ole's, K. A, Pag`es, H., Reyes, A., Shannon, P., Smyth, K. G, Tenenbaum, D., Waldron, L., Morgan, M. (2015). “Orchestrating high-throughput genomic analysis with Bioconductor.” _Nature Methods_, *12*(2), 115-121. <http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html>.
+#- Ives AR (2018). “R^2s for Correlated Data: Phylogenetic Models, LMMs, and GLMMs.” _Systematic Biology_, syy060. <https://doi.org/10.1093/sysbio/syy060>. Ives AR, Li D (2018). “rr2: An R package to calculate R^2s for regression models.” _The Journal of Open Source Software_, *3*(30), 1028. <https://doi.org/10.21105/joss.01028>.
+#- Johnson SG (?). “The NLopt nonlinear-optimization package.” _?_, *?*(?), ?
+#- Kassambara A (2022). _ggpubr: 'ggplot2' Based Publication Ready Plots_. R package version 0.5.0, <https://CRAN.R-project.org/package=ggpubr>.
+#- King AA, Rowan T (2022). _subplex: Unconstrained Optimization using the Subplex Algorithm_. R package version 1.8, <https://CRAN.R-project.org/package=subplex>.
+#- Kolde R (2019). _pheatmap: Pretty Heatmaps_. R package version 1.0.12, <https://CRAN.R-project.org/package=pheatmap>.
+#- Kuang K, Kong Q, Napolitano F (2022). _pbmcapply: Tracking the Progress of Mc*pply with Progress Bar_. R package version 1.5.1, <https://CRAN.R-project.org/package=pbmcapply>.
+#- Makowski D, Lüdecke D, Patil I, Thériault R, Ben-Shachar M, Wiernik B (2023). “Automated Results Reporting as a Practical Tool to Improve Reproducibility and Methodological Best Practices Adoption.” _CRAN_. <https://easystats.github.io/report/>.
+#- Microsoft, Weston S (2022). _foreach: Provides Foreach Looping Construct_. R package version 1.5.2, <https://CRAN.R-project.org/package=foreach>.
+#- Nakazawa M (2023). _fmsb: Functions for Medical Statistics Book with some Demographic Data_. R package version 0.7.5, <https://CRAN.R-project.org/package=fmsb>.
+#- Neuwirth E (2022). _RColorBrewer: ColorBrewer Palettes_. R package version 1.1-3, <https://CRAN.R-project.org/package=RColorBrewer>.
+#- Orme D, Freckleton R, Thomas G, Petzoldt T, Fritz S, Isaac N, Pearse W (2018). _caper: Comparative Analyses of Phylogenetics and Evolution in R_. R package version 1.0.1, <https://CRAN.R-project.org/package=caper>.
+#- Paradis E (2010). “pegas: an R package for population genetics with an integrated-modular approach.” _Bioinformatics_, *26*, 419-420.
+#- Paradis E, Schliep K (2019). “ape 5.0: an environment for modern phylogenetics and evolutionary analyses in R.” _Bioinformatics_, *35*, 526-528. doi:10.1093/bioinformatics/bty633 <https://doi.org/10.1093/bioinformatics/bty633>.
+#- Pebesma EJ, Bivand RS (2005). “Classes and methods for spatial data in R.” _R News_, *5*(2), 9-13. <https://CRAN.R-project.org/doc/Rnews/>. Bivand RS, Pebesma E, Gomez-Rubio V (2013). _Applied spatial data analysis with R, Second edition_. Springer, NY. <https://asdar-book.org/>.
+#- R Core Team (2022). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical Computing, Vienna, Austria. <https://www.R-project.org/>.
+#- Revell LJ (2012). “phytools: An R package for phylogenetic comparative biology (and other things).” _Methods in Ecology and Evolution_, *3*, 217-223.
+#- Schafer J, Opgen-Rhein R, Zuber V, Ahdesmaki M, Silva APD, Strimmer. K (2021). _corpcor: Efficient Estimation of Covariance and (Partial) Correlation_. R package version 1.6.10, <https://CRAN.R-project.org/package=corpcor>.
+#- Smith MR (2019). _Quartet: comparison of phylogenetic trees using quartet and split measures_. doi:10.5281/zenodo.2536318 <https://doi.org/10.5281/zenodo.2536318>, R package version 1.2.5. Sand A, Holt MK, Johansen J, Brodal GS, Mailund T, Pedersen CNS (2014). “tqDist: a library for computing the quartet and triplet distances between binary or general trees.” _Bioinformatics_, *30*(14), 2079-2080. doi:10.1093/bioinformatics/btu157 <https://doi.org/10.1093/bioinformatics/btu157>. Smith MR (2019). “Bayesian and parsimony approaches reconstruct informative trees from simulated morphological datasets.” _Biology Letters_, *15*(2), 20180632. doi:10.1098/rsbl.2018.0632 <https://doi.org/10.1098/rsbl.2018.0632>.
+#- Smith MR (2019). _TreeTools: create, modify and analyse phylogenetic trees_. Comprehensive R Archive Network. doi:10.5281/zenodo.3522725 <https://doi.org/10.5281/zenodo.3522725>, R package version 1.9.0.
+#- Snow G (2020). _TeachingDemos: Demonstrations for Teaching and Learning_. R package version 2.12, <https://CRAN.R-project.org/package=TeachingDemos>.
+#- Tierney L, Rossini AJ, Li N, Sevcikova H (2021). _snow: Simple Network of Workstations_. R package version 0.4-4, <https://CRAN.R-project.org/package=snow>.
+#- Venables WN, Ripley BD (2002). _Modern Applied Statistics with S_, Fourth edition. Springer, New York. ISBN 0-387-95457-0, <https://www.stats.ox.ac.uk/pub/MASS4/>.
+#- Vera Oteo J, Marwick B (2018). _words2number: Convert number words to numeric digits_. R package version 0.2.0, <https://github.com/benmarwick/words2number>.
+#- Wickham H (2016). _ggplot2: Elegant Graphics for Data Analysis_. Springer-Verlag New York. ISBN 978-3-319-24277-4, <https://ggplot2.tidyverse.org>.
+#- Wickham H, Bryan J (2022). _readxl: Read Excel Files_. R package version 1.4.1, <https://CRAN.R-project.org/package=readxl>.
+#- Wickham H, François R, Henry L, Müller K, Vaughan D (2023). _dplyr: A Grammar of Data Manipulation_. R package version 1.1.0, <https://CRAN.R-project.org/package=dplyr>.
+#- Wilke C (2022). _ggridges: Ridgeline Plots in 'ggplot2'_. R package version 0.5.4, <https://CRAN.R-project.org/package=ggridges>.
+#- Yu G (2022). _Data Integration, Manipulation and Visualization of Phylogenetic Treess_, 1st edition edition. Chapman and Hall/CRC. <https://www.amazon.com/Integration-Manipulation-Visualization-Phylogenetic-Computational-ebook/dp/B0B5NLZR1Z/>. Wang L, Lam TT, Xu S, Dai Z, Zhou L, Feng T, Guo P, Dunn CW, Jones BR, Bradley T, Zhu H, Guan Y, Jiang Y, Yu G (2020). “treeio: an R package for phylogenetic tree input and output with richly annotated and associated data.” _Molecular Biology and Evolution_, *37*, 599-603. doi:10.1093/molbev/msz240 <https://doi.org/10.1093/molbev/msz240>.
+#- Yu G (2022). _Data Integration, Manipulation and Visualization of Phylogenetic Treess_, 1st edition edition. Chapman and Hall/CRC. <https://www.amazon.com/Integration-Manipulation-Visualization-Phylogenetic-Computational-ebook/dp/B0B5NLZR1Z/>. Yu G (2020). “Using ggtree to Visualize Data on Tree-Like Structures.” _Current Protocols in Bioinformatics_, *69*(1), e96. doi:10.1002/cpbi.96 <https://doi.org/10.1002/cpbi.96>, <https://currentprotocols.onlinelibrary.wiley.com/doi/abs/10.1002/cpbi.96>. Yu G, Lam TT, Zhu H, Guan Y (2018). “Two methods for mapping and visualizing associated data on phylogeny using ggtree.” _Molecular Biology and Evolution_, *35*, 3041-3043. doi:10.1093/molbev/msy194 <https://doi.org/10.1093/molbev/msy194>, <https://academic.oup.com/mbe/article/35/12/3041/5142656>. Yu G, Smith D, Zhu H, Guan Y, Lam TT (2017). “ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data.” _Methods in Ecology and Evolution_, *8*, 28-36. doi:10.1111/2041-210X.12628 <https://doi.org/10.1111/2041-210X.12628>, <http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract>.
+  
+}
+
 #Section 1, setting up
 #this code uses bracket notation {} to delineate discrete sections
 #each section is labeled with a comment, 
@@ -53,31 +182,65 @@ source("Functions_consensus_genetrees.R")
 #code is formatted to read .RDS files representing 
 #intermediate data objects
 {
+
 #generate file paths
 {
-##run analysis##
+##run analyses##
 #import time scaled reference from kimball for congruification
 #this is generated by running kimball_time_parser.R
-time_scale<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/timetree.prune.nameswap.tre")
+#local file path (Jake's computer)
+#time_scale<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/timetree.prune.nameswap.tre")
+#git repo file path
+time_scale<-read.tree(file="./trees/timetree.prune.nameswap.tre")
 
 #important file paths
-consensus.all.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/8952e31d/gamma/redo_m3/ALL_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/ALL_MFP_MERGE_MRL3_constraint.rooted.treefile.gophy.results.tre"
-#loci.standard.path<-"~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/unconstrained/loci_standard/results/gophytrees"
+
+#file path for janus directory reflecting analysis of the entire dataset
+#consensus.all.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/8952e31d/gamma/redo_m3/ALL_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/ALL_MFP_MERGE_MRL3_constraint.rooted.treefile.gophy.results.tre"
+consensus.all.path<-"./janus/files/ALL_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/ALL_MFP_MERGE_MRL3_constraint.rooted.treefile.gophy.results.tre"
+
+#file path for janus directory containing exploratory (not noted in text) analysis of individual gene trees
 loci.standard.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/unconstrained_new/janus/0cba26ae/loci_standard/tmp_results/gophy"
 
-consensus.exons.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/8952e31d/gamma/redo_m3/exons_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/exons_MFP_MERGE_MRL3_constraint.rooted.treefile.gophy.results.tre"
-consensus.introns.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/8952e31d/gamma/redo_m3/introns_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/introns_MFP_MERGE_MRL3_constraint.rooted.treefile.gophy.results.tre"
-consensus.utrs.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/8952e31d/gamma/redo_m3/utrs_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/utrs_MFP_MERGE_MRL3_constraint.rooted.treefile.gophy.results.tre"
-consensus.mtdna.all.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/janus/concat_all/mtDNA_all_MRL3_constraint.janus.tre.gophy.results.tre"
-consensus.mtdna.proteins.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/janus/concat_proteins/mtDNA_proteins_MRL3_constraint.janus.treefile.gophy.results.tre"
-consensus.mtdna.rRNAs.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/janus/concat_rRNA/mtDNA_rRNAs_MRL3_constraint.janus.treefile.gophy.results.tre"
-allele.tree.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample2haplo/tree_building/ALL_MFP_2haplo/ALL_MFP_MERGE_2haplo.treefile"
+#file path for janus directory containing analysis of the exon dataset
+#consensus.exons.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/8952e31d/gamma/redo_m3/exons_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/exons_MFP_MERGE_MRL3_constraint.rooted.treefile.gophy.results.tre"
+consensus.exons.path<-"./janus/files/exons_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/exons_MFP_MERGE_MRL3_constraint.rooted.treefile.gophy.results.tre"
+
+#file path for janus directory containing analysis of the exon dataset
+#consensus.introns.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/8952e31d/gamma/redo_m3/introns_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/introns_MFP_MERGE_MRL3_constraint.rooted.treefile.gophy.results.tre"
+consensus.introns.path<-"./janus/files/introns_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/introns_MFP_MERGE_MRL3_constraint.rooted.treefile.gophy.results.tre"
+
+#file path for janus directory containing analysis of the utr dataset
+#consensus.utrs.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/8952e31d/gamma/redo_m3/utrs_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/utrs_MFP_MERGE_MRL3_constraint.rooted.treefile.gophy.results.tre"
+consensus.utrs.path<-"./janus/files/utrs_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/utrs_MFP_MERGE_MRL3_constraint.rooted.treefile.gophy.results.tre"
+
+#file path for janus directory containing analysis of the mtdna (all) dataset
+#consensus.mtdna.all.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/janus/concat_all/mtDNA_all_MRL3_constraint.janus.tre.gophy.results.tre"
+consensus.mtdna.all.path<-"./janus/files/mtdnas/concat_all/mtDNA_all_MRL3_constraint.janus.tre.gophy.results.tre"
+
+#file path for janus directory containing analysis of the mtdna (protein only) dataset
+#consensus.mtdna.proteins.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/janus/concat_proteins/mtDNA_proteins_MRL3_constraint.janus.treefile.gophy.results.tre"
+consensus.mtdna.proteins.path<-"./janus/files/mtdnas/concat_proteins/mtDNA_proteins_MRL3_constraint.janus.treefile.gophy.results.tre"
+
+#file path for janus directory containing analysis of the mtdna (protein only) dataset
+#consensus.mtdna.rRNAs.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/janus/concat_rRNA/mtDNA_rRNAs_MRL3_constraint.janus.treefile.gophy.results.tre"
+consensus.mtdna.rRNAs.path<-"./janus/files/mtdnas/concat_rRNA/mtDNA_rRNAs_MRL3_constraint.janus.treefile.gophy.results.tre"
+
+#file path for tree estimated with both alleles
+#allele.tree.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample2haplo/tree_building/ALL_MFP_2haplo/ALL_MFP_MERGE_2haplo.treefile"
+allele.tree.path<-"./trees/ALL_MFP_2haplo/ALL_MFP_MERGE_2haplo.treefile"
 
 #directories for gene trees with low support edges collapsed
-loci.standard.50.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/50"
-loci.standard.75.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/75"
-loci.standard.90.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/90"
-loci.standard.95.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/95"
+#loci.standard.50.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/50"
+#loci.standard.75.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/75"
+#loci.standard.90.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/90"
+#loci.standard.95.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/95"
+
+loci.standard.50.path<-"./trees/loci_standard/collapsed/50"
+loci.standard.75.path<-"./trees/loci_standard/collapsed/75"
+loci.standard.90.path<-"./trees/loci_standard/collapsed/90"
+loci.standard.95.path<-"./trees/loci_standard/collapsed/95"
+
 }
 
 #read and process data
@@ -95,7 +258,6 @@ genematch.all<-readRDS(file="./RDS/genematch.all.RDS")
 #all_concordance.95<-gene_concordance_perc(refpath=consensus.all.path, targetpath=loci.standard.95.path)
 #saveRDS(all_concordance.95, file="./RDS/all_concordance.95.RDS")
 all_concordance.95<-readRDS(file="./RDS/all_concordance.95.RDS")
-
 
 ##### EXONS ONLY
 
@@ -174,10 +336,10 @@ utrs_concordance.allref<-readRDS(file="./RDS/utrs_concordance.allref.RDS")
 #reading in the mtDNA datasets
 
 #mtDNAs ONLY
-mtDNA.data<-read_excel(path="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/MITOGENOME-Berv-Aug-2021.xlsx", sheet = "jake_mod")
+#mtDNA.data<-read_excel(path="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/MITOGENOME-Berv-Aug-2021.xlsx", sheet = "jake_mod")
+mtDNA.data<-read_excel(path="./mtDNA_REASSEMBLY/MITOGENOME-Berv-Aug-2021.xlsx", sheet = "jake_mod")
 mtDNA.data<-data.frame(treeID=mtDNA.data$treeID, mtdnaNames = mtDNA.data$`NAMES FOR EXPORT`)
 mtDNA.data<-mtDNA.data[complete.cases(mtDNA.data),]
-
 
 #read in the consensus tree from BF+G analysis
 #ran with build 0cba26ae
@@ -802,7 +964,7 @@ phylo.logisticreg.fit.stem.ages.merged.discordance <- phyloglm(uncex.merged~(log
 #   # 
 # }
   
-#load some function from this github repo
+#load some function from this mrhelmus github repo
 #calculate AICc
 {
 devtools:::source_url("https://raw.githubusercontent.com/mrhelmus/phylogeny_manipulation/master/AIC_func.r")
@@ -1604,7 +1766,9 @@ dev.off()
 #consensus.all.timetree$phy$tip.label
 {
 #read in the exons for coRdon analysis
-exons<-readSet(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/CODING/exon_concat.fas")
+#exons<-readSet(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/CODING/exon_concat.fas")
+exons<-readSet(file="./AHE_REASSEMBLY/sequences/concat/exon_concat.fas")
+
 #reorder to match tree
 exons<-exons[consensus.all.timetree$phy$tip.label,]
 #convert to character vector
@@ -1615,11 +1779,16 @@ exonchar<-as.character(exons)
 
 #reading in individual exons (codon usage looping)
 #exons_separate<-exonload(path='/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/CODING/exons/NT_fasta', treeNames=consensus.all.timetree$phy$tip.label)
+#uncomment the next line to load from github path
+#exons_separate<-exonload(path='./AHE_REASSEMBLY/sequences/aligned/sample1haplo/CODING/exons/NT_fasta', treeNames=consensus.all.timetree$phy$tip.label)
+
 #saveRDS(exons_separate, file="./RDS/exons_separate.RDS")
 exons_separate<-readRDS(file="./RDS/exons_separate.RDS")
 
 #read in the introns for GC content calculation
-introns<-readSet(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/NONCODING/TRIMAL_GT_0.05/intron_concat.fas")
+#introns<-readSet(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/NONCODING/TRIMAL_GT_0.05/intron_concat.fas")
+introns<-readSet(file="./AHE_REASSEMBLY/sequences/concat/intron_concat.fas")
+
 #reorder to match tree
 introns<-introns[consensus.all.timetree$phy$tip.label,]
 #convert to character vector
@@ -1629,7 +1798,9 @@ intronchar<-as.character(introns)
 #read.dna("/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample2haplo/NONCODING/intron_concat.fasta", format="fasta")
 
 #read in the UTRs for GC content calculation
-utrs<-readSet(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/NONCODING/TRIMAL_GT_0.05/utr_concat.fas")
+#utrs<-readSet(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/NONCODING/TRIMAL_GT_0.05/utr_concat.fas")
+utrs<-readSet(file="./AHE_REASSEMBLY/sequences/concat/utr_concat.fas")
+
 #reorder to match tree
 utrs<-utrs[consensus.all.timetree$phy$tip.label,]
 #convert to character vector
@@ -1639,7 +1810,9 @@ utrchar<-as.character(utrs)
 #<-read.dna("/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample2haplo/NONCODING/utr_concat.fasta", format="fasta")
 
 #read in all data alignmenet for GC content calculation
+#file is too big for github, so you must find the zipped file in ./AHE_REASSEMBLY/sequences/concat/ and unzip it, then change the path
 alldata<-readSet(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/concat_all_0.05_haplo1.fasta")
+
 #reorder to match tree
 alldata<-alldata[consensus.all.timetree$phy$tip.label,]
 #convert to character vector
@@ -1654,7 +1827,9 @@ alldatachar<-as.character(alldata)
 mtDNA.data.seq<-rbind(mtDNA.data, c("Caiman_croccodilus_1", "Caiman_crocodilus"), c("Crocodylus_porosus_1", "Crocodylus_porosus"))
 
 #read in the mtdna dataset for coRdon analysis
-mtdnas<-readSet(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/concat/concat_all/concat_all_paup.fas")
+#mtdnas<-readSet(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/concat/concat_all/concat_all_paup.fas")
+mtdnas<-readSet(file="./mtDNA_REASSEMBLY/concat_all_paup.fas")
+
 #swap names
 mtdnas<-translation_nameswap_set(object=mtdnas, names = mtDNA.data.seq$mtdnaNames, swap = mtDNA.data.seq$treeID)
 #reorder to match the nuclear dataset
@@ -1665,7 +1840,9 @@ mtdnaschar<-as.character(mtdnas)
 #mtdnaschar<-translation_nameswap(object=mtdnaschar, names = mtDNA.data.seq$mtdnaNames, swap = mtDNA.data.seq$treeID)
 
 #read in the proteins for coRdon analysis
-mtdnaproteins<-readSet(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/concat/concat_proteins_no_nd6/concat_proteins_no_nd6.fas")
+#mtdnaproteins<-readSet(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/concat/concat_proteins_no_nd6/concat_proteins_no_nd6.fas")
+mtdnaproteins<-readSet(file="./mtDNA_REASSEMBLY/concat_proteins_no_nd6.fas")
+
 #swap names
 mtdnaproteins<-translation_nameswap_set(object=mtdnaproteins, names = mtDNA.data.seq$mtdnaNames, swap = mtDNA.data.seq$treeID)
 #reorder to match the nuclear dataset
@@ -1673,9 +1850,10 @@ mtdnaproteins<-mtdnaproteins[consensus.all.timetree$phy$tip.label,]
 #convert to character vector
 mtdnaproteinschar<-as.character(mtdnaproteins)
 
-
 #read in the rRNAs for coRdon analysis
-mtdnas_rRNAs<-readSet(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/concat/concat_rRNAs/concat_rRNAs.fas")
+#mtdnas_rRNAs<-readSet(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/concat/concat_rRNAs/concat_rRNAs.fas")
+mtdnas_rRNAs<-readSet(file="./mtDNA_REASSEMBLY/concat_rRNAs.fas")
+
 #swap names
 mtdnas_rRNAs<-translation_nameswap_set(object=mtdnas_rRNAs, names = mtDNA.data.seq$mtdnaNames, swap = mtDNA.data.seq$treeID)
 #filter out crocodiles
@@ -2458,7 +2636,8 @@ t(apply(nuc.scuo.separate, 1, Stats))[,c(1:2)]
 #### analysis of life history data across the model shifts ####
 {
 #read in
-LHT<-read.table(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/R/bird_et_al_2020/LHT_data_11_1_21.txt", header = T, sep=",")
+#LHT<-read.table(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/R/bird_et_al_2020/LHT_data_11_1_21.txt", header = T, sep=",")
+LHT<-read.table(file="./LHT_DATA/LHT_data_11_1_21.txt", header = T, sep=",")
 
 #cleaned up
 LHT<-data.frame(species=LHT$treeID, latitude=LHT$Range.centroid.of.latitude, 
@@ -2565,19 +2744,19 @@ AIC(ou.fit.corr)
 
 
 #fix this next section depending on the results from l1ou bootstrapping
-#DO NOT RUN
-{
-ou.fit.corr.test <- phylopars(trait_data = phylopars.data[,c("species","mass", "mean.clutch", "gen_length", "survival", "breeding","longevity", "chickPC1", "latitude")], tree = consensus.all.timetree$phy, model = "OU", phylo_correlated = T)
-
-mvMORPH.input<-phylopars.data[,c("species","mass", "mean.clutch", "gen_length", "survival", "breeding","longevity", "chickPC1", "latitude")]
-rownames(mvMORPH.input)<- mvMORPH.input$species
-mvMORPH.input$species <- NULL
-bm.fit.mvbm<-mvBM(data = mvMORPH.input, tree = consensus.all.timetree$phy, model="BM1")
-saveRDS(bm.fit.mvbm, file="./RDS/bm.fit.mvbm.RDS")
-bm.fit.mvou<-mvOU(data = mvMORPH.input, tree = consensus.all.timetree$phy, model="OU1", method="inverse")
-saveRDS(bm.fit.mvou, file="./RDS/bm.fit.mvou.RDS")
-bm.fit.mvou<-mvOU(data = mvMORPH.input, tree = consensus.all.timetree$phy, model="OU1", method="inverse")
-}
+#TESTING -- DO NOT RUN
+# {
+# ou.fit.corr.test <- phylopars(trait_data = phylopars.data[,c("species","mass", "mean.clutch", "gen_length", "survival", "breeding","longevity", "chickPC1", "latitude")], tree = consensus.all.timetree$phy, model = "OU", phylo_correlated = T)
+# 
+# mvMORPH.input<-phylopars.data[,c("species","mass", "mean.clutch", "gen_length", "survival", "breeding","longevity", "chickPC1", "latitude")]
+# rownames(mvMORPH.input)<- mvMORPH.input$species
+# mvMORPH.input$species <- NULL
+# bm.fit.mvbm<-mvBM(data = mvMORPH.input, tree = consensus.all.timetree$phy, model="BM1")
+# saveRDS(bm.fit.mvbm, file="./RDS/bm.fit.mvbm.RDS")
+# bm.fit.mvou<-mvOU(data = mvMORPH.input, tree = consensus.all.timetree$phy, model="OU1", method="inverse")
+# saveRDS(bm.fit.mvou, file="./RDS/bm.fit.mvou.RDS")
+# bm.fit.mvou<-mvOU(data = mvMORPH.input, tree = consensus.all.timetree$phy, model="OU1", method="inverse")
+# }
 
 #Section 9
 ############################################################
@@ -6015,6 +6194,7 @@ legend(x=0.7, y=1.2, legend = rownames(nuc.exonACGT.eq.rad), bty = "n", pch=20 ,
 }
 
 #plotting the simmap tree with radar plots
+#for some reasons these generate an error when plotting interactively, but plot fine to PDF
 
 #exon radar plot
 {
@@ -7820,6 +8000,7 @@ dev.off()
 
 
 ##testing patterns of life history integration with mvMORPH/RPANDA
+#not in the paper, just experimenting
 
 {
 require(RPANDA)

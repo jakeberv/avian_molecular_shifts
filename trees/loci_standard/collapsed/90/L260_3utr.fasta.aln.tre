@@ -1,0 +1,65 @@
+#NEXUS
+[R-package APE, Wed Nov 10 14:44:44 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 26;
+	TAXLABELS
+		Ardeotis_kori_1
+		Balaeniceps_rex_1
+		Coccyzus_melacoryphus_1
+		Treron_calvus_1
+		Columba_livia_1
+		Mesitornis_unicolor_1
+		Hymenops_perspicillatus_1
+		Neopelma_chrysocephalum_1
+		Neodrepanis_coruscans_1
+		Sericulus_bakeri_1
+		Psittacus_erithacus_1
+		Jacana_jacana_1
+		Probosciger_aterrimus_1
+		Eudromia_elegans_1
+		Leptotila_rufaxilla_1
+		Micrastur_gilvicollis_1
+		Bucorvus_leadbeateri_1
+		Chunga_burmeisteri_1
+		Cariama_cristata_1
+		Podargus_strigoides_1
+		Morus_serrator_1
+		Nyctibius_griseus_1
+		Merops_muelleri_1
+		Nestor_meridionalis_1
+		Galbula_dea_1
+		Recurvirostra_americana_1
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Ardeotis_kori_1,
+		2	Balaeniceps_rex_1,
+		3	Coccyzus_melacoryphus_1,
+		4	Treron_calvus_1,
+		5	Columba_livia_1,
+		6	Mesitornis_unicolor_1,
+		7	Hymenops_perspicillatus_1,
+		8	Neopelma_chrysocephalum_1,
+		9	Neodrepanis_coruscans_1,
+		10	Sericulus_bakeri_1,
+		11	Psittacus_erithacus_1,
+		12	Jacana_jacana_1,
+		13	Probosciger_aterrimus_1,
+		14	Eudromia_elegans_1,
+		15	Leptotila_rufaxilla_1,
+		16	Micrastur_gilvicollis_1,
+		17	Bucorvus_leadbeateri_1,
+		18	Chunga_burmeisteri_1,
+		19	Cariama_cristata_1,
+		20	Podargus_strigoides_1,
+		21	Morus_serrator_1,
+		22	Nyctibius_griseus_1,
+		23	Merops_muelleri_1,
+		24	Nestor_meridionalis_1,
+		25	Galbula_dea_1,
+		26	Recurvirostra_americana_1
+	;
+	TREE * UNTITLED = [&U] (1:1e-06,2:1.4e-05,3:0.0273889696,4:1.6e-05,5:0.0124648464,6:0.0124648464,7:0.0292923542,8:0.0144312232,9:0.0302162282,10:0.0147529208,11:1.7e-05,12:1.6e-05,13:1.3e-05,14:1.2e-05,15:1.1e-05,16:1e-05,17:9e-06,18:8e-06,19:7e-06,20:6e-06,21:5e-06,22:4e-06,23:0.0530393388,24:2e-06,25:2e-06,26:2e-06);
+END;
