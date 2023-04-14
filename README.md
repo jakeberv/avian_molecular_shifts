@@ -1,6 +1,6 @@
 pre-print available: https://www.biorxiv.org/content/10.1101/2022.10.21.513146v2
 
-# Jacob S. Berv<sup>1,2,3,*</sup>, Sonal Singhal<sup>4</sup>, Daniel J. Field<sup>5,6</sup>, Nathanael Walker-Hale<sup>7</sup>, Sean W. McHugh<sup>8</sup>, J. Ryan Shipley<sup>9</sup>, Eliot T. Miller<sup>10</sup>, Rebecca T. Kimball<sup>11</sup>, Edward L. Braun<sup>11</sup>, Alex Dornburg<sup>12</sup>, C. Tomomi Parins-Fukuchi<sup>13</sup>, Richard O. Prum<sup>14,15</sup>, Benjamin M. Winger<sup>1,3</sup>, Matt Friedman<sup>2, 16</sup>, Stephen A. Smith<sup>1</sup>
+## Jacob S. Berv<sup>1,2,3,*</sup>, Sonal Singhal<sup>4</sup>, Daniel J. Field<sup>5,6</sup>, Nathanael Walker-Hale<sup>7</sup>, Sean W. McHugh<sup>8</sup>, J. Ryan Shipley<sup>9</sup>, Eliot T. Miller<sup>10</sup>, Rebecca T. Kimball<sup>11</sup>, Edward L. Braun<sup>11</sup>, Alex Dornburg<sup>12</sup>, C. Tomomi Parins-Fukuchi<sup>13</sup>, Richard O. Prum<sup>14,15</sup>, Benjamin M. Winger<sup>1,3</sup>, Matt Friedman<sup>2, 16</sup>, Stephen A. Smith<sup>1</sup>
 
 Corresponding Author: *Jacob S. Berv, jberv@umich.edu, jacob.berv@gmail.com
 
@@ -39,7 +39,7 @@ Author affiliations:
 16.	Department of Earth and Environmental Sciences, 1100 North University Avenue, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
 
 
-## Last updated 10 April 2023
+## Last updated 14 April 2023
 
 ## Primary files
 
@@ -72,15 +72,15 @@ Supplementary Table 3, as noted in the manuscript. This file
 describes assembly details for assembly and extraction of 
 mtDNA genome data from the original AHE target capture data.
 
-**LHT_reference.xlsx_**
+**LHT_DATA**
 
-This reference table contains a database of life-history traits
+LHT_reference.xlsx contains a database of life-history traits
 analyzed in the present study, which are collated from a variety 
 of sources (as described in the manuscript). This table 
 contains only raw data, and does not include estimated values
 (See R code and RDS files).
 
-**RDS folder**
+**RDS**
 
 This folder contains RDS files (R data objects). These files 
 correspond to intermediate or final R data objects 
