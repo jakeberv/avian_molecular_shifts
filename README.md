@@ -66,7 +66,7 @@ classification using the tidymodels framework. This code is
 adapted from the Physalia course examples for machine learning 
 in R.
 
-**mtDNA_supp_table.xlsx**
+**Supplementary Table 3.xlsx**
 
 Supplementary Table 3, as noted in the manuscript. This file
 describes assembly details for assembly and extraction of 
