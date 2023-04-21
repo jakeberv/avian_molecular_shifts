@@ -3,7 +3,7 @@ pre-print available: https://doi.org/10.1101/2022.10.21.513146
 ## Jacob S. Berv<sup>1,2,3,*</sup>, Sonal Singhal<sup>4</sup>, Daniel J. Field<sup>5,6</sup>, Nathanael Walker-Hale<sup>7</sup>, Sean W. McHugh<sup>8</sup>, J. Ryan Shipley<sup>9</sup>, Eliot T. Miller<sup>10</sup>, Rebecca T. Kimball<sup>11</sup>, Edward L. Braun<sup>11</sup>, Alex Dornburg<sup>12</sup>, C. Tomomi Parins-Fukuchi<sup>13</sup>, Richard O. Prum<sup>14,15</sup>, Benjamin M. Winger<sup>1,3</sup>, Matt Friedman<sup>2, 16</sup>, Stephen A. Smith<sup>1</sup>
 
 Corresponding Author: *Jacob S. Berv, jberv@umich.edu, jacob.berv@gmail.com
-Relevant co-author: Sean Mchugh sean.mchugh4@gmail.com
+Relevant co-author: Sonal Singhal, sonal.singhal1@gmail.com
 
 Author affiliations:
 
@@ -39,20 +39,17 @@ Author affiliations:
 
 16.	Department of Earth and Environmental Sciences, 1100 North University Avenue, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
 
+****
 
-## Metabolic allometry 
+## Tree files
 
----
-#Bayou allometry shifting regimes model pipeline 
-#written by: Sean McHugh, Josef Uyeda, Jacob Berv
+**ALL_MFP_2haplo**
+This folder contains the IQ-tree output files for branch length estimation
 
-**full_restrict_equal_10Mx3_ME01_L8.R**
+**loci_standard**
+This folder contains processed gene trees with poorly supported nodes collapsed
+at particular levels (e.g., 50%-95% bootstrap scores)
 
-Estimates evolution of an evolutionary allometric slope and intercept 
-as multiregime OU process using the R package bayou (Uyeda and Harmon 
-2014; Uyeda et al. 2017), with shifts  either provided a priori or 
-estimated via reversible jump MCMC.
+**timetree.prune.nameswap.tre**
+Reference Time Scaled tree called interanally by the primary R script
 
-Other folders reflect outputs from bayou 2.0 for the main analysis runs
-
----

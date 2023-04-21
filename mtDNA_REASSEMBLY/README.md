@@ -1,4 +1,4 @@
-pre-print available: https://www.biorxiv.org/content/10.1101/2022.10.21.513146v2
+pre-print available: https://doi.org/10.1101/2022.10.21.513146
 
 ## Jacob S. Berv<sup>1,2,3,*</sup>, Sonal Singhal<sup>4</sup>, Daniel J. Field<sup>5,6</sup>, Nathanael Walker-Hale<sup>7</sup>, Sean W. McHugh<sup>8</sup>, J. Ryan Shipley<sup>9</sup>, Eliot T. Miller<sup>10</sup>, Rebecca T. Kimball<sup>11</sup>, Edward L. Braun<sup>11</sup>, Alex Dornburg<sup>12</sup>, C. Tomomi Parins-Fukuchi<sup>13</sup>, Richard O. Prum<sup>14,15</sup>, Benjamin M. Winger<sup>1,3</sup>, Matt Friedman<sup>2, 16</sup>, Stephen A. Smith<sup>1</sup>
 
@@ -40,10 +40,28 @@ Author affiliations:
 16.	Department of Earth and Environmental Sciences, 1100 North University Avenue, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
 
 
-**mtDNA dataset**
+##Files related to assembly of off-target mtDNA
 
-*alignments.zip*
-This zip file includes final mtDNA MACSE and FSA sequence alignments
+**unaligned.zip**
 
-*unaligned.zip*
-This zip file includes unaligned and unfiltered mtDNA sequences
+Unaligned sequences 
+
+**alignments.zip**
+
+Aligned sequences (MACSE/FSA)
+
+**concat_all_paup.fas**
+
+All mtDNA loci in a concatenated fasta file
+
+**concat_proteins_no_nd6.fas**
+
+mtDNA proteins in a concatenated fasta file
+
+**concat_rRNAs.fas**
+
+mtDNA rRNAs in a concatenated fasta file
+
+**MITOGENOME-Berv-Aug-2021.xlsx**
+
+Assembly spreadsheet (only called by internal R scripts)
