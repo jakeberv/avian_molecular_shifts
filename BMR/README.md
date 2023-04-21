@@ -39,7 +39,6 @@ Author affiliations:
 
 16.	Department of Earth and Environmental Sciences, 1100 North University Avenue, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
 
-## Last updated 10 April 2023
 
 ---
 #Bayou allometry shifting regimes model pipeline 

@@ -38,9 +38,6 @@ Author affiliations:
 
 16.	Department of Earth and Environmental Sciences, 1100 North University Avenue, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
 
-
-## Last updated 14 April 2023
-
 ## Primary files
 
 **constrained_species_tree.R**
@@ -100,7 +97,7 @@ This folder contains files related to assembly of the mtDNA dataset.
 This folder contains scripts and files related to 
 analysis of the BMR dataset.
 
-**janus_output**
+**janus**
 
 This folder contains the relevant results from janus 
 (e.g.,input/output files)

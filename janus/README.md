@@ -39,6 +39,7 @@ Author affiliations:
 16.	Department of Earth and Environmental Sciences, 1100 North University Avenue, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
 
 
-## Last updated 10 April 2023
+**files**
 
-## Primary files
+This folder contains the janus output files, 
+imported by the primary R script for processing
