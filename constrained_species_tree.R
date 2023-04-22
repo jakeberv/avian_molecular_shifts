@@ -1,4 +1,3 @@
-# Last updated 13 April 2023
 # Master R code for executing analyses for
 # Molecular early burst associated with the diversification of birds at the K–Pg boundary
 
@@ -1758,7 +1757,7 @@ dev.off()
 
 
 
-#Section 5 
+#Section 5
 ###############d###########################
 #get data for gc content and codon usage #
 ##########################################
@@ -1767,7 +1766,7 @@ dev.off()
 {
 #read in the exons for coRdon analysis
 #exons<-readSet(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/CODING/exon_concat.fas")
-exons<-readSet(file="./AHE_REASSEMBLY/sequences/concat/exon_concat.fas")
+exons<-readSet(file="./AHE_REASSEMBLY/sequences/concat/exon_concat.fasta.zip", zipped = TRUE)
 
 #reorder to match tree
 exons<-exons[consensus.all.timetree$phy$tip.label,]
@@ -1787,7 +1786,7 @@ exons_separate<-readRDS(file="./RDS/exons_separate.RDS")
 
 #read in the introns for GC content calculation
 #introns<-readSet(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/NONCODING/TRIMAL_GT_0.05/intron_concat.fas")
-introns<-readSet(file="./AHE_REASSEMBLY/sequences/concat/intron_concat.fas")
+introns<-readSet(file="./AHE_REASSEMBLY/sequences/concat/intron_concat.fasta.zip", zipped = TRUE)
 
 #reorder to match tree
 introns<-introns[consensus.all.timetree$phy$tip.label,]
@@ -1799,7 +1798,8 @@ intronchar<-as.character(introns)
 
 #read in the UTRs for GC content calculation
 #utrs<-readSet(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/NONCODING/TRIMAL_GT_0.05/utr_concat.fas")
-utrs<-readSet(file="./AHE_REASSEMBLY/sequences/concat/utr_concat.fas")
+utrs<-readSet(file="./AHE_REASSEMBLY/sequences/concat/utr_concat.fasta.zip", zipped = TRUE)
+
 
 #reorder to match tree
 utrs<-utrs[consensus.all.timetree$phy$tip.label,]
@@ -1810,8 +1810,8 @@ utrchar<-as.character(utrs)
 #<-read.dna("/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample2haplo/NONCODING/utr_concat.fasta", format="fasta")
 
 #read in all data alignmenet for GC content calculation
-#file is too big for github, so you must find the zipped file in ./AHE_REASSEMBLY/sequences/concat/ and unzip it, then change the path
-alldata<-readSet(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/concat_all_0.05_haplo1.fasta")
+#alldata<-readSet(file="~/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/concat_all_0.05_haplo1.fasta")
+alldata<-readSet(file="./AHE_REASSEMBLY/sequences/concat/concat_all_0.05_haplo1.fasta.zip", zipped = TRUE)
 
 #reorder to match tree
 alldata<-alldata[consensus.all.timetree$phy$tip.label,]
