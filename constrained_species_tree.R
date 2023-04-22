@@ -1780,6 +1780,7 @@ exonchar<-as.character(exons)
 #exons_separate<-exonload(path='/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/CODING/exons/NT_fasta', treeNames=consensus.all.timetree$phy$tip.label)
 #uncomment the next line to load from github path
 #exons_separate<-exonload(path='./AHE_REASSEMBLY/sequences/aligned/sample1haplo/CODING/exons/NT_fasta', treeNames=consensus.all.timetree$phy$tip.label)
+#exons_separate<-exonload(path='./AHE_REASSEMBLY/sequences/aligned/sample1haplo/CODING/exons/NT_fasta_files.zip', treeNames=consensus.all.timetree$phy$tip.label, zipped=T)
 
 #saveRDS(exons_separate, file="./RDS/exons_separate.RDS")
 exons_separate<-readRDS(file="./RDS/exons_separate.RDS")
@@ -1944,6 +1945,7 @@ mtdna.scuo<- SCUO(mtdna.codon_table)}
 rownames(mol_stats)<-names(alldatachar)}
 
 #calculate GC content on the exon data
+tempdir(check=T) #have to recreate temporary directory for the session
 {#nuc.gc1<-pbmclapply(strsplit(exonchar, split=""), GC1, exact=T, mc.cores = 4)
 #saveRDS(nuc.gc1, file="./RDS/nuc.gc1.RDS")
 nuc.gc1<-readRDS(file="./RDS/nuc.gc1.RDS")
@@ -2433,6 +2435,7 @@ tip.data.molstats$Row.names<-NULL
   # Sum Sq Mean Sq F value Pr(>F)
   # x        0.000422   6e-05 27.2314  3e-04
   # Residual 0.000420   2e-06
+  dev.off(); dev.off();
   contMap(tree=consensus.all.timetree$phy, x = log(setNames(tip.data.molstats$nuc.encprime, rownames(tip.data.molstats))), ftype="off")
   
   
@@ -7188,7 +7191,7 @@ OU.mc.OUwie<-OUwie(
   data = data.frame(
     "Genus_species" = names(l1ou_test$Y[, 2]),
     "Reg" = rep(0, length(names(l1ou_test$Y[, 2]))),
-    "X" = l1ou_test$Y[, 2],
+    "X" = l1ou_test$Y[, 2]
     #"mserr" = rep(0.1, length(names(l1ou_test$Y[, 2])))
   )
   ,
@@ -7233,7 +7236,6 @@ OU.surv.OUwie<-OUwie(
   model = "OU1",
   simmap.tree = F
 )
-
 
 ##testing breeding
 BM.breed<-fitContinuous(phy = simmap.janus.null, dat=l1ou_test$Y[,5], model='BM')
@@ -7395,8 +7397,6 @@ barplot(
 
 #plot(l1ou_test$tree, cex=0.0001, no.margin=T)
 #edgelabels(edge=edges)
-
-
 
 #plotting support for shifts on the aggregate shift tree
 
@@ -7760,7 +7760,6 @@ BIC(quad)
 
 }
 
-
 #reference plot for l1ou
 require(ape)
 plot(
@@ -7794,7 +7793,6 @@ nested<-tips_from_edge(tree= l1ou_test$tree, edge=387)[
     c(tips_from_edge(tree= l1ou_test$tree, edge=199),
       tips_from_edge(tree= l1ou_test$tree, edge=265),
       tips_from_edge(tree= l1ou_test$tree, edge=374))]
-
 
 
 #experimenting with plotting bmr/mass for each section (not used)

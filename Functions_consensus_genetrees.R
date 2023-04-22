@@ -2124,15 +2124,31 @@ vif.phyloglm <- function(mod, ...) {
 # 
 
 #read in directory of fasta files (exons)
-exonload<-function(path, treeNames){
-  files<-list.files(path)
-  loci<-list()
-  #print(files)
+exonload<-function(path, treeNames, zipped = F){
+  if(zipped == T) {
+    where <- tempdir(check=T)
+    unlink(where, recursive = TRUE)
+    #tempdir(check=T)
+    unzip(path, exdir = where)
+    folder <- where
+    files <- list.files(folder)
 
+  } else {
+    files<-list.files(path)
+
+    #print(files)
+  }
+
+  loci<-list()
   for (i in 1:length(files)){
     print(paste("parsed ", i, "locus out of ", length(files), "or ", round(i/length(files)*100, digits=3), " %"))
+    if(zipped==T){
+      loci[[i]]<-readSet(file=paste(folder,files[i], sep="/"))
+    }else {
+      loci[[i]]<-readSet(file=paste(path,files[i], sep="/"))
+    }
+
     
-    loci[[i]]<-readSet(file=paste(path,files[i], sep="/"))
   }
   
   
@@ -2144,7 +2160,11 @@ exonload<-function(path, treeNames){
     #loci[[i]]<-loci[[i]][treeNames,]
   }
   
+  #print(names(loci))
+  
   names(loci)<-unlist(strsplit((files), split="_final_align_NT.fasta"))
+  
+  #unlink(where, recursive = TRUE)
   return(loci)
 }
 
