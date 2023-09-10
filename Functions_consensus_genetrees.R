@@ -1488,6 +1488,40 @@ l1ou_nullboot<-function(seed=5, input_tree, boots, input_vcv, ncores, IC, consid
   return(output)
   
 }
+
+#function to loop l1ou on given input
+estimate_shift_configuration_loop <- function(tree, Y, nCores = 8, quiet = FALSE, candid.edges = c(), edge.length.threshold = 7.066136e-05, max.nShifts = 10, criterion = "mBIC", N = 1) {
+  results <- list()
+  for (i in 1:N) {
+    result <- estimate_shift_configuration(tree, Y, nCores = nCores, quiet = quiet, candid.edges = candid.edges, edge.length.threshold = edge.length.threshold, max.nShifts = max.nShifts, criterion = criterion)
+    results[[i]] <- result
+  }
+  
+  empty<-list()
+  for(i in 1:length(results)){
+    empty[[i]]<-results[[i]]$shift.configuration
+  }
+  return(empty)
+}
+
+#function to loop l1ou in parallel
+estimate_shift_configuration_loop_mc <- function(cores, tree, Y, quiet = FALSE, candid.edges, edge.length.threshold, max.nShifts, criterion, N) {
+  # Create a list to store the results
+  #results <- list()
+  
+  # Define a function to perform a single estimation
+  single_estimate <- function() {
+    estimate_shift_configuration(tree, Y, quiet = quiet, candid.edges = candid.edges,
+                                 edge.length.threshold = edge.length.threshold, max.nShifts = max.nShifts,
+                                 criterion = criterion, nCores=1)
+  }
+  
+  # Use mclapply to parallelize the function call
+  results <- mclapply(1:N, function(i) single_estimate(), mc.cores = cores)
+  
+  return(results)
+}
+
 #process nullboot output
 l1ou_nullboot_process<-function(boots_output){
   boots.filter<-boots_output[!unlist(lapply(boots_output, is.null))]
@@ -2859,7 +2893,6 @@ set_all_values <- function(df, value) {
   return(new_df)
 }
 
-
 create_distance_matrix <- function(glht.test, param) {
   if(param=="stat"){
     pairwise_comp<-glht.test$stat
@@ -2901,6 +2934,290 @@ create_distance_matrix <- function(glht.test, param) {
 }
 
 
+add_regression_annotations <- function(y, x, fudge) {
+  # Perform linear regression
+  model <- lm(y ~ x)
+  
+  # Add regression formula, R-squared, and p-value to the plot
+  a <- format(coef(model)[1], digits = 3)
+  b <- format(coef(model)[2], digits = 3)
+  reg_formula <- sprintf("y = %s + %s * x", a, b)
+  r_squared <- format(summary(model)$r.squared, digits = 2)
+  p_value <- format(summary(model)$coefficients[2, 4], digits = 2)
+  
+  x_annotation <- 0.5
+  y_annotation <- 10
+  
+  text(x = x_annotation, y = y_annotation, 
+       labels = reg_formula,
+       adj = 1, pos = 4)
+  text(x = x_annotation, y = y_annotation - 0.25, 
+       labels = paste("R-squared:", r_squared),
+       adj = 1, pos = 4)
+  text(x = x_annotation, y = y_annotation - 0.5, 
+       labels = paste("p-value:", p_value),
+       adj = 1, pos = 4)
+}
+
+#chatGPT function for anova
+calculate_variance_explained <- function(model_output) {
+  # Extract Sum Sq values
+  sum_sq_x <- model_output$`Sum Sq`[1]
+  sum_sq_residual <- model_output$`Sum Sq`[2]
+  
+  # Calculate Total Sum of Squares
+  total_sum_sq <- sum_sq_x + sum_sq_residual
+  
+  # Calculate percentage of variance explained by x
+  percent_variance_explained <- (sum_sq_x / total_sum_sq) * 100
+  
+  return(percent_variance_explained)
+}
+
+#N-unions
+N_unions <- function(vectors) {
+  if (length(vectors) == 0) {
+    stop("Input list is empty.")
+  }
+  
+  result <- vectors[[1]]
+  
+  for (i in 2:length(vectors)) {
+    result <- union(result, vectors[[i]])
+  }
+  
+  return(result)
+}
+
+
+#test function for edgelabels
+edgelabels.mod <-
+  function(text, edge, adj = c(0.5, 0.5), frame = "rect",
+           pch = NULL, thermo = NULL, pie = NULL, piecol = NULL,
+           col = "black", bg = "lightgreen", horiz = FALSE,
+           width = NULL, height = NULL, date = NULL, pos = "middle", ...)
+  {
+    lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)
+    if (missing(edge)) {
+      sel <- 1:dim(lastPP$edge)[1]
+      subedge <- lastPP$edge
+    } else {
+      sel <- edge
+      subedge <- lastPP$edge[sel, , drop = FALSE]
+    }
+    
+    xx <- lastPP$xx
+    yy <- lastPP$yy
+    
+    YY <- yy[subedge[, 2]]
+    
+    switch(pos,
+           "start" = {
+             XX <- xx[subedge[, 1]]
+           },
+           "middle" = {
+             XX <- (xx[subedge[, 1]] + xx[subedge[, 2]]) / 2
+           },
+           "end" = {
+             XX <- xx[subedge[, 2]]
+           },
+           stop("Invalid position. Please choose 'start', 'middle', or 'end'")
+    )
+    
+    if (!is.null(date)) XX[] <- max(lastPP$xx) - date
+    
+    BOTHlabels(text, sel, XX, YY, adj, frame, pch, thermo,
+               pie, piecol, col, bg, horiz, width, height, ...)
+  }
+
+#search for closest node path
+closest_search_node <- function(target, search_nodes, phy) {
+  # Initialize
+  min_length <- Inf
+  closest_node <- NULL
+  closest_path <- NULL
+  
+  # For each node in search nodes
+  for (node in search_nodes) {
+    # Get path from target to node
+    path <- nodepath(phy, from = target, to = node)
+    
+    # Get number of nodes in path
+    path_length <- length(path)
+    
+    # If this path is shorter than the current shortest
+    if (path_length < min_length) {
+      # Update shortest length, node and the path
+      min_length <- path_length
+      closest_node <- node
+      closest_path <- path
+    }
+  }
+  
+  # Return length of path to closest node and the path itself
+  return(list(length = min_length, path = closest_path))
+}
+
+
+#return viridis palette + black
+viridis_l1ou<-function(N, seed){set.seed(seed); return(c(sample(viridis(N)), "black"))}
+
+#modified l1ou plotting function to plot tree with margins for supp figure
+#also adds kpg line
+plot.l1ou.mod <- function (model, palette = NA, 
+                       edge.shift.ann=TRUE,  edge.shift.adj=c(0.5,-.025),
+                       edge.label=c(), asterisk = TRUE,
+                       edge.label.ann=FALSE, edge.label.adj=c(0.5,    1), 
+                       edge.label.pos=NA,
+                       edge.ann.cex = 1, 
+                       plot.bar = TRUE, bar.axis = TRUE, scale=1,...) 
+{
+  tree = model$tree
+  tree$edge.length<-tree$edge.length/max(nodeHeights(tree)[,2])*scale
+  s.c = model$shift.configuration
+  stopifnot(identical(tree$edge, reorder(tree, "postorder")$edge))
+  nShifts = model$nShifts
+  nEdges = Nedge(tree)
+  if (bar.axis) 
+    par(oma = c(3, 0, 0, 3))
+  Y = as.matrix(model$Y)
+  stopifnot(identical(rownames(Y), tree$tip.label))
+  
+  if (bar.axis) 
+    par(oma = c(3, 0, 0, 3))
+  
+  if (plot.bar) {
+    layout(matrix(c(1+ncol(Y),1:ncol(Y)), nrow=1), 
+           widths = c(2,rep(1, ncol(Y)))
+    )
+  }
+  
+  #NOTE: assiging colors the shifts
+  if (all(is.na(palette))) {
+    palette = c(sample(rainbow(nShifts)), "gray")
+    if( !is.null(names(s.c)) ){
+      ids = unique(names(s.c))
+      tmp = sample(rainbow(length(ids)))
+      for( id in ids ){
+        if(id == "0"){
+          palette[which(names(s.c) == id)] = "gray"  #background 
+          next
+        }
+        palette[which(names(s.c)==id)] = tmp[which(ids==id)]
+      }
+    }
+  }
+  
+  stopifnot(length(palette) == model$nShifts + 1)
+  
+  edgecol = rep(palette[nShifts + 1], nEdges)
+  counter = 1
+  Z = model$l1ou.options$Z
+  if(length(s.c) > 0)
+    for (shift in sort(s.c, decreasing = T)) {
+      edgecol[[shift]] = palette[[which(s.c == shift)]]
+      tips = which(Z[, shift] > 0)
+      for (tip in tips) {
+        edgecol[which(Z[tip, 1:shift] > 0)] = palette[[which(s.c == 
+                                                               shift)]]
+      }
+      counter = counter + 1
+    }
+  
+  
+  
+  ##A dummy plot just to get the plotting order
+  plot.phylo(tree, plot=FALSE)
+  
+ # 438.9625/86.90747
+  
+  #abline(v=86.90747-65, lty=2)
+  #abline(v=438.9625-(65*5.050918), lty=2)
+  segments(x0=438.9625-(65*5.050918),y0=-5,x1=438.9625-(65*5.050918),y1=198,col="red", lty=2)
+  #abline(v=0, lty=2)
+  lastPP = get("last_plot.phylo", envir = .PlotPhyloEnv)
+  #print(lastPP)
+  o = order(lastPP$yy[1:length(tree$tip.label)])
+  par.new.default <- par()$new ##just to be careful with the global variable
+  par(new=TRUE)
+  
+  #NOTE: plotting bar plot .....
+  if (plot.bar) {
+    nTips = length(tree$tip.label)
+    barcol = rep("gray", nTips)
+    for (i in 1:nTips) {
+      barcol[[i]] = edgecol[which(tree$edge[, 2] == i)]
+    }
+    if (bar.axis) 
+      par(mar = c(0, 0, 0, 3))
+    for (i in 1:ncol(Y)) {
+      normy = (Y[, i] - mean(Y[, i], na.rm=TRUE))/sd(Y[, i], na.rm=TRUE)
+      barplot(as.vector(normy[o]), border = FALSE, col = barcol[o], 
+              horiz = TRUE, names.arg = "", xaxt = "n")
+      if (bar.axis){
+        axis(1, at = range(normy, na.rm=TRUE), 
+             labels = round(range(normy, na.rm=TRUE), 
+                            digits = 2))
+      }
+      if (!is.null(colnames(Y)) && length(colnames(Y)) > 
+          (i - 1)) 
+        mtext(colnames(Y)[[i]], cex = 1, line = +1, side = 1)
+    }
+  }
+  
+  #NOTE: plotting the tree etc etc
+  plot.phylo(tree, edge.color = edgecol, no.margin = F, 
+             ...)
+  #axisPhylo(root.time=86.90747)
+  
+  if (length(s.c) > 0) {
+    if (asterisk) {
+      Z = l1ou:::generate_design_matrix(tree, type = "apprX")
+      for (idx in 1:length(s.c)) {
+        sP = s.c[[idx]]
+        pos = max(Z[, sP])
+        edge.labels = rep(NA, length(tree$edge[, 1]))
+        edge.labels[sP] = "*"
+        edgelabels(edge.labels, cex = 3 * edge.ann.cex, 
+                   adj = c(0.5, 0.8), frame = "none", date = pos)
+      }
+    }
+  }
+  if (edge.shift.ann) {
+    eLabels = rep(NA, nEdges)
+    for (shift in s.c) {
+      eLabels[shift] = paste(round(model$shift.values[which(s.c == 
+                                                              shift), ], digits = 2), collapse = ",")
+    }
+    edgelabels(eLabels, cex = edge.ann.cex, adj = edge.shift.adj, 
+               frame = "none")
+  }
+  if (edge.label.ann) {
+    if (length(tree$edge.label) == 0) {
+      if (length(edge.label) == 0) {
+        stop("no edge labels are provided via tree$edge.label or edge.label!")
+      }
+      tree$edge.label = edge.label
+    }
+    Z = l1ou:::generate_design_matrix(tree, type = "apprX")
+    if (!is.na(edge.label.pos)) 
+      if (edge.label.pos < 0 || edge.label.pos > 1) 
+        stop("edge.label.pos should be between 0 and 1")
+    for (idx in 1:length(tree$edge.label)) {
+      if (is.na(tree$edge.label[[idx]])) 
+        next
+      pos = max(Z[, idx])
+      if (!is.na(edge.label.pos)) {
+        pos = pos - edge.label.pos * tree$edge.length[[idx]]
+      }
+      edge.labels = rep(NA, length(tree$edge[, 1]))
+      edge.labels[[idx]] = tree$edge.label[[idx]]
+      edgelabels(edge.labels, cex = edge.ann.cex, adj = edge.label.adj, 
+                 frame = "none", date = pos)
+    }
+  }
+  par(new=par.new.default)
+}
 
 
 ### End function definitions ###
