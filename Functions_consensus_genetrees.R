@@ -3129,11 +3129,20 @@ plot.l1ou.mod <- function (model, palette = NA,
   ##A dummy plot just to get the plotting order
   plot.phylo(tree, plot=FALSE)
   
- # 438.9625/86.90747
+ # 438.9625/86.90747 = 5.050918
   
   #abline(v=86.90747-65, lty=2)
   #abline(v=438.9625-(65*5.050918), lty=2)
-  segments(x0=438.9625-(65*5.050918),y0=-5,x1=438.9625-(65*5.050918),y1=198,col="red", lty=2)
+  #abline(v=(65*5.050918))
+  
+  #segments(x0=70,y0=-5,x1=70,y1=198,col="red", lty=2)
+  
+  segments(x0=65,y0=-5,x1=65,y1=198,col="red", lty=2)
+  
+  #scales::rescale(x=seq(from=0,to=438.9625, by=0.1), from=0, to=86.90747)
+  #segments(x0=438.9625-(65*5.050918),y0=-5,x1=438.9625-(65*5.050918),y1=198,col="red", lty=2)
+  
+  
   #abline(v=0, lty=2)
   lastPP = get("last_plot.phylo", envir = .PlotPhyloEnv)
   #print(lastPP)

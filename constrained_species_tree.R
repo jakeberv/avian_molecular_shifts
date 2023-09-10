@@ -8973,93 +8973,175 @@ layout(layout_matrix, heights = c(5, 1.5, 1.5))
 
 seed=1
 {
-par(mar=c(3, 4.1-1, 3, 2.1-1))
+par(mar=c(3, 4.1-0.2, 3, 2.1-0.9))
 #par(mar = c(bottom, left, top, right)). #The default values for mar are c(5.1, 4.1, 4.1, 2.1).
-plot.l1ou.mod(eModel.par.unconstrained.aic, edge.shift.ann=F, plot.bar=F, bar.axis=F, asterisk=T, show.tip.label = F, palette=viridis_l1ou(seed=seed, N=length(eModel.par.unconstrained.aic$shift.configuration)), scale=86.90747)
+plot.l1ou.mod(
+  eModel.par.unconstrained.aic,
+  edge.shift.ann = F,
+  plot.bar = F,
+  bar.axis = F,
+  asterisk = T,
+  show.tip.label = F,
+  palette = viridis_l1ou(
+    seed = seed,
+    N = length(eModel.par.unconstrained.aic$shift.configuration)
+  ),
+  scale = 86.90747
+)
 axisPhylo()
 edgelabels.mod(edge=janus.edges, frame='none', pch=1, text="", adj=c(0.5,0.5), pos='start', cex=2)
-#edgelabels(edge=janus.edges, frame='none', pch=1, text="", adj=c(0.5,0.5), col='red')
 title("AICc", line=0)
-#plot(new=T)
-plot.l1ou.mod(eModel.par.unconstrained.bic, edge.shift.ann=F, plot.bar=F, bar.axis=F, asterisk=T, show.tip.label = F, palette=viridis_l1ou(seed=seed, N=length(eModel.par.unconstrained.bic$shift.configuration)), scale=86.90747)
+
+plot.l1ou.mod(
+  eModel.par.unconstrained.bic,
+  edge.shift.ann = F,
+  plot.bar = F,
+  bar.axis = F,
+  asterisk = T,
+  show.tip.label = F,
+  palette = viridis_l1ou(
+    seed = seed,
+    N = length(eModel.par.unconstrained.bic$shift.configuration)
+  ),
+  scale = 86.90747
+)
 axisPhylo()
 edgelabels.mod(edge=janus.edges, frame='none', pch=1, text="", adj=c(0.5,0.5), pos='start', cex=2)
 title("BIC", line=0)
-#axisPhylo(root.time=86.90747)
-#plot(new=T)
-plot.l1ou.mod(eModel.par.unconstrained.pbic, edge.shift.ann=F, plot.bar=F, bar.axis=F, asterisk=T, show.tip.label = F, palette=viridis_l1ou(seed=seed, N=length(eModel.par.unconstrained.pbic$shift.configuration)), scale=86.90747)
+
+plot.l1ou.mod(
+  eModel.par.unconstrained.pbic,
+  edge.shift.ann = F,
+  plot.bar = F,
+  bar.axis = F,
+  asterisk = T,
+  show.tip.label = F,
+  palette = viridis_l1ou(
+    seed = seed,
+    N = length(eModel.par.unconstrained.pbic$shift.configuration)
+  ),
+  scale = 86.90747
+)
 axisPhylo()
 edgelabels.mod(edge=janus.edges, frame='none', pch=1, text="", adj=c(0.5,0.5), pos='start', cex=2)
 title("pBIC", line=0)
-#axisPhylo(root.time=86.90747)
-# plot(eModel.par.unconstrained.pBICess, edge.shift.ann=F, plot.bar=F, bar.axis=F, asterisk=T, show.tip.label = F)
-# title("pBICess", line=-1.5)
-# plot(eModel.par.unconstrained.mBIC, edge.shift.ann=F, plot.bar=F, bar.axis=F, asterisk=T, show.tip.label = F)
-# title("mBIC", line=-1.5)
+
 }
 
 {
-par(mar=c(5.1-0.5, 4.1-1, 2, 2.1-1))
+par(mar=c(5.1-0.5, 4.1-1, 2, 2.1-1.1), bty='L')
 
 rows.aicc<-c(node_indices_edge(tree = l1ou_test$tree, edge=eModel.par.unconstrained.aic$shift.configuration))
 ages.aicc<-logisticreg.newdat.alt[rownames(logisticreg.newdat.alt) %in% rows.aicc,]$stem.ages
-plot(density(ages.aicc), main="l1ou Temporal Density", xlab="Time", ylab="", xlim=c(86.90747,0), ylim=c(0,0.08))
-polygon(density(ages.aicc), col = rgb(0.51, 0.44, 1, alpha = 0.4))
+plot(
+  density(ages.aicc),
+  main = "l1ou Shift Density",
+  xlab = "Time",
+  ylab = "",
+  xlim = c(86.90747, 0),
+  ylim = c(0, 0.08),
+  zero.line = F,
+  col = rgb(0.51, 0.44, 1, alpha = 0.4)
+)
+polygon(density(ages.aicc), col = rgb(0.51, 0.44, 1, alpha = 0.4), border=NA)
+rug(x=c(ages.aicc))
 abline(v=65, col='red', lwd=1, lty=2, lend=2)
 
 rows.bic<-c(node_indices_edge(tree = l1ou_test$tree, edge=eModel.par.unconstrained.bic$shift.configuration))
 ages.bic<-logisticreg.newdat.alt[rownames(logisticreg.newdat.alt) %in% rows.bic,]$stem.ages
-plot(density(ages.bic), main="l1ou Temporal Density", xlab="Time", ylab="", xlim=c(86.90747,0), ylim=c(0,0.08))
-polygon(density(ages.bic), col = rgb(0.51, 0.44, 1, alpha = 0.4))
+plot(
+  density(ages.bic),
+  main = "l1ou Shift Density",
+  xlab = "Time",
+  ylab = "",
+  xlim = c(86.90747, 0),
+  ylim = c(0, 0.08),
+  zero.line = F,
+  col = rgb(0.51, 0.44, 1, alpha = 0.4)
+)
+polygon(density(ages.bic), col = rgb(0.51, 0.44, 1, alpha = 0.4), border=NA)
+rug(x=c(ages.bic))
 abline(v=65, col='red', lwd=1, lty=2, lend=2)
 
 rows.pbic<-c(node_indices_edge(tree = l1ou_test$tree, edge=eModel.par.unconstrained.pbic$shift.configuration))
 ages.pbic<-logisticreg.newdat.alt[rownames(logisticreg.newdat.alt) %in% rows.pbic,]$stem.ages
-plot(density(ages.pbic), main="l1ou Temporal Density", xlab="Time", ylab="", xlim=c(86.90747,0), ylim=c(0,0.08))
-polygon(density(ages.pbic), col = rgb(0.51, 0.44, 1, alpha = 0.4))
+plot(
+  density(ages.pbic),
+  main = "l1ou Shift Density",
+  xlab = "Time",
+  ylab = "",
+  xlim = c(86.90747, 0),
+  ylim = c(0, 0.08),
+  zero.line = F,
+  col = rgb(0.51, 0.44, 1, alpha = 0.4)
+)
+polygon(density(ages.pbic), col = rgb(0.51, 0.44, 1, alpha = 0.4), border=NA)
+rug(x=c(ages.pbic))
 abline(v=65, col='red', lwd=1, lty=2, lend=2)
 }
 
-
-# {
-# par(mar=c(5.1, 4.1, 2, 2.1))
-# rows.aicc<-c(node_indices_edge(tree = l1ou_test$tree, edge=eModel.par.unconstrained.aic$shift.configuration))
-# ages.aicc<-logisticreg.newdat.alt[rownames(logisticreg.newdat.alt) %in% rows.aicc,]$midpoint
-# plot(density(ages.aicc), main="Density Plot", xlab="Time", ylab="Density", xlim=c(86.90747,0))
-# abline(v=65, col='red', lwd=3)
-# 
-# rows.bic<-c(node_indices_edge(tree = l1ou_test$tree, edge=eModel.par.unconstrained.bic$shift.configuration))
-# ages.bic<-logisticreg.newdat.alt[rownames(logisticreg.newdat.alt) %in% rows.bic,]$midpoint
-# plot(density(ages.bic), main="Density Plot", xlab="Time", ylab="Density", xlim=c(86.90747,0))
-# abline(v=65, col='red', lwd=3)
-# 
-# rows.pbic<-c(node_indices_edge(tree = l1ou_test$tree, edge=eModel.par.unconstrained.pbic$shift.configuration))
-# ages.pbic<-logisticreg.newdat.alt[rownames(logisticreg.newdat.alt) %in% rows.pbic,]$midpoint
-# plot(density(ages.pbic), main="Density Plot", xlab="Time", ylab="Density", xlim=c(86.90747,0))
-# abline(v=65, col='red', lwd=3)
-# }
-require(kde1d)
-
 {
-par(mar=c(5.1, 4.1-1, 2-0.5, 2.1-1))
+require(kde1d)
+par(mar=c(5.1, 4.1-1, 2-0.5, 2.1-1), bty='L')
 
 density.lengths.aicc<-kde1d(ordered(lengths.aicc))
-plot(density.lengths.aicc, main="Path Density", xlab="Edges from Janus to l1ou", ylab="")
-#plot(density(lengths.aicc, bw=0.1), main="Density Plot", xlab="Time", ylab="Density")
-#abline(v=mean(lengths.aicc), col='red', lwd=3)
+barplot(
+  c(dkde1d(c(sort(unique(
+    ordered(lengths.aicc)
+  ))), density.lengths.aicc),0,0),
+  main = "Path Density",
+  xlab = "Edges from Janus to l1ou",
+  ylab = "",
+  ylim = c(0, 0.5),
+  space = 0,
+  names.arg = c(as.character(c(sort(unique(
+    ordered(lengths.aicc)
+  )))),"4","5"),
+  col = rgb(0.51, 0.44, 1, alpha = 0.2),
+  border = rgb(0.51, 0.44, 1, alpha = 0.8)
+)
+box(bty="L")
 
 density.lengths.bic<-kde1d(ordered(lengths.bic))
-plot(density.lengths.bic, main="Path Density", xlab="Edges from Janus to l1ou", ylab="")
-#plot(density(lengths.bic), main="Density Plot", xlab="Time", ylab="Density")
-#abline(v=mean(lengths.bic), col='red', lwd=3)
+barplot(
+  dkde1d(c(sort(unique(
+    ordered(lengths.bic)
+  ))), density.lengths.bic),
+  main = "Path Density",
+  xlab = "Edges from Janus to l1ou",
+  ylab = "",
+  ylim = c(0, 0.5),
+  space = 0,
+  names.arg = as.character(c(sort(unique(
+    ordered(lengths.bic)
+  )))),
+  col = rgb(0.51, 0.44, 1, alpha = 0.2),
+  border = rgb(0.51, 0.44, 1, alpha = 0.8)
+)
+box(bty="L")
 
 density.lengths.pbic<-kde1d(ordered(lengths.pbic))
-plot(density.lengths.pbic, main="Path Density", xlab="Edges from Janus to l1ou", ylab="")
+barplot(
+  c(dkde1d(c(sort(unique(
+    ordered(lengths.pbic)
+  ))), density.lengths.pbic), 0,0,0),
+  main = "Path Density",
+  xlab = "Edges from Janus to l1ou",
+  ylab = "",
+  ylim = c(0, 0.5),
+  space = 0,
+  names.arg = c(as.character(c(sort(unique(
+    ordered(lengths.pbic)
+  )))), "3", "4", "5"),
+  col = rgb(0.51, 0.44, 1, alpha = 0.2),
+  border = rgb(0.51, 0.44, 1, alpha = 0.8)
+)
+box(bty="L")
 
-#plot(density(lengths.pbic), main="Density Plot", xlab="Shortest Path Distance", ylab="Density")
-#abline(v=mean(lengths.pbic), col='red', lwd=3)
 }
 
+#reset bty
+par(bty='o')
 }
 dev.off()
 
