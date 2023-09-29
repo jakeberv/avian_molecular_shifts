@@ -3228,5 +3228,44 @@ plot.l1ou.mod <- function (model, palette = NA,
   par(new=par.new.default)
 }
 
+#helper function for anova
+calculate_variance_proportions <- function(anova, phy=F) {
+
+  # Extract the sums of squares
+
+  if(phy==T){
+    anova_output<-anova
+    between_groups_ss <- anova_output$`Sum Sq`[1]
+    within_groups_ss <- anova_output$`Sum Sq`[2]
+  } else {
+    anova_output<-summary(anova)
+    between_groups_ss <- anova_output[[1]][1, "Sum Sq"]
+    within_groups_ss <- anova_output[[1]][2, "Sum Sq"]
+    
+  }
+  
+  # Calculate the total variance
+  total_variance <- between_groups_ss + within_groups_ss
+  
+  # Calculate the proportions of variance
+  prop_variance_between <- between_groups_ss / total_variance
+  prop_variance_within <- within_groups_ss / total_variance
+  
+  # Calculate the percentage of variance explained by the group factor
+  prop_variance_between_percent <- prop_variance_between * 100
+  
+  # Create a named list of results
+  results <- list(
+    #BetweenGroupsSS = between_groups_ss,
+    #WithinGroupsSS = within_groups_ss,
+    TotalVariance = total_variance,
+    PropVarianceBetween = prop_variance_between,
+    PropVarianceWithin = prop_variance_within
+    #PropVarianceBetweenPercent = prop_variance_between_percent
+  )
+  
+  print(results)
+}
+
 
 ### End function definitions ###

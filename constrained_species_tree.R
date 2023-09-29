@@ -3756,7 +3756,22 @@ tempdir(check = FALSE)
 # 
 
 #GC by codon position by model shift -- requested by reviewer
-{  
+{
+
+#testing gc by model shifts
+gc.anov.exons<-phylANOVA(tree=consensus.all.timetree$phy, x = setNames(tip.data.molstats$exon_models, rownames(tip.data.molstats)), y=log(setNames(tip.data.molstats$nuc.exonGC, rownames(tip.data.molstats))), nsim=10000)
+gc.anov.introns<-phylANOVA(tree=consensus.all.timetree$phy, x = setNames(tip.data.molstats$intron_models, rownames(tip.data.molstats)), y=log(setNames(tip.data.molstats$nuc.intronGC, rownames(tip.data.molstats))), nsim=10000)
+gc.anov.utrs<-phylANOVA(tree=consensus.all.timetree$phy, x = setNames(tip.data.molstats$utr_models, rownames(tip.data.molstats)), y=log(setNames(tip.data.molstats$nuc.utrGC, rownames(tip.data.molstats))), nsim=10000)
+gc.anov.mtdna<-phylANOVA(tree=consensus.all.timetree$phy, x = setNames(tip.data.molstats$mtdna_all_models, rownames(tip.data.molstats)), y=log(setNames(tip.data.molstats$mtdna.protein.gc, rownames(tip.data.molstats))), nsim=10000)
+
+calculate_variance_proportions(gc.anov.exons, phy=T)
+calculate_variance_proportions(gc.anov.introns, phy=T)
+calculate_variance_proportions(gc.anov.utrs, phy=T)
+calculate_variance_proportions(gc.anov.mtdna, phy=T)
+
+#barplot((setNames(tip.data.molstats$nuc.exonGC, rownames(tip.data.molstats))), col = setNames(tip.data.molstats$exon_models, rownames(tip.data.molstats)))
+
+
 #gc1
 #testing gc1 in exons by model shifts
 gc1.anov<-phylANOVA(tree=consensus.all.timetree$phy, x = setNames(tip.data.molstats$exon_models, rownames(tip.data.molstats)), y=log(setNames(tip.data.molstats$nuc.gc1, rownames(tip.data.molstats))), nsim=10000)
@@ -3770,6 +3785,8 @@ gc1.anov<-phylANOVA(tree=consensus.all.timetree$phy, x = setNames(tip.data.molst
 # P-value based on simulation.
 calculate_variance_explained(gc1.anov)
 #47.4522
+calculate_variance_proportions(gc1.anov, phy=T)
+
 
 #gc2
 #testing gc2 in exons by model shifts
@@ -3784,6 +3801,8 @@ gc2.anov <- phylANOVA(tree=consensus.all.timetree$phy, x = setNames(tip.data.mol
 #P-value based on simulation.
 calculate_variance_explained(gc2.anov)
 #28.13054
+calculate_variance_proportions(gc2.anov, phy=T)
+
 
 #gc3
 #testing gc3 in exons by model shifts
@@ -3798,6 +3817,8 @@ gc3.anov <- phylANOVA(tree=consensus.all.timetree$phy, x = setNames(tip.data.mol
 # P-value based on simulation.
 calculate_variance_explained(gc3.anov)
 #52.94147
+calculate_variance_proportions(gc3.anov, phy=T)
+
 
 }
 
@@ -9159,7 +9180,6 @@ dev.off()
 }
 
 
-
 #testing LHTs for EB bias
 {
 ##testing mass
@@ -9941,6 +9961,7 @@ curve(expr=-3.841 + x*	0.748, add=T, col="red", from=min(nomiss[tips_from_edge(t
 
 
 #testing eqGC vs average clade mass
+#GC-biased gene conversion as primary mechanism
 #exons
 {
   mass.exon <- megaLHT["exon_models"]
@@ -9994,8 +10015,8 @@ curve(expr=-3.841 + x*	0.748, add=T, col="red", from=min(nomiss[tips_from_edge(t
 }
 
 
+pdf(file="gene_conversion.pdf", width=10, height=10)
 par(mfrow=c(2,2))
-
 #plot exons
 {
   plot(log(mass.exon$avg_mass) ~ gc.exon$GC, cex=2.5, xlab="mean GC%", ylab="log(mean mass)", xlim=c(0.3,0.6), ylim=c(5,11), main="Exon (8 regimes)")
@@ -10026,6 +10047,8 @@ par(mfrow=c(2,2))
   text(gc.eq.intron$GC, log(mass.intron$avg_mass), labels=mass.intron$group)
   add_regression_annotations(log(mass.intron$avg_mass), gc.eq.intron$GC)
 }
+dev.off()
+
 
 #plot utrs
 {
@@ -10059,6 +10082,11 @@ par(mfrow=c(2,2))
 }
 
 
+plot(gc.eq.exon$GC ~ gc.exon$GC)
+abline(lm(gc.eq.exon$GC ~ gc.exon$GC))
+
+summary(lm(gc.eq.exon$GC ~ gc.exon$GC))
+summary(lm(gc.eq.intron$GC ~ gc.intron$GC))
 
 
 #alternative reference plots
@@ -10117,7 +10145,6 @@ dev.off()
 
 #plot(l1ou_test$tree, cex=0.001)
 #edgelabels(edge=edges)
-
 
 ##testing patterns of life history integration with mvMORPH/RPANDA
 #not in the paper, just experimenting
@@ -10269,3 +10296,27 @@ dev.off()
 plot_phylo_with_bars(tree=simmap.janus.nuc.aggregate.simplified2, thetas.pca.zeromin[,c("PC1", "PC2")], mapcolors=setNames(rainbow(11), unique(getStates(simmap.janus.nuc.aggregate.simplified2, type = 'tips'))), part=0.5, colors=rev(RColorBrewer::brewer.pal(n=8,"Spectral")))
 phylo.heatmap(tree = simmap.janus.nuc.aggregate.simplified2, X = thetas.zeromin, standardize=F, legend=F, ftype='off')
 }
+
+
+##
+#in response to Sacha Vigneri's comment during review, we checked to 
+#see if altricial species grow faster to breeding age than precocial species
+{
+summary(
+  phylolm((breeding) ~ (chickPC1) + (mass) + ((latitude)),
+          data = as.data.frame(l1ou_test$Y),
+          phy = simmap.janus.null,
+          model = "BM",
+          boot = 100, 
+  ))
+
+
+summary(
+  phylolm((gen_length) ~ (chickPC1) + (mass) + ((latitude)),
+          data = as.data.frame(l1ou_test$Y),
+          phy = simmap.janus.null,
+          model = "BM",
+          boot = 100, 
+  ))
+}
+
