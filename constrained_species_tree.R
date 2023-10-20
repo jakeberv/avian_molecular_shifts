@@ -3725,7 +3725,7 @@ tip.data.molstats$Row.names<-NULL
 ####### patterns of codon usage ##########
 ##########################################
 {
-tempdir(check = FALSE)
+tempdir(check = T)
 #testing codon usage across exon model shifts
 {
 
@@ -8238,6 +8238,7 @@ l1ou_test<-adjust_data(as.phylo(simmap.janus.null), bm.fit.corr$anc_recon[1:198,
 library(ratematrix)
 set.seed(5)
 l1ou_test_null<-adjust_data(as.phylo(simmap.janus.null), simRatematrix(tree = consensus.all.timetree$phy, vcv = bm.fit.corr$pars$phylocov))
+janus.edges <- edge_indices_nodes(tree=l1ou_test$tree, nodes=con_prop_logit[con_prop_logit$uncex.merged.mtdnas==1,]$node.all)
 
 ##NULL BOOTSTRAP VCV SHOULD BE GLOBAL OU, not only BM???###
 ### REVISIT THIS ####
@@ -10152,12 +10153,40 @@ dev.off()
 {
 require(RPANDA)
 require(mvMORPH)
-
+#testing bm
+{
 LHT.mvgls.bmm <-
   mvgls(l1ou_test$Y ~ 1,
         tree = simmap.janus.all.aggregate,
         model = 'BMM',
         error = T)
+
+LHT.mvgls.bm <-
+  mvgls(l1ou_test$Y ~ 1,
+        tree = simmap.janus.all.aggregate,
+        model = 'BM',
+        error = T)
+
+GIC(LHT.mvgls.bmm)
+GIC(LHT.mvgls.bm)
+
+LHT.mvgls.bmm <-
+  mvgls(l1ou_test$Y[,-1] ~ l1ou_test$Y[,1],
+        tree = simmap.janus.all.aggregate,
+        model = 'BMM',
+        error = T)
+
+LHT.mvgls.bm <-
+  mvgls(l1ou_test$Y[,-1] ~ l1ou_test$Y[,1],
+        tree = simmap.janus.all.aggregate,
+        model = 'BM',
+        error = T)
+
+GIC(LHT.mvgls.bmm)
+GIC(LHT.mvgls.bm)
+
+}
+
 
 LHT.mvgls.OU <-
   mvgls(l1ou_test$Y ~ 1,

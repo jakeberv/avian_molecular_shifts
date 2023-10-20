@@ -61,6 +61,24 @@ merged <- merged %>%
            # mem_9,
            # mem_10
            )) #phylo.dist
+{
+#testing phylogenetic residuals
+
+mvbm.fit <- readRDS(file='./RDS/LHT.mvgls.bm.RDS')
+mvbm.fit <- as.data.frame(residuals(mvbm.fit, type="normalized")) 
+phylo.resid <- mvbm.fit #as.data.frame(readRDS(file='./RDS/LHT.mvgls.bm.RDS')$residuals)
+merged.resid <- merged
+merged.resid$mass <- phylo.resid$mass
+merged.resid$mean.clutch <- phylo.resid$mean.clutch
+merged.resid$gen_length <- phylo.resid$gen_length
+merged.resid$survival <- phylo.resid$survival
+merged.resid$breeding <- phylo.resid$breeding
+merged.resid$longevity <- phylo.resid$longevity
+merged.resid$chickPC1 <- phylo.resid$chickPC1
+merged.resid$latitude <- phylo.resid$latitude
+
+}
+merged<-merged.resid
 
 }
 
@@ -276,7 +294,7 @@ imp<-final_res %>%
 
 pdf(file="RF_importance.pdf", height=6, width=3)
 imp+theme(axis.text.y = element_text(size = 7), axis.text.x= element_text(size = 8),
-          axis.title.x = element_text(size = 8)) + scale_fill_manual(values=rep("grey", 24))
+          axis.title.x = element_text(size = 8)) + scale_fill_manual(values=rep("grey", 25))
 dev.off()
 
 #check randomForestExplainer -- tree depth 
