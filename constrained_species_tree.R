@@ -10153,46 +10153,74 @@ dev.off()
 {
 require(RPANDA)
 require(mvMORPH)
-#testing bm
+#testing models
 {
 LHT.mvgls.bmm <-
   mvgls(l1ou_test$Y ~ 1,
         tree = simmap.janus.all.aggregate,
         model = 'BMM',
         error = T)
-
-LHT.mvgls.bm <-
+#create test objects for RF
+{
+LHT.mvgls.bm.ll <-
   mvgls(l1ou_test$Y ~ 1,
         tree = simmap.janus.all.aggregate,
         model = 'BM',
-        error = T)
+        error = T, method='LL')
 
-GIC(LHT.mvgls.bmm)
-GIC(LHT.mvgls.bm)
-
-LHT.mvgls.bmm <-
-  mvgls(l1ou_test$Y[,-1] ~ l1ou_test$Y[,1],
-        tree = simmap.janus.all.aggregate,
-        model = 'BMM',
-        error = T)
-
-LHT.mvgls.bm <-
-  mvgls(l1ou_test$Y[,-1] ~ l1ou_test$Y[,1],
+LHT.mvgls.bm.m <-
+  mvgls(l1ou_test$Y ~ 1,
         tree = simmap.janus.all.aggregate,
         model = 'BM',
-        error = T)
+        error = T, method='Mahalanobis')
 
-GIC(LHT.mvgls.bmm)
-GIC(LHT.mvgls.bm)
+LHT.mvgls.lambda.ll <-
+  mvgls(l1ou_test$Y ~ 1,
+        tree = simmap.janus.all.aggregate,
+        model = 'lambda',
+        error = T, method='LL')
+
+LHT.mvgls.lambda.m <-
+  mvgls(l1ou_test$Y ~ 1,
+        tree = simmap.janus.all.aggregate,
+        model = 'lambda',
+        error = T, method='Mahalanobis')
+
+LHT.mvgls.ou.ll <-
+  mvgls(l1ou_test$Y ~ 1,
+        tree = simmap.janus.all.aggregate,
+        model = 'OU',
+        error = T, method='LL')
+
+
+GIC(LHT.mvgls.ou.ll)
+GIC(LHT.mvgls.bm.ll)
+GIC(LHT.mvgls.lambda.ll)
+#LHT.mvgls.bm$residuals == residuals(LHT.mvgls.bm, type='normalized')
+GIC(LHT.mvgls.lambda.m)
+GIC(LHT.mvgls.bm.ll)
+
+saveRDS(LHT.mvgls.bm.ll, file="./RDS/LHT.mvgls.bm.ll.RDS")
+saveRDS(LHT.mvgls.bm.m, file="./RDS/LHT.mvgls.bm.m.RDS")
+saveRDS(LHT.mvgls.lambda.ll, file="./RDS/LHT.mvgls.lambda.ll.RDS")
 
 }
 
 
-LHT.mvgls.OU <-
-  mvgls(l1ou_test$Y ~ 1,
-        tree = simmap.janus.all.aggregate,
-        model = 'OU',
-        error = T)
+
+#save output from method =LL and try with RF
+#save output with different models too
+image(cor2pcor(cov2cor(LHT.mvgls.bm$sigma$Pinv)))
+
+
+
+
+}
+
+
+
+  
+  
 
 grps<-factor(getStates(simmap.janus.all.aggregate, type='tips'))
 dat.grp<-data.frame(l1ou_test$Y, groups=grps)
@@ -10348,4 +10376,13 @@ summary(
           boot = 100, 
   ))
 }
+
+## in response to review, generating simulated alignments of 10kb. code here checks the base content to ensure that the the iqtree bug is fixed
+require(parallel)
+require(pbmcapply)
+require(ape)
+require(tidyverse)
+data_frame_result <- process_fasta_directory('/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/data-2kb_iqtree2.2.0')
+any(data_frame_result$Results==0.0)
+
 
