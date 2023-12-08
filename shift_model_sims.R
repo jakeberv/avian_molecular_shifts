@@ -7,7 +7,6 @@ require(Biostrings)
 require(phylotate)
 library(DirichletReg)
 
-
 # Function to identify edge indices based on a minimum clade size
 edge_indices_N <- function(tree, min_clade_size) {
   pruned <- tree
@@ -34,60 +33,59 @@ node_indices_edge <- function(tree, edge_indices) {
 }
 
 # Function to randomly select nodes for annotation with option for nested or independent shifts
-select_nodes_for_annotation <- function(tree, candidate_nodes, reps, nested = FALSE) {
+select_nodes_for_annotation <- function(tree, candidate_nodes, reps, nested = FALSE, buffer = 1) {
   if (length(candidate_nodes) < reps) {
     stop("The number of reps is greater than the number of candidate nodes.")
   }
   
   selected_nodes <- c()  # To keep track of nodes selected for shifts
-  excluded_nodes <- c()  # To keep track of all nodes that should be excluded from future selections
-  nested_pool <- NULL    # To keep track of eligible nodes for nested shifts
+  excluded_nodes <- c()  # For independent shifts
+  first_selected_node <- NULL  # To store the first selected node in nested shifts
+  nested_pool <- NULL    # To keep track of eligible nodes for nested shifts after the first selection
   
   cat("Starting shifts selection...\n")
   for (i in 1:reps) {
-    if (nested && i == 1) {
-      # For the first node in nested mode, any node is eligible
-      nested_pool <- candidate_nodes
-    } else if (nested) {
-      # For nested shifts after the first selection, limit to the nested pool
-      candidate_nodes <- intersect(candidate_nodes, nested_pool)
-    } else {
-      # For independent shifts, exclude all descendants and ancestors of already selected nodes
-      candidate_nodes <- setdiff(candidate_nodes, excluded_nodes)
-    }
-    
-    if (length(candidate_nodes) == 0) {
-      stop("No more candidate nodes left to select for shifts.")
-    }
-    
-    selected <- sample(candidate_nodes, 1, replace = FALSE)
-    selected_nodes <- c(selected_nodes, selected)
-    
-    if (nested && i == 1) {
-      # Define the nested pool as descendants of the first selected node plus its ancestors
-      nested_pool <- union(get_descendants(tree, selected), get_ancestors(tree, selected))
-      cat("Nested pool defined after first selection: ", nested_pool, "\n")
-    }
-    
-    # For independent shifts or after the first selection in nested mode
-    if (!nested || i > 1) {
-      # Exclude the selected node and its descendants
-      descendants <- get_descendants(tree, selected)
-      excluded_nodes <- union(excluded_nodes, descendants)
-      
-      if (!nested) {
-        # For independent shifts, also exclude the ancestors of the selected node
-        ancestors <- get_ancestors(tree, selected)
-        excluded_nodes <- union(excluded_nodes, ancestors)
+    if (nested) {
+      if (i == 1) {
+        # For the first node in nested mode, any node is eligible
+        first_selected_node <- sample(candidate_nodes, 1, replace = FALSE)
+        selected_nodes <- c(selected_nodes, first_selected_node)
+        nested_pool <- union(get_descendants(tree, first_selected_node), get_ancestors(tree, first_selected_node))
+        cat("First node selected, nested pool defined: ", nested_pool, "\n")
+      } else {
+        # Apply buffer and lineage constraints for subsequent selections in nested mode
+        valid_candidates <- intersect(candidate_nodes, nested_pool)
+        buffer_candidates <- vector()
+        for (node in valid_candidates) {
+          path <- nodepath(tree, from = first_selected_node, to = node)
+          if (length(path) - 1 >= buffer) {
+            buffer_candidates <- c(buffer_candidates, node)
+          }
+        }
+        
+        if (length(buffer_candidates) == 0) {
+          stop("No more candidate nodes left to select for shifts considering the buffer.")
+        }
+        
+        selected <- sample(buffer_candidates, 1, replace = FALSE)
+        selected_nodes <- c(selected_nodes, selected)
+        cat("Selected node for shift (nested): ", selected, "\n")
       }
-    }
-    
-    # Remove the selected node from the candidate nodes list
-    candidate_nodes <- setdiff(candidate_nodes, selected)
-    
-    cat("Selected node for shift (round ", i, "): ", selected, "\n")
-    if (!nested) {
-      cat("Nodes excluded after this selection (round ", i, "): ", excluded_nodes, "\n")
+    } else {
+      # Independent shifts (original behavior)
+      candidate_nodes <- setdiff(candidate_nodes, excluded_nodes)
+      
+      if (length(candidate_nodes) == 0) {
+        stop("No more candidate nodes left to select for shifts.")
+      }
+      
+      selected <- sample(candidate_nodes, 1, replace = FALSE)
+      selected_nodes <- c(selected_nodes, selected)
+      
+      # Exclude the selected node and its descendants
+      descendants_and_ancestors <- union(get_descendants(tree, selected), get_ancestors(tree, selected))
+      excluded_nodes <- union(excluded_nodes, descendants_and_ancestors)
+      cat("Selected node for shift (independent): ", selected, "\n")
     }
   }
   
@@ -126,7 +124,7 @@ get_descendants <- function(tree, node) {
 }
 
 # Main function to annotate branches and write to Newick format with nested or independent option
-annotate_branches <- function(input_tree, models, reps, min_clade_size, nested = FALSE, annotate_tips = FALSE) {
+annotate_branches <- function(input_tree, models, reps, min_clade_size, nested = FALSE, annotate_tips = FALSE, buffer = 1) {
   if (is.character(input_tree)) {
     tree <- read.tree(text = input_tree)
   } else if (inherits(input_tree, "phylo")) {
@@ -140,25 +138,29 @@ annotate_branches <- function(input_tree, models, reps, min_clade_size, nested =
   candidate_nodes <- node_indices_edge(tree, edge_indices)
   print(candidate_nodes)
   
-  # Select nodes and annotate them
-  if (length(models) == 1) {
-    selected_models <- rep(models, reps)
-  } else if (length(models) < reps) {
-    stop("The number of models is less than the number of reps.")
-  } else {
-    selected_models <- models[1:reps]
-  }
-  
-  selected_nodes <- select_nodes_for_annotation(tree, candidate_nodes, reps, nested)
-  annotated_tree <- annotate_nodes(tree, selected_nodes, selected_models, nested)
-  
-  # Use write.tree to output the annotated tree in Newick format
-  newick_with_labels <- write.tree(annotated_tree, file = "", digits = 10)
-  cat("Annotated Newick string with write.tree:\n", newick_with_labels, "\n\n")
-  
-  # If annotate_tips is TRUE, apply tip annotations
-  if (annotate_tips) {
-    newick_with_labels <- annotate_tips_based_on_parents(newick_with_labels)
+  repeat {
+    # Select nodes for annotation
+    selected_nodes <- select_nodes_for_annotation(tree, candidate_nodes, reps, nested, buffer)
+    annotated_tree <- annotate_nodes(tree, selected_nodes, models, nested)
+    newick_with_labels <- write.tree(annotated_tree, file = "", digits = 10)
+    
+    if (annotate_tips) {
+      annotation_results <- annotate_tips_based_on_parents(newick_with_labels)
+      annotated_newick <- annotation_results$annotated_newick
+      tip_states <- annotation_results$tip_states
+      
+      # Count the number of tips in each state
+      state_counts <- table(unlist(tip_states))
+      
+      # Check if all states have at least the minimum number of tips
+      if (all(state_counts >= min_clade_size)) {
+        break
+      } else {
+        cat("Re-running selection process to meet minimum clade size criterion\n")
+      }
+    } else {
+      break
+    }
   }
   
   # Plot the tree with the selected nodes highlighted
@@ -314,34 +316,23 @@ getParent <- function (tree, node=NULL, tips=NULL, edges=NULL) {
   return (end.nodes[1])
 }
 
+#function to generate tip annotations
 annotate_tips_based_on_parents <- function(annotated_newick) {
   cat("Parsing Annotated Newick string into a tree with annotations...\n")
   
-  # Parse the tree while retaining annotations
   tree <- parse_annotated(annotated_newick, format = "newick")
-  
+  tip_states <- vector("list", length(tree$tip.label))
   cat("Modifying annotations for tips based on their parent nodes...\n")
   
-  # Iterate over each tip in the tree
   for (tip_label in tree$tip.label) {
-    # Get the parent node for this tip label
     parent_node <- getParent(tree, tips = tip_label)
-    
-    # Retrieve the annotation from the parent node
     if (!is.na(tree$node.comment[parent_node]) && nzchar(tree$node.comment[parent_node])) {
-      # Clean the annotation string
       annotation_str <- gsub("[[:space:]]*\\[&", "", tree$node.comment[parent_node])
       annotation_str <- gsub("\\]", "", annotation_str)
-      
-      # Build the regex pattern to match the tip and its branch length
       pattern <- sprintf("(%s:[^,;)]+)", tip_label)
-      
-      # Build the replacement string with annotation
       replacement <- sprintf("\\1[%s]", annotation_str)
-      
-      # Replace in the full Newick string
       annotated_newick <- gsub(pattern, replacement, annotated_newick, perl = TRUE)
-      
+      tip_states[[tip_label]] <- annotation_str
       cat(sprintf("Tip %s annotated with %s\n", tip_label, annotation_str))
     } else {
       cat(sprintf("No annotation for parent node of tip %s\n", tip_label))
@@ -350,7 +341,7 @@ annotate_tips_based_on_parents <- function(annotated_newick) {
   
   cat("Final annotated Newick string:\n")
   cat(annotated_newick, "\n\n")
-  return(annotated_newick)
+  return(list(annotated_newick = annotated_newick, tip_states = tip_states))
 }
 
 # Function to generate a nucleotide frequency string
@@ -365,6 +356,7 @@ generate_nucleotide_freq_string <- function(alpha = c(2, 2, 2, 2)) {
   
   return(freq_string)
 }
+
 
 ### 
 #independent shift models
