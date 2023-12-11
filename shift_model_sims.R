@@ -93,6 +93,204 @@ select_nodes_for_annotation <- function(tree, candidate_nodes, reps, nested = FA
   return(selected_nodes)
 }
 
+select_nodes_for_annotation <- function(tree, candidate_nodes, reps, nested = FALSE, buffer = 1) {
+  if (length(candidate_nodes) < reps) {
+    stop("The number of reps is greater than the number of candidate nodes.")
+  }
+  
+  selected_nodes <- c()  # To keep track of nodes selected for shifts
+  excluded_nodes <- c()  # For independent shifts
+  
+  cat("Starting shifts selection...\n")
+  
+  if (nested) {
+    retry_count <- 0
+    max_retries <- 10  # Maximum number of retries
+    
+    while (TRUE) {
+      tryCatch({
+        if (length(selected_nodes) < reps) {
+          if (length(selected_nodes) == 0) {
+            selected <- sample(candidate_nodes, 1, replace = FALSE)
+            selected_nodes <- c(selected_nodes, selected)
+            cat("First node selected for shift (nested): ", selected, "\n")
+          } else {
+            nested_pool <- intersect(union(get_descendants(tree, selected_nodes[1]), get_ancestors(tree, selected_nodes[1])), candidate_nodes)
+            cat("Nested pool for buffer estimation: ", nested_pool, "\n")
+            
+            buffer_candidates <- vector()
+            for (node in nested_pool) {
+              path <- nodepath(tree, from = selected_nodes[1], to = node)
+              cat("Node: ", node, " Path Length: ", length(path) - 1, " (Buffer: ", buffer, ")\n")
+              if (length(path) - 1 >= buffer) {
+                buffer_candidates <- c(buffer_candidates, node)
+              }
+            }
+            
+            cat("Buffer candidates: ", buffer_candidates, "\n")
+            if (length(buffer_candidates) == 0) {
+              throw("No more candidate nodes left to select for shifts considering the buffer.")
+            }
+            
+            selected <- sample(buffer_candidates, 1, replace = FALSE)
+            selected_nodes <- c(selected_nodes, selected)
+            cat("Selected node for shift (nested): ", selected, "\n")
+          }
+        } else {
+          return(selected_nodes)
+        }
+      }, error = function(e) {
+        if (retry_count < max_retries) {
+          retry_count <- retry_count + 1
+          cat("Retry ", retry_count, "/", max_retries, ": Resetting selection process\n")
+          selected_nodes <- c()
+        } else {
+          stop("Maximum number of retries reached. Unable to find suitable nodes for nested shifts.")
+        }
+      })
+    }
+  } else {
+    # Implementing buffer logic for independent shifts
+    for (i in 1:reps) {
+      buffer_candidates <- setdiff(candidate_nodes, excluded_nodes)
+      
+      if (i > 1) {
+        temp_buffer_candidates <- vector()
+        for (node in buffer_candidates) {
+          is_buffer_compliant <- TRUE
+          for (selected_node in selected_nodes) {
+            path <- nodepath(tree, from = selected_node, to = node)
+            if (length(path) - 1 < buffer) {
+              is_buffer_compliant <- FALSE
+              break
+            }
+          }
+          if (is_buffer_compliant) {
+            temp_buffer_candidates <- c(temp_buffer_candidates, node)
+          }
+        }
+        buffer_candidates <- temp_buffer_candidates
+      }
+      
+      if (length(buffer_candidates) == 0) {
+        cat("No buffer-compliant candidates found for independent shifts.\n")
+        next
+      }
+      
+      selected <- sample(buffer_candidates, 1, replace = FALSE)
+      selected_nodes <- c(selected_nodes, selected)
+      
+      # Update excluded_nodes with lineage of the selected node
+      descendants_and_ancestors <- union(get_descendants(tree, selected), get_ancestors(tree, selected))
+      excluded_nodes <- union(excluded_nodes, c(descendants_and_ancestors, selected))
+      cat("Selected node for shift (independent): ", selected, "\n")
+    }
+  }
+  
+  cat("Final randomly selected nodes for annotation: ", selected_nodes, "\n\n")
+  return(selected_nodes)
+}
+
+select_nodes_for_annotation <- function(tree, candidate_nodes, reps, nested = FALSE, buffer = 1) {
+  if (length(candidate_nodes) < reps) {
+    stop("The number of reps is greater than the number of candidate nodes.")
+  }
+  
+  selected_nodes <- c()  # To keep track of nodes selected for shifts
+  excluded_nodes <- c()  # For independent shifts
+  
+  cat("Starting shifts selection...\n")
+  
+  if (nested) {
+    retry_count <- 0
+    max_retries <- 10  # Maximum number of retries
+    
+    while (TRUE) {
+      tryCatch({
+        if (length(selected_nodes) < reps) {
+          if (length(selected_nodes) == 0) {
+            selected <- sample(candidate_nodes, 1, replace = FALSE)
+            selected_nodes <- c(selected_nodes, selected)
+            cat("First node selected for shift (nested): ", selected, "\n")
+          } else {
+            nested_pool <- intersect(union(get_descendants(tree, selected_nodes[1]), get_ancestors(tree, selected_nodes[1])), candidate_nodes)
+            cat("Nested pool for buffer estimation: ", nested_pool, "\n")
+            
+            buffer_candidates <- vector()
+            for (node in nested_pool) {
+              path <- nodepath(tree, from = selected_nodes[1], to = node)
+              cat("Node: ", node, " Path Length: ", length(path) - 1, " (Buffer: ", buffer, ")\n")
+              if (length(path) - 1 >= buffer) {
+                buffer_candidates <- c(buffer_candidates, node)
+              }
+            }
+            
+            cat("Buffer candidates: ", buffer_candidates, "\n")
+            if (length(buffer_candidates) == 0) {
+              throw("No more candidate nodes left to select for shifts considering the buffer.")
+            }
+            
+            selected <- sample(buffer_candidates, 1, replace = FALSE)
+            selected_nodes <- c(selected_nodes, selected)
+            cat("Selected node for shift (nested): ", selected, "\n")
+          }
+        } else {
+          return(selected_nodes)
+        }
+      }, error = function(e) {
+        if (retry_count < max_retries) {
+          retry_count <- retry_count + 1
+          cat("Retry ", retry_count, "/", max_retries, ": Resetting selection process\n")
+          selected_nodes <- c()
+        } else {
+          stop("Maximum number of retries reached. Unable to find suitable nodes for nested shifts.")
+        }
+      })
+    }
+  } else {
+    # Implementing buffer logic for independent shifts
+    for (i in 1:reps) {
+      buffer_candidates <- setdiff(candidate_nodes, excluded_nodes)
+      
+      if (i > 1) {
+        temp_buffer_candidates <- vector()
+        for (node in buffer_candidates) {
+          is_buffer_compliant <- TRUE
+          for (selected_node in selected_nodes) {
+            path <- nodepath(tree, from = selected_node, to = node)
+            cat("Checking buffer for Node: ", node, " against Selected Node: ", selected_node, " Path Length: ", length(path) - 1, " (Buffer: ", buffer, ")\n")
+            if (length(path) - 1 < buffer) {
+              is_buffer_compliant <- FALSE
+              break
+            }
+          }
+          if (is_buffer_compliant) {
+            temp_buffer_candidates <- c(temp_buffer_candidates, node)
+          }
+        }
+        buffer_candidates <- temp_buffer_candidates
+      }
+      
+      cat("Buffer candidates for independent shift: ", buffer_candidates, "\n")
+      if (length(buffer_candidates) == 0) {
+        cat("No buffer-compliant candidates found for independent shifts.\n")
+        next
+      }
+      
+      selected <- sample(buffer_candidates, 1, replace = FALSE)
+      selected_nodes <- c(selected_nodes, selected)
+      
+      # Update excluded_nodes with lineage of the selected node
+      descendants_and_ancestors <- union(get_descendants(tree, selected), get_ancestors(tree, selected))
+      excluded_nodes <- union(excluded_nodes, c(descendants_and_ancestors, selected))
+      cat("Selected node for shift (independent): ", selected, "\n")
+    }
+  }
+  
+  cat("Final randomly selected nodes for annotation: ", selected_nodes, "\n\n")
+  return(selected_nodes)
+}
+
 # Helper function to find all ancestor nodes up to the root for a given node
 get_ancestors <- function(tree, node) {
   ancestors <- c()
@@ -345,7 +543,7 @@ annotate_tips_based_on_parents <- function(annotated_newick) {
 }
 
 # Function to generate a nucleotide frequency string
-generate_nucleotide_freq_string <- function(alpha = c(2, 2, 2, 2)) {
+generate_nucleotide_freq_string <- function(alpha = c(1, 1, 1, 1)) {
   # Generate a sample
   sample <- rdirichlet(1, alpha)
   
@@ -369,15 +567,15 @@ cat("Simulated tree in Newick format:\n", write.tree(tree), "\n\n")
 
 # Example usage
 min_clade_size <- 4
-reps <- 1
+reps <- 3
 #models <- c("[&model=HKY{2.0}+GC]", "[&model=GTR{2.0}+GC]")
 #models <- c("[HKY{2.0}]", "[GTR]")
-models <- c("[&model=HKY{2.0}+F{0.35/0.15/0.15/0.35}]")
+models <- c("[&model=HKY{2.0}+F{0.35/0.15/0.15/0.35}]", "[&model=HKY{2.0}+F{0.35/0.15/0.15/0.35}]", "[&model=HKY{2.0}+F{0.35/0.15/0.15/0.35}]")
 
 nested_shifts <- F # Set to TRUE if you want nested shifts
 
 # Run the annotation process with the option for nested or independent shifts
-annotated_newick <- annotate_branches(tree, models, reps, min_clade_size, nested_shifts, annotate_tips=T)
+annotated_newick <- annotate_branches(tree, models, reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=3)
 
 
 #read in trees for preparation
@@ -396,7 +594,6 @@ utrtree$node.label<-NULL
 mtdnatree<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/janus/concat_all/mtDNA_all_MRL3_constraint.janus.tre")
 mtdnatree$tip.label <- gsub("_1", "", mtdnatree$tip.label)
 mtdnatree$node.label<-NULL
-
 
 set.seed(123)
 
@@ -518,7 +715,6 @@ cbind(exon_1$tip.label, exon_1$tip.label %in% names(test), names(test))
 
 ### nested shift models
 
-
 # Simulate a tree using pbtree from the ape package
 set.seed(123) # Set a seed for reproducibility
 tree <- pbtree(n = 200)
@@ -527,17 +723,14 @@ cat("Simulated tree in Newick format:\n", write.tree(tree), "\n\n")
 # Example usage
 min_clade_size <- 4
 reps <- 2
-#models <- c("[&model=HKY{2.0}+GC]", "[&model=GTR{2.0}+GC]")
-#models <- c("[HKY{2.0}]", "[GTR]")
-#models <- c("[A]", "[B]")
 models <- c("[&model=HKY{2.0}+F{0.35/0.15/0.15/0.35}]", "[&model=HKY{2.0}+F{0.15/0.35/0.35/0.15}]")
-#models<-c(generate_nucleotide_freq_string(), generate_nucleotide_freq_string())
-
+models<-function(){(c(generate_nucleotide_freq_string(), generate_nucleotide_freq_string()))}
+models()
 
 nested_shifts <- T # Set to TRUE if you want nested shifts
 
 # Run the annotation process with the option for nested or independent shifts
-annotated_newick <- annotate_branches(tree, models, reps, min_clade_size, nested_shifts, annotate_tips=T)
+annotated_newick <- annotate_branches(tree, models(), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)
 
 
 #read in trees for preparation
@@ -562,20 +755,20 @@ set.seed(123)
 
 # Run the annotation process
 exon_base <- list()
-for(i in 1:10){exon_base[[i]]<-annotate_branches(exontree, models, reps, min_clade_size, nested_shifts, annotate_tips=T)}
-#annotate_branches(exontree, models, reps, min_clade_size, nested_shifts, annotate_tips=T)
+for(i in 1:100){exon_base[[i]]<-annotate_branches(exontree, models(), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)}
 
 # Run the annotation process
 intron_base <- list()
-for(i in 1:10){intron_base[[i]]<-annotate_branches(introntree, models, reps, min_clade_size, nested_shifts, annotate_tips=T)}
+for(i in 1:100){intron_base[[i]]<-annotate_branches(introntree, models(), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)}
 
 # Run the annotation process
 utr_base <- list()
-for(i in 1:10){utr_base[[i]]<-annotate_branches(utrtree, models, reps, min_clade_size, nested_shifts, annotate_tips=T)}
+for(i in 1:10){utr_base[[i]]<-annotate_branches(utrtree, models(), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)}
 
 # Run the annotation process
 mtdna_base <- list()
-for(i in 1:10){mtdna_base[[i]]<-annotate_branches(mtdnatree, models, reps, min_clade_size, nested_shifts, annotate_tips=T)}
+for(i in 1:10){mtdna_base[[i]]<-annotate_branches(mtdnatree, models(), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)}
+
 
 # Assuming your vector is named 'exon_base'
 write_vector_to_files(exon_base, "exon")
@@ -614,4 +807,165 @@ cbind(exon_2$tip.label, exon_2$tip.label %in% names(test), names(test))
 
 
 ##consider adding a flag to the shift node selection that excludes nodes immediately parent or daughter to the initial round one sample
+
+
+##parsing the output
+parse_files_hmsj <- function(directory, expected, exclude_zero_lines = FALSE, group_by_reps = T, group_by_type = T) {
+  # Get list of files with 'stderror' in their names
+  file_names <- list.files(path = directory, pattern = "stderror", full.names = TRUE)
+  
+  # Initialize a data frame to store results
+  results <- data.frame(file_name = character(), prefix = character(), type = character(), line_count = integer(), stringsAsFactors = FALSE)
+  
+  # Process each file
+  for (file in file_names) {
+    # Read the file content
+    lines <- readLines(file)
+    
+    # Find the index of the line that contains 'Final models'
+    final_model_index <- which(grepl("Final models", lines))
+    
+    # Initialize count
+    count <- 0
+    
+    # Check if the next line contains '-------'
+    if (length(final_model_index) > 0 && (final_model_index + 1) <= length(lines)) {
+      if (grepl("-------", lines[final_model_index + 1])) {
+        # Count the number of lines after 'Final models' and '-------'
+        count <- length(lines) - (final_model_index + 1)
+      }
+    }
+    
+    # Extract the prefix and type from the file name
+    file_prefix <- ifelse(group_by_reps, strsplit(basename(file), "_")[[1]][1], NA)
+    type <- ifelse(group_by_type, gsub("[0-9]+", "", file_prefix), NA)
+    
+    # Add results to the data frame if they meet the condition
+    if (!exclude_zero_lines || count > 0) {
+      results <- rbind(results, data.frame(file_name = basename(file), prefix = file_prefix, type = type, line_count = count))
+    }
+  }
+  
+  # Calculate success rate, false_neg, false_pos and return results based on group_by_reps and group_by_type flags
+  if (group_by_reps) {
+    if (group_by_type) {
+      # Group by type and summarize line counts
+      type_grouped_results <- aggregate(line_count ~ type, data = results, FUN = sum)
+      # Calculate success rate
+      type_grouped_results$success_rate <- type_grouped_results$line_count / (expected * sapply(type_grouped_results$type, function(x) sum(results$type == x)))
+      # Calculate false negative rate
+      type_grouped_results$false_neg <- 1 - type_grouped_results$success_rate
+      # Calculate false positive rate
+      type_grouped_results$false_pos <- pmax(type_grouped_results$success_rate - 1, 0)
+      return(type_grouped_results[, c("type", "line_count", "success_rate", "false_neg", "false_pos")])
+    } else {
+      # Group by prefix and summarize line counts
+      grouped_results <- aggregate(line_count ~ prefix, data = results, FUN = sum)
+      # Calculate success rate
+      grouped_results$success_rate <- grouped_results$line_count / (expected * sapply(grouped_results$prefix, function(x) sum(results$prefix == x)))
+      # Calculate false negative rate
+      grouped_results$false_neg <- 1 - grouped_results$success_rate
+      # Calculate false positive rate
+      grouped_results$false_pos <- pmax(grouped_results$success_rate - 1, 0)
+      return(grouped_results[, c("prefix", "line_count", "success_rate", "false_neg", "false_pos")])
+    }
+  } else {
+    # Add success rate column
+    results$success_rate <- results$line_count / expected
+    # Add false negative rate column
+    results$false_neg <- 1 - results$success_rate
+    # Add false positive rate column
+    results$false_pos <- pmax(results$success_rate - 1, 0)
+    # Return results without grouping
+    return(results[, c("file_name", "line_count", "success_rate", "false_neg", "false_pos")])
+  }
+}
+
+##parsing the output
+parse_files_hmshj <- function(directory, expected, exclude_zero_lines = FALSE, group_by_reps = T, group_by_type = T) {
+  # Get list of files with 'stderror' in their names
+  file_names <- list.files(path = directory, pattern = "stderror", full.names = TRUE)
+  
+  # Initialize a data frame to store results
+  results <- data.frame(file_name = character(), prefix = character(), type = character(), line_count = integer(), stringsAsFactors = FALSE)
+  
+  # Process each file
+  for (file in file_names) {
+    # Read the file content
+    lines <- readLines(file)
+    
+    # Find the index of the line that contains 'Final models'
+    final_model_index <- which(grepl("final:", lines))
+    
+    # Initialize count
+    count <- 0
+    
+    # Check if the next line contains '-------'
+    if (length(final_model_index) > 0 && (final_model_index + 1) <= length(lines)) {
+      if (grepl("rm: ", lines[final_model_index + 1])) {
+        # Count the number of lines after 'Final models' and '-------'
+        count <- length(lines) - (final_model_index + 1)
+      }
+    }
+    
+    # Extract the prefix and type from the file name
+    file_prefix <- ifelse(group_by_reps, strsplit(basename(file), "_")[[1]][1], NA)
+    type <- ifelse(group_by_type, gsub("[0-9]+", "", file_prefix), NA)
+    
+    # Add results to the data frame if they meet the condition
+    if (!exclude_zero_lines || count > 0) {
+      results <- rbind(results, data.frame(file_name = basename(file), prefix = file_prefix, type = type, line_count = count))
+    }
+  }
+  
+  # Calculate success rate, false_neg, false_pos and return results based on group_by_reps and group_by_type flags
+  if (group_by_reps) {
+    if (group_by_type) {
+      # Group by type and summarize line counts
+      type_grouped_results <- aggregate(line_count ~ type, data = results, FUN = sum)
+      # Calculate success rate
+      type_grouped_results$success_rate <- type_grouped_results$line_count / (expected * sapply(type_grouped_results$type, function(x) sum(results$type == x)))
+      # Calculate false negative rate
+      type_grouped_results$false_neg <- 1 - type_grouped_results$success_rate
+      # Calculate false positive rate
+      type_grouped_results$false_pos <- pmax(type_grouped_results$success_rate - 1, 0)
+      return(type_grouped_results[, c("type", "line_count", "success_rate", "false_neg", "false_pos")])
+    } else {
+      # Group by prefix and summarize line counts
+      grouped_results <- aggregate(line_count ~ prefix, data = results, FUN = sum)
+      # Calculate success rate
+      grouped_results$success_rate <- grouped_results$line_count / (expected * sapply(grouped_results$prefix, function(x) sum(results$prefix == x)))
+      # Calculate false negative rate
+      grouped_results$false_neg <- 1 - grouped_results$success_rate
+      # Calculate false positive rate
+      grouped_results$false_pos <- pmax(grouped_results$success_rate - 1, 0)
+      return(grouped_results[, c("prefix", "line_count", "success_rate", "false_neg", "false_pos")])
+    }
+  } else {
+    # Add success rate column
+    results$success_rate <- results$line_count / expected
+    # Add false negative rate column
+    results$false_neg <- 1 - results$success_rate
+    # Add false positive rate column
+    results$false_pos <- pmax(results$success_rate - 1, 0)
+    # Return results without grouping
+    return(results[, c("file_name", "line_count", "success_rate", "false_neg", "false_pos")])
+  }
+}
+
+
+
+tmp<-parse_files(expected=2, group_by_type=F, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/output_tmp/1')
+
+tmp<-parse_files(expected=4, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/output_tmp/3')
+
+
+shift1_sum<-parse_files_hmshj(expected=2, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/output_tmp/1_hmshj')
+
+shift1_sum<-parse_files_hmshj(expected=2, group_by_reps = T, group_by_type = F, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/output_tmp/1_hmshj')
+
+
+
+
+
 
