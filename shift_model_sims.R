@@ -638,13 +638,11 @@ mtdnatree$node.label<-NULL
 
 
 # # Run the annotation process
-reps <- 2
-
-set.seed(123)
-exon_base <- list()
-for(i in 1:100){exon_base[[i]]<-annotate_branches(exontree, models(reps), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)} #print(i); Sys.sleep(1)
-
-annotate_branches(exontree, models(reps), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)
+# reps <- 2
+# 
+# set.seed(123)
+# exon_base <- list()
+# for(i in 1:100){exon_base[[i]]<-annotate_branches(exontree, models(reps), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)} #print(i); Sys.sleep(1)
 
 # # Run the annotation process
 # intron_base <- list()
