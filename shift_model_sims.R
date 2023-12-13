@@ -6,6 +6,8 @@ library(phytools)
 require(Biostrings)
 require(phylotate)
 library(DirichletReg)
+library(parallel)
+library(pbmcapply)
 
 # Function to identify edge indices based on a minimum clade size
 edge_indices_N <- function(tree, min_clade_size) {
@@ -40,215 +42,59 @@ select_nodes_for_annotation <- function(tree, candidate_nodes, reps, nested = FA
   
   selected_nodes <- c()  # To keep track of nodes selected for shifts
   excluded_nodes <- c()  # For independent shifts
-  first_selected_node <- NULL  # To store the first selected node in nested shifts
-  nested_pool <- NULL    # To keep track of eligible nodes for nested shifts after the first selection
   
   cat("Starting shifts selection...\n")
-  for (i in 1:reps) {
-    if (nested) {
-      if (i == 1) {
-        # For the first node in nested mode, any node is eligible
-        first_selected_node <- sample(candidate_nodes, 1, replace = FALSE)
-        selected_nodes <- c(selected_nodes, first_selected_node)
-        nested_pool <- union(get_descendants(tree, first_selected_node), get_ancestors(tree, first_selected_node))
-        cat("First node selected, nested pool defined: ", nested_pool, "\n")
-      } else {
-        # Apply buffer and lineage constraints for subsequent selections in nested mode
-        valid_candidates <- intersect(candidate_nodes, nested_pool)
+  
+  if (nested) {
+    retry_count <- 0
+    max_retries <- 10  # Maximum number of retries
+    
+    while (TRUE) {
+      if (length(selected_nodes) < reps) {
+        if (length(selected_nodes) == 0) {
+          selected <- sample(candidate_nodes, 1, replace = FALSE)
+          selected_nodes <- c(selected_nodes, selected)
+          cat("First node selected for shift (nested): ", selected, "\n")
+        }
+        
+        nested_pool <- intersect(union(get_descendants(tree, selected_nodes[1]), get_ancestors(tree, selected_nodes[1])), candidate_nodes)
+        cat("Nested pool for buffer estimation: ", nested_pool, "\n")
+        
         buffer_candidates <- vector()
-        for (node in valid_candidates) {
-          path <- nodepath(tree, from = first_selected_node, to = node)
+        for (node in nested_pool) {
+          path <- nodepath(tree, from = selected_nodes[1], to = node)
+          cat("Node: ", node, " Path Length: ", length(path) - 1, " (Buffer: ", buffer, ")\n")
           if (length(path) - 1 >= buffer) {
             buffer_candidates <- c(buffer_candidates, node)
           }
         }
         
-        if (length(buffer_candidates) == 0) {
-          stop("No more candidate nodes left to select for shifts considering the buffer.")
-        }
+        cat("Buffer candidates: ", buffer_candidates, "\n")
         
-        selected <- sample(buffer_candidates, 1, replace = FALSE)
-        selected_nodes <- c(selected_nodes, selected)
-        cat("Selected node for shift (nested): ", selected, "\n")
-      }
-    } else {
-      # Independent shifts (original behavior)
-      candidate_nodes <- setdiff(candidate_nodes, excluded_nodes)
-      
-      if (length(candidate_nodes) == 0) {
-        stop("No more candidate nodes left to select for shifts.")
-      }
-      
-      selected <- sample(candidate_nodes, 1, replace = FALSE)
-      selected_nodes <- c(selected_nodes, selected)
-      
-      # Exclude the selected node and its descendants
-      descendants_and_ancestors <- union(get_descendants(tree, selected), get_ancestors(tree, selected))
-      excluded_nodes <- union(excluded_nodes, descendants_and_ancestors)
-      cat("Selected node for shift (independent): ", selected, "\n")
-    }
-  }
-  
-  cat("Final randomly selected nodes for annotation: ", selected_nodes, "\n\n")
-  return(selected_nodes)
-}
-
-select_nodes_for_annotation <- function(tree, candidate_nodes, reps, nested = FALSE, buffer = 1) {
-  if (length(candidate_nodes) < reps) {
-    stop("The number of reps is greater than the number of candidate nodes.")
-  }
-  
-  selected_nodes <- c()  # To keep track of nodes selected for shifts
-  excluded_nodes <- c()  # For independent shifts
-  
-  cat("Starting shifts selection...\n")
-  
-  if (nested) {
-    retry_count <- 0
-    max_retries <- 10  # Maximum number of retries
-    
-    while (TRUE) {
-      tryCatch({
-        if (length(selected_nodes) < reps) {
-          if (length(selected_nodes) == 0) {
-            selected <- sample(candidate_nodes, 1, replace = FALSE)
-            selected_nodes <- c(selected_nodes, selected)
-            cat("First node selected for shift (nested): ", selected, "\n")
-          } else {
-            nested_pool <- intersect(union(get_descendants(tree, selected_nodes[1]), get_ancestors(tree, selected_nodes[1])), candidate_nodes)
-            cat("Nested pool for buffer estimation: ", nested_pool, "\n")
-            
-            buffer_candidates <- vector()
-            for (node in nested_pool) {
-              path <- nodepath(tree, from = selected_nodes[1], to = node)
-              cat("Node: ", node, " Path Length: ", length(path) - 1, " (Buffer: ", buffer, ")\n")
-              if (length(path) - 1 >= buffer) {
-                buffer_candidates <- c(buffer_candidates, node)
-              }
-            }
-            
-            cat("Buffer candidates: ", buffer_candidates, "\n")
-            if (length(buffer_candidates) == 0) {
-              throw("No more candidate nodes left to select for shifts considering the buffer.")
-            }
-            
-            selected <- sample(buffer_candidates, 1, replace = FALSE)
-            selected_nodes <- c(selected_nodes, selected)
-            cat("Selected node for shift (nested): ", selected, "\n")
-          }
+        if (length(buffer_candidates) == 1) {
+          selected <- buffer_candidates  # Auto-select the single candidate
+          selected_nodes <- c(selected_nodes, selected)
+          cat("Only one buffer candidate available. Auto-selected node for shift (nested): ", selected, "\n")
+        } else if (length(buffer_candidates) > 1) {
+          selected <- sample(buffer_candidates, 1, replace = FALSE)
+          selected_nodes <- c(selected_nodes, selected)
+          cat("Selected node for shift (nested): ", selected, "\n")
         } else {
-          return(selected_nodes)
-        }
-      }, error = function(e) {
-        if (retry_count < max_retries) {
           retry_count <- retry_count + 1
-          cat("Retry ", retry_count, "/", max_retries, ": Resetting selection process\n")
-          selected_nodes <- c()
-        } else {
-          stop("Maximum number of retries reached. Unable to find suitable nodes for nested shifts.")
+          if (retry_count <= max_retries) {
+            cat("Retry ", retry_count, "/", max_retries, ": Resetting selection process\n")
+            selected_nodes <- c()  # Resetting for a new attempt
+            next
+          } else {
+            stop("Maximum number of retries reached. Unable to find suitable nodes for nested shifts.")
+          }
         }
-      })
+      } else {
+        return(selected_nodes)
+      }
     }
   } else {
-    # Implementing buffer logic for independent shifts
-    for (i in 1:reps) {
-      buffer_candidates <- setdiff(candidate_nodes, excluded_nodes)
-      
-      if (i > 1) {
-        temp_buffer_candidates <- vector()
-        for (node in buffer_candidates) {
-          is_buffer_compliant <- TRUE
-          for (selected_node in selected_nodes) {
-            path <- nodepath(tree, from = selected_node, to = node)
-            if (length(path) - 1 < buffer) {
-              is_buffer_compliant <- FALSE
-              break
-            }
-          }
-          if (is_buffer_compliant) {
-            temp_buffer_candidates <- c(temp_buffer_candidates, node)
-          }
-        }
-        buffer_candidates <- temp_buffer_candidates
-      }
-      
-      if (length(buffer_candidates) == 0) {
-        cat("No buffer-compliant candidates found for independent shifts.\n")
-        next
-      }
-      
-      selected <- sample(buffer_candidates, 1, replace = FALSE)
-      selected_nodes <- c(selected_nodes, selected)
-      
-      # Update excluded_nodes with lineage of the selected node
-      descendants_and_ancestors <- union(get_descendants(tree, selected), get_ancestors(tree, selected))
-      excluded_nodes <- union(excluded_nodes, c(descendants_and_ancestors, selected))
-      cat("Selected node for shift (independent): ", selected, "\n")
-    }
-  }
-  
-  cat("Final randomly selected nodes for annotation: ", selected_nodes, "\n\n")
-  return(selected_nodes)
-}
-
-select_nodes_for_annotation <- function(tree, candidate_nodes, reps, nested = FALSE, buffer = 1) {
-  if (length(candidate_nodes) < reps) {
-    stop("The number of reps is greater than the number of candidate nodes.")
-  }
-  
-  selected_nodes <- c()  # To keep track of nodes selected for shifts
-  excluded_nodes <- c()  # For independent shifts
-  
-  cat("Starting shifts selection...\n")
-  
-  if (nested) {
-    retry_count <- 0
-    max_retries <- 10  # Maximum number of retries
-    
-    while (TRUE) {
-      tryCatch({
-        if (length(selected_nodes) < reps) {
-          if (length(selected_nodes) == 0) {
-            selected <- sample(candidate_nodes, 1, replace = FALSE)
-            selected_nodes <- c(selected_nodes, selected)
-            cat("First node selected for shift (nested): ", selected, "\n")
-          } else {
-            nested_pool <- intersect(union(get_descendants(tree, selected_nodes[1]), get_ancestors(tree, selected_nodes[1])), candidate_nodes)
-            cat("Nested pool for buffer estimation: ", nested_pool, "\n")
-            
-            buffer_candidates <- vector()
-            for (node in nested_pool) {
-              path <- nodepath(tree, from = selected_nodes[1], to = node)
-              cat("Node: ", node, " Path Length: ", length(path) - 1, " (Buffer: ", buffer, ")\n")
-              if (length(path) - 1 >= buffer) {
-                buffer_candidates <- c(buffer_candidates, node)
-              }
-            }
-            
-            cat("Buffer candidates: ", buffer_candidates, "\n")
-            if (length(buffer_candidates) == 0) {
-              throw("No more candidate nodes left to select for shifts considering the buffer.")
-            }
-            
-            selected <- sample(buffer_candidates, 1, replace = FALSE)
-            selected_nodes <- c(selected_nodes, selected)
-            cat("Selected node for shift (nested): ", selected, "\n")
-          }
-        } else {
-          return(selected_nodes)
-        }
-      }, error = function(e) {
-        if (retry_count < max_retries) {
-          retry_count <- retry_count + 1
-          cat("Retry ", retry_count, "/", max_retries, ": Resetting selection process\n")
-          selected_nodes <- c()
-        } else {
-          stop("Maximum number of retries reached. Unable to find suitable nodes for nested shifts.")
-        }
-      })
-    }
-  } else {
-    # Implementing buffer logic for independent shifts
+    # Logic for independent shifts (nested = FALSE)
     for (i in 1:reps) {
       buffer_candidates <- setdiff(candidate_nodes, excluded_nodes)
       
@@ -331,14 +177,26 @@ annotate_branches <- function(input_tree, models, reps, min_clade_size, nested =
     stop("Invalid input: input_tree must be a Newick string or a phylo object.")
   }
   
-  # Identify candidate edges and nodes
   edge_indices <- edge_indices_N(tree, min_clade_size)
   candidate_nodes <- node_indices_edge(tree, edge_indices)
   print(candidate_nodes)
   
+  max_retries <- 10  # Limit the number of retries to prevent infinite loops
+  retry_count <- 0
+  previous_selected_nodes <- NULL
+  
   repeat {
-    # Select nodes for annotation
     selected_nodes <- select_nodes_for_annotation(tree, candidate_nodes, reps, nested, buffer)
+    # Check if the new selection is different from the previous one
+    if (!is.null(previous_selected_nodes) && all(selected_nodes %in% previous_selected_nodes)) {
+      cat("No new nodes selected, re-running selection process...\n")
+      if (retry_count >= max_retries) {
+        stop("Maximum retry limit reached. Unable to find suitable nodes.")
+      }
+      retry_count <- retry_count + 1
+    }
+    previous_selected_nodes <- selected_nodes
+    
     annotated_tree <- annotate_nodes(tree, selected_nodes, models, nested)
     newick_with_labels <- write.tree(annotated_tree, file = "", digits = 10)
     
@@ -347,21 +205,21 @@ annotate_branches <- function(input_tree, models, reps, min_clade_size, nested =
       annotated_newick <- annotation_results$annotated_newick
       tip_states <- annotation_results$tip_states
       
-      # Count the number of tips in each state
       state_counts <- table(unlist(tip_states))
-      
-      # Check if all states have at least the minimum number of tips
       if (all(state_counts >= min_clade_size)) {
         break
       } else {
         cat("Re-running selection process to meet minimum clade size criterion\n")
+        if (retry_count >= max_retries) {
+          stop("Maximum retry limit reached. Unable to find suitable nodes.")
+        }
+        retry_count <- retry_count + 1
       }
     } else {
       break
     }
   }
   
-  # Plot the tree with the selected nodes highlighted
   plot_selected_nodes(annotated_tree, selected_nodes)
   
   return(newick_with_labels)
@@ -542,92 +400,28 @@ annotate_tips_based_on_parents <- function(annotated_newick) {
   return(list(annotated_newick = annotated_newick, tip_states = tip_states))
 }
 
-# Function to generate a nucleotide frequency string
+# Function to generate a nucleotide frequency string with samples > 0
 generate_nucleotide_freq_string <- function(alpha = c(1, 1, 1, 1)) {
-  # Generate a sample
-  sample <- rdirichlet(1, alpha)
-  
-  # Convert the sample to a formatted string
-  freq_string <- paste0("[&model=HKY{2.0}+F{", 
-                        paste(round(sample, 2), collapse = "/"), 
-                        "}]")
-  
-  return(freq_string)
+  repeat {
+    # Generate a sample
+    sample <- rdirichlet(1, alpha)
+    
+    # Check if all elements are greater than 0.05 and their sum equals 1
+    if (all(sample > 0.05) && sum(sample) == 1) {
+      # Convert the sample to a formatted string
+      freq_string <- paste0("[&model=HKY{2.0}+F{", 
+                            paste(round(sample, 2), collapse = "/"), 
+                            "}]")
+      return(freq_string)
+    }
+    # If conditions are not met, repeat the sampling
+  }
 }
 
-
-### 
-#independent shift models
-
-
-# Simulate a tree using pbtree from the ape package
-set.seed(123) # Set a seed for reproducibility
-tree <- pbtree(n = 100)
-cat("Simulated tree in Newick format:\n", write.tree(tree), "\n\n")
-
-# Example usage
-min_clade_size <- 4
-reps <- 3
-#models <- c("[&model=HKY{2.0}+GC]", "[&model=GTR{2.0}+GC]")
-#models <- c("[HKY{2.0}]", "[GTR]")
-models <- c("[&model=HKY{2.0}+F{0.35/0.15/0.15/0.35}]", "[&model=HKY{2.0}+F{0.35/0.15/0.15/0.35}]", "[&model=HKY{2.0}+F{0.35/0.15/0.15/0.35}]")
-
-nested_shifts <- F # Set to TRUE if you want nested shifts
-
-# Run the annotation process with the option for nested or independent shifts
-annotated_newick <- annotate_branches(tree, models, reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=3)
-
-
-#read in trees for preparation
-exontree<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/8952e31d/gamma/redo_m3/exons_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/exons_MFP_MERGE_MRL3_constraint.rooted.treefile")
-exontree$tip.label <- gsub("_1", "", exontree$tip.label)
-exontree$node.label<-NULL
-
-introntree<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/8952e31d/gamma/redo_m3/introns_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/introns_MFP_MERGE_MRL3_constraint.rooted.treefile")
-introntree$tip.label <- gsub("_1", "", introntree$tip.label)
-introntree$node.label<-NULL
-
-utrtree<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/8952e31d/gamma/redo_m3/utrs_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/utrs_MFP_MERGE_MRL3_constraint.rooted.treefile")
-utrtree$tip.label <- gsub("_1", "", utrtree$tip.label)
-utrtree$node.label<-NULL
-
-mtdnatree<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/janus/concat_all/mtDNA_all_MRL3_constraint.janus.tre")
-mtdnatree$tip.label <- gsub("_1", "", mtdnatree$tip.label)
-mtdnatree$node.label<-NULL
-
-set.seed(123)
-
-# Run the annotation process
-exon_base <- list()
-for(i in 1:10){exon_base[[i]]<-annotate_branches(exontree, models, reps, min_clade_size, annotate_tips = T)}
-
-# Run the annotation process
-intron_base <- list()
-for(i in 1:10){intron_base[[i]]<-annotate_branches(introntree, models, reps, min_clade_size, annotate_tips = T)}
-
-# Run the annotation process
-utr_base <- list()
-for(i in 1:10){utr_base[[i]]<-annotate_branches(utrtree, models, reps, min_clade_size, annotate_tips = T)}
-
-# Run the annotation process
-mtdna_base <- list()
-for(i in 1:10){mtdna_base[[i]]<-annotate_branches(mtdnatree, models, reps, min_clade_size, annotate_tips = T)}
-
-# Assuming your vector is named 'exon_base'
-write_vector_to_files(exon_base, "exon")
-write_vector_to_files(intron_base, "intron")
-write_vector_to_files(utr_base, "utr")
-write_vector_to_files(mtdna_base, "mtdna")
-
-
-# Assuming your vector is named 'exon_base'
-write_clean_vector_to_files(exon_base, "exon")
-write_clean_vector_to_files(intron_base, "intron")
-write_clean_vector_to_files(utr_base, "utr")
-write_clean_vector_to_files(mtdna_base, "mtdna")
-
-
-##testing indicates things look good
+#generat model strings following dirichlet sampling
+models <- function(n) {
+  sapply(1:n, function(x) generate_nucleotide_freq_string())
+}
 
 #function to visulize the output, to check that it is working
 readFastaAndPlot <- function(fasta_file) {
@@ -690,27 +484,119 @@ readFastaAndGenerateGCTable <- function(fasta_file, phylo) {
   return(gc_content_table)
 }
 
-exon_1<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/1_shift/exon_1_1.tre")
-readFastaAndPlot(fasta_file = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/1_shift/EXONS3_1.fa')
-readFastaAndGenerateGCTable(fasta_file = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/1_shift/EXONS3_1.fa', phylo = exon_1)
+### 
+#independent shift models
+
+# Simulate a tree using pbtree from the ape package
+set.seed(123) # Set a seed for reproducibility
+tree <- pbtree(n = 100)
+cat("Simulated tree in Newick format:\n", write.tree(tree), "\n\n")
+
+# Example usage
+min_clade_size <- 4
+reps <- 3
+#models <- c("[&model=HKY{2.0}+GC]", "[&model=GTR{2.0}+GC]")
+#models <- c("[HKY{2.0}]", "[GTR]")
+#models <- c("[&model=HKY{2.0}+F{0.35/0.15/0.15/0.35}]", "[&model=HKY{2.0}+F{0.35/0.15/0.15/0.35}]", "[&model=HKY{2.0}+F{0.35/0.15/0.15/0.35}]")
+
+nested_shifts <- F # Set to TRUE if you want nested shifts
+
+# Run the annotation process with the option for nested or independent shifts
+annotated_newick <- annotate_branches(tree, models(reps), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)
 
 
-exon_2<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/2_shift/exon_1_1.tre")
-readFastaAndPlot(fasta_file = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/2_shift/EXONS1_1.fa')
-readFastaAndGenerateGCTable(fasta_file = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/2_shift/EXONS1_1.fa', phylo = exon_2)
+#read in trees for preparation
+exontree<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/8952e31d/gamma/redo_m3/exons_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/exons_MFP_MERGE_MRL3_constraint.rooted.treefile")
+exontree$tip.label <- gsub("_1", "", exontree$tip.label)
+exontree$node.label<-NULL
+
+introntree<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/8952e31d/gamma/redo_m3/introns_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/introns_MFP_MERGE_MRL3_constraint.rooted.treefile")
+introntree$tip.label <- gsub("_1", "", introntree$tip.label)
+introntree$node.label<-NULL
+
+utrtree<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/janus/8952e31d/gamma/redo_m3/utrs_MFP_MERGE_MRL3_constraint_G_UE_UL_M3/utrs_MFP_MERGE_MRL3_constraint.rooted.treefile")
+utrtree$tip.label <- gsub("_1", "", utrtree$tip.label)
+utrtree$node.label<-NULL
+
+mtdnatree<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/mtdnas/janus/concat_all/mtDNA_all_MRL3_constraint.janus.tre")
+mtdnatree$tip.label <- gsub("_1", "", mtdnatree$tip.label)
+mtdnatree$node.label<-NULL
+
+set.seed(123)
+
+# Run the annotation process
+# exon_base <- list()
+# for(i in 1:100){exon_base[[i]]<-annotate_branches(exontree, models(reps), reps, min_clade_size, annotate_tips = T, buffer=2)}
+
+# # Run the annotation process
+# intron_base <- list()
+# for(i in 1:100){intron_base[[i]]<-annotate_branches(introntree, models(reps), reps, min_clade_size, annotate_tips = T, buffer=2)}
+# 
+# # Run the annotation process
+# utr_base <- list()
+# for(i in 1:100){utr_base[[i]]<-annotate_branches(utrtree, models(reps), reps, min_clade_size, annotate_tips = T, buffer=2)}
+# 
+# # Run the annotation process
+# mtdna_base <- list()
+# for(i in 1:100){mtdna_base[[i]]<-annotate_branches(mtdnatree, models(reps), reps, min_clade_size, annotate_tips = T, buffer=2)}
+# 
+
+reps <- 3
+set.seed(123)
+#now running in parallel
+exon_base <- pbmclapply(1:100, function(i) {
+  annotate_branches(exontree, models(reps), reps, min_clade_size, annotate_tips = TRUE, buffer=2)
+}, mc.cores = detectCores()-1) # Number of cores to use
+
+intron_base <- pbmclapply(1:100, function(i) {
+  annotate_branches(introntree, models(reps), reps, min_clade_size, annotate_tips = TRUE, buffer=2)
+}, mc.cores = detectCores()-1) # Number of cores to use
+
+utr_base <- pbmclapply(1:100, function(i) {
+  annotate_branches(utrtree, models(reps), reps, min_clade_size, annotate_tips = TRUE, buffer=2)
+}, mc.cores = detectCores()-1) # Number of cores to use
+
+mtdna_base <- pbmclapply(1:100, function(i) {
+  annotate_branches(mtdnatree, models(reps), reps, min_clade_size, annotate_tips = TRUE, buffer=2)
+}, mc.cores = detectCores()-1) # Number of cores to use
 
 
-exon_3<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/1_shift/exon_3.tre")
-readFastaAndPlot(fasta_file = '/Applications/Phylogenetics/iqtree-2.2.2.6-MacOSX/bin/EXONS3_1.fa')
-readFastaAndGenerateGCTable(fasta_file = '/Applications/Phylogenetics/iqtree-2.2.2.6-MacOSX/bin/EXONS3_1.fa', phylo = exon_3)
+# Assuming your vector is named 'exon_base'
+write_vector_to_files(exon_base, "exon")
+write_vector_to_files(intron_base, "intron")
+write_vector_to_files(utr_base, "utr")
+write_vector_to_files(mtdna_base, "mtdna")
+
+# Assuming your vector is named 'exon_base'
+write_clean_vector_to_files(exon_base, "exon")
+write_clean_vector_to_files(intron_base, "intron")
+write_clean_vector_to_files(utr_base, "utr")
+write_clean_vector_to_files(mtdna_base, "mtdna")
 
 
-#checking names
-test<-readDNAStringSet(filepath = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/1_shift/EXONS1_1.fa')
-names(test)
-cbind(exon_1$tip.label, exon_1$tip.label %in% names(test), names(test))
-#cbind(exon_2$tip.label, exon_2$tip.label %in% names(test), names(test))
+##testing indicates things look good
 
+# 
+# exon_1<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/1_shift/exon_1_1.tre")
+# readFastaAndPlot(fasta_file = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/1_shift/EXONS3_1.fa')
+# readFastaAndGenerateGCTable(fasta_file = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/1_shift/EXONS3_1.fa', phylo = exon_1)
+# 
+# 
+# exon_2<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/2_shift/exon_1_1.tre")
+# readFastaAndPlot(fasta_file = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/2_shift/EXONS1_1.fa')
+# readFastaAndGenerateGCTable(fasta_file = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/2_shift/EXONS1_1.fa', phylo = exon_2)
+# 
+# 
+# exon_3<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/1_shift/exon_3.tre")
+# readFastaAndPlot(fasta_file = '/Applications/Phylogenetics/iqtree-2.2.2.6-MacOSX/bin/EXONS3_1.fa')
+# readFastaAndGenerateGCTable(fasta_file = '/Applications/Phylogenetics/iqtree-2.2.2.6-MacOSX/bin/EXONS3_1.fa', phylo = exon_3)
+# 
+# 
+# #checking names
+# test<-readDNAStringSet(filepath = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/1_shift/EXONS1_1.fa')
+# names(test)
+# cbind(exon_1$tip.label, exon_1$tip.label %in% names(test), names(test))
+# #cbind(exon_2$tip.label, exon_2$tip.label %in% names(test), names(test))
 
 
 ### nested shift models
@@ -723,14 +609,13 @@ cat("Simulated tree in Newick format:\n", write.tree(tree), "\n\n")
 # Example usage
 min_clade_size <- 4
 reps <- 2
-models <- c("[&model=HKY{2.0}+F{0.35/0.15/0.15/0.35}]", "[&model=HKY{2.0}+F{0.15/0.35/0.35/0.15}]")
-models<-function(){(c(generate_nucleotide_freq_string(), generate_nucleotide_freq_string()))}
-models()
+#models <- c("[&model=HKY{2.0}+F{0.35/0.15/0.15/0.35}]", "[&model=HKY{2.0}+F{0.15/0.35/0.35/0.15}]")
+models(2)
 
 nested_shifts <- T # Set to TRUE if you want nested shifts
 
 # Run the annotation process with the option for nested or independent shifts
-annotated_newick <- annotate_branches(tree, models(), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)
+annotated_newick <- annotate_branches(tree, models(reps), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)
 
 
 #read in trees for preparation
@@ -751,23 +636,47 @@ mtdnatree$tip.label <- gsub("_1", "", mtdnatree$tip.label)
 mtdnatree$node.label<-NULL
 
 
+
+# # Run the annotation process
+reps <- 2
+
 set.seed(123)
-
-# Run the annotation process
 exon_base <- list()
-for(i in 1:100){exon_base[[i]]<-annotate_branches(exontree, models(), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)}
+for(i in 1:100){exon_base[[i]]<-annotate_branches(exontree, models(reps), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)} #print(i); Sys.sleep(1)
 
-# Run the annotation process
-intron_base <- list()
-for(i in 1:100){intron_base[[i]]<-annotate_branches(introntree, models(), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)}
+annotate_branches(exontree, models(reps), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)
 
-# Run the annotation process
-utr_base <- list()
-for(i in 1:10){utr_base[[i]]<-annotate_branches(utrtree, models(), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)}
+# # Run the annotation process
+# intron_base <- list()
+# for(i in 1:100){intron_base[[i]]<-annotate_branches(introntree, models(reps), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)}
+# 
+# # Run the annotation process
+# utr_base <- list()
+# for(i in 1:10){utr_base[[i]]<-annotate_branches(utrtree, models(reps), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)}
+# 
+# # Run the annotation process
+# mtdna_base <- list()
+# for(i in 1:10){mtdna_base[[i]]<-annotate_branches(mtdnatree, models(reps), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)}
 
-# Run the annotation process
-mtdna_base <- list()
-for(i in 1:10){mtdna_base[[i]]<-annotate_branches(mtdnatree, models(), reps, min_clade_size, nested_shifts, annotate_tips=T, buffer=2)}
+
+reps <- 2
+set.seed(123)
+#now running in parallel
+exon_base <- pbmclapply(1:100, function(i) {
+  annotate_branches(exontree, models(reps), reps, min_clade_size, annotate_tips = TRUE, buffer=2, nested = nested_shifts)
+}, mc.cores = detectCores()-1) # Number of cores to use
+
+intron_base <- pbmclapply(1:100, function(i) {
+  annotate_branches(introntree, models(reps), reps, min_clade_size, annotate_tips = TRUE, buffer=2, nested = nested_shifts)
+}, mc.cores = detectCores()-1) # Number of cores to use
+
+utr_base <- pbmclapply(1:100, function(i) {
+  annotate_branches(utrtree, models(reps), reps, min_clade_size, annotate_tips = TRUE, buffer=2, nested = nested_shifts)
+}, mc.cores = detectCores()-1) # Number of cores to use
+
+mtdna_base <- pbmclapply(1:100, function(i) {
+  annotate_branches(mtdnatree, models(reps), reps, min_clade_size, annotate_tips = TRUE, buffer=2, nested = nested_shifts)
+}, mc.cores = detectCores()-1) # Number of cores to use
 
 
 # Assuming your vector is named 'exon_base'
