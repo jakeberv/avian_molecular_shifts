@@ -100,8 +100,9 @@ analysis of the BMR dataset.
 **janus**
 
 This folder contains the relevant results from janus 
-(e.g.,input/output files). The source tree file is 
-‘timetree_all_taxa_OW_2019.nextree.tre’ available in the 
-supplementary materials from Kimball et al. (2019) 
-here: https://www.mdpi.com/1424-2818/11/7/109/s1.
+(e.g.,input/output files). The source tree file is in 
+‘timetree_all_taxa_OW_2019.nextree.tre’ available in 
+the supplementary materials from Kimball et al. (2019) 
+here: https://www.mdpi.com/1424-2818/11/7/109/s1, 
+labeled as ‘MRL_3backbone.’
 
