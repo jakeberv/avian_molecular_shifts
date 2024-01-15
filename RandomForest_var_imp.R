@@ -10,6 +10,7 @@ library("themis")
 library('ape')
 library('phytools')
 library('vita')
+require(mvMORPH)
 #library('modelStudio')
 #library('DALEX')
 
@@ -49,36 +50,41 @@ merged<-cbind(exon_models=models, LHT, megaLHT, phylo.dist)
 merged <- merged %>%
   select(c(exon_models, mass, mean.clutch, gen_length,
            breeding, longevity, chickPC1, latitude, freshwater,
-           marine, migrant, diet, nocturnal, forest#, 
-           # mem_1,
-           # mem_2,
-           # mem_3,
-           # mem_4,
-           # mem_5,
-           # mem_6,
-           # mem_7,
-           # mem_8,
-           # mem_9,
-           # mem_10
-           )) #phylo.dist
-{
-#testing phylogenetic residuals
+           marine, migrant, diet, nocturnal, forest
+           ))
 
-mvbm.fit <- readRDS(file='./RDS/LHT.mvgls.bm.RDS')
-mvbm.fit <- as.data.frame(residuals(mvbm.fit, type="normalized")) 
-phylo.resid <- mvbm.fit #as.data.frame(readRDS(file='./RDS/LHT.mvgls.bm.RDS')$residuals)
-merged.resid <- merged
-merged.resid$mass <- phylo.resid$mass
-merged.resid$mean.clutch <- phylo.resid$mean.clutch
-merged.resid$gen_length <- phylo.resid$gen_length
-merged.resid$survival <- phylo.resid$survival
-merged.resid$breeding <- phylo.resid$breeding
-merged.resid$longevity <- phylo.resid$longevity
-merged.resid$chickPC1 <- phylo.resid$chickPC1
-merged.resid$latitude <- phylo.resid$latitude
+# merged <- merged %>%
+#   select(c(exon_models, mass, mean.clutch, gen_length,
+#            breeding, longevity, chickPC1, latitude
+#  ))
 
-}
-merged<-merged.resid
+# #testing phylogenetic residuals
+# {
+# 
+# #mvbm.fit <- readRDS(file='./RDS/LHT.mvgls.bm.ll.RDS')
+# #mvbm.fit <- readRDS(file='./RDS/LHT.mvgls.bm.m.RDS')
+# mvbm.fit <- readRDS(file='./RDS/LHT.mvgls.lambda.ll.RDS')
+#   #residuals vs normalized residuals
+#   resid<-as.data.frame(mvbm.fit$residuals)
+#   norm.resid<-as.data.frame(residuals(mvbm.fit, type="normalized"))
+#   #resid==norm.resid
+# 
+# #using phylogenetic residuals
+# mvbm.fit <- norm.resid #resid
+# 
+# phylo.resid <- mvbm.fit #as.data.frame(readRDS(file='./RDS/LHT.mvgls.bm.RDS')$residuals)
+# merged.resid <- merged
+# merged.resid$mass <- phylo.resid$mass
+# merged.resid$mean.clutch <- phylo.resid$mean.clutch
+# merged.resid$gen_length <- phylo.resid$gen_length
+# merged.resid$survival <- phylo.resid$survival
+# merged.resid$breeding <- phylo.resid$breeding
+# merged.resid$longevity <- phylo.resid$longevity
+# merged.resid$chickPC1 <- phylo.resid$chickPC1
+# merged.resid$latitude <- phylo.resid$latitude
+# 
+# }
+# merged<-merged.resid
 
 }
 
@@ -294,7 +300,7 @@ imp<-final_res %>%
 
 pdf(file="RF_importance.pdf", height=6, width=3)
 imp+theme(axis.text.y = element_text(size = 7), axis.text.x= element_text(size = 8),
-          axis.title.x = element_text(size = 8)) + scale_fill_manual(values=rep("grey", 25))
+          axis.title.x = element_text(size = 8)) + scale_fill_manual(values=rep("grey", 24))
 dev.off()
 
 #check randomForestExplainer -- tree depth 
