@@ -16,9 +16,9 @@ Author affiliations:
 
 5.	Department of Earth Sciences, Downing Street, University of Cambridge, Cambridge CB2 3EQ, UK
 
-6.	Museum of Zoology, Downing Street, University of Cambridge, Cambridge CB2 3EJ, UK
+6.	Museum of Zoology, University of Cambridge, Downing Street, Cambridge CB2 3EJ, UK
 
-7.	Department of Plant Sciences, Downing Street, University of Cambridge, Cambridge, CB2 3EA, UK
+7.	Department of Plant Sciences, University of Cambridge, Downing Street, Cambridge, CB2 3EA, UK
 
 8.	Department of Evolution, Ecology, and Population Biology, Washington University in St Louis, St Louis, Missouri, USA
 
