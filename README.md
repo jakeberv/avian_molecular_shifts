@@ -64,10 +64,11 @@ adapted from the Physalia course examples for machine learning
 in R.
 
 **shift_model_sims.R**
-This script contains the code for assessing the janus
-false positive/false negative performance. We include
-functions defining a generic pipeline that can be used to
-assess model performance on arbitrary topologies.
+
+This script contains the code for assessing the statistical
+performance of janus; including assessing false positive/negative
+rates. We include functions defining a generic pipeline that 
+can be used to assess model performance on arbitrary topologies.
 
 **Supplementary Table 3.xlsx**
 
