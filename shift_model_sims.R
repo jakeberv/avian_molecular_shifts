@@ -661,7 +661,7 @@ parse_files_hmshj <- function(directory, expected, exclude_zero_lines = FALSE, g
 }
 
 #corrected parsing function includig CI calculation and test > 0
-parse_files_hmshj_CI <- function(directory, expected, exclude_zero_lines = FALSE, group_by_reps = TRUE, group_by_type = TRUE, confidence_level = 0.95, p_value_correction = "none") {
+parse_files_hmshj_CI_t_test <- function(directory, expected, exclude_zero_lines = FALSE, group_by_reps = TRUE, group_by_type = TRUE, confidence_level = 0.95, p_value_correction = "none") {
   z_value <- qnorm(1 - (1 - confidence_level) / 2)
   file_names <- list.files(path = directory, pattern = "stderror", full.names = TRUE)
   results <- data.frame(file_name = character(), prefix = character(), type = character(), line_count = integer(), variance = numeric(), stringsAsFactors = FALSE)
@@ -744,11 +744,106 @@ parse_files_hmshj_CI <- function(directory, expected, exclude_zero_lines = FALSE
   
   # Adjust p-values for multiple comparisons if required
   if (p_value_correction == "bonferroni") {
-    num_tests <- nrow(grouped_results)
+    num_tests <- nrow(grouped_results)*2
     grouped_results$false_neg_p_value <- p.adjust(grouped_results$false_neg_p_value, method = "bonferroni", n = num_tests)
     grouped_results$false_pos_p_value <- p.adjust(grouped_results$false_pos_p_value, method = "bonferroni", n = num_tests)
   } else if (p_value_correction == "fdr") {
-    num_tests <- nrow(grouped_results)
+    num_tests <- nrow(grouped_results)*2
+    grouped_results$false_neg_p_value <- p.adjust(grouped_results$false_neg_p_value, method = "fdr", n = num_tests)
+    grouped_results$false_pos_p_value <- p.adjust(grouped_results$false_pos_p_value, method = "fdr", n = num_tests)
+  }
+  
+  # Select the columns to return, including test statistics
+  columns_to_return <- c("type", "line_count", "success_rate", "expected_lines", "actual_sample_size", "false_neg", "false_neg_se", "false_neg_ci_lower", "false_neg_ci_upper", "false_neg_test_statistic", "false_neg_p_value", "false_pos", "false_pos_se", "false_pos_ci_lower", "false_pos_ci_upper", "false_pos_test_statistic", "false_pos_p_value")
+  return(grouped_results[, columns_to_return, drop = FALSE])
+}
+parse_files_hmshj_CI_z_test <- function(directory, expected, exclude_zero_lines = FALSE, group_by_reps = TRUE, group_by_type = TRUE, confidence_level = 0.95, p_value_correction = "none") {
+  z_value <- qnorm(1 - (1 - confidence_level) / 2)
+  file_names <- list.files(path = directory, pattern = "stderror", full.names = TRUE)
+  results <- data.frame(file_name = character(), prefix = character(), type = character(), line_count = integer(), variance = numeric(), stringsAsFactors = FALSE)
+  
+  # Process each file
+  for (file in file_names) {
+    lines <- readLines(file)
+    final_model_index <- which(grepl("final:", lines))
+    count <- 0
+    if (length(final_model_index) > 0 && (final_model_index + 1) <= length(lines)) {
+      if (grepl("rm: ", lines[final_model_index + 1])) {
+        count <- length(lines) - (final_model_index + 1)
+      }
+    }
+    file_prefix <- ifelse(group_by_reps, strsplit(basename(file), "_")[[1]][1], NA)
+    type <- ifelse(group_by_type, gsub("[0-9]+", "", file_prefix), NA)
+    file_variance <- (count - expected)^2
+    results <- rbind(results, data.frame(file_name = basename(file), prefix = file_prefix, type = type, line_count = count, variance = file_variance))
+  }
+  
+  # Aggregate line counts and calculate mean variance by type
+  grouped_results <- aggregate(cbind(line_count, variance) ~ type, data = results, FUN = sum)
+  variance_means <- aggregate(variance ~ type, data = results, FUN = mean)
+  grouped_results$variance_mean <- variance_means$variance
+  grouped_results$expected_lines <- expected * sapply(grouped_results$type, function(x) sum(results$type == x))
+  grouped_results$actual_sample_size <- sapply(grouped_results$type, function(x) sum(results$type == x))
+  
+  # Define a helper function for SE and CI calculations
+  calculate_se_ci <- function(rate, variance, n) {
+    if (is.na(rate) || is.na(variance) || variance == 0 || is.na(n) || n == 0 || rate == 0) {
+      return(list(se = NA, ci_lower = NA, ci_upper = NA))
+    }
+    se <- sqrt(variance / n)
+    ci_lower <- pmax(0, rate - z_value * se)
+    ci_upper <- rate + z_value * se
+    return(list(se = se, ci_lower = ci_lower, ci_upper = ci_upper))
+  }
+  
+  # Initialize columns for rates, SE, CI, test statistics, and p-values
+  grouped_results$success_rate <- numeric(nrow(grouped_results))
+  grouped_results$false_neg <- numeric(nrow(grouped_results))
+  grouped_results$false_neg_se <- numeric(nrow(grouped_results))
+  grouped_results$false_neg_ci_lower <- numeric(nrow(grouped_results))
+  grouped_results$false_neg_ci_upper <- numeric(nrow(grouped_results))
+  grouped_results$false_neg_test_statistic <- numeric(nrow(grouped_results))
+  grouped_results$false_neg_p_value <- numeric(nrow(grouped_results))
+  grouped_results$false_pos <- numeric(nrow(grouped_results))
+  grouped_results$false_pos_se <- numeric(nrow(grouped_results))
+  grouped_results$false_pos_ci_lower <- numeric(nrow(grouped_results))
+  grouped_results$false_pos_ci_upper <- numeric(nrow(grouped_results))
+  grouped_results$false_pos_test_statistic <- numeric(nrow(grouped_results))
+  grouped_results$false_pos_p_value <- numeric(nrow(grouped_results))
+  
+  # Process each group
+  for (i in 1:nrow(grouped_results)) {
+    success_rate <- grouped_results$line_count[i] / grouped_results$expected_lines[i]
+    grouped_results$success_rate[i] <- success_rate
+    grouped_results$false_neg[i] <- pmax(0, 1 - success_rate)
+    grouped_results$false_pos[i] <- pmax(0, success_rate - 1)
+    
+    # Calculate SE and CI for false negatives
+    fn_metrics <- calculate_se_ci(grouped_results$false_neg[i], grouped_results$variance_mean[i], grouped_results$actual_sample_size[i])
+    grouped_results$false_neg_se[i] <- fn_metrics$se
+    grouped_results$false_neg_ci_lower[i] <- fn_metrics$ci_lower
+    grouped_results$false_neg_ci_upper[i] <- fn_metrics$ci_upper
+    
+    # Calculate SE and CI for false positives
+    fp_metrics <- calculate_se_ci(grouped_results$false_pos[i], grouped_results$variance_mean[i], grouped_results$actual_sample_size[i])
+    grouped_results$false_pos_se[i] <- fp_metrics$se
+    grouped_results$false_pos_ci_lower[i] <- fp_metrics$ci_lower
+    grouped_results$false_pos_ci_upper[i] <- fp_metrics$ci_upper
+    
+    # Calculate Z-test statistics and p-values
+    grouped_results$false_neg_test_statistic[i] <- if (!is.na(fn_metrics$se) && fn_metrics$se > 0) (grouped_results$false_neg[i] - 0) / fn_metrics$se else NA
+    grouped_results$false_neg_p_value[i] <- if (!is.na(fn_metrics$se) && fn_metrics$se > 0) pnorm(grouped_results$false_neg_test_statistic[i], lower.tail = FALSE) else NA
+    grouped_results$false_pos_test_statistic[i] <- if (!is.na(fp_metrics$se) && fp_metrics$se > 0) (grouped_results$false_pos[i] - 0) / fp_metrics$se else NA
+    grouped_results$false_pos_p_value[i] <- if (!is.na(fp_metrics$se) && fp_metrics$se > 0) pnorm(grouped_results$false_pos_test_statistic[i], lower.tail = FALSE) else NA
+  }
+  
+  # Adjust p-values for multiple comparisons if required
+  if (p_value_correction == "bonferroni") {
+    num_tests <- nrow(grouped_results) * 2
+    grouped_results$false_neg_p_value <- p.adjust(grouped_results$false_neg_p_value, method = "bonferroni", n = num_tests)
+    grouped_results$false_pos_p_value <- p.adjust(grouped_results$false_pos_p_value, method = "bonferroni", n = num_tests)
+  } else if (p_value_correction == "fdr") {
+    num_tests <- nrow(grouped_results) * 2
     grouped_results$false_neg_p_value <- p.adjust(grouped_results$false_neg_p_value, method = "fdr", n = num_tests)
     grouped_results$false_pos_p_value <- p.adjust(grouped_results$false_pos_p_value, method = "fdr", n = num_tests)
   }
@@ -909,7 +1004,7 @@ plot_rate_comparison_CI <- function(object_list, y_lim = NULL, plot_type = "ci",
 }
 
 ##  plotting function with inset reference tree
-plot_rate_comparison_CI_inset <- function(object_list, phylogram_list, y_lim = NULL, plot_type = "ci", global_title = NULL, nested=NULL) {
+plot_rate_comparison_CI_inset <- function(object_list, phylogram_list, y_lim = NULL, plot_type = "ci", global_title = NULL, nested=NULL, test_type=NULL) {
   if (!plot_type %in% c("ci", "se")) {
     stop("Invalid plot type. Please specify 'ci' for confidence intervals or 'se' for standard error.")
   }
@@ -997,22 +1092,40 @@ plot_rate_comparison_CI_inset <- function(object_list, phylogram_list, y_lim = N
         # Calculate midpoints between x-positions
         midpoints <- (suffix[-length(suffix)] + suffix[-1]) / 2
         
+        if(test_type=='z'){
         # Add text for test statistics and p-values below the x-axis (centered with respect to the tick marks, left-justified with respect to each other)
         for (i in 1:length(suffix)) {
           text_x_pos <- suffix[i]
           
           # Annotations for false positives (centered with respect to the tick mark, left-justified with respect to each other)
-          text(text_x_pos, y = par("usr")[3] - text_offset, labels = paste0("t:", round(false_pos_test_statistic[i], 2), ", p:", round(false_pos_p_value[i], 2)), cex = text_cex, adj = c(0.5, 0), xpd = TRUE, col='red')
+          text(text_x_pos, y = par("usr")[3] - text_offset, labels = paste0("z:", round(false_pos_test_statistic[i], 2), ", p:", round(false_pos_p_value[i], 2)), cex = text_cex, adj = c(0.5, 0), xpd = TRUE, col='red')
           
           # Annotations for false negatives (centered with respect to the tick mark, left-justified with respect to each other)
-          text(text_x_pos, y = par("usr")[3] - 1.2 * text_offset, labels = paste0("t:", round(false_neg_test_statistic[i], 2), ", p:", round(false_neg_p_value[i], 2)), cex = text_cex, adj = c(0.5, 0), xpd = TRUE, col='blue')
+          text(text_x_pos, y = par("usr")[3] - 1.2 * text_offset, labels = paste0("z:", round(false_neg_test_statistic[i], 2), ", p:", round(false_neg_p_value[i], 2)), cex = text_cex, adj = c(0.5, 0), xpd = TRUE, col='blue')
           
           # # Add vertical line to separate annotations (except for the last one)
           # if (i < length(suffix)) {
           #   axis(side = 1, at = midpoints[i], labels = NA, col = "black", lwd = 0.1, pos = -0.275, tck=0.075)
           # }
         }
-        
+        }
+        if(test_type=='t'){
+          # Add text for test statistics and p-values below the x-axis (centered with respect to the tick marks, left-justified with respect to each other)
+          for (i in 1:length(suffix)) {
+            text_x_pos <- suffix[i]
+            
+            # Annotations for false positives (centered with respect to the tick mark, left-justified with respect to each other)
+            text(text_x_pos, y = par("usr")[3] - text_offset, labels = paste0("t:", round(false_pos_test_statistic[i], 2), ", p:", round(false_pos_p_value[i], 2)), cex = text_cex, adj = c(0.5, 0), xpd = TRUE, col='red')
+            
+            # Annotations for false negatives (centered with respect to the tick mark, left-justified with respect to each other)
+            text(text_x_pos, y = par("usr")[3] - 1.2 * text_offset, labels = paste0("t:", round(false_neg_test_statistic[i], 2), ", p:", round(false_neg_p_value[i], 2)), cex = text_cex, adj = c(0.5, 0), xpd = TRUE, col='blue')
+            
+            # # Add vertical line to separate annotations (except for the last one)
+            # if (i < length(suffix)) {
+            #   axis(side = 1, at = midpoints[i], labels = NA, col = "black", lwd = 0.1, pos = -0.275, tck=0.075)
+            # }
+          }
+        }
         
         abline(h=0.1, lty=2, col='black')
         
@@ -1059,6 +1172,172 @@ plot_rate_comparison_CI_inset <- function(object_list, phylogram_list, y_lim = N
   
   par(mar = c(5, 4, 4, 2) + 0.1)
 }
+plot_rate_comparison_CI_inset_fn <- function(object_list, phylogram_list, y_lim = NULL, plot_type = "ci", global_title = NULL, nested=NULL, include_false_negatives = TRUE, test_type=NULL) {
+  if (!plot_type %in% c("ci", "se")) {
+    stop("Invalid plot type. Please specify 'ci' for confidence intervals or 'se' for standard error.")
+  }
+  
+  object_names <- names(object_list)
+  suffixes <- as.numeric(gsub("\\D", "", object_names))
+  aggregated_data <- list()
+  
+  for (i in seq_along(object_list)) {
+    obj <- object_list[[i]]
+    for (type in unique(obj$type)) {
+      if (!type %in% names(aggregated_data)) {
+        aggregated_data[[type]] <- data.frame(suffix = numeric(), false_neg = numeric(),
+                                              false_neg_se = numeric(), false_neg_ci_lower = numeric(), false_neg_ci_upper = numeric(),
+                                              false_neg_test_statistic = numeric(), false_neg_p_value = numeric(),
+                                              false_pos = numeric(), false_pos_se = numeric(), false_pos_ci_lower = numeric(), false_pos_ci_upper = numeric(),
+                                              false_pos_test_statistic = numeric(), false_pos_p_value = numeric())
+      }
+      type_data <- obj[obj$type == type, ]
+      aggregated_data[[type]] <- rbind(aggregated_data[[type]],
+                                       data.frame(suffix = suffixes[i],
+                                                  false_neg = type_data$false_neg,
+                                                  false_neg_se = type_data$false_neg_se, false_neg_ci_lower = type_data$false_neg_ci_lower, false_neg_ci_upper = type_data$false_neg_ci_upper,
+                                                  false_neg_test_statistic = type_data$false_neg_test_statistic, false_neg_p_value = type_data$false_neg_p_value,
+                                                  false_pos = type_data$false_pos,
+                                                  false_pos_se = type_data$false_pos_se, false_pos_ci_lower = type_data$false_pos_ci_lower, false_pos_ci_upper = type_data$false_pos_ci_upper,
+                                                  false_pos_test_statistic = type_data$false_pos_test_statistic, false_pos_p_value = type_data$false_pos_p_value))
+    }
+  }
+  
+  if (is.null(y_lim)) {
+    global_min_rate <- Inf
+    global_max_rate <- -Inf
+    for (plot_data in aggregated_data) {
+      rate_min <- if (plot_type == "ci") min(plot_data$false_neg_ci_lower, plot_data$false_pos_ci_lower, na.rm = TRUE) else 0
+      rate_max <- if (plot_type == "ci") max(plot_data$false_neg_ci_upper, plot_data$false_pos_ci_upper, na.rm = TRUE) else 0
+      global_min_rate <- min(global_min_rate, rate_min)
+      global_max_rate <- max(global_max_rate, rate_max)
+    }
+    y_lim <- c(global_min_rate, global_max_rate)
+  }
+  
+  horizontal_line_width <- 0.5
+  text_offset <- 0.2 # Define text_offset
+  text_cex <- 0.45  # Adjust text size as needed
+  
+  par(mfrow = c(2, 2), oma = c(0, 0, 3, 0))  # Set up plotting area for 4 plots with space for global title
+  par(mar = c(7, 4, 4, 2) + 0.1)  
+  
+  for (type_idx in seq_along(names(aggregated_data))) {
+    type <- names(aggregated_data)[type_idx]
+    plot_data <- aggregated_data[[type]]
+    if (nrow(plot_data) > 0) {
+      with(plot_data, {
+        plot(suffix, false_pos, type = "o", pch = 22, bg = "red", col = "red", xlab = "", ylab = "Average Rate",
+             main = paste("Type:", type), ylim = y_lim, xaxt = "n", yaxt = "n", bty="n")
+        
+        axis(1, at = suffix, labels = TRUE)
+        mtext("Sequence length (kbp)", side = 1, line = 3.5)
+        axis(2)
+        
+        y_pos_lower <- if (plot_type == "ci") false_pos_ci_lower else false_pos - false_pos_se
+        y_pos_upper <- if (plot_type == "ci") false_pos_ci_upper else false_pos + false_pos_se
+        
+        for (i in 1:length(suffix)) {
+          lines(c(suffix[i], suffix[i]), c(y_pos_lower[i], y_pos_upper[i]), col = "red")
+          lines(c(suffix[i] - horizontal_line_width, suffix[i] + horizontal_line_width), c(y_pos_upper[i], y_pos_upper[i]), col = "red")
+          lines(c(suffix[i] - horizontal_line_width, suffix[i] + horizontal_line_width), c(y_pos_lower[i], y_pos_lower[i]), col = "red")
+        }
+        
+        if (include_false_negatives) {
+          points(suffix, false_neg, type = "o", pch = 21, bg = "blue", col = "blue")
+          
+          y_neg_lower <- if (plot_type == "ci") false_neg_ci_lower else false_neg - false_neg_se
+          y_neg_upper <- if (plot_type == "ci") false_neg_ci_upper else false_neg + false_neg_se
+          
+          for (i in 1:length(suffix)) {
+            lines(c(suffix[i], suffix[i]), c(y_neg_lower[i], y_neg_upper[i]), col = "blue")
+            lines(c(suffix[i] - horizontal_line_width, suffix[i] + horizontal_line_width), c(y_neg_upper[i], y_neg_upper[i]), col = "blue")
+            lines(c(suffix[i] - horizontal_line_width, suffix[i] + horizontal_line_width), c(y_neg_lower[i], y_neg_lower[i]), col = "blue")
+          }
+        }
+        
+        if(test_type=='z'){
+          # Add text for test statistics and p-values below the x-axis (centered with respect to the tick marks, left-justified with respect to each other)
+          for (i in 1:length(suffix)) {
+            text_x_pos <- suffix[i]
+            
+            # Annotations for false positives (centered with respect to the tick mark, left-justified with respect to each other)
+            text(text_x_pos, y = par("usr")[3] - text_offset, labels = paste0("z:", round(false_pos_test_statistic[i], 2), ", p:", round(false_pos_p_value[i], 2)), cex = text_cex, adj = c(0.5, 0), xpd = TRUE, col='red')
+            
+            # Annotations for false negatives (centered with respect to the tick mark, left-justified with respect to each other)
+            #text(text_x_pos, y = par("usr")[3] - 1.2 * text_offset, labels = paste0("z:", round(false_neg_test_statistic[i], 2), ", p:", round(false_neg_p_value[i], 2)), cex = text_cex, adj = c(0.5, 0), xpd = TRUE, col='blue')
+            
+            # # Add vertical line to separate annotations (except for the last one)
+            # if (i < length(suffix)) {
+            #   axis(side = 1, at = midpoints[i], labels = NA, col = "black", lwd = 0.1, pos = -0.275, tck=0.075)
+            # }
+          }
+        }
+        if(test_type=='t'){
+          # Add text for test statistics and p-values below the x-axis (centered with respect to the tick marks, left-justified with respect to each other)
+          for (i in 1:length(suffix)) {
+            text_x_pos <- suffix[i]
+            
+            # Annotations for false positives (centered with respect to the tick mark, left-justified with respect to each other)
+            text(text_x_pos, y = par("usr")[3] - text_offset, labels = paste0("t:", round(false_pos_test_statistic[i], 2), ", p:", round(false_pos_p_value[i], 2)), cex = text_cex, adj = c(0.5, 0), xpd = TRUE, col='red')
+            
+            # Annotations for false negatives (centered with respect to the tick mark, left-justified with respect to each other)
+            #text(text_x_pos, y = par("usr")[3] - 1.2 * text_offset, labels = paste0("t:", round(false_neg_test_statistic[i], 2), ", p:", round(false_neg_p_value[i], 2)), cex = text_cex, adj = c(0.5, 0), xpd = TRUE, col='blue')
+            
+            # # Add vertical line to separate annotations (except for the last one)
+            # if (i < length(suffix)) {
+            #   axis(side = 1, at = midpoints[i], labels = NA, col = "black", lwd = 0.1, pos = -0.275, tck=0.075)
+            # }
+          }
+        }
+        
+        
+        abline(h=0.1, lty=2, col='black')
+        
+        if (include_false_negatives){
+        legend("topleft", inset = 0.025, legend = c("False Neg", "False Pos"), pch = c(21, 22), pt.bg = c("blue", "red"), col = c("blue", "red"), bty='n', cex = 0.8)
+        } else {
+          legend("topleft", inset = 0.025, legend = c("False Pos"), pch = c(22), pt.bg = c("red"), col = c("red"), bty='n', cex = 0.8)
+        }
+        
+          
+        # Define the coordinates for the corners of the rectangle
+        usr <- par("usr")
+        xleft <- (usr[1] + usr[2]) / 2
+        ybottom <- (usr[3] + usr[4]) / 2
+        xright <- usr[2]
+        ytop <- usr[4]
+        
+        # Draw the rectangle
+        par(xpd=NA)
+        if(nested == F){
+          rect(xleft-6.5, ybottom-0.05, xright, ytop, border="black", lwd=0.5)
+        } else {
+          rect(xleft-13, ybottom-0.05, xright, ytop, border="black", lwd=0.5)
+        }
+        par(xpd=F)
+        
+        # Inset phylogram plot
+        if (!is.null(phylogram_list[[type_idx]])) {
+          par(new=T)
+          plot.phylo(ladderize(phylogram_list[[type_idx]]), show.tip.label = FALSE, direction = 'upwards', x.lim=c(-125,200), y.lim=c(-0.65,0.75), edge.width = 0.25, col='lightgrey')
+          axisPhylo(side=4, backward=F, las=2, lwd.ticks = 0.4, cex.axis = 0.65, lwd=0.4)
+        }
+        
+        legend("topright", legend="Phylogram (substitutions/site)", bty="n", cex=0.7, text.col='black')
+      })
+    } else {
+      plot(1, type = "n", xlab = "", ylab = "", main = paste("No data for type:", type), ylim = y_lim)
+    }
+  }
+  
+  if (!is.null(global_title)) {
+    mtext(global_title, side = 3, outer = TRUE, line = 1, cex = 1.5, font = 2)
+  }
+  
+  par(mar = c(5, 4, 4, 2) + 0.1)
+}
+
 
 ###
 #independent shift models
@@ -1271,49 +1550,115 @@ write_clean_vector_to_files(mtdna_base, "mtdna")
 
 ##### FINAL RUNS BELOW THIS #####
 
-### dirichlet all root models, no shifts
-shift_zero_2k <- parse_files_hmshj_CI(expected=1, group_by_reps = T, group_by_type = T, directory = '', confidence_level = 0.95, p_value_correction = 'fdr')
-shift_zero_10k <- parse_files_hmshj_CI(expected=1, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/second_attempt/output/fp_random_10k/fp_attempt2_hmshj', confidence_level = 0.95, p_value_correction = 'fdr')
-shift_zero_50k <- parse_files_hmshj_CI(expected=1, group_by_reps = T, group_by_type = T, directory = '', confidence_level = 0.95, p_value_correction = 'fdr')
 
-### dirichlet all shifts, independent
-shift_one_2k <- parse_files_hmshj_CI(expected=2, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/1_shift_2k', confidence_level = 0.95, p_value_correction = 'fdr')
-shift_one_10k <- parse_files_hmshj_CI(expected=2, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/1_shift_10k', confidence_level = 0.95, p_value_correction = 'fdr')
-shift_one_25k <- parse_files_hmshj_CI(expected=2, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/1_shift_25k', confidence_level = 0.95, p_value_correction = 'fdr')
-shift_one_50k <- parse_files_hmshj_CI(expected=2, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/1_shift_50k', confidence_level = 0.95, p_value_correction = 'fdr')
-
-shift_two_2k <- parse_files_hmshj_CI(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/2_shift_2k', confidence_level = 0.95, p_value_correction = 'fdr')
-shift_two_10k <- parse_files_hmshj_CI(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/2_shift_10k', confidence_level = 0.95, p_value_correction = 'fdr')
-shift_two_25k <- parse_files_hmshj_CI(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/2_shift_25k', confidence_level = 0.95, p_value_correction = 'fdr')
-shift_two_50k <- parse_files_hmshj_CI(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/2_shift_50k', confidence_level = 0.95, p_value_correction = 'fdr')
-
-shift_three_2k <- parse_files_hmshj_CI(expected=4, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/3_shift_2k', confidence_level = 0.95, p_value_correction = 'fdr')
-shift_three_10k <- parse_files_hmshj_CI(expected=4, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/3_shift_10k', confidence_level = 0.95, p_value_correction = 'fdr')
-shift_three_25k <- parse_files_hmshj_CI(expected=4, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/3_shift_25k', confidence_level = 0.95, p_value_correction = 'fdr')
-shift_three_50k <- parse_files_hmshj_CI(expected=4, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/3_shift_50k', confidence_level = 0.95, p_value_correction = 'fdr')
-
-shift_four_2k <- parse_files_hmshj_CI(expected=5, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/4_shift_2k', confidence_level = 0.95, p_value_correction = 'fdr')
-shift_four_10k <- parse_files_hmshj_CI(expected=5, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/4_shift_10k', confidence_level = 0.95, p_value_correction = 'fdr')
-shift_four_25k <- parse_files_hmshj_CI(expected=5, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/4_shift_25k', confidence_level = 0.95, p_value_correction = 'fdr')
-shift_four_50k <- parse_files_hmshj_CI(expected=5, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/4_shift_50k', confidence_level = 0.95, p_value_correction = 'fdr')
-
-##nested
-
-#dirichlet all - eg every model is a dirichlet sample
-dirichlet_all_2k <- parse_files_hmshj_CI(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/nested/dirichlet_all/output/nested_dirichlet_all_2k_min4_buffer2_max150_HKY2', confidence_level = 0.95, p_value_correction = 'fdr')
-dirichlet_all_25k <- parse_files_hmshj_CI(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/nested/dirichlet_all/output/nested_dirichlet_all_25k_min4_buffer2_max150_HKY2', confidence_level = 0.95, p_value_correction = 'fdr')
-dirichlet_all_50k <- parse_files_hmshj_CI(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/nested/dirichlet_all/output/nested_dirichlet_all_50k_min4_buffer2_max150_HKY2', confidence_level = 0.95, p_value_correction = 'fdr')
-dirichlet_all_100k <- parse_files_hmshj_CI(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/nested/dirichlet_all/output/nested_dirichlet_all_100k_min4_buffer2_max150_HKY2', confidence_level = 0.95, p_value_correction = 'fdr')
+#t test version
+{
+  ### dirichlet all root models, no shifts
+  shift_zero_2k <- parse_files_hmshj_CI_t_test(expected=1, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/second_attempt/output/fp_random_2k/fp_random_2k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_zero_10k <- parse_files_hmshj_CI_t_test(expected=1, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/second_attempt/output/fp_random_10k/fp_attempt2_hmshj', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_zero_50k <- parse_files_hmshj_CI_t_test(expected=1, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/second_attempt/output/fp_random_50k', confidence_level = 0.95, p_value_correction = 'fdr')
+  
+  ### dirichlet all shifts, independent
+  shift_one_2k <- parse_files_hmshj_CI_t_test(expected=2, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/1_shift_2k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_one_10k <- parse_files_hmshj_CI_t_test(expected=2, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/1_shift_10k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_one_25k <- parse_files_hmshj_CI_t_test(expected=2, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/1_shift_25k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_one_50k <- parse_files_hmshj_CI_t_test(expected=2, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/1_shift_50k', confidence_level = 0.95, p_value_correction = 'fdr')
+  
+  shift_two_2k <- parse_files_hmshj_CI_t_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/2_shift_2k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_two_10k <- parse_files_hmshj_CI_t_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/2_shift_10k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_two_25k <- parse_files_hmshj_CI_t_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/2_shift_25k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_two_50k <- parse_files_hmshj_CI_t_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/2_shift_50k', confidence_level = 0.95, p_value_correction = 'fdr')
+  
+  shift_three_2k <- parse_files_hmshj_CI_t_test(expected=4, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/3_shift_2k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_three_10k <- parse_files_hmshj_CI_t_test(expected=4, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/3_shift_10k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_three_25k <- parse_files_hmshj_CI_t_test(expected=4, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/3_shift_25k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_three_50k <- parse_files_hmshj_CI_t_test(expected=4, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/3_shift_50k', confidence_level = 0.95, p_value_correction = 'fdr')
+  
+  shift_four_2k <- parse_files_hmshj_CI_t_test(expected=5, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/4_shift_2k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_four_10k <- parse_files_hmshj_CI_t_test(expected=5, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/4_shift_10k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_four_25k <- parse_files_hmshj_CI_t_test(expected=5, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/4_shift_25k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_four_50k <- parse_files_hmshj_CI_t_test(expected=5, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/4_shift_50k', confidence_level = 0.95, p_value_correction = 'fdr')
+  
+  ##nested
+  
+  #dirichlet all - eg every model is a dirichlet sample
+  dirichlet_all_2k <- parse_files_hmshj_CI_t_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/nested/dirichlet_all/output/nested_dirichlet_all_2k_min4_buffer2_max150_HKY2', confidence_level = 0.95, p_value_correction = 'fdr')
+  dirichlet_all_25k <- parse_files_hmshj_CI_t_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/nested/dirichlet_all/output/nested_dirichlet_all_25k_min4_buffer2_max150_HKY2', confidence_level = 0.95, p_value_correction = 'fdr')
+  dirichlet_all_50k <- parse_files_hmshj_CI_t_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/nested/dirichlet_all/output/nested_dirichlet_all_50k_min4_buffer2_max150_HKY2', confidence_level = 0.95, p_value_correction = 'fdr')
+  dirichlet_all_100k <- parse_files_hmshj_CI_t_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/nested/dirichlet_all/output/nested_dirichlet_all_100k_min4_buffer2_max150_HKY2', confidence_level = 0.95, p_value_correction = 'fdr')
+  
+  #fixing names
+  shift_zero_2k$type <- shift_one_2k$type
+  shift_zero_10k$type <- shift_one_2k$type
+  shift_zero_50k$type <- shift_one_2k$type
+}
 
 
 #final plot
-pdf(height=9.5*0.9, width=7.5*0.9, file='FP_FN.pdf')
-plot_rate_comparison_CI_inset(list(shift_one_2k=shift_one_2k, shift_one_10k=shift_one_10k, shift_one_25k=shift_one_25k, shift_one_50k=shift_one_50k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "One derived shift", nested=F)
-plot_rate_comparison_CI_inset(list(shift_two_2k=shift_two_2k, shift_two_10k=shift_two_10k, shift_two_25k=shift_two_25k, shift_two_50k=shift_two_50k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "Two derived shifts (independent)", nested=F)
-plot_rate_comparison_CI_inset(list(shift_three_2k=shift_three_2k, shift_three_10k=shift_three_10k, shift_three_25k=shift_three_25k, shift_three_50k=shift_three_50k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "Three derived shifts (independent)", nested=F)
-plot_rate_comparison_CI_inset(list(shift_four_2k=shift_four_2k, shift_four_10k=shift_four_10k, shift_four_25k=shift_four_25k, shift_four_50k=shift_four_50k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "Four derived shifts (independent)", nested=F)
+pdf(height=9.5*0.9, width=7.5*0.9, file='FP_FN_t.pdf')
+plot_rate_comparison_CI_inset_fn(list(shift_zero_2k=shift_zero_2k, shift_zero_10k=shift_zero_10k, shift_zero_50k=shift_zero_50k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "No shifts", nested=F, include_false_negatives = F, test_type = 't')
+plot_rate_comparison_CI_inset(list(shift_one_2k=shift_one_2k, shift_one_10k=shift_one_10k, shift_one_25k=shift_one_25k, shift_one_50k=shift_one_50k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "One derived shift", nested=F, test_type = 't')
+plot_rate_comparison_CI_inset(list(shift_two_2k=shift_two_2k, shift_two_10k=shift_two_10k, shift_two_25k=shift_two_25k, shift_two_50k=shift_two_50k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "Two derived shifts (independent)", nested=F, test_type = 't')
+plot_rate_comparison_CI_inset(list(shift_three_2k=shift_three_2k, shift_three_10k=shift_three_10k, shift_three_25k=shift_three_25k, shift_three_50k=shift_three_50k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "Three derived shifts (independent)", nested=F, test_type = 't')
+plot_rate_comparison_CI_inset(list(shift_four_2k=shift_four_2k, shift_four_10k=shift_four_10k, shift_four_25k=shift_four_25k, shift_four_50k=shift_four_50k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "Four derived shifts (independent)", nested=F, test_type = 't')
 
 #nested shifts
-plot_rate_comparison_CI_inset(list(dirichlet_all_2k=dirichlet_all_2k, dirichlet_all_25k=dirichlet_all_25k, dirichlet_all_50k=dirichlet_all_50k,dirichlet_all_100k=dirichlet_all_100k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "Nested shifts", nested=T)
+plot_rate_comparison_CI_inset(list(dirichlet_all_2k=dirichlet_all_2k, dirichlet_all_25k=dirichlet_all_25k, dirichlet_all_50k=dirichlet_all_50k,dirichlet_all_100k=dirichlet_all_100k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "Nested shifts", nested=T, test_type = 't')
 dev.off()
+
+
+#z test version
+{
+  ### dirichlet all root models, no shifts
+  shift_zero_2k <- parse_files_hmshj_CI_z_test(expected=1, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/second_attempt/output/fp_random_2k/fp_random_2k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_zero_10k <- parse_files_hmshj_CI_z_test(expected=1, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/second_attempt/output/fp_random_10k/fp_attempt2_hmshj', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_zero_50k <- parse_files_hmshj_CI_z_test(expected=1, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/second_attempt/output/fp_random_50k', confidence_level = 0.95, p_value_correction = 'fdr')
+  
+  ### dirichlet all shifts, independent
+  shift_one_2k <- parse_files_hmshj_CI_z_test(expected=2, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/1_shift_2k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_one_10k <- parse_files_hmshj_CI_z_test(expected=2, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/1_shift_10k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_one_25k <- parse_files_hmshj_CI_z_test(expected=2, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/1_shift_25k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_one_50k <- parse_files_hmshj_CI_z_test(expected=2, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/1_shift_50k', confidence_level = 0.95, p_value_correction = 'fdr')
+  
+  shift_two_2k <- parse_files_hmshj_CI_z_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/2_shift_2k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_two_10k <- parse_files_hmshj_CI_z_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/2_shift_10k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_two_25k <- parse_files_hmshj_CI_z_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/2_shift_25k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_two_50k <- parse_files_hmshj_CI_z_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/2_shift_50k', confidence_level = 0.95, p_value_correction = 'fdr')
+  
+  shift_three_2k <- parse_files_hmshj_CI_z_test(expected=4, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/3_shift_2k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_three_10k <- parse_files_hmshj_CI_z_test(expected=4, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/3_shift_10k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_three_25k <- parse_files_hmshj_CI_z_test(expected=4, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/3_shift_25k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_three_50k <- parse_files_hmshj_CI_z_test(expected=4, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/3_shift_50k', confidence_level = 0.95, p_value_correction = 'fdr')
+  
+  shift_four_2k <- parse_files_hmshj_CI_z_test(expected=5, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/4_shift_2k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_four_10k <- parse_files_hmshj_CI_z_test(expected=5, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/4_shift_10k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_four_25k <- parse_files_hmshj_CI_z_test(expected=5, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/4_shift_25k', confidence_level = 0.95, p_value_correction = 'fdr')
+  shift_four_50k <- parse_files_hmshj_CI_z_test(expected=5, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/independent/output/4_shift_50k', confidence_level = 0.95, p_value_correction = 'fdr')
+  
+  ##nested
+  
+  #dirichlet all - eg every model is a dirichlet sample
+  dirichlet_all_2k <- parse_files_hmshj_CI_z_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/nested/dirichlet_all/output/nested_dirichlet_all_2k_min4_buffer2_max150_HKY2', confidence_level = 0.95, p_value_correction = 'fdr')
+  dirichlet_all_25k <- parse_files_hmshj_CI_z_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/nested/dirichlet_all/output/nested_dirichlet_all_25k_min4_buffer2_max150_HKY2', confidence_level = 0.95, p_value_correction = 'fdr')
+  dirichlet_all_50k <- parse_files_hmshj_CI_z_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/nested/dirichlet_all/output/nested_dirichlet_all_50k_min4_buffer2_max150_HKY2', confidence_level = 0.95, p_value_correction = 'fdr')
+  dirichlet_all_100k <- parse_files_hmshj_CI_z_test(expected=3, group_by_reps = T, group_by_type = T, directory = '/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/false_negatives/third_attempt/fn/nested/dirichlet_all/output/nested_dirichlet_all_100k_min4_buffer2_max150_HKY2', confidence_level = 0.95, p_value_correction = 'fdr')
+  
+  #fixing names
+  shift_zero_2k$type <- shift_one_2k$type
+  shift_zero_10k$type <- shift_one_2k$type
+  shift_zero_50k$type <- shift_one_2k$type
+}
+
+#final plot
+pdf(height=9.5*0.9, width=7.5*0.9, file='FP_FN_z.pdf')
+plot_rate_comparison_CI_inset_fn(list(shift_zero_2k=shift_zero_2k, shift_zero_10k=shift_zero_10k, shift_zero_50k=shift_zero_50k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "No shifts", nested=F, include_false_negatives = F, test_type = 'z')
+plot_rate_comparison_CI_inset(list(shift_one_2k=shift_one_2k, shift_one_10k=shift_one_10k, shift_one_25k=shift_one_25k, shift_one_50k=shift_one_50k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "One derived shift", nested=F, test_type = 'z')
+plot_rate_comparison_CI_inset(list(shift_two_2k=shift_two_2k, shift_two_10k=shift_two_10k, shift_two_25k=shift_two_25k, shift_two_50k=shift_two_50k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "Two derived shifts (independent)", nested=F, test_type = 'z')
+plot_rate_comparison_CI_inset(list(shift_three_2k=shift_three_2k, shift_three_10k=shift_three_10k, shift_three_25k=shift_three_25k, shift_three_50k=shift_three_50k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "Three derived shifts (independent)", nested=F, test_type = 'z')
+plot_rate_comparison_CI_inset(list(shift_four_2k=shift_four_2k, shift_four_10k=shift_four_10k, shift_four_25k=shift_four_25k, shift_four_50k=shift_four_50k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "Four derived shifts (independent)", nested=F, test_type = 'z')
+
+#nested shifts
+plot_rate_comparison_CI_inset(list(dirichlet_all_2k=dirichlet_all_2k, dirichlet_all_25k=dirichlet_all_25k, dirichlet_all_50k=dirichlet_all_50k,dirichlet_all_100k=dirichlet_all_100k), phylogram_list = list(exontree, introntree, mtdnatree, utrtree), y_lim = c(0,1.0), plot_type = 'se', global_title = "Nested shifts", nested=T, test_type = 'z')
+dev.off()
+
 
