@@ -63,6 +63,12 @@ classification using the tidymodels framework. This code is
 adapted from the Physalia course examples for machine learning 
 in R.
 
+**shift_model_sims.R**
+This script contains the code for assessing the janus
+false positive/false negative performance. We include
+functions defining a generic pipeline that can be used to
+assess model performance on arbitrary topologies.
+
 **Supplementary Table 3.xlsx**
 
 Supplementary Table 3, as noted in the manuscript. This file
