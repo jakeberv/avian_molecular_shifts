@@ -4577,6 +4577,23 @@ OUwie_data.codons <-
 # saveRDS(mass.OUM, file="./RDS/mass.OUM.RDS")
 mass.OUM<- readRDS(file="./RDS/mass.OUM.RDS")
 
+# mass.OU.dat<-cbind(OUwie_data[, c(1)], Reg=rep('aves', length(OUwie_data[, c(2)])), OUwie_data[, c(3, 5)])
+# mass.OU <- OUwie(
+#   phy = simmap.janus.nuc.aggregate.simplified,
+#   data = mass.OU.dat,
+#   model = 'OU1',
+#   simmap.tree = T,
+#   diagn = T,
+#   check.identify = T,
+#   algorithm = "invert",
+#   scaleHeight = F,
+#   mserr = "known",
+#   get.root.theta = F
+# )
+# saveRDS(mass.OU, file="./RDS/mass.OU.RDS")
+mass.OU <- readRDS(file="./RDS/mass.OU.RDS")
+
+
 #try with parametric bootstrapping
 # OUwie_boots.mass <-
 #   OUwie.boot(
@@ -4623,6 +4640,23 @@ median(log(2)/tmp[,1])
 # )
 # saveRDS(chickPC1.OUM, file="./RDS/chickPC1.OUM.RDS")
 chickPC1.OUM<- readRDS(file="./RDS/chickPC1.OUM.RDS")
+
+# chickPC1.OU.dat<-cbind(OUwie_data[, c(1)], Reg=rep('aves', length(OUwie_data[, c(2)])), OUwie_data[, c(4, 5)])
+# chickPC1.OU <- OUwie(
+#   phy = simmap.janus.nuc.aggregate.simplified,
+#   data = chickPC1.OU.dat,
+#   model = 'OU1',
+#   simmap.tree = T,
+#   diagn = T,
+#   check.identify = T,
+#   algorithm = "invert",
+#   scaleHeight = F,
+#   mserr = "known",
+#   get.root.theta = F
+# )
+# saveRDS(chickPC1.OU, file="./RDS/chickPC1.OU.RDS")
+chickPC1.OU <- readRDS(file="./RDS/chickPC1.OU.RDS")
+
 
 #try with parametric bootstrapping
 # OUwie_boots.chickPC1 <-
