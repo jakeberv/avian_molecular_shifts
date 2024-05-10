@@ -13,6 +13,8 @@ Reference table containing the compiled life history data analyzed in this manus
 These data include body mass, modeled generation length, latitude centroid, mean clutch size, annual adult survival, age at first breeding, maximum longevity, and categorically coded variables for diet, habitat, and diurnality and migratory status, compiled from Bird et al. 2020.
 We also included a metric of avian developmental mode (“ChickPC1”) that describes variation in hatchling state along an altricial to precocial spectrum (Ducatez and Field 2021). These data reflect exact species matches relative to those in the re-assembled nuclear genetic dataset. This table includes our dataset of basal metabolic rates (BMR) expressed in watts and associated body masses. We first collected available BMR records from the AnAge senescence database Build 14 (Tacutu et al. 2018). For most of the exact species in the present dataset (and most avian species in general), conspecific BMR data have not been measured. Therefore, we conducted an extensive literature search for each avian family in the molecular dataset and manually filled in missing entries by identifying phylogenetically equivalent matches (e.g., at the genus level) for which BMR and mass data were available. We include references to these various sources inside the data table.
 
+These data are used in analyses which generate Figure 2 and 3 of our main text (see [constrained_species_tree.R](../constrained_species_tree.R)))
+
 ---
 
 ### References
