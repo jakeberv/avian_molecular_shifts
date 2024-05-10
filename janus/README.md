@@ -4,7 +4,7 @@ Janus has been implemented in both Golang and C, and the source code (and docume
 
 **files**
 
-This folder contains five subdirectories containing janus input/output files. The output files are imported by the primary R script ([constrained_species_tree.R](../constrained_species_tree.R)) for post-processing. The sequence data files that these runs used are located and described [here](../AHE_REASSEMBLY/sequences).
+This folder contains five subdirectories containing janus input/output files. The output files are imported by the primary R script ([constrained_species_tree.R](../constrained_species_tree.R)) for post-processing. The sequence data files that these runs used are located and described [here (nuclear data)](../AHE_REASSEMBLY/sequences), and [here (mtdna data)](mtDNA_REASSEMBLY).
 
 **/files/exons_MFP_MERGE_MRL3_constraint_G_UE_UL_M3**
 
