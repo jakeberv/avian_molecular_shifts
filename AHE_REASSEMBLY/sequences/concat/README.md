@@ -1,4 +1,4 @@
-## concatenated datasets
+## concatenated datasets (fasta format)
 
 **utr_concat.fasta.zip** 
 This file contains concatenated UTR sequences (described in the manuscript)
