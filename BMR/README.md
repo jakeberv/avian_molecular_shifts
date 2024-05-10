@@ -44,6 +44,8 @@ our script and be able to reproduce our Figure 3.
 
 ---
 
-References Josef C. Uyeda, Luke J. Harmon, A Novel Bayesian Method for Inferring and Interpreting the Dynamics of Adaptive Landscapes from Phylogenetic Comparative Data, Systematic Biology, Volume 63, Issue 6, November 2014, Pages 902–918, <https://doi.org/10.1093/sysbio/syu057>
+### References
+
+Josef C. Uyeda, Luke J. Harmon, A Novel Bayesian Method for Inferring and Interpreting the Dynamics of Adaptive Landscapes from Phylogenetic Comparative Data, Systematic Biology, Volume 63, Issue 6, November 2014, Pages 902–918, <https://doi.org/10.1093/sysbio/syu057>
 
 The Evolution of Energetic Scaling across the Vertebrate Tree of Life Josef C. Uyeda, Matthew W. Pennell, Eliot T. Miller, Rafael Maia, and Craig R. McClain The American Naturalist 2017 190:2, 185-199
