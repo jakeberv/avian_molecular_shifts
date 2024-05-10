@@ -1,50 +1,25 @@
-pre-print available: https://doi.org/10.1101/2022.10.21.513146
-
-## Jacob S. Berv<sup>1,2,3,*</sup>, Sonal Singhal<sup>4</sup>, Daniel J. Field<sup>5,6</sup>, Nathanael Walker-Hale<sup>7</sup>, Sean W. McHugh<sup>8</sup>, J. Ryan Shipley<sup>9</sup>, Eliot T. Miller<sup>10</sup>, Rebecca T. Kimball<sup>11</sup>, Edward L. Braun<sup>11</sup>, Alex Dornburg<sup>12</sup>, C. Tomomi Parins-Fukuchi<sup>13</sup>, Richard O. Prum<sup>14,15</sup>, Benjamin M. Winger<sup>1,3</sup>, Matt Friedman<sup>2, 16</sup>, Stephen A. Smith<sup>1</sup>
-
-Corresponding Author: *Jacob S. Berv, jberv@umich.edu, jacob.berv@gmail.com
-Relevant co-author: Sonal Singhal, sonal.singhal1@gmail.com
-
-Author affiliations:
-
-1.	Department of Ecology and Evolutionary Biology, 1105 North University Avenue, Biological Sciences Building, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
-
-2.	University of Michigan Museum of Paleontology, 1105 North University Avenue, Biological Sciences Building, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
-
-3.	University of Michigan Museum of Zoology, 1105 North University Avenue, Biological Sciences Building, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
-
-4.	Department of Biology, California State University, Dominguez Hills, Carson, California 90747, USA
-
-5.	Department of Earth Sciences, Downing Street, University of Cambridge, Cambridge CB2 3EQ, UK
-
-6.	Museum of Zoology, Downing Street, University of Cambridge, Cambridge CB2 3EJ, UK
-
-7.	Department of Plant Sciences, Downing Street, University of Cambridge, Cambridge, CB2 3EA, UK
-
-8.	Department of Evolution, Ecology, and Population Biology, Washington University in St Louis, St Louis, Missouri, USA
-
-9.	Department of Forest Dynamics Swiss Federal Institute for Forest, Snow, and Landscape Research WSL Zürcherstrasse 111 8903 Birmensdorf, Switzerland
-
-10.	Macaulay Library, Cornell Lab of Ornithology, Ithaca, New York, 14850, USA
-
-11.	Department of Biology, University of Florida, Gainesville, Florida 32611, USA
-
-12.	Department of Bioinformatics and Genomics, University of North Carolina at Charlotte, Charlotte, North Carolina, USA
-
-13.	Department of Ecology and Evolutionary Biology, University of Toronto, Toronto, Ontario, Canada, M5S 3B2
-
-14.	Department of Ecology and Evolutionary Biology, Yale University, New Haven, Connecticut, 06520, USA
-
-15.	Peabody Museum of Natural History, Yale University, New Haven, Connecticut, 06520, USA
-
-16.	Department of Earth and Environmental Sciences, 1100 North University Avenue, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
-
 ## Life history data
+
+---
 
 **LHT_data_11_1_21.txt**
 
-Life history data table formatted for reading into the primary R script
+Life history data table formatted for reading into the primary R script [constrained_species_tree.R](../constrained_species_tree.R))
 
 **Supplementary Table 4.xlsx**
 
-Reference table containing the compiled life history data analyzed herein
+Reference table containing the compiled life history data analyzed in this manuscript.
+
+These data include body mass, modeled generation length, latitude centroid, mean clutch size, annual adult survival, age at first breeding, maximum longevity, and categorically coded variables for diet, habitat, and diurnality and migratory status, compiled from Bird et al. 2020.
+We also included a metric of avian developmental mode (“ChickPC1”) that describes variation in hatchling state along an altricial to precocial spectrum (Ducatez and Field 2021). These data reflect exact species matches relative to those in the re-assembled nuclear genetic dataset. This table includes our dataset of basal metabolic rates (BMR) expressed in watts and associated body masses. We first collected available BMR records from the AnAge senescence database Build 14 (Tacutu et al. 2018). For most of the exact species in the present dataset (and most avian species in general), conspecific BMR data have not been measured. Therefore, we conducted an extensive literature search for each avian family in the molecular dataset and manually filled in missing entries by identifying phylogenetically equivalent matches (e.g., at the genus level) for which BMR and mass data were available. We include references to these various sources inside the data table.
+
+---
+
+### References
+
+Bird, J.P., Martin, R., Akçakaya, H.R., Gilroy, J., Burfield, I.J., Garnett, S.T., Symes, A., Taylor, J., Şekercioğlu, Ç.H. and Butchart, S.H.M. (2020), Generation lengths of the world's birds and their implications for extinction risk. Conservation Biology, 34: 1252-1261. https://doi.org/10.1111/cobi.13486
+
+Ducatez, S. and Field, D.J. (2021), Disentangling the avian altricial-precocial spectrum: Quantitative assessment of developmental mode, phylogenetic signal, and dimensionality. Evolution, 75: 2717-2735. https://doi.org/10.1111/evo.14365
+
+Tacutu, R., Thornton, D., Johnson, E., Budovsky, A., Barardo, D., Craig, T., Diana, E., Lehmann, G., Toren, D., Wang, J., Fraifeld, V. E., de Magalhaes, J. P. (2018) "Human Ageing Genomic Resources: new and updated databases." Nucleic Acids Research 46(D1):D1083-D1090. 
+
