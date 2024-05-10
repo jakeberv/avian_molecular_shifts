@@ -41,7 +41,7 @@ Author affiliations:
 ## Metabolic allometry
 
 ---
-Bayou allometry shifting regimes model pipeline written by: Sean McHugh, Josef Uyeda, Jacob Berv
+*Bayou allometry shifting regimes model pipeline written by: Sean McHugh, Josef Uyeda, Jacob Berv*
 
 **full_restrict_equal_10Mx3_ME01_L8.R**
 
@@ -56,22 +56,27 @@ to generate a version of Figure 3 in our manuscript.
 In the top level directory, we include several files that are accessed 
 by the provided R script:
 
-*nomiss.RDS* 
+**nomiss.RDS**
+
 'R Data Serialization' formated file containing the metabolic rate dataset (described in the manuscript)
 
-*simmap.janus.nuc.alldata.RDS*
+**simmap.janus.nuc.alldata.RDS**
+
 'R Data Serialization' formated file containing the tree object (described in the manuscript)
 
-*fixed.zip*
+**fixed.zip**
+
 Zip file containing bayou output files for each tested configuration of
 'fixed' shifts -- eg shifts that are defined on the basis of molecular
 shifts identified in each distinct data type.
 
-*global1.zip, global2.zip, global3.zip*
+**global1.zip, global2.zip, global3.zip**
+
 These zip files contain the bayou output files for analyses
 (repeated three times) of an 'unconstrained' global shift search
 
-*saved_objects* directory 
+*saved_objects* directory
+
 This directory contains the mcmc chain data generated in the 
 bayou model search described in the provided R script. These files
 are provided so that an interseted reader can load these files into
