@@ -1,6 +1,6 @@
-## janus
+## *Janus*
 
-Janus has been implemented in both Golang and C, and the source code (and documentation) is available at https://git.sr.ht/~hms/janus and https://git.sr.ht/~hms/hringhorni
+Janus has been implemented in both Golang and C, and the source code (and documentation) is available at https://git.sr.ht/~hms/janus and https://git.sr.ht/~hms/hringhorni. The analyses we present here use the specific commit [8952e31d](https://git.sr.ht/~hms/janus/archive/8952e31dc02e2e8f5423205a30507fd470d2e12f.tar.gz), however we recommend using the most recent version.
 
 **files**
 
