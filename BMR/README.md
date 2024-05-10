@@ -11,7 +11,8 @@ as a multiregime OU process using the R package bayou (Uyeda and Harmon
 estimated via reversible jump MCMC. Additional details describing how
 this script works are provided in the supplementary methods section
 of our manuscript. After performing the analysis, our script includes code 
-to generate a version of Figure 3 in our manuscript.
+to generate a version of Figure 3 in our manuscript. The key parameter 
+values we estimate here are summarized in Table S1.
 
 In the top level directory, we include several files that are accessed 
 by the provided R script:
