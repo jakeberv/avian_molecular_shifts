@@ -1,7 +1,7 @@
 ## Metabolic allometry
 
 ---
-*Bayou allometry shifting regimes model pipeline written by: Sean McHugh, Josef Uyeda, Jacob Berv*
+### Bayou allometry shifting regimes model pipeline written by: Sean McHugh, Josef Uyeda, Jacob Berv
 
 **full_restrict_equal_10Mx3_ME01_L8.R**
 
@@ -18,11 +18,11 @@ by the provided R script:
 
 **nomiss.RDS**
 
-'R Data Serialization' formated file containing the metabolic rate dataset (described in the manuscript)
+'R Data Serialization' formatted file containing the metabolic rate dataset (described in the manuscript)
 
 **simmap.janus.nuc.alldata.RDS**
 
-'R Data Serialization' formated file containing the tree object (described in the manuscript)
+'R Data Serialization' formatted file containing the tree object (described in the manuscript)
 
 **fixed.zip**
 
