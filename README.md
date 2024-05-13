@@ -32,7 +32,9 @@ Author affiliations:
 
 This is a large, complex R script containing the code for the primary analyses in our manuscript. It is separated into 17 sub-sections delimited using curly-bracket notation {}. Each section is commented and annotated for reproducibility. This script is mostly for processing and analyzing the *output files* from *Janus* and other software applied herein.
 
-Here we provide a brief overview of the various sub-sections of the script for reader reference.
+---
+
+Below, we provide a brief overview of the various sub-sections of the script for reader reference.
 
 ### System report and package references
 
@@ -148,4 +150,4 @@ This folder contains scripts and files related to analysis of the BMR dataset. S
 
 **Janus**
 
-This folder contains the relevant results from janus (e.g.,input/output files). The source tree file is in ‘timetree_all_taxa_OW_2019.nextree.tre’ available in the supplementary materials from Kimball et al. (2019) here: https://www.mdpi.com/1424-2818/11/7/109/s1, labeled as ‘MRL_3backbone.’ It is also provided in our GitHub repository [here](/trees/MRL_3backbone.tre) for reference. Janus has been implemented in both Golang and C, and the source code (and documentation) is available at https://git.sr.ht/~hms/janus and https://git.sr.ht/~hms/hringhorni.
+This folder contains the relevant results from janus (e.g.,input/output files). The topological constraint tree is in ‘timetree_all_taxa_OW_2019.nextree.tre’ available in the supplementary materials from Kimball et al. (2019) here: https://www.mdpi.com/1424-2818/11/7/109/s1, labeled as ‘MRL_3backbone.’ It is also provided in our GitHub repository [here](/trees/MRL_3backbone.tre) for reference. Janus has been implemented in both Golang and C, and the source code (and documentation) is available at https://git.sr.ht/~hms/janus and https://git.sr.ht/~hms/hringhorni.
