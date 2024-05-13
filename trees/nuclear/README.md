@@ -1,6 +1,6 @@
 ## Tree files
 
-This directory contains tree files called by the [primary analysis R script](.../constrained_species_tree.R) for analyses of nuclear DNA sequences. Relevant files are used by [Janus](.../janus/) as input trees and are copied in that directory as input files. This directory is provided primarily as a reference for the IQ-tree log files. 
+This directory contains tree files called by the [primary analysis R script](../../constrained_species_tree.R) for analyses of nuclear DNA sequences. Relevant files are used by [Janus](../../janus/) as input trees and are copied in that directory as input files. This directory is provided primarily as a reference for the IQ-tree log files. 
 
 **ALL_MFP_2haplo**
 This folder contains the IQ-tree log files for branch length estimation of the allelic variation (including specific commands to IQ-tree, inference using the entire concatenated dataset).
