@@ -9818,6 +9818,14 @@ BIC(quad)
 
 }
 
+
+#Section 17
+#########################################################
+##################  Miscellaneous  ######################
+#########################################################
+
+{
+  
 #reference plot for l1ou
 require(ape)
 plot(
@@ -10420,4 +10428,5 @@ require(tidyverse)
 data_frame_result <- process_fasta_directory('/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/simulated_alignments/data-2kb_iqtree2.2.0')
 any(data_frame_result$Results==0.0)
 
+}
 
