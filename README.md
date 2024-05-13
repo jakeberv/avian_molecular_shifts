@@ -108,9 +108,11 @@ This section tests some additional exploratory models of BMR allometry. Most of 
 
 This section includes code related to diagnostic plots, as well as some additional experimental analyses relative to multivariate model fitting. These are mostly not discussed in the manuscript and are provided as exploratory for interested readers.
 
---- 
+Note: Most lines in the primary script where analyses are actually executed are commented out so that processed RDS objects ([provided here](./RDS), see below) can be loaded instead. RDS (R Data Serialization) files are a common format for saving R objects, and they allow R users to preserve the state of an object between R sessions. Thus, the script is provided in a format that should allow anyone to download the GitHub repository and go through every sub-section without needing to re-fit or re-process any data locally.
 
-Most lines in the primary script where analyses are actually executed are commented out so that processed RDS objects ([provided here](./RDS), see below) can be loaded instead. RDS (R Data Serialization) files are a common format for saving R objects, and they allow R users to preserve the state of an object between R sessions. Thus, the script is provided in a format that should allow anyone to download the GitHub repository and go through every sub-section without needing to re-fit or re-process any data locally.
+---
+
+## Other important files/directories
 
 **Functions_consensus_genetrees.R**
 
