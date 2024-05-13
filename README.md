@@ -26,8 +26,6 @@ Author affiliations:
 
 ## Code and datasets
 
----
-
 **constrained_species_tree.R**
 
 This is a large, complex R script containing the code for the primary analyses in our manuscript. It is separated into 17 sub-sections delimited using curly-bracket notation {}. Each section is commented and annotated for reproducibility. This script is mostly for processing and analyzing the *output files* from *Janus* and other software applied herein.
