@@ -1,0 +1,34 @@
+#nexus
+begin sets;
+  charset aligned.mtdna.ATP6.fasta_final_align_NT.aln = partitions/aligned.mtdna.ATP6.fasta_final_align_NT.aln: ;
+  charset aligned.mtdna.ATP8.fasta_final_align_NT.aln = partitions/aligned.mtdna.ATP8.fasta_final_align_NT.aln: ;
+  charset aligned.mtdna.COX1.fasta_final_align_NT.aln = partitions/aligned.mtdna.COX1.fasta_final_align_NT.aln: ;
+  charset aligned.mtdna.COX2.fasta_final_align_NT.aln = partitions/aligned.mtdna.COX2.fasta_final_align_NT.aln: ;
+  charset aligned.mtdna.COX3.fasta_final_align_NT.aln = partitions/aligned.mtdna.COX3.fasta_final_align_NT.aln: ;
+  charset aligned.mtdna.CYTB.fasta_final_align_NT.aln = partitions/aligned.mtdna.CYTB.fasta_final_align_NT.aln: ;
+  charset aligned.mtdna.ND1.fasta_final_align_NT.aln = partitions/aligned.mtdna.ND1.fasta_final_align_NT.aln: ;
+  charset aligned.mtdna.ND2.fasta_final_align_NT.aln = partitions/aligned.mtdna.ND2.fasta_final_align_NT.aln: ;
+  charset aligned.mtdna.ND3.fasta_final_align_NT.aln = partitions/aligned.mtdna.ND3.fasta_final_align_NT.aln: ;
+  charset aligned.mtdna.ND4.fasta_final_align_NT.aln = partitions/aligned.mtdna.ND4.fasta_final_align_NT.aln: ;
+  charset aligned.mtdna.ND4L.fasta_final_align_NT.aln = partitions/aligned.mtdna.ND4L.fasta_final_align_NT.aln: ;
+  charset aligned.mtdna.ND5.fasta_final_align_NT.aln = partitions/aligned.mtdna.ND5.fasta_final_align_NT.aln: ;
+  charset aligned.mtdna.ND6.fasta_final_align_NT.aln = partitions/aligned.mtdna.ND6.fasta_final_align_NT.aln: ;
+  charset mtdna.12s.fasta.aln = partitions/mtdna.12s.fasta.aln: ;
+  charset mtdna.16s.fasta.aln = partitions/mtdna.16s.fasta.aln: ;
+  charpartition mymodels =
+    GTR+F+I+G4: aligned.mtdna.ATP6.fasta_final_align_NT.aln,
+    TIM2+F+I+G4: aligned.mtdna.ATP8.fasta_final_align_NT.aln,
+    GTR+F+R8: aligned.mtdna.COX1.fasta_final_align_NT.aln,
+    TIM2+F+R9: aligned.mtdna.COX2.fasta_final_align_NT.aln,
+    TIM2+F+R10: aligned.mtdna.COX3.fasta_final_align_NT.aln,
+    GTR+F+R10: aligned.mtdna.CYTB.fasta_final_align_NT.aln,
+    TVM+F+R10: aligned.mtdna.ND1.fasta_final_align_NT.aln,
+    TVM+F+R10: aligned.mtdna.ND2.fasta_final_align_NT.aln,
+    GTR+F+I+G4: aligned.mtdna.ND3.fasta_final_align_NT.aln,
+    GTR+F+R10: aligned.mtdna.ND4.fasta_final_align_NT.aln,
+    GTR+F+R7: aligned.mtdna.ND4L.fasta_final_align_NT.aln,
+    GTR+F+R10: aligned.mtdna.ND5.fasta_final_align_NT.aln,
+    TIM+F+R5: aligned.mtdna.ND6.fasta_final_align_NT.aln,
+    TIM2+F+R9: mtdna.12s.fasta.aln,
+    GTR+F+R8: mtdna.16s.fasta.aln;
+end;

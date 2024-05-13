@@ -1,0 +1,582 @@
+IQ-TREE multicore version 2.1.3 COVID-edition for Linux 64-bit built Aug 22 2021
+Developed by Bui Quang Minh, James Barbetti, Nguyen Lam Tung,
+Olga Chernomor, Heiko Schmidt, Dominik Schrempf, Michael Woodhams.
+
+Host:    theorygroup13 (AVX2, FMA3, 503 GB RAM)
+Command: /home/tguser/Downloads/iqtree2-2.1.3/build/iqtree2 -p mtDNA_rRNAs.best_model.nex -T AUTO --prefix mtDNA_rRNAs_MRL3_constraint -g MRL3backbone.nameswap.mtdnas.rRNAs.tre --safe -redo
+Seed:    726660 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Sun Aug 29 23:52:11 2021
+Kernel:  Safe AVX+FMA - auto-detect threads (64 CPU cores detected)
+
+Reading partition model file mtDNA_rRNAs.best_model.nex ...
+
+Loading 2 partitions...
+Reading alignment file /home/tguser/JAKE/data/mtDNAs/data/rRNAs/mtdna.12s.fasta.aln ... Fasta format detected
+Alignment most likely contains DNA/RNA sequences
+Alignment has 180 sequences with 1025 columns, 756 distinct patterns
+608 parsimony-informative, 83 singleton sites, 334 constant sites
+                               Gap/Ambiguity  Composition  p-value
+   1  Acanthisitta_chloris             4.98%    passed     67.77%
+   2  Accipiter_superciliosus          5.76%    passed     78.97%
+   3  Aegotheles_insignis              5.56%    passed     88.85%
+   4  Alcedo_quadribrachys             5.07%    passed     96.01%
+   5  Anas_superciliosa                4.59%    passed     59.02%
+   6  Anhinga_anhinga                  4.88%    passed     95.95%
+   7  Anser_canagicus                  4.68%    passed     91.05%
+   8  Anseranas_semipalmata            5.07%    passed     48.14%
+   9  Apaloderma_aequatoriale          4.20%    passed     63.13%
+  10  Apteryx_rowi                     4.98%    passed     31.17%
+  11  Aramus_guarauna                  4.78%    passed     62.31%
+  12  Archilochus_colubris             5.46%    passed     86.68%
+  13  Ardea_purpurea                   5.46%    passed     74.25%
+  14  Ardeotis_kori                    4.68%    passed     95.60%
+  15  Arenaria_interpres               5.76%    passed     59.42%
+  16  Atelornis_pittoides              5.76%    passed     61.36%
+  17  Aythya_valisineria               4.78%    passed     88.40%
+  18  Balaeniceps_rex                  5.95%    passed     41.24%
+  19  Balearica_regulorum              4.98%    passed     99.04%
+  20  Barnardius_zonarius              4.10%    failed      0.43%
+  21  Bonasa_umbellus                 35.02%    passed     77.14%
+  22  Buccanodon_duchaillui            5.56%    passed      6.25%
+  23  Bucco_capensis                   5.76%    failed      0.44%
+  24  Bucorvus_leadbeateri             4.78%    passed     86.89%
+  25  Burhinus_bistriatus              4.68%    passed     94.27%
+  26  Buteo_jamaicensis                5.07%    passed     75.16%
+  27  Caiman_crocodilus                9.07%    passed     60.17%
+  28  Calandrella_brachydactyla        4.98%    passed     14.95%
+  29  Calyptomena_viridis             17.76%    failed      1.41%
+  30  Capito_niger                     6.44%    passed     59.48%
+  31  Caprimulgus_europaeus            5.46%    passed     45.94%
+  32  Caracara_cheriway                5.46%    passed     26.74%
+  33  Cariama_cristata                 6.34%    passed     32.34%
+  34  Casuarius_casuarius              5.66%    passed     69.92%
+  35  Cathartes_aura                   5.07%    passed     90.19%
+  36  Centropus_bengalensis            9.66%    passed     13.50%
+  37  Chaetura_brachyura               5.85%    passed     88.03%
+  38  Charadrius_hiaticula             4.49%    passed     94.41%
+  39  Chauna_torquata                  4.78%    passed     77.46%
+  40  Chelidoptera_tenebrosa           5.37%    passed      7.54%
+  41  Chloroceryle_inda                5.76%    passed     92.04%
+  42  Chordeiles_pusillus              5.76%    passed     89.22%
+  43  Chroicocephalus_maculipennis     5.76%    passed     67.09%
+  44  Chunga_burmeisteri               5.66%    passed     13.42%
+  45  Ciconia_nigra                    5.27%    passed     70.90%
+  46  Climacteris_melanura             5.07%    passed     37.14%
+  47  Coccyzus_melacoryphus            4.98%    passed     82.46%
+  48  Colinus_cristatus                5.66%    passed     55.50%
+  49  Colius_colius                   14.63%    passed     41.13%
+  50  Colius_indicus                   5.37%    passed     44.66%
+  51  Columba_livia                    5.07%    passed     86.45%
+  52  Columbina_minuta                 5.27%    passed     71.62%
+  53  Coracias_cyanogaster             6.15%    passed     32.63%
+  54  Corvus_albus                     4.98%    passed     10.88%
+  55  Corythaeola_cristata            33.85%    passed     91.12%
+  56  Cotinga_cayana                   5.17%    passed     65.42%
+  57  Crax_alector                     5.37%    passed     69.16%
+  58  Crocodylus_porosus               5.46%    passed     67.27%
+  59  Cryptopipo_aenigma               4.88%    passed      6.54%
+  60  Cuculus_canorus                  5.46%    passed     29.08%
+  61  Dendrocygna_javanica             4.68%    passed     74.23%
+  62  Deroptyus_accipitrinus           5.66%    passed     34.10%
+  63  Dromaius_novaehollandiae         5.95%    passed     32.39%
+  64  Elaenia_flavogaster              5.17%    passed     23.71%
+  65  Eudromia_elegans                 6.44%    passed     25.70%
+  66  Eurostopodus_macrotis            5.66%    passed     59.83%
+  67  Eurylaimus_ochromalus            5.27%    passed     97.77%
+  68  Eurypyga_helias                  5.07%    passed     97.88%
+  69  Falco_sparverius                 4.68%    passed     20.44%
+  70  Fregata_magnificens              5.37%    passed     94.41%
+  71  Fringilla_coelebs                5.76%    passed     38.22%
+  72  Furnarius_rufus                  4.29%    passed     59.19%
+  73  Galbula_dea                      6.24%    passed     30.63%
+  74  Gallus_gallus                    5.66%    passed     81.44%
+  75  Gavia_immer                      4.98%    passed     79.32%
+  76  Glareola_nuchalis                4.98%    passed     79.47%
+  77  Grus_canadensis                  5.37%    passed     99.79%
+  78  Haematopus_palliatus             5.76%    passed     79.24%
+  79  Heliornis_fulica                 6.34%    passed     10.32%
+  80  Hemiphaga_novaeseelandiae        5.17%    passed     81.16%
+  81  Hemiprocne_comata                4.98%    passed     99.60%
+  82  Hydrobates_tethys                4.78%    passed     80.09%
+  83  Hymenops_perspicillatus         52.68%    passed     35.27%
+  84  Ibycter_americanus               5.07%    passed     17.09%
+  85  Indicator_exilis                 5.56%    passed     12.41%
+  86  Ixobrychus_minutus               5.56%    passed     34.02%
+  87  Jacana_jacana                   10.73%    passed     97.13%
+  88  Jynx_torquilla                   5.37%    passed     85.02%
+  89  Leiopoa_ocellata                 5.46%    passed     95.92%
+  90  Lepidocolaptes_angustirostris    4.20%    passed     31.74%
+  91  Leptosomus_discolor              4.98%    passed     70.71%
+  92  Leptotila_rufaxilla              5.27%    passed     75.74%
+  93  Limosa_lapponica                 5.27%    passed     46.08%
+  94  Malurus_elegans                  4.88%    passed     36.38%
+  95  Megalaima_chrysopogon            6.44%    passed     81.41%
+  96  Melanopareia_maranonica          5.07%    passed     32.89%
+  97  Menura_novaehollandiae           5.37%    passed     23.88%
+  98  Merops_muelleri                  5.76%    passed     15.38%
+  99  Mesitornis_unicolor              5.66%    passed     93.06%
+ 100  Micrastur_gilvicollis            8.49%    passed     83.95%
+ 101  Momotus_lessonii                 5.76%    passed     92.73%
+ 102  Monias_benschi                   6.44%    passed     85.40%
+ 103  Morus_serrator                   4.88%    passed     20.30%
+ 104  Myiobius_sulphureipygius         4.98%    passed     63.76%
+ 105  Myrmornis_torquata               5.27%    passed     79.20%
+ 106  Myrmothera_campanisona          46.73%    passed     40.99%
+ 107  Nannopterum_brasilianus          5.46%    passed     26.05%
+ 108  Neodrepanis_coruscans            6.34%    passed     58.20%
+ 109  Nestor_meridionalis              7.02%    passed     99.26%
+ 110  Nothoprocta_ornata               4.98%    failed      1.62%
+ 111  Numida_meleagris                 5.27%    passed     45.84%
+ 112  Nyctibius_griseus                5.27%    passed     95.18%
+ 113  Oceanites_oceanicus              5.37%    passed     96.68%
+ 114  Odontophorus_gujanensis          5.46%    passed     59.73%
+ 115  Opisthocomus_hoazin              5.95%    passed     94.75%
+ 116  Ortalis_motmot                   5.95%    passed     92.27%
+ 117  Oxyruncus_cristatus              4.20%    passed     46.94%
+ 118  Oxyura_jamaicensis               5.17%    passed     72.06%
+ 119  Pandion_haliaetus                5.27%    passed     97.45%
+ 120  Paradisaea_raggiana              6.63%    passed     26.25%
+ 121  Pedionomus_torquatus             4.88%    passed     98.44%
+ 122  Pelagodroma_marina               5.17%    passed     99.68%
+ 123  Pelecanoides_urinatrix           5.07%    passed     19.78%
+ 124  Pelecanus_occidentalis           5.17%    passed     81.76%
+ 125  Phaethon_rubricauda              5.56%    passed     52.14%
+ 126  Phaethornis_malaris              4.88%    passed     98.66%
+ 127  Phoenicopterus_ruber             6.15%    passed     99.35%
+ 128  Picus_canus                      6.24%    passed      9.23%
+ 129  Pipra_erythrocephala             5.27%    passed     33.15%
+ 130  Piprites_chloris                 5.37%    passed     76.67%
+ 131  Pitta_angolensis                 5.46%    passed     89.18%
+ 132  Poecile_palustris                4.00%    passed     36.75%
+ 133  Porphyrio_porphyrio              6.34%    passed     52.96%
+ 134  Probosciger_aterrimus            5.76%    failed      3.09%
+ 135  Psittacus_erithacus              5.56%    passed      9.83%
+ 136  Psittrichas_fulgidus             5.46%    failed      0.75%
+ 137  Psophia_crepitans                5.56%    passed     38.90%
+ 138  Pterocles_bicinctus              5.27%    passed     18.42%
+ 139  Pterodroma_externa               5.07%    passed     93.06%
+ 140  Pycnonotus_macrotis              5.27%    passed     22.30%
+ 141  Rallus_limicola                  6.05%    passed     99.92%
+ 142  Ramphastos_ambiguus              6.54%    passed     15.57%
+ 143  Recurvirostra_americana          5.46%    passed     83.47%
+ 144  Rhea_americana                   6.05%    passed     98.48%
+ 145  Rhynchocyclus_olivaceus          5.66%    passed     59.66%
+ 146  Rhynchops_niger                 46.15%    passed     65.61%
+ 147  Rollandia_rolland                5.85%    passed     99.98%
+ 148  Rollulus_rouloul                13.76%    passed     41.98%
+ 149  Rostratula_benghalensis          4.49%    passed     42.16%
+ 150  Rupicola_peruvianus              5.46%    passed     52.95%
+ 151  Sagittarius_serpentarius         5.17%    passed     96.90%
+ 152  Sarothrura_rufa_elizabethae      6.83%    passed     95.73%
+ 153  Schiffornis_stenorhyncha         5.07%    passed     56.92%
+ 154  Sclerurus_mexicanus              5.66%    passed     44.69%
+ 155  Scopus_umbretta                  5.37%    passed     45.70%
+ 156  Sericulus_bakeri                 5.17%    passed      7.52%
+ 157  Smithornis_rufolateralis         5.37%    passed     39.33%
+ 158  Spheniscus_humboldti             4.49%    passed     96.01%
+ 159  Steatornis_caripensis            5.37%    passed     27.21%
+ 160  Sterna_hirundo                   5.66%    passed     55.99%
+ 161  Streptoprocne_zonaris            5.07%    passed     81.22%
+ 162  Strix_varia_varia                4.49%    passed      5.02%
+ 163  Struthio_Camelus                 5.76%    passed     62.16%
+ 164  Sylvia_melanocephala            12.88%    passed     46.41%
+ 165  Tapera_naevia                    4.98%    passed      8.80%
+ 166  Tauraco_macrorhynchus            4.78%    passed     77.32%
+ 167  Terenura_callinota               5.27%    passed     61.72%
+ 168  Thamnophilus_ruficapillus        5.07%    passed     81.56%
+ 169  Tinamus_major                    4.49%    passed     35.35%
+ 170  Tityra_inquisitor                5.17%    passed     13.84%
+ 171  Tockus_camurus                   5.76%    passed     62.79%
+ 172  Topaza_pella                     5.66%    passed     97.66%
+ 173  Treron_calvus                    5.37%    passed     90.23%
+ 174  Tringa_solitaria                 5.27%    passed     78.26%
+ 175  Turdus_olivater                  5.37%    passed     46.69%
+ 176  Turnix_velox                     5.17%    passed     75.75%
+ 177  Tyrannus_albogularis             5.17%    passed     23.63%
+ 178  Tyto_alba                        5.76%    passed     16.52%
+ 179  Upupa_epops                      6.05%    passed     39.97%
+ 180  Vultur_gryphus                  55.12%    passed     30.50%
+WARNING: 2 sequences contain more than 50% gaps/ambiguity
+****  TOTAL                            6.98%  6 sequences failed composition chi2 test (p-value<5%; df=3)
+Reading alignment file /home/tguser/JAKE/data/mtDNAs/data/rRNAs/mtdna.16s.fasta.aln ... Fasta format detected
+Alignment most likely contains DNA/RNA sequences
+Alignment has 189 sequences with 1698 columns, 1270 distinct patterns
+1058 parsimony-informative, 118 singleton sites, 522 constant sites
+                               Gap/Ambiguity  Composition  p-value
+   1  Acanthisitta_chloris             5.59%    passed     61.94%
+   2  Accipiter_superciliosus          6.65%    passed     69.76%
+   3  Aegotheles_insignis              6.18%    passed     40.15%
+   4  Alcedo_quadribrachys             6.60%    passed     89.69%
+   5  Anas_superciliosa                6.65%    passed     38.34%
+   6  Anhinga_anhinga                 13.02%    passed     29.71%
+   7  Anser_canagicus                  6.12%    passed     49.99%
+   8  Anseranas_semipalmata           10.07%    passed     27.12%
+   9  Apaloderma_aequatoriale         12.43%    passed     30.22%
+  10  Apteryx_rowi                     6.24%    passed      6.99%
+  11  Aramus_guarauna                  6.01%    passed     35.73%
+  12  Archilochus_colubris             7.01%    passed     93.49%
+  13  Ardea_purpurea                   6.77%    passed     88.24%
+  14  Ardeotis_kori                    6.42%    passed     11.65%
+  15  Arenaria_interpres               6.48%    passed     45.55%
+  16  Atelornis_pittoides             12.25%    passed     87.81%
+  17  Aythya_valisineria              36.63%    passed     22.44%
+  18  Balaeniceps_rex                 11.19%    passed     56.70%
+  19  Balearica_regulorum              6.54%    passed     47.60%
+  20  Barnardius_zonarius              8.01%    failed      0.89%
+  21  Bonasa_umbellus                  9.07%    passed     73.39%
+  22  Buccanodon_duchaillui           34.81%    passed     54.23%
+  23  Bucco_capensis                  13.49%    failed      1.29%
+  24  Bucorvus_leadbeateri             6.60%    passed     51.09%
+  25  Burhinus_bistriatus              6.42%    passed     18.36%
+  26  Buteo_jamaicensis                9.66%    passed     97.70%
+  27  Caiman_crocodilus               13.90%    passed     51.26%
+  28  Calandrella_brachydactyla        6.30%    passed     46.22%
+  29  Calyptomena_viridis             17.08%    passed     29.60%
+  30  Capito_niger                    13.19%    passed     60.57%
+  31  Caprimulgus_europaeus           11.48%    passed     99.42%
+  32  Caracara_cheriway               11.25%    passed     13.12%
+  33  Cariama_cristata                13.66%    passed     56.29%
+  34  Casuarius_casuarius              6.83%    passed     25.63%
+  35  Cathartes_aura                   6.30%    passed     92.67%
+  36  Centropus_bengalensis           53.59%    passed      5.43%
+  37  Chaetura_brachyura              12.43%    passed     96.37%
+  38  Charadrius_hiaticula            10.95%    passed     98.49%
+  39  Chauna_torquata                 10.01%    passed     38.66%
+  40  Chelidoptera_tenebrosa          18.61%    failed      2.95%
+  41  Chloroceryle_inda                8.83%    passed     67.90%
+  42  Chordeiles_pusillus             11.13%    passed     90.60%
+  43  Chroicocephalus_maculipennis     6.12%    passed     84.54%
+  44  Chunga_burmeisteri               6.95%    passed     61.89%
+  45  Ciconia_nigra                    6.07%    passed     37.93%
+  46  Climacteris_melanura             5.59%    passed     44.59%
+  47  Coccyzus_melacoryphus           11.84%    passed     18.54%
+  48  Colinus_cristatus               10.37%    passed     84.97%
+  49  Colius_colius                   12.07%    passed     50.70%
+  50  Colius_indicus                  39.63%    passed     98.80%
+  51  Columba_livia                    6.89%    passed     86.62%
+  52  Columbina_minuta                 9.78%    passed     90.27%
+  53  Corvus_albus                     5.71%    passed      7.82%
+  54  Corythaeola_cristata            11.01%    passed     77.08%
+  55  Cotinga_cayana                  13.02%    passed     75.70%
+  56  Crax_alector                     8.89%    passed     39.89%
+  57  Crocodylus_porosus              12.25%    passed     33.66%
+  58  Cryptopipo_aenigma              10.95%    passed     12.11%
+  59  Cuculus_canorus                 11.90%    passed     24.50%
+  60  Dendrocygna_javanica             5.77%    passed     48.29%
+  61  Deroptyus_accipitrinus          50.35%    failed      0.53%
+  62  Dromaius_novaehollandiae         6.60%    failed      2.19%
+  63  Elaenia_flavogaster             54.83%    passed      6.59%
+  64  Eudromia_elegans                 7.07%    passed     18.51%
+  65  Eurostopodus_macrotis           12.49%    passed     22.40%
+  66  Eurylaimus_ochromalus           13.19%    failed      4.30%
+  67  Eurypyga_helias                 12.66%    passed     72.70%
+  68  Falco_sparverius                 6.71%    passed     29.36%
+  69  Fregata_magnificens             35.22%    passed     96.46%
+  70  Fringilla_coelebs                5.89%    passed     50.94%
+  71  Fulmarus_glacialoides           39.40%    passed     80.36%
+  72  Furnarius_rufus                 34.92%    passed     94.00%
+  73  Galbula_dea                     15.90%    passed     21.54%
+  74  Gallus_gallus                    6.12%    passed     44.29%
+  75  Gavia_immer                      5.95%    passed     72.60%
+  76  Glareola_nuchalis                8.78%    passed     89.62%
+  77  Grus_canadensis                 38.87%    passed     96.19%
+  78  Haematopus_palliatus            12.01%    passed     95.06%
+  79  Heliornis_fulica                12.54%    passed     15.30%
+  80  Hemiphaga_novaeseelandiae        6.30%    passed     81.25%
+  81  Hemiprocne_comata               20.55%    passed     93.71%
+  82  Hydrobates_tethys                5.59%    passed     99.20%
+  83  Ibycter_americanus               9.01%    passed      6.40%
+  84  Indicator_exilis                12.25%    passed     62.50%
+  85  Ixobrychus_minutus              45.82%    passed     84.59%
+  86  Jacana_jacana                   14.19%    failed      3.08%
+  87  Jynx_torquilla                  12.49%    passed     70.95%
+  88  Leiopoa_ocellata                12.96%    passed     21.14%
+  89  Lepidocolaptes_angustirostris    6.77%    passed     84.87%
+  90  Leptosomus_discolor             14.49%    passed     97.59%
+  91  Leptotila_rufaxilla              6.54%    passed     99.62%
+  92  Limosa_lapponica                18.79%    passed     14.47%
+  93  Malurus_elegans                  5.83%    passed     38.25%
+  94  Megalaima_chrysopogon           10.48%    passed     86.93%
+  95  Melanopareia_maranonica         12.54%    passed     17.00%
+  96  Menura_novaehollandiae           5.89%    passed     40.54%
+  97  Merops_muelleri                 12.90%    passed     28.19%
+  98  Mesitornis_unicolor             10.72%    passed     59.71%
+  99  Micrastur_gilvicollis           11.78%    passed     99.86%
+ 100  Micropygia_schomburgkii         11.90%    passed     55.79%
+ 101  Momotus_lessonii                 9.01%    passed     92.33%
+ 102  Monias_benschi                  10.90%    passed     66.72%
+ 103  Morus_serrator                  10.66%    passed      7.82%
+ 104  Myiobius_sulphureipygius        13.96%    passed     47.86%
+ 105  Myrmornis_torquata              31.98%    passed     74.78%
+ 106  Myrmothera_campanisona          13.31%    passed     83.00%
+ 107  Nannopterum_brasilianus         11.01%    failed      3.26%
+ 108  Neodrepanis_coruscans           13.13%    passed     28.71%
+ 109  Nestor_meridionalis             10.72%    passed     90.85%
+ 110  Nothoprocta_ornata              13.02%    failed      0.80%
+ 111  Numida_meleagris                 5.95%    passed     35.41%
+ 112  Nyctibius_griseus               11.90%    passed     93.98%
+ 113  Oceanites_oceanicus              8.01%    passed     29.92%
+ 114  Odontophorus_gujanensis          8.78%    passed     72.55%
+ 115  Opisthocomus_hoazin             10.66%    passed     21.61%
+ 116  Ortalis_motmot                  10.48%    passed     61.29%
+ 117  Oxyruncus_cristatus              6.71%    passed     56.29%
+ 118  Oxyura_jamaicensis               9.89%    passed     25.99%
+ 119  Pandion_haliaetus                7.24%    passed     66.61%
+ 120  Paradisaea_raggiana              5.83%    failed      0.95%
+ 121  Pedionomus_torquatus             6.83%    passed     75.14%
+ 122  Pelagodroma_marina               5.83%    passed     92.91%
+ 123  Pelecanoides_urinatrix           6.36%    failed      4.03%
+ 124  Pelecanus_occidentalis           8.60%    passed     70.76%
+ 125  Phaethon_rubricauda              6.01%    failed      0.53%
+ 126  Phaethornis_malaris              6.89%    passed     69.53%
+ 127  Phoebastria_nigripes            52.83%    passed     82.16%
+ 128  Phoenicopterus_ruber            59.66%    passed     81.58%
+ 129  Phoeniculus_purpureus           13.78%    failed      0.02%
+ 130  Picus_canus                     12.07%    failed      0.79%
+ 131  Pipra_erythrocephala            44.17%    passed     38.19%
+ 132  Piprites_chloris                11.37%    passed     72.36%
+ 133  Pitta_angolensis                10.90%    passed     93.61%
+ 134  Podargus_strigoides             11.84%    passed     89.14%
+ 135  Poecile_palustris                5.89%    passed     70.08%
+ 136  Porphyrio_porphyrio             10.31%    passed     44.84%
+ 137  Probosciger_aterrimus            7.48%    passed     12.20%
+ 138  Psittacus_erithacus              7.66%    failed      0.00%
+ 139  Psittrichas_fulgidus             7.36%    failed      0.09%
+ 140  Psophia_crepitans               12.72%    passed     84.88%
+ 141  Pterocles_bicinctus             12.07%    passed     45.24%
+ 142  Pterodroma_externa              43.35%    passed     46.68%
+ 143  Pycnonotus_macrotis              5.89%    passed     22.86%
+ 144  Rallus_limicola                 11.84%    passed     34.96%
+ 145  Ramphastos_ambiguus             12.60%    passed      7.40%
+ 146  Recurvirostra_americana          8.89%    passed     86.33%
+ 147  Regulus_ignicapilla              5.59%    passed     19.17%
+ 148  Rhea_americana                   6.95%    passed     80.15%
+ 149  Rhynchocyclus_olivaceus         39.46%    passed      6.78%
+ 150  Rhynchops_niger                 53.36%    passed     37.25%
+ 151  Rollandia_rolland               40.11%    passed     52.18%
+ 152  Rollulus_rouloul                55.65%    passed     35.00%
+ 153  Rostratula_benghalensis         11.54%    passed     41.27%
+ 154  Rupicola_peruvianus              6.54%    passed     70.87%
+ 155  Sagittarius_serpentarius        11.43%    passed     83.73%
+ 156  Sarothrura_rufa_elizabethae     12.49%    passed     29.31%
+ 157  Schiffornis_stenorhyncha        11.54%    passed     20.74%
+ 158  Sclerurus_mexicanus             11.01%    passed     99.12%
+ 159  Scopus_umbretta                 12.54%    passed     44.02%
+ 160  Sericulus_bakeri                 5.89%    passed     11.18%
+ 161  Smithornis_rufolateralis        11.78%    passed     20.17%
+ 162  Spheniscus_humboldti            32.86%    passed     24.62%
+ 163  Spizella_arborea                45.76%    passed     83.47%
+ 164  Steatornis_caripensis           11.13%    passed     84.05%
+ 165  Sterna_hirundo                   6.12%    passed     34.10%
+ 166  Streptoprocne_zonaris           14.49%    passed     98.35%
+ 167  Strix_varia_varia                6.30%    passed     17.76%
+ 168  Struthio_Camelus                 7.18%    passed     63.40%
+ 169  Sylvia_melanocephala             6.01%    passed     21.54%
+ 170  Syrrhaptes_paradoxus            13.37%    passed     14.62%
+ 171  Tapera_naevia                   44.58%    passed     33.51%
+ 172  Tauraco_macrorhynchus           13.55%    passed     87.35%
+ 173  Terenura_callinota              12.19%    passed     42.10%
+ 174  Thamnophilus_ruficapillus       17.02%    passed     64.65%
+ 175  Tinamus_major                    8.42%    passed     57.78%
+ 176  Tityra_inquisitor               14.78%    passed     62.05%
+ 177  Tockus_camurus                   6.83%    passed     34.17%
+ 178  Todus_mexicanus                 45.11%    passed     79.23%
+ 179  Topaza_pella                    12.13%    passed     25.62%
+ 180  Treron_calvus                    8.95%    passed     73.63%
+ 181  Tringa_solitaria                11.31%    failed      0.56%
+ 182  Trogon_elegans                   7.36%    failed      0.63%
+ 183  Turdus_olivater                  6.12%    passed     51.19%
+ 184  Turnix_velox                     6.89%    passed     28.65%
+ 185  Tyrannus_albogularis            11.48%    passed     91.95%
+ 186  Tyto_alba                       14.13%    passed     58.36%
+ 187  Upupa_epops                      7.54%    passed     78.63%
+ 188  Uria_aalge                      40.52%    passed     83.11%
+ 189  Vultur_gryphus                  31.86%    passed     58.74%
+WARNING: 7 sequences contain more than 50% gaps/ambiguity
+****  TOTAL                           14.40%  18 sequences failed composition chi2 test (p-value<5%; df=3)
+Subset	Type	Seqs	Sites	Infor	Invar	Model	Name
+1		180	1025	608	334	TIM2{6.78862,21.9655,52.421}+F{0.319903,0.282227,0.196497,0.201374}+R9{0.367081,0.0063503,0.0504691,0.0634973,0.05086,0.0635005,0.0905445,0.229616,0.0655163,0.457562,0.0986173,0.875157,0.0887408,1.65847,0.119406,2.87114,0.0687651,5.29564}	mtdna.12s.fasta.aln
+2		189	1698	1058	522	TIM2{10.1726,21.3513,63.3064}+F{0.339506,0.260976,0.188157,0.211362}+R10{0.339556,0.00561494,0.0583114,0.0625454,0.0485354,0.0625687,0.1121,0.220081,0.0808674,0.502113,0.0823814,0.95847,0.0718547,1.53765,0.113867,2.40773,0.0656458,4.17282,0.026881,7.01599}	mtdna.16s.fasta.aln
+Degree of missing data: 0.028
+Info: multi-threading strategy over partitions
+
+Reading constraint tree MRL3backbone.nameswap.mtdnas.rRNAs.tre...
+WARNING: Rooted constraint tree will be treated as unrooted tree
+Creating fast initial parsimony tree by random order stepwise addition...
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+0.011 seconds, parsimony score: 0 (based on 1867 sites)
+
+NOTE: 118 MB RAM (0 GB) is required!
+Measuring multi-threading efficiency up to 64 CPU cores
+Increase to 10 rounds for branch lengths
+26 trees examined
+Threads: 1 / Time: 64.393 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -147778
+Threads: 2 / Time: 56.744 sec / Speedup: 1.135 / Efficiency: 57% / LogL: -147778
+Threads: 3 / Time: 171.749 sec / Speedup: 0.375 / Efficiency: 12% / LogL: -147778
+BEST NUMBER OF THREADS: 2
+
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -151154.892
+Current log-likelihood at step 1: -147982.069
+Current log-likelihood at step 2: -147813.399
+Current log-likelihood at step 3: -147781.660
+Current log-likelihood at step 4: -147776.454
+Current log-likelihood at step 5: -147775.512
+Current log-likelihood at step 6: -147775.330
+Current log-likelihood at step 7: -147775.241
+Partition-specific rates:  0.962 1.023
+Parameters optimization took 6 rounds (5.695 sec)
+
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 99 parsimony trees... WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+WARNING: Constraint tree has all taxa and is bifurcating, which strictly enforces final tree!
+2.955 second
+Current best score: -147775.241
+
+Do NNI search on 1 best initial trees
+Finish initializing candidate tree set (1)
+Current best tree score: -147775.241 / CPU time: 3.043
+Number of iterations: 1
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Iteration 10 / LogL: -147775.241 / Time: 0h:5m:2s
+Iteration 20 / LogL: -147775.241 / Time: 0h:5m:2s
+Iteration 30 / LogL: -147775.241 / Time: 0h:5m:3s (0h:12m:12s left)
+Iteration 40 / LogL: -147775.241 / Time: 0h:5m:3s (0h:7m:47s left)
+Iteration 50 / LogL: -147775.241 / Time: 0h:5m:4s (0h:5m:10s left)
+Iteration 60 / LogL: -147775.241 / Time: 0h:5m:5s (0h:3m:26s left)
+Iteration 70 / LogL: -147775.241 / Time: 0h:5m:5s (0h:2m:12s left)
+Iteration 80 / LogL: -147775.241 / Time: 0h:5m:6s (0h:1m:17s left)
+Iteration 90 / LogL: -147775.241 / Time: 0h:5m:6s (0h:0m:34s left)
+Iteration 100 / LogL: -147775.241 / Time: 0h:5m:7s (0h:0m:0s left)
+TREE SEARCH COMPLETED AFTER 101 ITERATIONS / Time: 0h:5m:7s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+Initial log-likelihood: -147775.241
+Current log-likelihood at step 1: -147775.145
+Current log-likelihood at step 2: -147775.077
+Current log-likelihood at step 3: -147775.049
+Current log-likelihood at step 4: -147775.042
+Partition-specific rates:  0.955 1.027
+Parameters optimization took 3 rounds (1.924 sec)
+
+Partition information was printed to mtDNA_rRNAs_MRL3_constraint.best_model.nex
+BEST SCORE FOUND : -147775.042
+Total tree length: 34.691
+
+Total number of iterations: 101
+CPU time used for tree search: 11.050 sec (0h:0m:11s)
+Wall-clock time used for tree search: 8.518 sec (0h:0m:8s)
+Total CPU time used: 627.872 sec (0h:10m:27s)
+Total wall-clock time used: 309.172 sec (0h:5m:9s)
+
+Analysis results written to: 
+  IQ-TREE report:                mtDNA_rRNAs_MRL3_constraint.iqtree
+  Maximum-likelihood tree:       mtDNA_rRNAs_MRL3_constraint.treefile
+  Screen log file:               mtDNA_rRNAs_MRL3_constraint.log
+
+Date and Time: Sun Aug 29 23:57:20 2021

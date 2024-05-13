@@ -1,0 +1,8 @@
+#nexus
+begin sets;
+  charset mtdna.12s.fasta.aln = /home/tguser/JAKE/data/mtDNAs/data/rRNAs/mtdna.12s.fasta.aln: ;
+  charset mtdna.16s.fasta.aln = /home/tguser/JAKE/data/mtDNAs/data/rRNAs/mtdna.16s.fasta.aln: ;
+  charpartition mymodels =
+    TIM2+R9{0.367081,0.0063503,0.0504691,0.0634973,0.05086,0.0635005,0.0905445,0.229616,0.0655163,0.457562,0.0986173,0.875157,0.0887408,1.65847,0.119406,2.87114,0.0687651,5.29564}: mtdna.12s.fasta.aln{31.6856},
+    TIM2+R10{0.339556,0.00561494,0.0583114,0.0625454,0.0485354,0.0625687,0.1121,0.220081,0.0808674,0.502113,0.0823814,0.95847,0.0718547,1.53765,0.113867,2.40773,0.0656458,4.17282,0.026881,7.01599}: mtdna.16s.fasta.aln{35.3558};
+end;

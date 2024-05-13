@@ -190,7 +190,7 @@ source("Functions_consensus_genetrees.R")
 #local file path (Jake's computer)
 #time_scale<-read.tree(file="/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/phyhetnucbf/backbone_constraint/timetree.prune.nameswap.tre")
 #git repo file path
-time_scale<-read.tree(file="./trees/timetree.prune.nameswap.tre")
+time_scale<-read.tree(file="./trees/nuclear/timetree.prune.nameswap.tre")
 
 #important file paths
 
@@ -227,7 +227,7 @@ consensus.mtdna.rRNAs.path<-"./janus/files/mtdnas/concat_rRNA/mtDNA_rRNAs_MRL3_c
 
 #file path for tree estimated with both alleles
 #allele.tree.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample2haplo/tree_building/ALL_MFP_2haplo/ALL_MFP_MERGE_2haplo.treefile"
-allele.tree.path<-"./trees/ALL_MFP_2haplo/ALL_MFP_MERGE_2haplo.treefile"
+allele.tree.path<-"./trees/nuclear/ALL_MFP_2haplo/ALL_MFP_MERGE_2haplo.treefile"
 
 #directories for gene trees with low support edges collapsed
 #loci.standard.50.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/50"
@@ -235,10 +235,11 @@ allele.tree.path<-"./trees/ALL_MFP_2haplo/ALL_MFP_MERGE_2haplo.treefile"
 #loci.standard.90.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/90"
 #loci.standard.95.path<-"/Users/cotinga/jsb439@cornell.edu/AnchoredEnrichment/bird2020/berv_alignments/unmasked/min2x/qual20_cov2_haplo_bestonly/initial_test_filters/min50bp_min10p_aligned/ALIGNED/phased/sample1haplo/tree_building/loci_standard/collapsed/95"
 
-loci.standard.50.path<-"./trees/loci_standard/collapsed/50"
-loci.standard.75.path<-"./trees/loci_standard/collapsed/75"
-loci.standard.90.path<-"./trees/loci_standard/collapsed/90"
-loci.standard.95.path<-"./trees/loci_standard/collapsed/95"
+loci.standard.50.path<-"./trees/nuclear/loci_standard/collapsed/50"
+loci.standard.75.path<-"./trees/nuclear/loci_standard/collapsed/75"
+loci.standard.90.path<-"./trees/nuclear/loci_standard/collapsed/90"
+loci.standard.95.path<-"./trees/nuclear/loci_standard/collapsed/95"
+
 
 }
 

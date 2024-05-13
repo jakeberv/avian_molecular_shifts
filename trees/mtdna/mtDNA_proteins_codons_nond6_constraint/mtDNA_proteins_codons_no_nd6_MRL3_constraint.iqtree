@@ -1,0 +1,939 @@
+IQ-TREE 2.1.3 COVID-edition built Aug 22 2021
+
+Partition file name: mtDNA_proteins_codons_nond6.best_model.nex
+Type of analysis: ModelFinder + tree reconstruction + ultrafast bootstrap (1000 replicates)
+Random seed number: 348534
+
+REFERENCES
+----------
+
+To cite IQ-TREE please use:
+
+Bui Quang Minh, Heiko A. Schmidt, Olga Chernomor, Dominik Schrempf,
+Michael D. Woodhams, Arndt von Haeseler, and Robert Lanfear (2020)
+IQ-TREE 2: New models and efficient methods for phylogenetic inference
+in the genomic era. Mol. Biol. Evol., in press.
+https://doi.org/10.1093/molbev/msaa015
+
+To cite ModelFinder please use: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used ultrafast bootstrap (UFBoot) please also cite: 
+
+Diep Thi Hoang, Olga Chernomor, Arndt von Haeseler, Bui Quang Minh,
+and Le Sy Vinh (2018) UFBoot2: Improving the ultrafast bootstrap
+approximation. Mol. Biol. Evol., 35:518–522.
+https://doi.org/10.1093/molbev/msx281
+
+Since you used partition models please also cite:
+
+Olga Chernomor, Arndt von Haeseler, and Bui Quang Minh (2016)
+Terrace aware data structure for phylogenomic inference from
+supermatrices. Syst. Biol., 65:997-1008.
+https://doi.org/10.1093/sysbio/syw037
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 200 taxa with 16 partitions and 10527 total sites (1.11793% missing data)
+
+  ID  Name                                                                                                                                                                                                                                                                  Type	Seq	Site	Unique	Infor	Invar	Const
+   1  aligned.mtdna.ATP6.fasta_final_align_NT.codon1.fasta_aligned.mtdna.ND4.fasta_final_align_NT.codon1.fasta                                                                                                                                                              DNA	196	683	579	428	206	206
+   2  aligned.mtdna.ATP6.fasta_final_align_NT.codon2.fasta_aligned.mtdna.ND2.fasta_final_align_NT.codon2.fasta_aligned.mtdna.ND4.fasta_final_align_NT.codon2.fasta                                                                                                          DNA	198	1023	720	412	488	488
+   3  aligned.mtdna.ATP6.fasta_final_align_NT.codon3.fasta                                                                                                                                                                                                                  DNA	189	227	227	221	3	3
+   4  aligned.mtdna.ATP8.fasta_final_align_NT.codon1.fasta_aligned.mtdna.ND5.fasta_final_align_NT.codon1.fasta                                                                                                                                                              DNA	197	629	544	397	185	185
+   5  aligned.mtdna.ATP8.fasta_final_align_NT.codon2.fasta_aligned.mtdna.ND5.fasta_final_align_NT.codon2.fasta                                                                                                                                                              DNA	197	629	463	276	293	293
+   6  aligned.mtdna.ATP8.fasta_final_align_NT.codon3.fasta_aligned.mtdna.ND2.fasta_final_align_NT.codon3.fasta                                                                                                                                                              DNA	197	395	395	379	13	13
+   7  aligned.mtdna.COX1.fasta_final_align_NT.codon1.fasta                                                                                                                                                                                                                  DNA	197	516	314	156	332	332
+   8  aligned.mtdna.COX1.fasta_final_align_NT.codon2.fasta_aligned.mtdna.COX2.fasta_final_align_NT.codon2.fasta                                                                                                                                                             DNA	199	743	300	100	605	605
+   9  aligned.mtdna.COX1.fasta_final_align_NT.codon3.fasta_aligned.mtdna.COX2.fasta_final_align_NT.codon3.fasta                                                                                                                                                             DNA	199	743	743	716	25	25
+  10  aligned.mtdna.COX2.fasta_final_align_NT.codon1.fasta_aligned.mtdna.COX3.fasta_final_align_NT.codon1.fasta_aligned.mtdna.CYTB.fasta_final_align_NT.codon1.fasta_aligned.mtdna.ND3.fasta_final_align_NT.codon1.fasta                                                    DNA	200	927	651	436	422	422
+  11  aligned.mtdna.COX3.fasta_final_align_NT.codon2.fasta_aligned.mtdna.ND1.fasta_final_align_NT.codon2.fasta                                                                                                                                                              DNA	195	577	301	134	393	393
+  12  aligned.mtdna.COX3.fasta_final_align_NT.codon3.fasta_aligned.mtdna.ND1.fasta_final_align_NT.codon3.fasta_aligned.mtdna.ND3.fasta_final_align_NT.codon3.fasta_aligned.mtdna.ND4.fasta_final_align_NT.codon3.fasta_aligned.mtdna.ND5.fasta_final_align_NT.codon3.fasta  DNA	200	1667	1666	1622	41	41
+  13  aligned.mtdna.CYTB.fasta_final_align_NT.codon2.fasta_aligned.mtdna.ND3.fasta_final_align_NT.codon2.fasta_aligned.mtdna.ND4L.fasta_final_align_NT.codon2.fasta                                                                                                         DNA	198	537	321	159	320	320
+  14  aligned.mtdna.CYTB.fasta_final_align_NT.codon3.fasta_aligned.mtdna.ND4L.fasta_final_align_NT.codon3.fasta                                                                                                                                                             DNA	198	477	477	463	14	14
+  15  aligned.mtdna.ND1.fasta_final_align_NT.codon1.fasta_aligned.mtdna.ND4L.fasta_final_align_NT.codon1.fasta                                                                                                                                                              DNA	196	414	328	240	152	152
+  16  aligned.mtdna.ND2.fasta_final_align_NT.codon1.fasta                                                                                                                                                                                                                   DNA	195	340	298	241	82	82
+
+Column meanings:
+  Unique: Number of unique site patterns
+  Infor:  Number of parsimony-informative sites
+  Invar:  Number of invariant sites
+  Const:  Number of constant sites (can be subset of invariant sites)
+
+SUBSTITUTION PROCESS
+--------------------
+
+Edge-linked-proportional partition model with separate substitution models and separate rates across sites
+
+  ID  Model           Speed  Parameters
+   1  GTR+FU+R6      0.1310  GTR+R6{0.326121,0.00678251,0.172439,0.143104,0.10706,0.476121,0.16842,1.32099,0.175761,2.51741,0.0501999,5.12342}
+   2  GTR+FU+R5      0.0437  GTR+R5{0.596301,0.0344058,0.172546,0.517513,0.115374,1.80807,0.0619922,4.10588,0.0537868,7.93972}
+   3  TPM2+FU+R6     3.3297  TPM2+R6{0.0301762,0.00172085,0.0414911,0.0149459,0.216447,0.0615497,0.203316,0.587413,0.279533,1.27076,0.229037,2.23264}
+   4  GTR+FU+R6      0.1113  GTR+R6{0.325097,0.00887143,0.167891,0.184477,0.1734,0.667712,0.158837,1.57508,0.126754,2.83542,0.0480216,5.01401}
+   5  GTR+FU+R6      0.0535  GTR+R6{0.533646,0.0180007,0.171583,0.364526,0.114712,1.28486,0.0884862,2.5895,0.0573655,4.85189,0.0342079,7.98041}
+   6  TIM3+FU+R7     1.8415  TIM3+R7{0.0357141,0.00300131,0.0575054,0.0687024,0.118019,0.117376,0.126605,0.189675,0.179814,0.689745,0.250833,1.23977,0.231509,2.25942}
+   7  GTR+FU+I+G4    0.0637  GTR+I{0.614474}+G4{0.638311}
+   8  GTR+FU+R4      0.0071  GTR+R4{0.871808,0.0687952,0.0886753,2.72683,0.0353279,14.1623,0.00418894,47.2429}
+   9  TIM3+FU+R7     3.1351  TIM3+R7{0.0385724,0.00177956,0.125472,0.0267464,0.267526,0.0652791,0.0494495,0.4657,0.150351,0.936679,0.22445,1.68377,0.144179,3.03324}
+  10  GTR+FU+R5      0.0691  GTR+R5{0.541813,0.0185979,0.143194,0.380652,0.124211,1.34419,0.133687,3.05654,0.0570957,6.3023}
+  11  TVM+FU+R4      0.0202  TVM+R4{0.740924,0.0316858,0.132749,0.843626,0.0684079,3.76796,0.0579188,10.4763}
+  12  TIM3+FU+R4     2.8557  TIM3+R4{0.0320377,0.00208063,0.315523,0.0709026,0.273643,0.775537,0.378796,2.02046}
+  13  GTR+FU+R5      0.0324  GTR+R5{0.70155,0.0376413,0.149859,0.665633,0.076704,2.51086,0.0657128,7.22237,0.00617429,33.4689}
+  14  TIM3+FU+R8     3.1309  TIM3+R8{0.0329001,0.00137631,0.0792289,0.0252888,0.249563,0.0569526,0.128733,0.497785,0.128866,1.1178,0.0548884,1.11813,0.197795,1.68752,0.128026,2.9717}
+  15  GTR+FU+R6      0.0988  GTR+R6{0.393897,0.00781977,0.149498,0.158561,0.0794286,0.48025,0.116234,1.11791,0.167611,2.3936,0.0933315,4.32798}
+  16  GTR+FU+I+G4    0.1487  GTR+I{0.226321}+G4{0.846843}
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+
+**NOTE**: Consensus tree has higher likelihood than ML tree found! Please use consensus tree below.
+Log-likelihood of the tree: -708050.7798 (s.e. 7052.8289)
+Unconstrained log-likelihood (without tree): -64696.4265
+Number of free parameters (#branches + #model parameters): 412
+Akaike information criterion (AIC) score: 1416925.5596
+Corrected Akaike information criterion (AICc) score: 1416959.2073
+Bayesian information criterion (BIC) score: 1419917.3795
+
+Total tree length (sum of branch lengths): 399.6861
+Sum of internal branch lengths: 86.7204 (21.6971% of tree length)
+
+WARNING: 3 near-zero internal branches (<0.0001) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+WARNING: 1 too long branches (>9.8000) should be treated with caution!
+NOTE: Tree is UNROOTED although outgroup taxon 'Acanthisitta_chloris' is drawn at root
+Numbers in parentheses are SH-aLRT support (%) / ultrafast bootstrap support (%)
+
++------Acanthisitta_chloris
+|
+|              +----Myrmothera_campanisona
+|           +--| (100/100)
+|           |  |  +---Sclerurus_mexicanus
+|           |  +--| (100/100)
+|           |     |  +--Furnarius_rufus
+|           |     +--| (100/100)
+|           |        +--Lepidocolaptes_angustirostris
+|        +--| (100/100)
+|        |  |        +--Terenura_callinota
+|        |  |     +--| (100/100)
+|        |  |     |  +--Thamnophilus_ruficapillus
+|        |  |  +--| (100/100)
+|        |  |  |  +---Myrmornis_torquata
+|        |  +--| (100/100)
+|        |     +------Melanopareia_maranonica
+|     +--| (100/100)
+|     |  |              +---Tityra_inquisitor
+|     |  |           +--| (100/100)
+|     |  |           |  +---Schiffornis_stenorhyncha
+|     |  |        +--| (100/100)
+|     |  |        |  |           +--Elaenia_flavogaster
+|     |  |        |  |        +--| (100/100)
+|     |  |        |  |        |  |  +--Tyrannus_albogularis
+|     |  |        |  |        |  +--| (100/100)
+|     |  |        |  |        |     +--Hymenops_perspicillatus
+|     |  |        |  |     +--| (100/100)
+|     |  |        |  |     |  +---Hirundinea_ferruginea
+|     |  |        |  |  +--| (100/100)
+|     |  |        |  |  |  +----Rhynchocyclus_olivaceus
+|     |  |        |  +--| (100/100)
+|     |  |        |     +----Piprites_chloris
+|     |  |     +--| (100/100)
+|     |  |     |  |  +---Myiobius_sulphureipygius
+|     |  |     |  +--| (100/100)
+|     |  |     |     +---Oxyruncus_cristatus
+|     |  |  +--| (100/100)
+|     |  |  |  |  +---Cotinga_cayana
+|     |  |  |  +--| (100/100)
+|     |  |  |     +---Rupicola_peruvianus
+|     |  +--| (100/100)
+|     |     |  +--Neopelma_chrysocephalum
+|     |     +--| (100/100)
+|     |        |  +--Pipra_erythrocephala
+|     |        +--| (100/100)
+|     |           +--Cryptopipo_aenigma
+|  +--| (100/100)
+|  |  |        +-----Calyptomena_viridis
+|  |  |     +--| (100/100)
+|  |  |     |  +----Smithornis_rufolateralis
+|  |  |  +--| (100/100)
+|  |  |  |  +----Pitta_angolensis
+|  |  +--| (100/100)
+|  |     |  +----Neodrepanis_coruscans
+|  |     +--| (100/100)
+|  |        +----Eurylaimus_ochromalus
++--| (100/100)
+|  |              +--Corvus_albus
+|  |           +--| (100/100)
+|  |           |  +--Paradisaea_raggiana
+|  |        +--| (100/100)
+|  |        |  |           +---Sylvia_melanocephala
+|  |        |  |        +--| (100/100)
+|  |        |  |        |  +---Pycnonotus_macrotis
+|  |        |  |     +--| (100/100)
+|  |        |  |     |  +----Calandrella_brachydactyla
+|  |        |  |  +--| (100/100)
+|  |        |  |  |  +---Poecile_palustris
+|  |        |  +--| (100/100)
+|  |        |     |     +----Turdus_olivater
+|  |        |     |  +--| (100/100)
+|  |        |     |  |  +-----Regulus_ignicapilla
+|  |        |     +--| (100/100)
+|  |        |        |  +--Spizella_arborea
+|  |        |        +--| (100/100)
+|  |        |           +--Fringilla_coelebs
+|  |     +--| (100/100)
+|  |     |  +----Malurus_elegans
+|  |  +--| (100/100)
+|  |  |  |  +-----Climacteris_melanura
+|  |  |  +--| (100/100)
+|  |  |     |     +--Ptilonorhynchus_violaceus
+|  |  |     +-----| (100/100)
+|  |  |           +--Sericulus_bakeri
+|  +--| (100/100)
+|     +----Menura_novaehollandiae
+|
+|                             +--Accipiter_superciliosus
+|                          +--| (100/100)
+|                          |  +--Buteo_jamaicensis
+|                       +--| (100/100)
+|                       |  +----Elanus_leucurus
+|                    +--| (100/100)
+|                    |  +-----Pandion_haliaetus
+|                 +--| (100/100)
+|                 |  +----Sagittarius_serpentarius
+|              +--| (100/100)
+|              |  |  +--Cathartes_aura
+|              |  +--| (100/100)
+|              |     +--Vultur_gryphus
+|           +--| (100/100)
+|           |  |                             +---Picus_canus
+|           |  |                          +--| (100/100)
+|           |  |                          |  +-----Jynx_torquilla
+|           |  |                       +--| (100/100)
+|           |  |                       |  +---Indicator_exilis
+|           |  |                    +--| (100/100)
+|           |  |                    |  |        +--Ramphastos_ambiguus
+|           |  |                    |  |     +--| (100/100)
+|           |  |                    |  |     |  +----Capito_niger
+|           |  |                    |  |  +--| (100/100)
+|           |  |                    |  |  |  +-------Buccanodon_duchaillui
+|           |  |                    |  +--| (100/100)
+|           |  |                    |     +-----Megalaima_chrysopogon
+|           |  |                 +--| (100/100)
+|           |  |                 |  |  +-------Galbula_dea
+|           |  |                 |  +--| (100/100)
+|           |  |                 |     |  +--Bucco_capensis
+|           |  |                 |     +--| (100/100)
+|           |  |                 |        +--Chelidoptera_tenebrosa
+|           |  |              +--| (100/100)
+|           |  |              |  |           +-----Alcedo_quadribrachys
+|           |  |              |  |        +--| (100/100)
+|           |  |              |  |        |  +---Chloroceryle_inda
+|           |  |              |  |     +--| (100/100)
+|           |  |              |  |     |  +------Momotus_lessonii
+|           |  |              |  |  +--| (100/100)
+|           |  |              |  |  |  +------Todus_mexicanus
+|           |  |              |  +--| (100/100)
+|           |  |              |     |     +--Atelornis_pittoides
+|           |  |              |     |  +--| (100/100)
+|           |  |              |     |  |  +----Coracias_cyanogaster
+|           |  |              |     +--| (100/100)
+|           |  |              |        +--------Merops_muelleri
+|           |  |           +--| (100/100)
+|           |  |           |  |     +--Bucorvus_leadbeateri
+|           |  |           |  |  +--| (100/100)
+|           |  |           |  |  |  +---Tockus_camurus
+|           |  |           |  +--| (100/100)
+|           |  |           |     |  +--------Upupa_epops
+|           |  |           |     +--| (100/100)
+|           |  |           |        +-----------Phoeniculus_purpureus
+|           |  |        +--| (100/100)
+|           |  |        |  |    +---Apaloderma_aequatoriale
+|           |  |        |  +----| (100/100)
+|           |  |        |       +---Trogon_elegans
+|           |  |     +--| (100/100)
+|           |  |     |  +-----Leptosomus_discolor
+|           |  |  +--| (100/100)
+|           |  |  |  |     +---Colius_colius
+|           |  |  |  +-----| (100/100)
+|           |  |  |        +---Colius_indicus
+|           |  +--| (100/100)
+|           |     |  +---------Tyto_alba
+|           |     +--| (100/100)
+|           |        +------Strix_varia_varia
+|        +--| (100/100)
+|        |  |                 +-------Turnix_velox
+|        |  |              +--| (100/100)
+|        |  |              |  |        +--Chroicocephalus_maculipennis
+|        |  |              |  |     +--| (100/100)
+|        |  |              |  |     |  |  +--Sterna_hirundo
+|        |  |              |  |     |  +--| (100/100)
+|        |  |              |  |     |     +--Rhynchops_niger
+|        |  |              |  |  +--| (100/100)
+|        |  |              |  |  |  +--Uria_aalge
+|        |  |              |  +--| (100/100)
+|        |  |              |     +--Glareola_nuchalis
+|        |  |           +--| (100/100)
+|        |  |           |  |        +--Arenaria_interpres
+|        |  |           |  |     +--| (100/100)
+|        |  |           |  |     |  +--Tringa_solitaria
+|        |  |           |  |  +--| (100/100)
+|        |  |           |  |  |  +--Limosa_lapponica
+|        |  |           |  +--| (100/100)
+|        |  |           |     |     +---Jacana_jacana
+|        |  |           |     |  +--| (100/100)
+|        |  |           |     |  |  +---Rostratula_benghalensis
+|        |  |           |     +--| (100/100)
+|        |  |           |        +---Pedionomus_torquatus
+|        |  |        +--| (100/100)
+|        |  |        |  |     +--Charadrius_hiaticula
+|        |  |        |  |  +--| (100/100)
+|        |  |        |  |  |  |  +--Recurvirostra_americana
+|        |  |        |  |  |  +--| (100/100)
+|        |  |        |  |  |     +--Haematopus_palliatus
+|        |  |        |  +--| (100/100)
+|        |  |        |     +---Burhinus_bistriatus
+|        |  |     +--| (100/100)
+|        |  |     |  +------Opisthocomus_hoazin
+|        |  |  +--| (100/100)
+|        |  |  |  |                    +----Aegotheles_insignis
+|        |  |  |  |                 +--| (100/100)
+|        |  |  |  |                 |  |        +--Chaetura_brachyura
+|        |  |  |  |                 |  |     +--| (100/100)
+|        |  |  |  |                 |  |     |  +--Streptoprocne_zonaris
+|        |  |  |  |                 |  |  +--| (100/100)
+|        |  |  |  |                 |  |  |  +---Hemiprocne_comata
+|        |  |  |  |                 |  +--| (100/100)
+|        |  |  |  |                 |     |   +--Archilochus_colubris
+|        |  |  |  |                 |     +---| (100/100)
+|        |  |  |  |                 |         |  +--Topaza_pella
+|        |  |  |  |                 |         +--| (100/100)
+|        |  |  |  |                 |            +--Phaethornis_malaris
+|        |  |  |  |              +--| (100/100)
+|        |  |  |  |              |  +---------Podargus_strigoides
+|        |  |  |  |           +--| (100/100)
+|        |  |  |  |           |  |  +-----Nyctibius_griseus
+|        |  |  |  |           |  +--| (100/100)
+|        |  |  |  |           |     +----Steatornis_caripensis
+|        |  |  |  |        +--| (100/100)
+|        |  |  |  |        |  |     +--Caprimulgus_europaeus
+|        |  |  |  |        |  |  +--| (100/100)
+|        |  |  |  |        |  |  |  +--Chordeiles_pusillus
+|        |  |  |  |        |  +--| (100/100)
+|        |  |  |  |        |     +----Eurostopodus_macrotis
+|        |  |  |  |     +--| (100/100)
+|        |  |  |  |     |  |        +--Tauraco_macrorhynchus
+|        |  |  |  |     |  |     +--| (100/100)
+|        |  |  |  |     |  |     |  +--Corythaeola_cristata
+|        |  |  |  |     |  |  +--| (100/100)
+|        |  |  |  |     |  |  |  +----Ardeotis_kori
+|        |  |  |  |     |  +--| (100/100)
+|        |  |  |  |     |     |     +-------Centropus_bengalensis
+|        |  |  |  |     |     |  +--| (100/100)
+|        |  |  |  |     |     |  |  |  +--Cuculus_canorus
+|        |  |  |  |     |     |  |  +--| (100/100)
+|        |  |  |  |     |     |  |     +----Coccyzus_melacoryphus
+|        |  |  |  |     |     +--| (100/100)
+|        |  |  |  |     |        +------Tapera_naevia
+|        |  |  |  |  +**| (100/100)
+|        |  |  |  |  |  |           +---Struthio_Camelus
+|        |  |  |  |  |  |        +--| (100/100)
+|        |  |  |  |  |  |        |  |        +--Apteryx_rowi
+|        |  |  |  |  |  |        |  |     +--| (100/100)
+|        |  |  |  |  |  |        |  |     |  |  +--Casuarius_casuarius
+|        |  |  |  |  |  |        |  |     |  +--| (100/100)
+|        |  |  |  |  |  |        |  |     |     +--Dromaius_novaehollandiae
+|        |  |  |  |  |  |        |  |  +--| (100/100)
+|        |  |  |  |  |  |        |  |  |  +----Rhea_americana
+|        |  |  |  |  |  |        |  +--| (100/100)
+|        |  |  |  |  |  |        |     |       +------Nothoprocta_ornata
+|        |  |  |  |  |  |        |     |    +--| (100/100)
+|        |  |  |  |  |  |        |     |    |  +------Eudromia_elegans
+|        |  |  |  |  |  |        |     +----| (100/100)
+|        |  |  |  |  |  |        |          |  +-----Tinamus_major
+|        |  |  |  |  |  |        |          +--| (100/100)
+|        |  |  |  |  |  |        |             +-------Crypturellus_tataupa
+|        |  |  |  |  |  |     +--| (100/100)
+|        |  |  |  |  |  |     |  |                            +-----------------------Caiman_crocodilus
+|        |  |  |  |  |  |     |  +----------------------------| (100/100)
+|        |  |  |  |  |  |     |                               +------------------------Crocodylus_porosus
+|        |  |  |  |  |  |  +--| (100/100)
+|        |  |  |  |  |  |  |  |        +--Anseranas_semipalmata
+|        |  |  |  |  |  |  |  |     +--| (100/100)
+|        |  |  |  |  |  |  |  |     |  |            +--Anas_superciliosa
+|        |  |  |  |  |  |  |  |     |  |         +--| (100/100)
+|        |  |  |  |  |  |  |  |     |  |         |  +--Aythya_valisineria
+|        |  |  |  |  |  |  |  |     |  |      +--| (100/100)
+|        |  |  |  |  |  |  |  |     |  |      |  +--Anser_canagicus
+|        |  |  |  |  |  |  |  |     |  |   +--| (100/100)
+|        |  |  |  |  |  |  |  |     |  |   |  +--Oxyura_jamaicensis
+|        |  |  |  |  |  |  |  |     |  +---| (100/100)
+|        |  |  |  |  |  |  |  |     |      +---Dendrocygna_javanica
+|        |  |  |  |  |  |  |  |  +--| (100/100)
+|        |  |  |  |  |  |  |  |  |  +---Chauna_torquata
+|        |  |  |  |  |  |  |  +--| (100/100)
+|        |  |  |  |  |  |  |     |         +--Ortalis_motmot
+|        |  |  |  |  |  |  |     |     +---| (100/100)
+|        |  |  |  |  |  |  |     |     |   +--Crax_alector
+|        |  |  |  |  |  |  |     |  +--| (100/100)
+|        |  |  |  |  |  |  |     |  |  |           +---Bonasa_umbellus
+|        |  |  |  |  |  |  |     |  |  |        +--| (100/100)
+|        |  |  |  |  |  |  |     |  |  |        |  +--Gallus_gallus
+|        |  |  |  |  |  |  |     |  |  |     +--| (100/100)
+|        |  |  |  |  |  |  |     |  |  |     |  +---Rollulus_rouloul
+|        |  |  |  |  |  |  |     |  |  |  +--| (100/100)
+|        |  |  |  |  |  |  |     |  |  |  |  |  +--Colinus_cristatus
+|        |  |  |  |  |  |  |     |  |  |  |  +--| (100/100)
+|        |  |  |  |  |  |  |     |  |  |  |     +--Odontophorus_gujanensis
+|        |  |  |  |  |  |  |     |  |  +--| (100/100)
+|        |  |  |  |  |  |  |     |  |     +--Numida_meleagris
+|        |  |  |  |  |  |  |     +--| (100/100)
+|        |  |  |  |  |  |  |        +-----Leiopoa_ocellata
+|        |  |  |  |  |  +--| (100/100)
+|        |  |  |  |  |     |              +--Leptotila_rufaxilla
+|        |  |  |  |  |     |           +--| (100/100)
+|        |  |  |  |  |     |           |  +--Columba_livia
+|        |  |  |  |  |     |        +--| (100/100)
+|        |  |  |  |  |     |        |  +---Columbina_minuta
+|        |  |  |  |  |     |     +--| (100/100)
+|        |  |  |  |  |     |     |  |  +--Treron_calvus
+|        |  |  |  |  |     |     |  +--| (100/100)
+|        |  |  |  |  |     |     |     +--Hemiphaga_novaeseelandiae
+|        |  |  |  |  |     |  +--| (100/100)
+|        |  |  |  |  |     |  |  |     +--Syrrhaptes_paradoxus
+|        |  |  |  |  |     |  |  |  +--| (100/100)
+|        |  |  |  |  |     |  |  |  |  +---Pterocles_bicinctus
+|        |  |  |  |  |     |  |  +--| (100/100)
+|        |  |  |  |  |     |  |     |    +--Monias_benschi
+|        |  |  |  |  |     |  |     +----| (100/100)
+|        |  |  |  |  |     |  |          +--Mesitornis_unicolor
+|        |  |  |  |  |     +--| (100/100)
+|        |  |  |  |  |        |  +--Phoenicopterus_ruber
+|        |  |  |  |  |        +--| (100/100)
+|        |  |  |  |  |           +--Rollandia_rolland
+|        |  |  |  +--| (100/100)
+|        |  |  |     |        +---Rallus_limicola
+|        |  |  |     |     +--| (100/100)
+|        |  |  |     |     |  |  +--Porphyrio_porphyrio
+|        |  |  |     |     |  +--| (100/100)
+|        |  |  |     |     |     +--Micropygia_schomburgkii
+|        |  |  |     |  +--| (100/100)
+|        |  |  |     |  |  |  +-----Sarothrura_rufa_elizabethae
+|        |  |  |     |  |  +--| (100/100)
+|        |  |  |     |  |     +----------Heliornis_fulica
+|        |  |  |     +--| (100/100)
+|        |  |  |        |        +--Balearica_regulorum
+|        |  |  |        |     +--| (100/100)
+|        |  |  |        |     |  +--Grus_canadensis
+|        |  |  |        |  +--| (100/100)
+|        |  |  |        |  |  +--Aramus_guarauna
+|        |  |  |        +--| (100/100)
+|        |  |  |           +----Psophia_crepitans
+|        |  +--| (100/100)
+|        |     |                    +---Morus_serrator
+|        |     |                 +--| (100/100)
+|        |     |                 |  |  +----Nannopterum_brasilianus
+|        |     |                 |  +--| (100/100)
+|        |     |                 |     +----Anhinga_anhinga
+|        |     |              +--| (100/100)
+|        |     |              |  +---Fregata_magnificens
+|        |     |           +--| (100/100)
+|        |     |           |  |           +--Ixobrychus_minutus
+|        |     |           |  |        +--| (100/100)
+|        |     |           |  |        |  +--Ardea_purpurea
+|        |     |           |  |     +--| (100/100)
+|        |     |           |  |     |  +--Tigrisoma_lineatum
+|        |     |           |  |  +**| (100/100)
+|        |     |           |  |  |  |     +---Pelecanus_occidentalis
+|        |     |           |  |  |  |  +--| (100/100)
+|        |     |           |  |  |  |  |  +--Balaeniceps_rex
+|        |     |           |  |  |  +--| (100/100)
+|        |     |           |  |  |     +-----Scopus_umbretta
+|        |     |           |  +--| (100/100)
+|        |     |           |     +---Harpiprion_caerulescens
+|        |     |        +--| (100/100)
+|        |     |        |  |  +--Ciconia_nigra
+|        |     |        |  +--| (100/100)
+|        |     |        |     +--Leptoptilos_crumeniferus
+|        |     |     +--| (100/100)
+|        |     |     |  |           +--Pelagodroma_marina
+|        |     |     |  |        +--| (100/100)
+|        |     |     |  |        |  +--Oceanites_oceanicus
+|        |     |     |  |     +--| (100/100)
+|        |     |     |  |     |  |     +--Fulmarus_glacialoides
+|        |     |     |  |     |  |  +--| (100/100)
+|        |     |     |  |     |  |  |  |  +--Puffinus_griseus
+|        |     |     |  |     |  |  |  +--| (100/100)
+|        |     |     |  |     |  |  |     |  +--Pelecanoides_urinatrix
+|        |     |     |  |     |  |  |     +--| (100/100)
+|        |     |     |  |     |  |  |        +--Pterodroma_externa
+|        |     |     |  |     |  +--| (100/100)
+|        |     |     |  |     |     +---Hydrobates_tethys
+|        |     |     |  |  +--| (100/100)
+|        |     |     |  |  |  +--Phoebastria_nigripes
+|        |     |     |  +--| (100/100)
+|        |     |     |     +---Spheniscus_humboldti
+|        |     |  +--| (100/100)
+|        |     |  |  +--Gavia_immer
+|        |     +**| (100/100)
+|        |        |  +-----Phaethon_rubricauda
+|        |        +--| (100/100)
+|        |           +---------Eurypyga_helias
+|     +--| (100/100)
+|     |  |   +--Cariama_cristata
+|     |  +---| (100/100)
+|     |      +--Chunga_burmeisteri
+|  +--| (100/100)
+|  |  |  +---Micrastur_gilvicollis
+|  |  +--| (100/100)
+|  |     |     +--Caracara_cheriway
+|  |     |  +--| (100/100)
+|  |     |  |  +--Ibycter_americanus
+|  |     +--| (100/100)
+|  |        +----Falco_sparverius
++--| (100/100)
+   |   +---Nestor_meridionalis
+   +---| (100/100)
+       |        +---Barnardius_zonarius
+       |     +--| (100/100)
+       |     |  +--Psittrichas_fulgidus
+       |  +--| (100/100)
+       |  |  |  +---Deroptyus_accipitrinus
+       |  |  +--| (100/100)
+       |  |     +--Psittacus_erithacus
+       +--| (100/100)
+          +--Probosciger_aterrimus
+
+Tree in newick format:
+
+(Acanthisitta_chloris:2.5034882322,(((((Myrmothera_campanisona:1.9245264715,(Sclerurus_mexicanus:1.4591274685,(Furnarius_rufus:1.3491044767,Lepidocolaptes_angustirostris:1.0484325061)100/100:0.2092000381)100/100:0.5162387683)100/100:0.1177168001,(((Terenura_callinota:1.2491558485,Thamnophilus_ruficapillus:1.0624690791)100/100:0.1472496569,Myrmornis_torquata:1.3807951189)100/100:0.8850882837,Melanopareia_maranonica:2.3962972778)100/100:0.1193473511)100/100:0.3940437928,(((((Tityra_inquisitor:1.5794220217,Schiffornis_stenorhyncha:1.6829099959)100/100:0.3591955734,((((Elaenia_flavogaster:1.1320845123,(Tyrannus_albogularis:1.0286099860,Hymenops_perspicillatus:1.0732908246)100/100:0.1809732346)100/100:0.1746368871,Hirundinea_ferruginea:1.4883853733)100/100:0.5869356851,Rhynchocyclus_olivaceus:2.0073596789)100/100:0.2004346182,Piprites_chloris:2.0107403999)100/100:0.0784880940)100/100:0.0348676616,(Myiobius_sulphureipygius:1.6721599744,Oxyruncus_cristatus:1.6151395763)100/100:0.1799582434)100/100:0.0946108992,(Cotinga_cayana:1.4812027538,Rupicola_peruvianus:1.4220478607)100/100:0.5486205769)100/100:0.0511213200,(Neopelma_chrysocephalum:1.2331312483,(Pipra_erythrocephala:0.5511126083,Cryptopipo_aenigma:0.9044889700)100/100:0.3546900759)100/100:0.8611223190)100/100:0.6173275477)100/100:0.3237923062,(((Calyptomena_viridis:2.2487118553,Smithornis_rufolateralis:2.0091328978)100/100:0.4228508377,Pitta_angolensis:1.8340202553)100/100:0.1290704258,(Neodrepanis_coruscans:1.7863617669,Eurylaimus_ochromalus:1.7914448798)100/100:0.7397700193)100/100:0.7500086254)100/100:0.3652450737,(((((Corvus_albus:1.2690835948,Paradisaea_raggiana:1.3016402347)100/100:0.5966359285,((((Sylvia_melanocephala:1.6612822644,Pycnonotus_macrotis:1.6892012498)100/100:0.2880430282,Calandrella_brachydactyla:1.7838986537)100/100:0.2059239424,Poecile_palustris:1.4794815904)100/100:0.0682703455,((Turdus_olivater:1.7944364902,Regulus_ignicapilla:2.3378644476)100/100:0.1512462440,(Spizella_arborea:1.1318486078,Fringilla_coelebs:1.1279916791)100/100:0.7623155013)100/100:0.0907075978)100/100:0.3846854733)100/100:0.1579249022,Malurus_elegans:1.9637313560)100/100:0.1748441140,(Climacteris_melanura:2.3416087776,(Ptilonorhynchus_violaceus:0.0048908122,Sericulus_bakeri:0.0052346002)100/100:2.2512411990)100/100:0.4673570982)100/100:0.2370240716,Menura_novaehollandiae:2.0327944816)100/100:1.1671132210)100/100:0.1596365508,((((((((((Accipiter_superciliosus:0.8663512511,Buteo_jamaicensis:0.6257641777)100/100:0.6121203178,Elanus_leucurus:1.8517891512)100/100:0.1980397413,Pandion_haliaetus:2.1052400873)100/100:0.4619653052,Sagittarius_serpentarius:1.8523734659)100/100:0.2676071936,(Cathartes_aura:0.5862635170,Vultur_gryphus:0.4765837144)100/100:0.8387582205)100/100:0.0451012639,((((((((((Picus_canus:1.5934600671,Jynx_torquilla:2.1889369455)100/100:0.2859178176,Indicator_exilis:1.5042932186)100/100:0.4459026844,(((Ramphastos_ambiguus:1.1628066880,Capito_niger:1.8964072058)100/100:0.7124946906,Buccanodon_duchaillui:2.8933135825)100/100:0.1944008419,Megalaima_chrysopogon:2.1333051624)100/100:0.5944844882)100/100:1.2095659400,(Galbula_dea:2.8158216384,(Bucco_capensis:1.2591654259,Chelidoptera_tenebrosa:1.0906988241)100/100:1.1890166140)100/100:0.6568972512)100/100:0.1551345589,((((Alcedo_quadribrachys:2.2566236870,Chloroceryle_inda:1.6033574534)100/100:0.6799792443,Momotus_lessonii:2.4647176660)100/100:0.0852374962,Todus_mexicanus:2.5038988829)100/100:0.2966661449,((Atelornis_pittoides:1.3502805693,Coracias_cyanogaster:1.9964359265)100/100:0.4874761529,Merops_muelleri:3.1887070928)100/100:0.1734517385)100/100:0.0444622549)100/100:0.1390201197,((Bucorvus_leadbeateri:0.9643689534,Tockus_camurus:1.3891455785)100/100:1.0976080950,(Upupa_epops:3.3348129972,Phoeniculus_purpureus:4.1298169211)100/100:0.9975105133)100/100:0.3039196381)100/100:0.0216488310,(Apaloderma_aequatoriale:1.5356700543,Trogon_elegans:1.6702256330)100/100:1.7617672180)100/100:0.0799712847,Leptosomus_discolor:2.2104476456)100/100:0.0020334439,(Colius_colius:1.4463086241,Colius_indicus:1.5046828441)100/100:2.1886779130)100/100:0.0346168464,(Tyto_alba:3.4673030106,Strix_varia_varia:2.5629275807)100/100:0.4536433158)100/100:0.0841460869)100/100:0.0197960864,((((((Turnix_velox:2.9734568563,(((Chroicocephalus_maculipennis:0.8594409845,(Sterna_hirundo:0.7395245281,Rhynchops_niger:1.1154868962)100/100:0.1204294618)100/100:0.1757416967,Uria_aalge:1.0262221182)100/100:0.1366020603,Glareola_nuchalis:1.2659671743)100/100:0.3037273643)100/100:0.1290156301,(((Arenaria_interpres:0.8084776543,Tringa_solitaria:1.0072274619)100/100:0.1579547068,Limosa_lapponica:0.8592637803)100/100:0.3064099918,((Jacana_jacana:1.3821677396,Rostratula_benghalensis:1.3992966571)100/100:0.1669931265,Pedionomus_torquatus:1.6321771412)100/100:0.3355576260)100/100:0.3348193498)100/100:0.2454692178,((Charadrius_hiaticula:1.0708113991,(Recurvirostra_americana:0.6233565094,Haematopus_palliatus:0.7804543581)100/100:0.3761658253)100/100:0.3373851523,Burhinus_bistriatus:1.3943245228)100/100:0.1520412599)100/100:0.2301701049,Opisthocomus_hoazin:2.4259962031)100/100:0.0456564411,(((((((Aegotheles_insignis:2.0175374165,(((Chaetura_brachyura:1.3110163570,Streptoprocne_zonaris:0.9808115025)100/100:0.1458673206,Hemiprocne_comata:1.4760182705)100/100:0.4079246467,(Archilochus_colubris:1.1643889372,(Topaza_pella:1.0240716699,Phaethornis_malaris:1.3257064897)100/100:0.2320824536)100/100:1.6353156270)100/100:0.2883725386)100/100:0.1867202692,Podargus_strigoides:3.6052859680)100/100:0.0557945940,(Nyctibius_griseus:2.0643840062,Steatornis_caripensis:1.8221145401)100/100:0.1268782483)100/100:0.0198172578,((Caprimulgus_europaeus:1.1168352187,Chordeiles_pusillus:1.0337358034)100/100:0.6055905480,Eurostopodus_macrotis:1.7978406737)100/100:0.7667302174)100/100:0.0366634960,(((Tauraco_macrorhynchus:1.2756038646,Corythaeola_cristata:1.1154870972)100/100:0.7953711544,Ardeotis_kori:1.8062083180)100/100:0.0551950065,((Centropus_bengalensis:3.0661799765,(Cuculus_canorus:1.1685171469,Coccyzus_melacoryphus:1.8485096201)100/100:0.6264343098)100/100:0.1532869923,Tapera_naevia:2.4131585202)100/100:0.9629941153)100/100:0.0020468552)100/100:0.0622569600,((((Struthio_Camelus:1.5624359885,(((Apteryx_rowi:1.3118509080,(Casuarius_casuarius:0.5907830522,Dromaius_novaehollandiae:0.6837108105)100/100:0.6482520796)100/100:0.2300212362,Rhea_americana:1.8496256268)100/100:0.1067303793,((Nothoprocta_ornata:2.6342855900,Eudromia_elegans:2.6073165666)100/100:0.2666484758,(Tinamus_major:2.0530007698,Crypturellus_tataupa:2.8138602082)100/100:0.6307610916)100/100:1.7475883290)100/100:0.1231990406)100/100:1.0438196100,(Caiman_crocodilus:8.5339999611,Crocodylus_porosus:8.5749282843)100/100:10.1979797300)100/100:0.4260496101,(((Anseranas_semipalmata:1.2387987487,((((Anas_superciliosa:0.4776593554,Aythya_valisineria:0.4559102827)100/100:0.5200663834,Anser_canagicus:0.8097703170)100/100:0.1038679849,Oxyura_jamaicensis:0.9030232908)100/100:0.3762256812,Dendrocygna_javanica:1.5968830992)100/100:1.4955487150)100/100:0.1463401568,Chauna_torquata:1.6242333149)100/100:0.2262234716,(((Ortalis_motmot:0.5534498801,Crax_alector:0.5514653911)100/100:1.3990931670,((((Bonasa_umbellus:1.4432291392,Gallus_gallus:0.9424161066)100/100:0.2510616718,Rollulus_rouloul:1.5205674118)100/100:0.2823319741,(Colinus_cristatus:0.8046970305,Odontophorus_gujanensis:0.8888737780)100/100:1.0526293250)100/100:0.1253702980,Numida_meleagris:1.2525249454)100/100:0.9005434050)100/100:0.2367794992,Leiopoa_ocellata:2.1647833089)100/100:0.4542292292)100/100:0.6579657241)100/100:0.4636746213,(((((Leptotila_rufaxilla:0.9971705752,Columba_livia:1.0091273159)100/100:0.1436644903,Columbina_minuta:1.4235060226)100/100:0.0921922037,(Treron_calvus:1.1163517433,Hemiphaga_novaeseelandiae:0.6974453307)100/100:0.1307309385)100/100:0.9587523423,((Syrrhaptes_paradoxus:1.0621796678,Pterocles_bicinctus:1.4131959087)100/100:1.1233062340,(Monias_benschi:1.2622793064,Mesitornis_unicolor:1.2945758291)100/100:1.8585804540)100/100:0.0591315489)100/100:0.0541122685,(Phoenicopterus_ruber:0.9625394306,Rollandia_rolland:1.3388294313)100/100:0.1385925661)100/100:0.0019649692)100/100:0.0601136467)100/100:0.0000029636,(((Rallus_limicola:1.4460453076,(Porphyrio_porphyrio:1.1979284621,Micropygia_schomburgkii:1.3133040698)100/100:0.2109148472)100/100:0.7142163535,(Sarothrura_rufa_elizabethae:2.1697975362,Heliornis_fulica:3.8589479373)100/100:0.1576522787)100/100:0.8963256976,(((Balearica_regulorum:0.7906761468,Grus_canadensis:0.6722011399)100/100:0.2305572631,Aramus_guarauna:0.9260030745)100/100:0.2549182152,Psophia_crepitans:1.7461932759)100/100:0.1544588291)100/100:0.3336712800)100/100:0.0096706752)100/100:0.0123665971,(((((((Morus_serrator:1.4921741420,(Nannopterum_brasilianus:1.7263252083,Anhinga_anhinga:1.9318427149)100/100:0.0589586155)100/100:0.3450337273,Fregata_magnificens:1.4816113351)100/100:0.1375150796,((((Ixobrychus_minutus:0.9693329302,Ardea_purpurea:0.9314566202)100/100:0.3249305876,Tigrisoma_lineatum:1.2145881847)100/100:0.7502103836,((Pelecanus_occidentalis:1.3796367100,Balaeniceps_rex:1.3364382153)100/100:0.0918579727,Scopus_umbretta:2.2086482402)100/100:0.2492756255)100/100:0.0000026925,Harpiprion_caerulescens:1.6080301911)100/100:0.0053648905)100/100:0.0320775418,(Ciconia_nigra:0.7630584505,Leptoptilos_crumeniferus:0.5162742038)100/100:0.7620638959)100/100:0.0342244678,((((Pelagodroma_marina:0.7118364315,Oceanites_oceanicus:0.5899172993)100/100:0.5493220518,((Fulmarus_glacialoides:0.7980835390,(Puffinus_griseus:0.6803520393,(Pelecanoides_urinatrix:1.2960774211,Pterodroma_externa:0.7703199991)100/100:0.0766012084)100/100:0.0344262123)100/100:0.4719517308,Hydrobates_tethys:1.5529612578)100/100:0.0788351091)100/100:0.0324927764,Phoebastria_nigripes:1.1018748879)100/100:0.1642811176,Spheniscus_humboldti:1.5577690859)100/100:0.0395646342)100/100:0.0158538978,Gavia_immer:1.2930586283)100/100:0.0842880186,(Phaethon_rubricauda:2.1055298906,Eurypyga_helias:3.4989694475)100/100:0.0944428777)100/100:0.0000022265)100/100:0.0660358622)100/100:0.0261742291,(Cariama_cristata:0.7563587688,Chunga_burmeisteri:0.8074232333)100/100:1.4609804720)100/100:0.0300893270,(Micrastur_gilvicollis:1.5954414882,((Caracara_cheriway:0.5413544116,Ibycter_americanus:0.4533785202)100/100:0.6183664684,Falco_sparverius:1.8148843371)100/100:0.5927721905)100/100:0.8275723992)100/100:0.0204363004,(Nestor_meridionalis:1.6707168125,(((Barnardius_zonarius:1.4305061771,Psittrichas_fulgidus:0.8944761242)100/100:0.0953465754,(Deroptyus_accipitrinus:1.5348883263,Psittacus_erithacus:1.3454455592)100/100:0.1025556482)100/100:0.2133265006,Probosciger_aterrimus:1.3327682636)100/100:0.2969466663)100/100:1.4568734200)100/100:0.6263140890);
+
+CONSENSUS TREE
+--------------
+
+Consensus tree is constructed from 1000 bootstrap trees
+Log-likelihood of consensus tree: -708049.269754
+Robinson-Foulds distance between ML tree and consensus tree: 0
+
+Branches with support >0.000000% are kept (extended consensus)
+Branch lengths are optimized by maximum likelihood on original alignment
+Numbers in parentheses are bootstrap supports (%)
+
++------Acanthisitta_chloris
+|
+|              +----Myrmothera_campanisona
+|           +--| (100)
+|           |  |  +---Sclerurus_mexicanus
+|           |  +--| (100)
+|           |     |  +--Furnarius_rufus
+|           |     +--| (100)
+|           |        +--Lepidocolaptes_angustirostris
+|        +--| (100)
+|        |  |        +--Terenura_callinota
+|        |  |     +--| (100)
+|        |  |     |  +--Thamnophilus_ruficapillus
+|        |  |  +--| (100)
+|        |  |  |  +---Myrmornis_torquata
+|        |  +--| (100)
+|        |     +-----Melanopareia_maranonica
+|     +--| (100)
+|     |  |              +---Tityra_inquisitor
+|     |  |           +--| (100)
+|     |  |           |  +---Schiffornis_stenorhyncha
+|     |  |        +--| (100)
+|     |  |        |  |           +--Elaenia_flavogaster
+|     |  |        |  |        +--| (100)
+|     |  |        |  |        |  |  +--Tyrannus_albogularis
+|     |  |        |  |        |  +--| (100)
+|     |  |        |  |        |     +--Hymenops_perspicillatus
+|     |  |        |  |     +--| (100)
+|     |  |        |  |     |  +---Hirundinea_ferruginea
+|     |  |        |  |  +--| (100)
+|     |  |        |  |  |  +----Rhynchocyclus_olivaceus
+|     |  |        |  +--| (100)
+|     |  |        |     +----Piprites_chloris
+|     |  |     +--| (100)
+|     |  |     |  |  +---Myiobius_sulphureipygius
+|     |  |     |  +--| (100)
+|     |  |     |     +---Oxyruncus_cristatus
+|     |  |  +--| (100)
+|     |  |  |  |  +---Cotinga_cayana
+|     |  |  |  +--| (100)
+|     |  |  |     +---Rupicola_peruvianus
+|     |  +--| (100)
+|     |     |  +--Neopelma_chrysocephalum
+|     |     +--| (100)
+|     |        |  +--Pipra_erythrocephala
+|     |        +--| (100)
+|     |           +--Cryptopipo_aenigma
+|  +--| (100)
+|  |  |        +-----Calyptomena_viridis
+|  |  |     +--| (100)
+|  |  |     |  +----Smithornis_rufolateralis
+|  |  |  +--| (100)
+|  |  |  |  +----Pitta_angolensis
+|  |  +--| (100)
+|  |     |  +----Neodrepanis_coruscans
+|  |     +--| (100)
+|  |        +----Eurylaimus_ochromalus
++--| (100)
+|  |              +--Corvus_albus
+|  |           +--| (100)
+|  |           |  +--Paradisaea_raggiana
+|  |        +--| (100)
+|  |        |  |           +---Sylvia_melanocephala
+|  |        |  |        +--| (100)
+|  |        |  |        |  +---Pycnonotus_macrotis
+|  |        |  |     +--| (100)
+|  |        |  |     |  +----Calandrella_brachydactyla
+|  |        |  |  +--| (100)
+|  |        |  |  |  +---Poecile_palustris
+|  |        |  +--| (100)
+|  |        |     |     +----Turdus_olivater
+|  |        |     |  +--| (100)
+|  |        |     |  |  +-----Regulus_ignicapilla
+|  |        |     +--| (100)
+|  |        |        |  +--Spizella_arborea
+|  |        |        +--| (100)
+|  |        |           +--Fringilla_coelebs
+|  |     +--| (100)
+|  |     |  +----Malurus_elegans
+|  |  +--| (100)
+|  |  |  |  +-----Climacteris_melanura
+|  |  |  +--| (100)
+|  |  |     |     +--Ptilonorhynchus_violaceus
+|  |  |     +-----| (100)
+|  |  |           +--Sericulus_bakeri
+|  +--| (100)
+|     +----Menura_novaehollandiae
+|
+|                             +--Accipiter_superciliosus
+|                          +--| (100)
+|                          |  +--Buteo_jamaicensis
+|                       +--| (100)
+|                       |  +----Elanus_leucurus
+|                    +--| (100)
+|                    |  +-----Pandion_haliaetus
+|                 +--| (100)
+|                 |  +----Sagittarius_serpentarius
+|              +--| (100)
+|              |  |  +--Cathartes_aura
+|              |  +--| (100)
+|              |     +--Vultur_gryphus
+|           +--| (100)
+|           |  |                             +---Picus_canus
+|           |  |                          +--| (100)
+|           |  |                          |  +-----Jynx_torquilla
+|           |  |                       +--| (100)
+|           |  |                       |  +---Indicator_exilis
+|           |  |                    +--| (100)
+|           |  |                    |  |        +--Ramphastos_ambiguus
+|           |  |                    |  |     +--| (100)
+|           |  |                    |  |     |  +----Capito_niger
+|           |  |                    |  |  +--| (100)
+|           |  |                    |  |  |  +-------Buccanodon_duchaillui
+|           |  |                    |  +--| (100)
+|           |  |                    |     +-----Megalaima_chrysopogon
+|           |  |                 +--| (100)
+|           |  |                 |  |  +-------Galbula_dea
+|           |  |                 |  +--| (100)
+|           |  |                 |     |  +--Bucco_capensis
+|           |  |                 |     +--| (100)
+|           |  |                 |        +--Chelidoptera_tenebrosa
+|           |  |              +--| (100)
+|           |  |              |  |           +-----Alcedo_quadribrachys
+|           |  |              |  |        +--| (100)
+|           |  |              |  |        |  +---Chloroceryle_inda
+|           |  |              |  |     +--| (100)
+|           |  |              |  |     |  +------Momotus_lessonii
+|           |  |              |  |  +--| (100)
+|           |  |              |  |  |  +------Todus_mexicanus
+|           |  |              |  +--| (100)
+|           |  |              |     |     +--Atelornis_pittoides
+|           |  |              |     |  +--| (100)
+|           |  |              |     |  |  +----Coracias_cyanogaster
+|           |  |              |     +--| (100)
+|           |  |              |        +--------Merops_muelleri
+|           |  |           +--| (100)
+|           |  |           |  |     +--Bucorvus_leadbeateri
+|           |  |           |  |  +--| (100)
+|           |  |           |  |  |  +---Tockus_camurus
+|           |  |           |  +--| (100)
+|           |  |           |     |  +--------Upupa_epops
+|           |  |           |     +--| (100)
+|           |  |           |        +-----------Phoeniculus_purpureus
+|           |  |        +--| (100)
+|           |  |        |  |    +---Apaloderma_aequatoriale
+|           |  |        |  +----| (100)
+|           |  |        |       +---Trogon_elegans
+|           |  |     +--| (100)
+|           |  |     |  +-----Leptosomus_discolor
+|           |  |  +--| (100)
+|           |  |  |  |     +---Colius_colius
+|           |  |  |  +-----| (100)
+|           |  |  |        +---Colius_indicus
+|           |  +--| (100)
+|           |     |  +---------Tyto_alba
+|           |     +--| (100)
+|           |        +------Strix_varia_varia
+|        +--| (100)
+|        |  |                 +-------Turnix_velox
+|        |  |              +--| (100)
+|        |  |              |  |        +--Chroicocephalus_maculipennis
+|        |  |              |  |     +--| (100)
+|        |  |              |  |     |  |  +--Sterna_hirundo
+|        |  |              |  |     |  +--| (100)
+|        |  |              |  |     |     +--Rhynchops_niger
+|        |  |              |  |  +--| (100)
+|        |  |              |  |  |  +--Uria_aalge
+|        |  |              |  +--| (100)
+|        |  |              |     +--Glareola_nuchalis
+|        |  |           +--| (100)
+|        |  |           |  |        +--Arenaria_interpres
+|        |  |           |  |     +--| (100)
+|        |  |           |  |     |  +--Tringa_solitaria
+|        |  |           |  |  +--| (100)
+|        |  |           |  |  |  +--Limosa_lapponica
+|        |  |           |  +--| (100)
+|        |  |           |     |     +---Jacana_jacana
+|        |  |           |     |  +--| (100)
+|        |  |           |     |  |  +---Rostratula_benghalensis
+|        |  |           |     +--| (100)
+|        |  |           |        +---Pedionomus_torquatus
+|        |  |        +--| (100)
+|        |  |        |  |     +--Charadrius_hiaticula
+|        |  |        |  |  +--| (100)
+|        |  |        |  |  |  |  +--Recurvirostra_americana
+|        |  |        |  |  |  +--| (100)
+|        |  |        |  |  |     +--Haematopus_palliatus
+|        |  |        |  +--| (100)
+|        |  |        |     +---Burhinus_bistriatus
+|        |  |     +--| (100)
+|        |  |     |  +------Opisthocomus_hoazin
+|        |  |  +--| (100)
+|        |  |  |  |                    +----Aegotheles_insignis
+|        |  |  |  |                 +--| (100)
+|        |  |  |  |                 |  |        +--Chaetura_brachyura
+|        |  |  |  |                 |  |     +--| (100)
+|        |  |  |  |                 |  |     |  +--Streptoprocne_zonaris
+|        |  |  |  |                 |  |  +--| (100)
+|        |  |  |  |                 |  |  |  +---Hemiprocne_comata
+|        |  |  |  |                 |  +--| (100)
+|        |  |  |  |                 |     |   +--Archilochus_colubris
+|        |  |  |  |                 |     +---| (100)
+|        |  |  |  |                 |         |  +--Topaza_pella
+|        |  |  |  |                 |         +--| (100)
+|        |  |  |  |                 |            +--Phaethornis_malaris
+|        |  |  |  |              +--| (100)
+|        |  |  |  |              |  +---------Podargus_strigoides
+|        |  |  |  |           +--| (100)
+|        |  |  |  |           |  |  +-----Nyctibius_griseus
+|        |  |  |  |           |  +--| (100)
+|        |  |  |  |           |     +----Steatornis_caripensis
+|        |  |  |  |        +--| (100)
+|        |  |  |  |        |  |     +--Caprimulgus_europaeus
+|        |  |  |  |        |  |  +--| (100)
+|        |  |  |  |        |  |  |  +--Chordeiles_pusillus
+|        |  |  |  |        |  +--| (100)
+|        |  |  |  |        |     +----Eurostopodus_macrotis
+|        |  |  |  |     +--| (100)
+|        |  |  |  |     |  |        +--Tauraco_macrorhynchus
+|        |  |  |  |     |  |     +--| (100)
+|        |  |  |  |     |  |     |  +--Corythaeola_cristata
+|        |  |  |  |     |  |  +--| (100)
+|        |  |  |  |     |  |  |  +----Ardeotis_kori
+|        |  |  |  |     |  +--| (100)
+|        |  |  |  |     |     |     +-------Centropus_bengalensis
+|        |  |  |  |     |     |  +--| (100)
+|        |  |  |  |     |     |  |  |  +--Cuculus_canorus
+|        |  |  |  |     |     |  |  +--| (100)
+|        |  |  |  |     |     |  |     +----Coccyzus_melacoryphus
+|        |  |  |  |     |     +--| (100)
+|        |  |  |  |     |        +------Tapera_naevia
+|        |  |  |  |  +--| (100)
+|        |  |  |  |  |  |           +---Struthio_Camelus
+|        |  |  |  |  |  |        +--| (100)
+|        |  |  |  |  |  |        |  |        +--Apteryx_rowi
+|        |  |  |  |  |  |        |  |     +--| (100)
+|        |  |  |  |  |  |        |  |     |  |  +--Casuarius_casuarius
+|        |  |  |  |  |  |        |  |     |  +--| (100)
+|        |  |  |  |  |  |        |  |     |     +--Dromaius_novaehollandiae
+|        |  |  |  |  |  |        |  |  +--| (100)
+|        |  |  |  |  |  |        |  |  |  +----Rhea_americana
+|        |  |  |  |  |  |        |  +--| (100)
+|        |  |  |  |  |  |        |     |       +------Nothoprocta_ornata
+|        |  |  |  |  |  |        |     |    +--| (100)
+|        |  |  |  |  |  |        |     |    |  +------Eudromia_elegans
+|        |  |  |  |  |  |        |     +----| (100)
+|        |  |  |  |  |  |        |          |  +----Tinamus_major
+|        |  |  |  |  |  |        |          +--| (100)
+|        |  |  |  |  |  |        |             +-------Crypturellus_tataupa
+|        |  |  |  |  |  |     +--| (100)
+|        |  |  |  |  |  |     |  |                            +-----------------------Caiman_crocodilus
+|        |  |  |  |  |  |     |  +----------------------------| (100)
+|        |  |  |  |  |  |     |                               +------------------------Crocodylus_porosus
+|        |  |  |  |  |  |  +--| (100)
+|        |  |  |  |  |  |  |  |        +--Anseranas_semipalmata
+|        |  |  |  |  |  |  |  |     +--| (100)
+|        |  |  |  |  |  |  |  |     |  |            +--Anas_superciliosa
+|        |  |  |  |  |  |  |  |     |  |         +--| (100)
+|        |  |  |  |  |  |  |  |     |  |         |  +--Aythya_valisineria
+|        |  |  |  |  |  |  |  |     |  |      +--| (100)
+|        |  |  |  |  |  |  |  |     |  |      |  +--Anser_canagicus
+|        |  |  |  |  |  |  |  |     |  |   +--| (100)
+|        |  |  |  |  |  |  |  |     |  |   |  +--Oxyura_jamaicensis
+|        |  |  |  |  |  |  |  |     |  +---| (100)
+|        |  |  |  |  |  |  |  |     |      +---Dendrocygna_javanica
+|        |  |  |  |  |  |  |  |  +--| (100)
+|        |  |  |  |  |  |  |  |  |  +---Chauna_torquata
+|        |  |  |  |  |  |  |  +--| (100)
+|        |  |  |  |  |  |  |     |         +--Ortalis_motmot
+|        |  |  |  |  |  |  |     |     +---| (100)
+|        |  |  |  |  |  |  |     |     |   +--Crax_alector
+|        |  |  |  |  |  |  |     |  +--| (100)
+|        |  |  |  |  |  |  |     |  |  |           +---Bonasa_umbellus
+|        |  |  |  |  |  |  |     |  |  |        +--| (100)
+|        |  |  |  |  |  |  |     |  |  |        |  +--Gallus_gallus
+|        |  |  |  |  |  |  |     |  |  |     +--| (100)
+|        |  |  |  |  |  |  |     |  |  |     |  +---Rollulus_rouloul
+|        |  |  |  |  |  |  |     |  |  |  +--| (100)
+|        |  |  |  |  |  |  |     |  |  |  |  |  +--Colinus_cristatus
+|        |  |  |  |  |  |  |     |  |  |  |  +--| (100)
+|        |  |  |  |  |  |  |     |  |  |  |     +--Odontophorus_gujanensis
+|        |  |  |  |  |  |  |     |  |  +--| (100)
+|        |  |  |  |  |  |  |     |  |     +--Numida_meleagris
+|        |  |  |  |  |  |  |     +--| (100)
+|        |  |  |  |  |  |  |        +-----Leiopoa_ocellata
+|        |  |  |  |  |  +--| (100)
+|        |  |  |  |  |     |              +--Leptotila_rufaxilla
+|        |  |  |  |  |     |           +--| (100)
+|        |  |  |  |  |     |           |  +--Columba_livia
+|        |  |  |  |  |     |        +--| (100)
+|        |  |  |  |  |     |        |  +---Columbina_minuta
+|        |  |  |  |  |     |     +--| (100)
+|        |  |  |  |  |     |     |  |  +--Treron_calvus
+|        |  |  |  |  |     |     |  +--| (100)
+|        |  |  |  |  |     |     |     +--Hemiphaga_novaeseelandiae
+|        |  |  |  |  |     |  +--| (100)
+|        |  |  |  |  |     |  |  |     +--Syrrhaptes_paradoxus
+|        |  |  |  |  |     |  |  |  +--| (100)
+|        |  |  |  |  |     |  |  |  |  +---Pterocles_bicinctus
+|        |  |  |  |  |     |  |  +--| (100)
+|        |  |  |  |  |     |  |     |    +--Monias_benschi
+|        |  |  |  |  |     |  |     +----| (100)
+|        |  |  |  |  |     |  |          +--Mesitornis_unicolor
+|        |  |  |  |  |     +--| (100)
+|        |  |  |  |  |        |  +--Phoenicopterus_ruber
+|        |  |  |  |  |        +--| (100)
+|        |  |  |  |  |           +--Rollandia_rolland
+|        |  |  |  +--| (100)
+|        |  |  |     |        +---Rallus_limicola
+|        |  |  |     |     +--| (100)
+|        |  |  |     |     |  |  +--Porphyrio_porphyrio
+|        |  |  |     |     |  +--| (100)
+|        |  |  |     |     |     +--Micropygia_schomburgkii
+|        |  |  |     |  +--| (100)
+|        |  |  |     |  |  |  +-----Sarothrura_rufa_elizabethae
+|        |  |  |     |  |  +--| (100)
+|        |  |  |     |  |     +----------Heliornis_fulica
+|        |  |  |     +--| (100)
+|        |  |  |        |        +--Balearica_regulorum
+|        |  |  |        |     +--| (100)
+|        |  |  |        |     |  +--Grus_canadensis
+|        |  |  |        |  +--| (100)
+|        |  |  |        |  |  +--Aramus_guarauna
+|        |  |  |        +--| (100)
+|        |  |  |           +----Psophia_crepitans
+|        |  +--| (100)
+|        |     |                    +---Morus_serrator
+|        |     |                 +--| (100)
+|        |     |                 |  |  +----Nannopterum_brasilianus
+|        |     |                 |  +--| (100)
+|        |     |                 |     +----Anhinga_anhinga
+|        |     |              +--| (100)
+|        |     |              |  +---Fregata_magnificens
+|        |     |           +--| (100)
+|        |     |           |  |           +--Ixobrychus_minutus
+|        |     |           |  |        +--| (100)
+|        |     |           |  |        |  +--Ardea_purpurea
+|        |     |           |  |     +--| (100)
+|        |     |           |  |     |  +--Tigrisoma_lineatum
+|        |     |           |  |  +--| (100)
+|        |     |           |  |  |  |     +---Pelecanus_occidentalis
+|        |     |           |  |  |  |  +--| (100)
+|        |     |           |  |  |  |  |  +--Balaeniceps_rex
+|        |     |           |  |  |  +--| (100)
+|        |     |           |  |  |     +-----Scopus_umbretta
+|        |     |           |  +--| (100)
+|        |     |           |     +---Harpiprion_caerulescens
+|        |     |        +--| (100)
+|        |     |        |  |  +--Ciconia_nigra
+|        |     |        |  +--| (100)
+|        |     |        |     +--Leptoptilos_crumeniferus
+|        |     |     +--| (100)
+|        |     |     |  |           +--Pelagodroma_marina
+|        |     |     |  |        +--| (100)
+|        |     |     |  |        |  +--Oceanites_oceanicus
+|        |     |     |  |     +--| (100)
+|        |     |     |  |     |  |     +--Fulmarus_glacialoides
+|        |     |     |  |     |  |  +--| (100)
+|        |     |     |  |     |  |  |  |  +--Puffinus_griseus
+|        |     |     |  |     |  |  |  +--| (100)
+|        |     |     |  |     |  |  |     |  +--Pelecanoides_urinatrix
+|        |     |     |  |     |  |  |     +--| (100)
+|        |     |     |  |     |  |  |        +--Pterodroma_externa
+|        |     |     |  |     |  +--| (100)
+|        |     |     |  |     |     +---Hydrobates_tethys
+|        |     |     |  |  +--| (100)
+|        |     |     |  |  |  +--Phoebastria_nigripes
+|        |     |     |  +--| (100)
+|        |     |     |     +---Spheniscus_humboldti
+|        |     |  +--| (100)
+|        |     |  |  +--Gavia_immer
+|        |     +--| (100)
+|        |        |  +-----Phaethon_rubricauda
+|        |        +--| (100)
+|        |           +---------Eurypyga_helias
+|     +--| (100)
+|     |  |   +--Cariama_cristata
+|     |  +---| (100)
+|     |      +--Chunga_burmeisteri
+|  +--| (100)
+|  |  |  +---Micrastur_gilvicollis
+|  |  +--| (100)
+|  |     |     +--Caracara_cheriway
+|  |     |  +--| (100)
+|  |     |  |  +--Ibycter_americanus
+|  |     +--| (100)
+|  |        +----Falco_sparverius
++--| (100)
+   |   +---Nestor_meridionalis
+   +---| (100)
+       |        +---Barnardius_zonarius
+       |     +--| (100)
+       |     |  +--Psittrichas_fulgidus
+       |  +--| (100)
+       |  |  |  +---Deroptyus_accipitrinus
+       |  |  +--| (100)
+       |  |     +--Psittacus_erithacus
+       +--| (100)
+          +--Probosciger_aterrimus
+
+
+Consensus tree in newick format: 
+
+(Acanthisitta_chloris:2.4569234104,(((((Myrmothera_campanisona:1.8882461183,(Sclerurus_mexicanus:1.4312383145,(Furnarius_rufus:1.3229862159,Lepidocolaptes_angustirostris:1.0292246032)100:0.2058883484)100:0.5054416442)100:0.1162153804,(((Terenura_callinota:1.2252324771,Thamnophilus_ruficapillus:1.0424069419)100:0.1449947151,Myrmornis_torquata:1.3560270421)100:0.8695088171,Melanopareia_maranonica:2.3523475644)100:0.1161368207)100:0.3863544515,(((((Tityra_inquisitor:1.5497192963,Schiffornis_stenorhyncha:1.6508710579)100:0.3521638964,((((Elaenia_flavogaster:1.1104448412,(Tyrannus_albogularis:1.0089109738,Hymenops_perspicillatus:1.0530357210)100:0.1785233288)100:0.1700887053,Hirundinea_ferruginea:1.4619361915)100:0.5760492950,Rhynchocyclus_olivaceus:1.9700758120)100:0.1975109781,Piprites_chloris:1.9730589888)100:0.0765928808)100:0.0341369674,(Myiobius_sulphureipygius:1.6405241034,Oxyruncus_cristatus:1.5844787809)100:0.1764139234)100:0.0927612164,(Cotinga_cayana:1.4533433587,Rupicola_peruvianus:1.3947045005)100:0.5384190554)100:0.0499322340,(Neopelma_chrysocephalum:1.2089643273,(Pipra_erythrocephala:0.5399185659,Cryptopipo_aenigma:0.8883353446)100:0.3481604323)100:0.8456295006)100:0.6058229112)100:0.3177184735,(((Calyptomena_viridis:2.2067081704,Smithornis_rufolateralis:1.9716259194)100:0.4151648428,Pitta_angolensis:1.7988925546)100:0.1267393890,(Neodrepanis_coruscans:1.7527370342,Eurylaimus_ochromalus:1.7574061986)100:0.7263303051)100:0.7359408895)100:0.3585318044,(((((Corvus_albus:1.2450726194,Paradisaea_raggiana:1.2773909756)100:0.5849146012,((((Sylvia_melanocephala:1.6300690362,Pycnonotus_macrotis:1.6564795294)100:0.2826537722,Calandrella_brachydactyla:1.7498988639)100:0.2027023014,Poecile_palustris:1.4512794556)100:0.0670705795,((Turdus_olivater:1.7592675537,Regulus_ignicapilla:2.2928255157)100:0.1496255047,(Spizella_arborea:1.1109435387,Fringilla_coelebs:1.1063011461)100:0.7477084942)100:0.0890707295)100:0.3774577479)100:0.1549694542,Malurus_elegans:1.9269933078)100:0.1719321030,(Climacteris_melanura:2.2975137377,(Ptilonorhynchus_violaceus:0.0048152618,Sericulus_bakeri:0.0051213640)100:2.2098036810)100:0.4578268988)100:0.2325657398,Menura_novaehollandiae:1.9946911455)100:1.1458255990)100:0.1562209599,((((((((((Accipiter_superciliosus:0.8505471380,Buteo_jamaicensis:0.6131414303)100:0.6002381447,Elanus_leucurus:1.8173875670)100:0.1946126189,Pandion_haliaetus:2.0659059697)100:0.4535154646,Sagittarius_serpentarius:1.8174700197)100:0.2625595912,(Cathartes_aura:0.5751073689,Vultur_gryphus:0.4673553902)100:0.8233384427)100:0.0438563882,((((((((((Picus_canus:1.5636622001,Jynx_torquilla:2.1480253255)100:0.2809711948,Indicator_exilis:1.4758184743)100:0.4382812041,(((Ramphastos_ambiguus:1.1414168035,Capito_niger:1.8602560794)100:0.6993575654,Buccanodon_duchaillui:2.8397672797)100:0.1911849354,Megalaima_chrysopogon:2.0931893328)100:0.5833127265)100:1.1862456240,(Galbula_dea:2.7636516979,(Bucco_capensis:1.2349078679,Chelidoptera_tenebrosa:1.0701723115)100:1.1666781862)100:0.6446305582)100:0.1527284348,((((Alcedo_quadribrachys:2.2147232894,Chloroceryle_inda:1.5731837157)100:0.6677582264,Momotus_lessonii:2.4175501897)100:0.0829937803,Todus_mexicanus:2.4564590156)100:0.2913231271,((Atelornis_pittoides:1.3235822319,Coracias_cyanogaster:1.9587901530)100:0.4798551044,Merops_muelleri:3.1305250066)100:0.1700801426)100:0.0435027870)100:0.1361855617,((Bucorvus_leadbeateri:0.9454955110,Tockus_camurus:1.3630439457)100:1.0766025357,(Upupa_epops:3.2722085417,Phoeniculus_purpureus:4.0508358481)100:0.9800515414)100:0.2992556240)100:0.0211049497,(Apaloderma_aequatoriale:1.5075477566,Trogon_elegans:1.6383152127)100:1.7293479706)100:0.0777115079,Leptosomus_discolor:2.1679963083)100:0.0028089886,(Colius_colius:1.4202552346,Colius_indicus:1.4769186670)100:2.1470947995)100:0.0333980683,(Tyto_alba:3.4013883470,Strix_varia_varia:2.5139958964)100:0.4460867225)100:0.0827480553)100:0.0195379173,((((((Turnix_velox:2.9179019288,(((Chroicocephalus_maculipennis:0.8428132410,(Sterna_hirundo:0.7251697547,Rhynchops_niger:1.0944799445)100:0.1182348337)100:0.1724212694,Uria_aalge:1.0073294872)100:0.1339252768,Glareola_nuchalis:1.2417942898)100:0.2979522335)100:0.1268990325,(((Arenaria_interpres:0.7929493890,Tringa_solitaria:0.9877595086)100:0.1549391287,Limosa_lapponica:0.8428074897)100:0.3010094476,((Jacana_jacana:1.3555244976,Rostratula_benghalensis:1.3726121879)100:0.1647064534,Pedionomus_torquatus:1.6011512523)100:0.3288691287)100:0.3282863032)100:0.2406688912,((Charadrius_hiaticula:1.0501216037,(Recurvirostra_americana:0.6116336640,Haematopus_palliatus:0.7652425204)100:0.3689886628)100:0.3306141456,Burhinus_bistriatus:1.3674359822)100:0.1496188745)100:0.2254568683,Opisthocomus_hoazin:2.3795999178)100:0.0450566764,(((((((Aegotheles_insignis:1.9793718684,(((Chaetura_brachyura:1.2861398989,Streptoprocne_zonaris:0.9616720939)100:0.1436445425,Hemiprocne_comata:1.4475404314)100:0.3994468104,(Archilochus_colubris:1.1417501343,(Topaza_pella:1.0044057815,Phaethornis_malaris:1.3006787432)100:0.2283232736)100:1.6042388714)100:0.2826007516)100:0.1832185800,Podargus_strigoides:3.5379040243)100:0.0552721158,(Nyctibius_griseus:2.0260810057,Steatornis_caripensis:1.7879770099)100:0.1243596403)100:0.0191784301,((Caprimulgus_europaeus:1.0956675095,Chordeiles_pusillus:1.0137470807)100:0.5943444144,Eurostopodus_macrotis:1.7632351796)100:0.7529444798)100:0.0354666701,(((Tauraco_macrorhynchus:1.2506450916,Corythaeola_cristata:1.0935632366)100:0.7803753208,Ardeotis_kori:1.7712541741)100:0.0554102132,((Centropus_bengalensis:3.0087234367,(Cuculus_canorus:1.1458104147,Coccyzus_melacoryphus:1.8130425491)100:0.6150271341)100:0.1500044809,Tapera_naevia:2.3661674495)100:0.9466831754)100:0.0005790168)100:0.0612098092,((((Struthio_Camelus:1.5314710930,(((Apteryx_rowi:1.2864915508,(Casuarius_casuarius:0.5799229768,Dromaius_novaehollandiae:0.6701353966)100:0.6357244120)100:0.2248462822,Rhea_americana:1.8146890530)100:0.1055420433,((Nothoprocta_ornata:2.5846388187,Eudromia_elegans:2.5595088249)100:0.2614467208,(Tinamus_major:2.0133253017,Crypturellus_tataupa:2.7607076617)100:0.6195912717)100:1.7152777525)100:0.1210852876)100:0.9944498830,(Caiman_crocodilus:8.3823250374,Crocodylus_porosus:8.4257618307)100:9.9999988935)100:0.4495175806,(((Anseranas_semipalmata:1.2152306783,((((Anas_superciliosa:0.4684178445,Aythya_valisineria:0.4469840484)100:0.5099487668,Anser_canagicus:0.7942130578)100:0.1020479331,Oxyura_jamaicensis:0.8854524715)100:0.3695599345,Dendrocygna_javanica:1.5656639422)100:1.4676480883)100:0.1426730234,Chauna_torquata:1.5927656869)100:0.2226614480,(((Ortalis_motmot:0.5431281527,Crax_alector:0.5406278659)100:1.3730118815,((((Bonasa_umbellus:1.4155778692,Gallus_gallus:0.9243023476)100:0.2462858933,Rollulus_rouloul:1.4915593697)100:0.2768259563,(Colinus_cristatus:0.7895333628,Odontophorus_gujanensis:0.8713017853)100:1.0324764180)100:0.1232016195,Numida_meleagris:1.2286589376)100:0.8829184154)100:0.2321867424,Leiopoa_ocellata:2.1241579909)100:0.4458446004)100:0.6452742320)100:0.4544364495,(((((Leptotila_rufaxilla:0.9776831401,Columba_livia:0.9894646828)100:0.1413459277,Columbina_minuta:1.3960047249)100:0.0900794286,(Treron_calvus:1.0948596214,Hemiphaga_novaeseelandiae:0.6838225440)100:0.1283374530)100:0.9402541832,((Syrrhaptes_paradoxus:1.0425962770,Pterocles_bicinctus:1.3853595651)100:1.1027234573,(Monias_benschi:1.2381414379,Mesitornis_unicolor:1.2699979654)100:1.8238307362)100:0.0576258391)100:0.0532210158,(Phoenicopterus_ruber:0.9403176197,Rollandia_rolland:1.3110640350)100:0.1397399545)100:0.0019175520)100:0.0589562992)100:0.0000027559,(((Rallus_limicola:1.4188152059,(Porphyrio_porphyrio:1.1757492928,Micropygia_schomburgkii:1.2882868112)100:0.2063788964)100:0.7006192447,(Sarothrura_rufa_elizabethae:2.1303802761,Heliornis_fulica:3.7857196735)100:0.1539368320)100:0.8801294960,(((Balearica_regulorum:0.7754532168,Grus_canadensis:0.6591800232)100:0.2263351916,Aramus_guarauna:0.9085205193)100:0.2499384683,Psophia_crepitans:1.7137784604)100:0.1512954909)100:0.3274413005)100:0.0094409374)100:0.0122696055,(((((((Morus_serrator:1.4638020010,(Nannopterum_brasilianus:1.6940459953,Anhinga_anhinga:1.8958395834)100:0.0574974526)100:0.3383020956,Fregata_magnificens:1.4531690329)100:0.1348870958,((((Ixobrychus_minutus:0.9506581023,Ardea_purpurea:0.9137221817)100:0.3192633462,Tigrisoma_lineatum:1.1916834834)100:0.7357457009,((Pelecanus_occidentalis:1.3534138827,Balaeniceps_rex:1.3105811328)100:0.0906725641,Scopus_umbretta:2.1668151412)100:0.2439083815)100:0.0000023046,Harpiprion_caerulescens:1.5777075618)100:0.0055750349)100:0.0311521206,(Ciconia_nigra:0.7475453193,Leptoptilos_crumeniferus:0.5063151226)100:0.7487734978)100:0.0336894539,((((Pelagodroma_marina:0.6979806924,Oceanites_oceanicus:0.5788539165)100:0.5389471341,((Fulmarus_glacialoides:0.7828443111,(Puffinus_griseus:0.6668580596,(Pelecanoides_urinatrix:1.2713012170,Pterodroma_externa:0.7553908744)100:0.0755683118)100:0.0341283428)100:0.4623089478,Hydrobates_tethys:1.5234672170)100:0.0776722384)100:0.0316676408,Phoebastria_nigripes:1.0807928232)100:0.1610804887,Spheniscus_humboldti:1.5273569646)100:0.0389263213)100:0.0155637262,Gavia_immer:1.2680743499)100:0.0823222486,(Phaethon_rubricauda:2.0642838819,Eurypyga_helias:3.4324272199)100:0.0930617081)100:0.0000024249)100:0.0646025891)100:0.0257111818,(Cariama_cristata:0.7423903491,Chunga_burmeisteri:0.7916904951)100:1.4339292634)100:0.0297474470,(Micrastur_gilvicollis:1.5657875398,((Caracara_cheriway:0.5312739518,Ibycter_americanus:0.4446767111)100:0.6070707689,Falco_sparverius:1.7804524923)100:0.5808545797)100:0.8120158850)100:0.0195179802,(Nestor_meridionalis:1.6388260095,(((Barnardius_zonarius:1.4033319469,Psittrichas_fulgidus:0.8777448827)100:0.0937784278,(Deroptyus_accipitrinus:1.5057010360,Psittacus_erithacus:1.3200709468)100:0.1006245812)100:0.2086313366,Probosciger_aterrimus:1.3081740455)100:0.2912959938)100:1.4299394860)100:0.6153010831);
+
+TIME STAMP
+----------
+
+Date and time: Mon Aug 30 16:22:39 2021
+Total CPU time used: 668.577563 seconds (0h:11m:8s)
+Total wall-clock time used: 251.1109847 seconds (0h:4m:11s)
+
