@@ -12,6 +12,9 @@ This script assembles reads using the program Trinity. With the `--normal` flag 
 
 `python trinity_assembly.py --trinity <PATH_TO_TRINITY> --sample <SAMPLENAME> --dir <BASEDIR> --mem 32 --CPU 8 --normal`
 
+We provide the output from the Trinity assembler in the compressed (XZ format) **raw_trinity_assemblies.tar.xz** file. It can be uncompressed with the following command:
+`tar -xvf raw_trinity_assemblies.tar.xz`
+
 ## Step 3: Annotate Assemblies
 This is a two-step procedure. First, assembled contigs are mapped to a reference locus set using `blat`. This step is done per sample. When we ran this, we used `blat v36x2`. 
 
