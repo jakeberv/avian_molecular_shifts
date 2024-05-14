@@ -26,7 +26,7 @@ Author affiliations:
 
 ## Code and datasets
 
-**constrained_species_tree.R**
+[**constrained_species_tree.R**](/constrained_species_tree.R)
 
 This is a large, complex R script containing the code for the primary analyses in our manuscript. It is separated into 17 sub-sections delimited using curly-bracket notation {}. Each section is commented and annotated for reproducibility. This script is mostly for processing and analyzing the *output files* from *Janus* and other software applied herein.
 
@@ -112,42 +112,42 @@ Here we provide a overview of the R package versions and system information used
 
 ## Other important files/directories
 
-**Functions_consensus_genetrees.R**
+[**Functions_consensus_genetrees.R**](/Functions_consensus_genetrees.R)
 
 * This file contains many custom or new functions called by the primary analysis script. This functions file is sourced by the primary analysis script when executed in order.
 
-**RandomForest_var_imp.R**
+[**RandomForest_var_imp.R**](/RandomForest_var_imp.R)
 
 * This script contains the code for RandomForest supervised classification using the tidymodels framework. This code is adapted from the Physalia course examples for machine learning in R.
 
-**shift_model_sims.R**
+[**shift_model_sims.R**](/shift_model_sims.R)
 
 * This script contains the code for assessing the statistical performance of Janus; including assessing false positive/negative rates for substitution model shifts. It include various R functions defining a pipeline that, in combination with IQ-tree, can be used to assess the performance of Janus on arbitrary topologies. See annotations within this script for additional detail.
 
-**Supplementary Table 3.xlsx**
+[**Supplementary Table 3.xlsx**](/Supplementary Table 3.xlsx)
 
 * Supplementary Table 3, as noted in the manuscript. This file describes assembly details for assembly and extraction of mtDNA genome data from the original AHE target capture data.
 
-**LHT_DATA**
+[**LHT_DATA**](/LHT_DATA/)
 
-* LHT_reference.xlsx contains a database of life-history traits analyzed in the present study, which are collated from a variety of sources (as described in the manuscript). This table contains only raw data, and does not include estimated values (See primary R script and RDS files).
+* Inside this directory, 'LHT_reference.xlsx' contains a database of life-history traits analyzed in the present study, which are collated from a variety of sources (described in the manuscript). This table contains only raw data, and does not include estimated values (See primary R script and RDS files).
 
-**RDS**
+[**RDS**](/RDS)
 
 * This folder contains RDS files (R data objects). These files correspond to intermediate or final R data objects generated in the course of analysis and which are called/loaded by the [primary analysis script](/constrained_species_tree.R)
 
-**AHE_REASSEMBLY**
+[**AHE_REASSEMBLY**](/AHE_REASSEMBLY)
 
 * This folder contains files related to assembly of the AHE nuclear DNA dataset. See the detailed README in this directory for additional detail.
 
-**mtDNA_REASSEMBLY**
+[**mtDNA_REASSEMBLY**](/mtDNA_REASSEMBLY)
 
 * This folder contains files related to assembly of the mtDNA dataset. See the detailed README in this directory for additional detail.
 
-**BMR**
+[**BMR**](/BMR)
 
 * This folder contains scripts and files related to analysis of the BMR dataset. See the detailed readme in this directory for additional detail.
 
-**Janus**
+[**Janus**](/janus)
 
 * This folder contains the relevant results from janus (e.g.,input/output files). The topological constraint tree is in ‘timetree_all_taxa_OW_2019.nextree.tre’ available in the supplementary materials from Kimball et al. (2019) here: https://www.mdpi.com/1424-2818/11/7/109/s1, labeled as ‘MRL_3backbone.’ It is also provided in our GitHub repository [here](/trees/MRL_3backbone.tre) for reference. Janus has been implemented in both Golang and C, and the source code (and documentation) is available at https://git.sr.ht/~hms/janus and https://git.sr.ht/~hms/hringhorni.
