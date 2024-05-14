@@ -40,73 +40,73 @@ Here we provide a overview of the R package versions and system information used
 
 ### Section 1 - Setting up 1
 
-This section sets up the appropriate file paths for importing data and performs initial data pre-processing.
+* This section sets up the appropriate file paths for importing data and performs initial data pre-processing.
 
 ### Section 2 - Setting up 2
 
-This section performs additional data pre-processing, including reading the output data from Janus, reading in particular tree output files, and performing some pre-processing related to quantifying GC content.
+* This section performs additional data pre-processing, including reading the output data from Janus, reading in particular tree output files, and performing some pre-processing related to quantifying GC content.
 
 ### Section 3 - Generating new datasets for logistic regression
 
-This section sets up input data objects for phylogenetic logistic regression, as described in the manuscript.
+* This section sets up input data objects for phylogenetic logistic regression, as described in the manuscript.
 
 ### Section 4 - Running phylogenetic logistic regression 
 
-This section runs various logistic regression models, summarizes the model fits, and generates plots that are provided in the supplementary material (Figure S1).
+* This section runs various logistic regression models, summarizes the model fits, and generates plots that are provided in the supplementary material (Figure S1).
 
 ### Section 5 - Get data for GC content and codon usage
 
-This section imports the sequence datasets and estimates various relevant parameters, including aspects of GC content across various slices of the dataset and other nucleotide statistics. The output is an intermetdiate data frame summarizing the results for downstream processing.
+* This section imports the sequence datasets and estimates various relevant parameters, including aspects of GC content across various slices of the dataset and other nucleotide statistics. The output is an intermetdiate data frame summarizing the results for downstream processing.
 
 ### Section 6 - Estimating phylogenetic signal
 
-This section generates estimates of phylogenetic signal across various nucleotide statistics. Largely exploratory.
+* This section generates estimates of phylogenetic signal across various nucleotide statistics. Largely exploratory.
 
 ### Section 7 - Codon usage calculations
 
-This section includes analyses of patterns of codon usage, as described in the manuscript. We estimate different metrics of codon usage and then compare them across groups identified by Janus, using phylogenetic anove (see manuscript text).
+* This section includes analyses of patterns of codon usage, as described in the manuscript. We estimate different metrics of codon usage and then compare them across groups identified by Janus, using phylogenetic anove (see manuscript text).
 
 ### Section 8 - Life history trait data setup
 
-This section sets up the life history character datasets and does initial pre-processing (eg. data imputation described in the manuscript).
+* This section sets up the life history character datasets and does initial pre-processing (eg. data imputation described in the manuscript).
 
 ### Section 9 - Setting up input objects for mvMORPH/OUwie analyses
 
-Setting up character and tree data sets in a format that can be read by the R packages for fitting models of character evolution.
+* Setting up character and tree data sets in a format that can be read by the R packages for fitting models of character evolution.
 
 ### Section 10 - OUwie model fitting
 
-This section fits various models (eg, BM, OU) to life history trait data, as described in the manuscript. These analyses contribute to the graphics depicted in Figure 2 of the manuscript.
+* This section fits various models (eg, BM, OU) to life history trait data, as described in the manuscript. These analyses contribute to the graphics depicted in Figure 2 of the manuscript.
 
 ### Section 11 - Setting up plots of paramter estimates
 
-This section sets up the data objects for generating the radar plots provided in the supplemental text (Figure S7a-d). These plots depict the parameter estimates from Janus (e.g., estimates of equilibrium base frequencies).
+* This section sets up the data objects for generating the radar plots provided in the supplemental text (Figure S7a-d). These plots depict the parameter estimates from Janus (e.g., estimates of equilibrium base frequencies).
 
 ### Section 12 - Setting up BMR datasets
 
-This section does pre-processing on the metabolic scaling data sets. The analyses of these data are described in [another script](./BMR) in the BMR directory.
+* This section does pre-processing on the metabolic scaling data sets. The analyses of these data are described in [another script](./BMR) in the BMR directory.
 
 ### Section 13 - Setting up datasets for the random forest classifier
 
-This section does does some processing on the cleaned up data sets, to pass to the random forest classifier (tidymodels) described in [another script](./RandomForest_var_imp.R)
+* This section does does some processing on the cleaned up data sets, to pass to the random forest classifier (tidymodels) described in [another script](./RandomForest_var_imp.R)
 
 ### Section 14 - Analyses with l1ou
 
-This section sets up and performs analyses using the [l1ou R package](https://github.com/khabbazian/l1ou), which fits a pseudo-multivariate OU model with shifting optimum. See the supplementary text in the manuscript for methods details.
+* This section sets up and performs analyses using the [l1ou R package](https://github.com/khabbazian/l1ou), which fits a pseudo-multivariate OU model with shifting optimum. See the supplementary text in the manuscript for methods details.
 
 ### Section 15 - Processing l1ou results
 
-This section takes the models fit with l1ou and generates output products. These results contribute to Figure 1 and Figure S4a-b.
+* This section takes the models fit with l1ou and generates output products. These results contribute to Figure 1 and Figure S4a-b.
 
 ### Section 16 - Additional BMR models
 
-This section tests some additional exploratory models of BMR allometry. Most of these are not discussed in the manuscript and are provided as exploratory for interested readers.
+* This section tests some additional exploratory models of BMR allometry. Most of these are not discussed in the manuscript and are provided as exploratory for interested readers.
 
 ### Section 17 - Miscellaneous
 
-This section includes code related to diagnostic plots, as well as some additional experimental analyses relative to multivariate model fitting. These are mostly not discussed in the manuscript and are provided as exploratory for interested readers.
+* This section includes code related to diagnostic plots, as well as some additional experimental analyses relative to multivariate model fitting. These are mostly not discussed in the manuscript and are provided as exploratory for interested readers.
 
-Note: Most lines in the primary script where analyses are actually executed are commented out so that processed RDS objects ([provided here](./RDS), see below) can be loaded instead. RDS (R Data Serialization) files are a common format for saving R objects, and they allow R users to preserve the state of an object between R sessions. Thus, the script is provided in a format that should allow anyone to download the GitHub repository and go through every sub-section without needing to re-fit or re-process any data locally.
+* Note: Most lines in the primary script where analyses are actually executed are commented out so that processed RDS objects ([provided here](./RDS), see below) can be loaded instead. RDS (R Data Serialization) files are a common format for saving R objects, and they allow R users to preserve the state of an object between R sessions. Thus, the script is provided in a format that should allow anyone to download the GitHub repository and go through every sub-section without needing to re-fit or re-process any data locally.
 
 ---
 
@@ -114,40 +114,40 @@ Note: Most lines in the primary script where analyses are actually executed are 
 
 **Functions_consensus_genetrees.R**
 
-This file contains many custom or new functions called by the primary analysis script. This functions file is sourced by the primary analysis script when executed in order.
+* This file contains many custom or new functions called by the primary analysis script. This functions file is sourced by the primary analysis script when executed in order.
 
 **RandomForest_var_imp.R**
 
-This script contains the code for RandomForest supervised classification using the tidymodels framework. This code is adapted from the Physalia course examples for machine learning in R.
+* This script contains the code for RandomForest supervised classification using the tidymodels framework. This code is adapted from the Physalia course examples for machine learning in R.
 
 **shift_model_sims.R**
 
-This script contains the code for assessing the statistical performance of Janus; including assessing false positive/negative rates for substitution model shifts. It include various R functions defining a comprehensive pipeline that, in combination with IQ-tree, can be used to assess the performance of Janus on arbitrary topologies. See annotations within this script to get a sense of how to run it for your own topologies or contact the authors for additional detail.
+* This script contains the code for assessing the statistical performance of Janus; including assessing false positive/negative rates for substitution model shifts. It include various R functions defining a comprehensive pipeline that, in combination with IQ-tree, can be used to assess the performance of Janus on arbitrary topologies. See annotations within this script to get a sense of how to run it for your own topologies or contact the authors for additional detail.
 
 **Supplementary Table 3.xlsx**
 
-Supplementary Table 3, as noted in the manuscript. This file describes assembly details for assembly and extraction of mtDNA genome data from the original AHE target capture data.
+* Supplementary Table 3, as noted in the manuscript. This file describes assembly details for assembly and extraction of mtDNA genome data from the original AHE target capture data.
 
 **LHT_DATA**
 
-LHT_reference.xlsx contains a database of life-history traits analyzed in the present study, which are collated from a variety of sources (as described in the manuscript). This table contains only raw data, and does not include estimated values (See primary R script and RDS files).
+* LHT_reference.xlsx contains a database of life-history traits analyzed in the present study, which are collated from a variety of sources (as described in the manuscript). This table contains only raw data, and does not include estimated values (See primary R script and RDS files).
 
 **RDS**
 
-This folder contains RDS files (R data objects). These files correspond to intermediate or final R data objects generated in the course of analysis and which are called/loaded by the [primary analysis script](/constrained_species_tree.R)
+* This folder contains RDS files (R data objects). These files correspond to intermediate or final R data objects generated in the course of analysis and which are called/loaded by the [primary analysis script](/constrained_species_tree.R)
 
 **AHE_REASSEMBLY**
 
-This folder contains files related to assembly of the AHE nuclear DNA dataset. See the detailed README in this directory for additional detail.
+* This folder contains files related to assembly of the AHE nuclear DNA dataset. See the detailed README in this directory for additional detail.
 
 **mtDNA_REASSEMBLY**
 
-This folder contains files related to assembly of the mtDNA dataset. See the detailed README in this directory for additional detail.
+* This folder contains files related to assembly of the mtDNA dataset. See the detailed README in this directory for additional detail.
 
 **BMR**
 
-This folder contains scripts and files related to analysis of the BMR dataset. See the detailed readme in this directory for additional detail.
+* This folder contains scripts and files related to analysis of the BMR dataset. See the detailed readme in this directory for additional detail.
 
 **Janus**
 
-This folder contains the relevant results from janus (e.g.,input/output files). The topological constraint tree is in ‘timetree_all_taxa_OW_2019.nextree.tre’ available in the supplementary materials from Kimball et al. (2019) here: https://www.mdpi.com/1424-2818/11/7/109/s1, labeled as ‘MRL_3backbone.’ It is also provided in our GitHub repository [here](/trees/MRL_3backbone.tre) for reference. Janus has been implemented in both Golang and C, and the source code (and documentation) is available at https://git.sr.ht/~hms/janus and https://git.sr.ht/~hms/hringhorni.
+* This folder contains the relevant results from janus (e.g.,input/output files). The topological constraint tree is in ‘timetree_all_taxa_OW_2019.nextree.tre’ available in the supplementary materials from Kimball et al. (2019) here: https://www.mdpi.com/1424-2818/11/7/109/s1, labeled as ‘MRL_3backbone.’ It is also provided in our GitHub repository [here](/trees/MRL_3backbone.tre) for reference. Janus has been implemented in both Golang and C, and the source code (and documentation) is available at https://git.sr.ht/~hms/janus and https://git.sr.ht/~hms/hringhorni.
