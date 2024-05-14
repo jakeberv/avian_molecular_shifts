@@ -2,13 +2,16 @@
 
 This directory contains files related to our bioinformatic pipeline used to re-assemble the raw-reads from Prum et al 2015.
 
-**/sequences**
+[**sequences**](/sequences)
+
 * This directory contains the final reprocessed sequences, aligned or not aligned.
 
-**/bioinformatics_pipeline**
+[**bioinformatics_pipeline**](/bioinformatics_pipeline)
+
 * This directory contains scripts and files related to sequence assembly.
 
-**/processed_data**
+[**processed_data**](/processed_data)
+
 * This directory contains processed read files.
 
 ---
