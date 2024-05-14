@@ -1,6 +1,6 @@
 # Data Processing Pipeline
 
-This pipeline starts with a `csv` file that has a column with sample names that is connected to columns with pointers to the read data. Each sample is also assigned to a lineage. Most scripts below are run either per sample or per lineage, as designated in our descriptions. 
+This pipeline starts with a `csv` file that has a column with sample names that is connected to columns with pointers to the read data. Each sample is also assigned to a lineage. Most scripts below are run either per sample or per lineage, as designated in our descriptions.
 
 ## Step 1: Clean Reads
 This script is run for each sample. It trims adaptors, combines overlapping reads, and removes low quality sequence. When we ran this, we used `Trimmomatic v0.36` and `FLASH v1.2.11`. 
