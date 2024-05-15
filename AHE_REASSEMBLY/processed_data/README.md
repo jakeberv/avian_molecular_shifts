@@ -19,7 +19,7 @@
 - run1 _versus_ run2
 	- run1 consists of 196 samples
 	- run2 consists of 22 samples
-	- there were two runs to re-do some of the failed samples from run1 and to add additional species
+	- For Prum et al 2015, there were two sequencing runs to re-do some of the failed samples from run1 and to add additional species
 - information about these files
 	- `samples1.csv` and `samples2.csv`
 		- contains information about the species names, their sample name, and their adaptor sequences

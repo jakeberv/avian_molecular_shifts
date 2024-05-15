@@ -124,7 +124,7 @@ Here we provide a overview of the R package versions and system information used
 
 * This script contains the code for assessing the statistical performance of Janus; including assessing false positive/negative rates for substitution model shifts. It include various R functions defining a pipeline that, in combination with IQ-tree, can be used to assess the performance of Janus on arbitrary topologies. See annotations within this script for additional detail.
 
-[**Supplementary Table 3.xlsx**](/Supplementary Table 3.xlsx)
+[**Supplementary Table 3.xlsx**](./Supplementary%20Table%203.xlsx)
 
 * Supplementary Table 3, as noted in the manuscript. This file describes assembly details for assembly and extraction of mtDNA genome data from the original AHE target capture data.
 
