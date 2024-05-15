@@ -28,6 +28,10 @@ shifts identified in each distinct data type.
 * These zip files contain the bayou output files for analyses
 (repeated three times) of an 'unconstrained' global shift search
 
+**convergence_diagnostics.pdf**
+
+* This PDF contains plots of Gelman and Rubin's convergence diagnostic (Gelman and Rubin 1992) for key parameters generated in our BAYOU analysis. Convergence is diagnosed when parallel MCMC chains have ‘forgotten’ their initial values, and the output from all chains is indistinguishable. Our plots show convergence for key parameters as the chain length increases.
+
 **saved_objects**
 
 * This directory contains the mcmc chain data generated in the 
@@ -42,3 +46,5 @@ our script and be able to reproduce our Figure 3.
 Josef C. Uyeda, Luke J. Harmon, A Novel Bayesian Method for Inferring and Interpreting the Dynamics of Adaptive Landscapes from Phylogenetic Comparative Data, Systematic Biology, Volume 63, Issue 6, November 2014, Pages 902–918, <https://doi.org/10.1093/sysbio/syu057>
 
 The Evolution of Energetic Scaling across the Vertebrate Tree of Life Josef C. Uyeda, Matthew W. Pennell, Eliot T. Miller, Rafael Maia, and Craig R. McClain The American Naturalist 2017 190:2, 185-199
+
+Gelman, A and Rubin, DB (1992) Inference from iterative simulation using multiple sequences, Statistical Science, 7, 457-511.
