@@ -116,7 +116,7 @@ fixed_branches<-list(uncex.merged.mtdnas=c(13, 14,  15, 199, 265, 370, 374, 387,
                      mtDNAs.proteins    =c(393)
 )
                      
-  
+
 #t2 is the regimes I identified 2:7 regimes (1 is the starting regime), one unique regime for each shift, we could also set this up to have convergent regimes as shown in the molecular shifts
 #
 t2 <-pbmclapply(1:length(fixed_branches), function(shifts) c(2:(length(fixed_branches[[shifts]])+1)), mc.cores = 50)
@@ -452,8 +452,8 @@ mcmc.full.list<- unlist(mcmc.list, recursive=F)
 
 
 
-chain.list<- pbmclapply(mcmc.full.list, function(mcmc) mcmc$load(), mc.cores=50)
-saveRDS(object = chain.list, file = "saved_objects/chains_full_batch.rds")
+#chain.list<- pbmclapply(mcmc.full.list, function(mcmc) mcmc$load(), mc.cores=50)
+#saveRDS(object = chain.list, file = "saved_objects/chains_full_batch.rds")
 
 #chain.list<-readRDS(file="saved_objects/chains_full_batch.rds")
 chain.list <- readRDS(file = "./saved_objects/chains_full_batch.rds")
@@ -461,6 +461,12 @@ chain.list <- readRDS(file = "./saved_objects/chains_full_batch.rds")
 #names(mcmc.full.list)
 names(chain.list) <-names(mcmc.full.list)
 
+#key
+# F = fixed model global slope and fixed shifts on intercept
+# FNN = fixed model shifts on slope and intercept
+# 11 = global intercept and slope
+# N1 = Global slope and shifting intercept
+# NN = Shifting slope and Intercept
 
 #group chains into objects by model
 F_uncex.merged.mtdnas.chains  <-chain.list[grepl("F_uncex.merged.mtdnas" ,  names(chain.list)) ]
@@ -526,15 +532,13 @@ chains<-list(F_uncex.merged.mtdnas  =F_uncex.merged.mtdnas.chains,
 pars=c("sig2",
        "alpha",
        "beta_Pred",
+       "theta_Pred",
        "ntheta",
        "k")
 
 for (model in 1:length(chains)){
   
   pdf(file= paste(names(chains)[[model]],"_gelmans_plots.pdf", sep=""))    
-  
-  
-  
   
   gelman.plot(as.mcmc.list(lapply(chains[[model]], function(x) as.mcmc(x$sig2) ) ), autoburnin = T);
   title("sig2")
@@ -567,6 +571,40 @@ for (model in 1:length(chains)){
   dev.off()  
   
 }
+
+plot_chain_convergence <- function(chains, output_name_prefix) {
+  # Iterate through each parameter
+  parameters <- names(chains[[1]])  # Assuming all chains have the same parameters
+  
+  for (param in parameters) {
+    # Open a PDF device to save the plot for the current parameter
+    pdf(file = paste0(output_name_prefix, "_", param, ".pdf"))
+    
+    try({
+      # Conditional handling for complex parameters
+      if (param %in% c("beta_Pred", "theta")) {
+        # Check if the parameter has nested structure
+        if (length(chains[[1]][[param]][[1]]) > 1) {
+          mcmc_list <- as.mcmc.list(lapply(chains, function(x) as.mcmc(unlist(lapply(x[[param]], `[[`, 1)))))
+        } else {
+          mcmc_list <- as.mcmc.list(lapply(chains, function(x) as.mcmc(x[[param]])))
+        }
+      } else {
+        # Standard handling for parameters
+        mcmc_list <- as.mcmc.list(lapply(chains, function(x) as.mcmc(x[[param]])))
+      }
+      
+      # Generate the Gelman-Rubin diagnostic plot
+      gelman.plot(mcmc_list, autoburnin = TRUE)
+      title(paste("Gelman-Rubin Diagnostic for", param))
+      
+    }, silent = TRUE)  # Errors are handled silently
+    
+    # Close the PDF device after each plot
+    dev.off()
+  }
+}
+plot_chain_convergence(chains$FNN_uncex.merged.mtdnas, output_name_prefix = "FNN_uncex_convergence")
 
 F_uncex.merged.mtdnas.combined.chains  <-bayou::combine.chains(F_uncex.merged.mtdnas.chains  , burnin.prop=0.4)
 F_uncex.merged.combined.chains         <-bayou::combine.chains(F_uncex.merged.chains         , burnin.prop=0.4)
@@ -743,12 +781,10 @@ dev.off()
 
 #par(mfrow = c(2, 2))
 #plot_shift_sum(shiftSummaries.list$FNN, lwd=2, single.plot=T, label.pts = F)
-
 save.image('workspace.RDS')
 
-
-
 cbind(shiftSummaries.list$NN$regressions, c(0,shiftSummaries.list$NN$PP))
+
 
 # 
 # 
@@ -838,41 +874,51 @@ cbind(shiftSummaries.list$NN$regressions, c(0,shiftSummaries.list$NN$PP))
 # 
 # 
 #write a function to extract the mean, median, and 95% HPDs for each param for each regime
-table_generator<-function(data, output, HPD=0.95) {
-  tmp<-list()
-  params<-names(data)
-
-  for( i in 1:length(params)){
-
-    if(class(data[[i]]) == "numeric"){
-      tmp[[i]]<-data[[i]]
+table_generator <- function(data, output, HPD = 0.95) {
+  tmp <- list()
+  params <- names(data)
+  
+  for (i in 1:length(params)) {
+    if (class(data[[i]]) == "numeric") {
+      tmp[[i]] <- data[[i]]
     }
-
-    if(class(data[[i]]) == "list") {
+    if (class(data[[i]]) == "list") {
       tmp[[i]] <- as.data.frame(do.call(rbind, data[[i]]))
     }
-
   }
-
-  names(tmp)<-params
-  subset<-tmp[output]
-  result<-list()
-
-  for(i in 1:length(subset)){
-    result[[i]]<-  cbind(as.data.frame(colMeans(subset[[i]])),
-                         as.data.frame(apply(subset[[i]],2,median)),
-                         as.data.frame(coda::HPDinterval(coda::mcmc(subset[[i]]), prob = HPD)))
-    colnames(result[[i]])<-c('mean', 'median', 'lower', 'upper')
+  
+  names(tmp) <- params
+  subset <- tmp[output]
+  result <- list()
+  
+  for (i in 1:length(subset)) {
+    mcmc_obj <- mcmc(subset[[i]])  # Convert each column subset to mcmc object for coda functions
+    hpd_results <- HPDinterval(mcmc_obj, prob = HPD)
+    
+    # Calculate ESS for each column
+    ess <- apply(subset[[i]], 2, function(column) effectiveSize(mcmc(column)))
+    
+    # Create a data frame for the results
+    result[[i]] <- data.frame(
+      mean = colMeans(subset[[i]]),
+      median = apply(subset[[i]], 2, median),
+      lower = hpd_results[, "lower"],  # Assuming correct handling of HPD interval extraction
+      upper = hpd_results[, "upper"],
+      ESS = ess  # Apply ESS for each column
+    )
+    colnames(result[[i]]) <- c('mean', 'median', 'lower', 'upper', 'ESS')
   }
-
-  names(result)<-names(subset)
-
+  
+  names(result) <- names(subset)
   return(result)
-
-  }
+}
 
 test<-table_generator(data=FNN_uncex.merged.mtdnas.combined.chains,
                       output=c("theta", "beta_Pred"), HPD=0.95)
+
+effectiveSize(FNN_uncex.merged.mtdnas.combined.chains$sig2)
+effectiveSize(FNN_uncex.merged.mtdnas.combined.chains$alpha)
+effectiveSize(FNN_uncex.merged.mtdnas.combined.chains$lnL)
 
 
 estimate_mode <- function(x, ...) {
