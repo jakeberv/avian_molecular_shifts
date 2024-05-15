@@ -1,6 +1,6 @@
 # Data Processing Pipeline
 
-This pipeline starts with a [csv](/samples.csv) file that has a column with sample names that is connected to columns with pointers to the read data. Each sample is also assigned to a lineage. Most scripts below are run either per sample or per lineage, as designated in our descriptions.
+This pipeline starts with a [csv](./samples.csv) file that has a column with sample names that is connected to columns with pointers to the read data. Each sample is also assigned to a lineage. Most scripts below are run either per sample or per lineage, as designated in our descriptions.
 
 ## Step 1: Clean Reads
 This script is run for each sample. It trims adaptors, combines overlapping reads, and removes low quality sequence. When we ran this, we used `Trimmomatic v0.36` and `FLASH v1.2.11`. 
@@ -12,7 +12,7 @@ This script assembles reads using the program Trinity. With the `--normal` flag 
 
 `python trinity_assembly.py --trinity <PATH_TO_TRINITY> --sample <SAMPLENAME> --dir <BASEDIR> --mem 32 --CPU 8 --normal`
 
-We provide the output from the Trinity assembler in the compressed (XZ format) [**raw_trinity_assemblies.tar.xz**](/raw_trinity_assemblies.tar.xz) file. It can be uncompressed with the following command:
+We provide the output from the Trinity assembler in the compressed (XZ format) [**raw_trinity_assemblies.tar.xz**](./raw_trinity_assemblies.tar.xz) file. It can be uncompressed with the following command:
 `tar -xvf raw_trinity_assemblies.tar.xz`
 
 ## Step 3: Annotate Assemblies
