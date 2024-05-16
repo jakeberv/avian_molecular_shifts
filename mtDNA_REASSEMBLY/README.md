@@ -1,5 +1,5 @@
 
-## Files related to assembly of off-target mtDNA. 
+## Assembly of off-target mtDNA from Prum et al. 2015
 
 ---
 
