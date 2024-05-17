@@ -1,5 +1,3 @@
-#last updated 10 October 2022
-
 #begin function definitions
 
 ## WORKAROUND: https://github.com/rstudio/rstudio/issues/6692
