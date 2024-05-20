@@ -916,10 +916,10 @@ table_generator <- function(data, output, HPD = 0.95) {
 test<-table_generator(data=FNN_uncex.merged.mtdnas.combined.chains,
                       output=c("theta", "beta_Pred"), HPD=0.95)
 
+
 effectiveSize(FNN_uncex.merged.mtdnas.combined.chains$sig2)
 effectiveSize(FNN_uncex.merged.mtdnas.combined.chains$alpha)
 effectiveSize(FNN_uncex.merged.mtdnas.combined.chains$lnL)
-
 
 estimate_mode <- function(x, ...) {
   d <- density(x)
@@ -928,9 +928,7 @@ estimate_mode <- function(x, ...) {
   return(c(mode))
 }
 
-
 require(vioplot)
-
 
 theta<-do.call(rbind, FNN_uncex.merged.mtdnas.combined.chains$theta)
 #colnames(theta)<-c("Reg0", "Reg1", "Reg2", "Reg3", "Reg4", "Reg5", "Reg6", "Reg7", "Reg8", "Reg9", "Reg10", "Reg11", "Reg12")
@@ -979,7 +977,6 @@ colnames(beta)<-c("Reg0", "Rheiformes, Casuariiformes, and Apterygiformes", "Tin
     geom_density_2d(mapping=aes(x=theta.value, y=beta.value, groups=theta.Reg), inherit.aes = F)
     
   
-  
   ggplot(theta, aes(x=Reg, y=value)) +
     geom_boxplot(fill='#A4A4A4', color="black")+
     theme_classic()
@@ -1012,7 +1009,6 @@ dev.off()
 #vioplot(beta[,-c(4,11)][,order(matrixStats::colMedians(beta[,-c(4,11)]))], las=2)
 #vioplot(theta[,-c(4,11)][,order(matrixStats::colMedians(beta[,-c(4,11)]))], las=2)
 
-
 par(mfrow=c(1,2))
 plotrix::plotCI(x=seq(1:length(test$theta$mean)),y=test$theta$mean, ui=test$theta$upper,
                 li=test$theta$lower, pch=19, ylab="theta", xlab="regime")
@@ -1021,6 +1017,4 @@ plotrix::plotCI(x=seq(1:length(test$theta$mean)),y=test$beta_Pred$mean, ui=test$
 
 
 dev.off()
-
-
 
