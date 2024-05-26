@@ -5,7 +5,7 @@
 
 **full_restrict_equal_10Mx3_ME01_L8.R**
 
-* This script estimates the evolution of an allometric slope and intercept as a multiregime OU process using the R package bayou (Uyeda and Harmon 2014; Uyeda et al. 2017), with shifts  either provided a priori or estimated via reversible jump MCMC. Additional details describing how this script works are provided in the supplementary methods section of our manuscript. After performing the analysis, our script includes code to generate a version of Figure 3 in our manuscript. The key parameter values we estimate here are also summarized in Table S1.
+* This script estimates the evolution of an allometric slope and intercept as a multiregime OU process using the R package bayou (Uyeda and Harmon 2014; Uyeda et al. 2017), with shifts  either provided a priori or estimated via reversible jump MCMC. Additional details describing how this script works are provided in the supplementary methods section of our manuscript. After performing the analysis, our script includes code to generate a version of Figure 3 and Figure S10 in our manuscript. The key parameter values we estimate here are also summarized in Table S1.
 
 In the top level directory, we include several files that are accessed by the provided R script:
 
