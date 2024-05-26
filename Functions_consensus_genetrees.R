@@ -3330,4 +3330,71 @@ calculate_variance_proportions <- function(anova, phy=F) {
 }
 
 
+## functions for extracting life history traits per node
+#get tip names for nodes
+get_all_descendants <- function(tree, remaps) {
+  # Initialize a list to store the results
+  all_descendants <- list()
+  
+  # Loop over each remap node
+  for (node in remaps) {
+    # Get descendants for the current node
+    descendants <- getDescendants(tree = tree, node = node)
+    # Filter the descendants to include only those that are tips
+    tip_descendants <- descendants[descendants < length(tree$tip.label)]
+    # Store the result in the list with the node as the name
+    all_descendants[[as.character(node)]] <- tip_descendants
+  }
+  
+  output<-lapply(all_descendants, function(x) simmap.janus.all.aggregate$tip.label[x])
+  
+  return(output)
+}
+
+get_species_masses <- function(species_list, megaLHT, node_taxon_mapping) {
+  species_masses_list <- list()
+  # Initialize an empty data frame to store taxon IDs and mean log mass
+  summary_df <- data.frame(node = character(), taxon = character(), mean_log_mass = numeric(), stringsAsFactors = FALSE)
+  
+  for (node_label in names(species_list)) {
+    cat("Processing node:", node_label, "\n")
+    
+    species_names <- species_list[[node_label]]
+    species_mass_df <- data.frame(species = character(), mass = numeric(), mass_log = numeric(), stringsAsFactors = FALSE)
+    
+    for (spec in species_names) {
+      index <- which(megaLHT$species == spec)
+      if (length(index) > 0) {
+        species_mass_df <- rbind(species_mass_df, data.frame(
+          species = megaLHT$species[index],
+          mass = megaLHT$mass[index],
+          mass_log = log(megaLHT$mass[index]),
+          stringsAsFactors = FALSE
+        ))
+      }
+    }
+    
+    mean_log_mass <- mean(species_mass_df$mass_log, na.rm = TRUE)
+    median_log_mass <- median(species_mass_df$mass_log, na.rm = TRUE)
+    
+    taxon_label <- node_taxon_mapping$taxon[node_taxon_mapping$node == node_label]
+    
+    # Append to summary data frame
+    summary_df <- rbind(summary_df, data.frame(node = node_label, taxon = taxon_label, mean_log_mass = mean_log_mass, median_log_mass = median_log_mass, stringsAsFactors = FALSE))
+    
+    species_masses_list[[node_label]] <- list(
+      species_data = species_mass_df,
+      mean_log_mass = mean_log_mass,
+      median_log_mass = median_log_mass,
+      taxon = taxon_label
+    )
+  }
+  
+  # Append the summary data frame as the last item in the list with a specific key
+  species_masses_list$summary = summary_df
+  
+  return(species_masses_list)
+}
+
+
 ### End function definitions ###

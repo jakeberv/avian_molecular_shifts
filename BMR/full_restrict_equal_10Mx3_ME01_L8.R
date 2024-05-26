@@ -30,6 +30,8 @@ require(pbmcapply)
 #skip to line 459 to load pre-analyzed RDS file and proceed with
 #violin plot generation, as in the main text
 
+setwd('./BMR')
+
 {
 #install.packages("devtools")
 #require(devtools)
@@ -660,6 +662,9 @@ shiftSummaries.list<-pbmclapply(1:length(burnin.combined.chain.list), function(m
 
 names(shiftSummaries.list)<-names(burnin.combined.chain.list)
 
+shiftSummaries.list$NN$PP
+shiftSummaries.list$NN$regressions
+
 
 #making 4 panel plot of shifting allometries
 {
@@ -679,7 +684,6 @@ cols<-function(n){
   set.seed(3)
   head(c("black", sample(rcartocolor:::carto_pal(12, "Safe"))), n)
 }
-
 
 #' A function to plot a list produced by \code{shiftSummaries}
 plot_shift_sum <- function(summaries, pal=rainbow, ask=FALSE, single.plot=FALSE, label.pts=TRUE, ...){
@@ -872,7 +876,8 @@ cbind(shiftSummaries.list$NN$regressions, c(0,shiftSummaries.list$NN$PP))
 # #extract the chain data #example
 # as.data.frame(do.call(rbind, NN.combined.chains$theta))[,2]
 # 
-# 
+
+
 #write a function to extract the mean, median, and 95% HPDs for each param for each regime
 table_generator <- function(data, output, HPD = 0.95) {
   tmp <- list()
@@ -913,9 +918,18 @@ table_generator <- function(data, output, HPD = 0.95) {
   return(result)
 }
 
+shiftSummaries.list$NN$PP
+shiftSummaries.list$NN$regressions
+shiftSummaries.list$FNN_uncex.merged.mtdnas$regressions
+
+
 test<-table_generator(data=FNN_uncex.merged.mtdnas.combined.chains,
                       output=c("theta", "beta_Pred"), HPD=0.95)
+rownames(test$theta)<-c('root', 13, 14,  15, 199, 265, 370, 374, 387, 388, 389, 390, 393)
+rownames(test$beta_Pred)<-c('root', 13, 14,  15, 199, 265, 370, 374, 387, 388, 389, 390, 393)
 
+test<-table_generator(data=NN.combined.chains,
+                      output=c("theta", "beta_Pred"), HPD=0.95)
 
 effectiveSize(FNN_uncex.merged.mtdnas.combined.chains$sig2)
 effectiveSize(FNN_uncex.merged.mtdnas.combined.chains$alpha)
@@ -937,6 +951,9 @@ beta<-do.call(rbind, FNN_uncex.merged.mtdnas.combined.chains$beta_Pred)
 #colnames(beta)<-c("Reg0", "Reg1", "Reg2", "Reg3", "Reg4", "Reg5", "Reg6", "Reg7", "Reg8", "Reg9", "Reg10", "Reg11", "Reg12")
 colnames(beta)<-c("Reg0", "Rheiformes, Casuariiformes, and Apterygiformes", "Tinamiformes", "Notopaleognathae", "Aequornithes", "Coraciimorphae", "Passeri", "Psittaciformes", "Reminader of Neoaves", "Otidae", "Passerea", "Columbea", "Neognathae")
 
+require(ggplot2)
+require(stringr)
+require(ggrepel)
 #testing 2d density plot (skip this section to generate violin plots, only for testing)
 {
  theta<-as.data.frame(theta)
@@ -966,21 +983,287 @@ colnames(beta)<-c("Reg0", "Rheiformes, Casuariiformes, and Apterygiformes", "Tin
 
   #data<- data %>% filter(theta.Reg == "Reg0")
   
-  # Bin size control + color palette
-  ggplot(data, aes(x=theta.value, y=beta.value) ) +
-    #stat_dens2d_filter_g(keep.fraction = 1/4) +
-    geom_hex(bins = 100) +
-    scale_fill_continuous(type = "viridis") +
-    theme_bw()+
-    xlim(-4.2, -3) + 
-    ylim(0.6, 0.85) +
-    geom_density_2d(mapping=aes(x=theta.value, y=beta.value, groups=theta.Reg), inherit.aes = F)
-    
+  # Calculate density modes and means separately for theta and beta
+  theta_stats <- data %>%
+    group_by(theta.Reg) %>%
+    summarise(
+      theta.mean = mean(theta.value),
+      theta.mode = {
+        kde <- density(theta.value)
+        kde$x[which.max(kde$y)]
+      }
+    ) %>%
+    rename(Reg = theta.Reg)
   
-  ggplot(theta, aes(x=Reg, y=value)) +
-    geom_boxplot(fill='#A4A4A4', color="black")+
-    theme_classic()
+  beta_stats <- data %>%
+    group_by(beta.Reg) %>%
+    summarise(
+      beta.mean = mean(beta.value),
+      beta.mode = {
+        kde <- density(beta.value)
+        kde$x[which.max(kde$y)]
+      }
+    ) %>%
+    rename(Reg = beta.Reg)
+  
+  # Merge stats for plotting
+  stats <- merge(theta_stats, beta_stats, by = "Reg")
+  
+  # Filter out Reg0
+  filtered_data <- data %>% filter(theta.Reg != "Reg0")
+  filtered_stats <- stats %>% filter(Reg != "Reg0")
+  
+  # Base ggplot
+  pdf(file='slope_v_intercept.pdf', height=10, width=10)
+  {
+  ggplot(filtered_data, aes(x = theta.value, y = beta.value)) +
+    geom_hex(bins = 50) +
+    scale_fill_continuous(type = "viridis") +
+    theme_bw() +
+    #scale_x_continuous(limits = c(-4.5, -2.9), expand = expansion(mult = c(0.025, 0.025))) +  # Remove expansion on x-axis
+    #scale_y_continuous(limits = c(0.6, 0.9), expand = expansion(mult = c(0.025, 0.025))) +   # Remove expansion on y-axis
+    xlim(-4.5, -2.9) +
+    ylim(0.6, 0.9) +
+    geom_density_2d(mapping = aes(x = theta.value, y = beta.value, group = theta.Reg), inherit.aes = FALSE) +
+    theme(
+      plot.margin = unit(c(5.1, 4.1, 4.1, 2.1), "lines"),  # Keep the original margins
+      axis.title.x = element_text(margin = margin(t = 10)),  # Similar to par(mar)
+      axis.title.y = element_text(margin = margin(r = 10)),
+      panel.spacing = unit(0, "lines"),  # Reduce padding around the panel to zero
+      #panel.border = element_blank(),  # Remove panel border to reduce padding
+      plot.background = element_blank(),  # Remove plot background to reduce padding
+      #panel.grid.major = element_blank(),  # Remove major grid lines to reduce padding
+      #panel.grid.minor = element_blank()   # Remove minor grid lines to reduce padding
+      
+    ) +
+    geom_point(data = filtered_stats, aes(x = theta.mode, y = beta.mode), 
+               color = "white", size = 2, inherit.aes = FALSE) +
+    geom_text_repel(
+      data = filtered_stats,
+      aes(x = theta.mode, y = beta.mode, label = str_wrap(Reg, width = 15)), 
+      color = "white",
+      size = 3,
+      inherit.aes = FALSE,
+      box.padding = unit(0.8, "lines"),  # Increase box padding for more space around labels
+      point.padding = unit(0, "lines"),  # Adjust point padding to ensure space around points
+      min.segment.length = unit(0.0, "lines"),  # Adjust minimum segment length
+      force = 3,  # Increase force to enhance repulsion between labels
+      force_pull = 1,  # Adjust force pull to control attraction to points
+      max.overlaps = 10,  # Allow some overlaps
+      nudge_x = 0.01,  # Slight nudge to x
+      nudge_y = 0.0,  # Slight nudge to y
+      direction = "both"  # Control the direction of the repulsion
+    )
+  }
+  dev.off()
+  
 }
+
+#creating plots of params vs mean/median mass
+{
+{
+nomiss
+rownames(test$theta)
+#generate plots of mass vs param estimate
+
+megaLHT<-readRDS(file="../RDS/megaLHT.RDS")
+taxon_masses<-readRDS(file='../RDS/taxon_masses.RDS')
+
+taxon_masses$summary
+
+mass_model<-data.frame(mass=megaLHT$mass, model=megaLHT$aggregate_models)
+rownames(mass_model)<-megaLHT$species
+
+# Calculate summary statistics for mass grouped by model
+require(tibble)
+mass_model_stats <- mass_model %>%
+  rownames_to_column(var = "rowname") %>%  # Convert row names to a column
+  group_by(model) %>%
+  summarize(
+    mean_mass.log = mean(log(mass), na.rm = TRUE),
+    median_mass.log = median(log(mass), na.rm = TRUE),
+    row_names_concat = paste(rowname, collapse = ", ")
+  )
+}
+{# Create a data frame for taxon names and values
+  taxon_data <- data.frame(
+    model = c("0", "1", "11", "12", "3", "4", "5", "6", "7", "8", "9"),
+    taxon = c("Reg0", "Neognathae", "Rheiformes, Casuariiformes, and Apterygiformes",
+              "Tinamiformes", "Reminader of Neoaves", "Passeri", 
+              "Psittaciformes", "Coraciimorphae", "Aequornithes", "Otidae", "Columbea")
+  )
+  
+  #shiftSummaries.list$NN$PP
+  shiftSummaries.list$NN$regressions
+  shiftSummaries.list$FNN_uncex.merged.mtdnas$regressions
+  
+  # Summarize statistics and merge with taxon data
+  mass_model_stats <- mass_model %>%
+    rownames_to_column(var = "rowname") %>%  # Convert row names to a column
+    group_by(model) %>%
+    summarize(
+      mean_mass.log = mean(log(mass), na.rm = TRUE),
+      median_mass.log = median(log(mass), na.rm = TRUE),
+      row_names_concat = paste(rowname, collapse = ", ")
+    ) %>%
+    left_join(taxon_data, by = "model") %>%
+    left_join(theta_stats, by = c("taxon" = "Reg")) %>%
+    left_join(beta_stats, by = c("taxon" = "Reg"))
+  
+  plot(theta.mode ~ median_mass.log, data= mass_model_stats[-c(11,1),])
+  abline(lm(theta.mode ~ median_mass.log, data= mass_model_stats[-c(11,1),]))
+  summary(lm(theta.mode ~ median_mass.log, data= mass_model_stats[-c(11,1),]))
+  
+  plot(beta.mode ~ median_mass.log, data= mass_model_stats[-c(11,1),])
+  abline(lm(beta.mode ~ median_mass.log, data= mass_model_stats[-c(11,1),]))
+  summary(lm(beta.mode ~ median_mass.log, data= mass_model_stats[-c(11,1),]))
+  
+  
+}
+
+#using the external data
+{
+  
+  taxon_masses_post <- taxon_masses$summary %>% 
+    left_join(theta_stats, by = c("taxon" = "Reg")) %>% 
+    left_join(beta_stats, by = c("taxon" = "Reg"))
+  
+  plot(theta.mean~median_log_mass, xlim=c(2,10), ylim=c(-5,-2.5), data=taxon_masses_post[-9,])
+  abline(lm(theta.mean~median_log_mass, data=taxon_masses_post[-9,]))
+  summary(lm(theta.mean~median_log_mass, data=taxon_masses_post[-9,]))
+  
+  plot(beta.mean ~ median_log_mass, xlim=c(2,10), ylim=c(0.5,0.9), data=taxon_masses_post[-9,])
+  abline(lm(beta.mean ~ median_log_mass, data=taxon_masses_post[-9,]))
+  summary(lm(beta.mean ~ median_log_mass, data=taxon_masses_post[-9,]))
+ 
+  ##
+  plot(theta.mean~mean_log_mass, xlim=c(2,10), ylim=c(-5,-2.5), data=taxon_masses_post[-9,])
+  abline(lm(theta.mean~mean_log_mass, data=taxon_masses_post[-9,]))
+  summary(lm(theta.mean~mean_log_mass, data=taxon_masses_post[-9,]))
+  
+  plot(beta.mean ~ mean_log_mass, xlim=c(2,10), ylim=c(0.5,0.9), data=taxon_masses_post[-9,])
+  abline(lm(beta.mean ~ mean_log_mass, data=taxon_masses_post[-9,]))
+  summary(lm(beta.mean ~ mean_log_mass, data=taxon_masses_post[-9,]))
+  
+  ##
+  plot(theta.mode~median_log_mass, xlim=c(2,10), ylim=c(-5,-2.5), data=taxon_masses_post[-9,])
+  abline(lm(theta.mode~median_log_mass, data=taxon_masses_post[-9,]))
+  summary(lm(theta.mode~median_log_mass, data=taxon_masses_post[-9,]))
+  
+  plot(beta.mode ~ median_log_mass, xlim=c(2,10), ylim=c(0.5,0.9), data=taxon_masses_post[-9,])
+  abline(lm(beta.mode ~ median_log_mass, data=taxon_masses_post[-9,]))
+  summary(lm(beta.mode ~ median_log_mass, data=taxon_masses_post[-9,]))
+  
+  # ##
+  # plot(theta.mode~mean_log_mass, xlim=c(2,10), ylim=c(-5,-2.5), data=taxon_masses_post[-9,])
+  # abline(lm(theta.mode~mean_log_mass, data=taxon_masses_post[-9,]))
+  # summary(lm(theta.mode~mean_log_mass, data=taxon_masses_post[-9,]))
+  # 
+  # plot(beta.mode ~ mean_log_mass, xlim=c(2,10), ylim=c(0.5,0.9), data=taxon_masses_post[-9,])
+  # abline(lm(beta.mode ~ mean_log_mass, data=taxon_masses_post[-9,]))
+  # summary(lm(beta.mode ~ mean_log_mass, data=taxon_masses_post[-9,]))
+  
+  
+}
+  taxon_masses_post
+#generating plots showing alternative approaches to summarizing the mass data
+pdf(file='param_v_mass.pdf', height=8.5*1.1, width=4*1.1)
+par(mfrow=c(2,1))
+{
+  # Initial plot with the first dataset
+  plot(theta.mode ~ median_log_mass, xlim=c(2,10), ylim=c(-5,-2.5), data=taxon_masses_post[-9,], 
+       pch=19, col="red", main="Overlay of Two Data Sets", xlab="Median Log Mass", ylab="Theta Mode")
+  
+  
+  # Fit the linear models
+  model1 <- lm(theta.mode ~ median_log_mass, data=taxon_masses_post[-9,])
+  model2 <- lm(theta.mode ~ median_mass.log, data=mass_model_stats[-c(11,1),])
+  
+  # Add regression lines
+  abline(model1, col="red")
+  abline(model2, col="blue")
+  
+  # Calculate summaries and extract coefficients, p-values, and R-squared
+  summary1 <- summary(model1)
+  summary2 <- summary(model2)
+  eq1 <- paste("y =", formatC(coef(model1)[1], format = "f", digits = 2), "+", formatC(coef(model1)[2], format = "f", digits = 2), "x",
+               ", p =", formatC(summary1$coefficients[2,4], format="e", digits=2),
+               ", R² =", formatC(summary1$r.squared, format="f", digits = 3))
+  eq2 <- paste("y =", formatC(coef(model2)[1], format = "f", digits = 2), "+", formatC(coef(model2)[2], format = "f", digits = 2), "x",
+               ", p =", formatC(summary2$coefficients[2,4], format="e", digits=2),
+               ", R² =", formatC(summary2$r.squared, format="f", digits = 3))
+  
+  # Add points from the second dataset
+  points(theta.mode ~ median_mass.log, data=mass_model_stats[-c(11,1),], pch=17, col="blue")
+  
+  # Add text for equations on the plot
+  text(x = 4.5, y = -4.75, eq1, col="red", cex=0.55)
+  text(x = 4.5, y = -4.9, eq2, col="blue", cex=0.55)
+  
+  # Add a legend
+  legend("bottomright", legend=c("Dataset 1", "Dataset 2"), col=c("red", "blue"), pch=c(19, 17), bty="n")
+  
+  
+  
+}
+#dev.off()
+
+  # ggplot(data = taxon_masses_post[-9,], aes(x = mean_log_mass, y = theta.mode)) +
+  #   geom_point(aes(color = "Dataset 1"), pch = 19) +
+  #   geom_smooth(method = "lm", formula = y ~ x, se = TRUE, aes(color = "Dataset 1")) +  # Explicit formula usage
+  #   geom_point(data = mass_model_stats[-c(11,1),], aes(x = mean_mass.log, y = theta.mode, color = "Dataset 2"), pch = 17) +
+  #   geom_smooth(data = mass_model_stats[-c(11,1),], method = "lm", formula = y ~ x, se = TRUE, aes(x = mean_mass.log, color = "Dataset 2")) +
+  #   scale_color_manual(values = c("red", "blue")) +
+  #   labs(title = "Overlay of Two Data Sets", x = "Median Log Mass", y = "Beta Mode") +
+  #   theme_classic() +  # Removes gridlines, uses a white background with a box around the plot
+  #   #theme(legend.title = element_blank(), 
+  #   #      axis.line = element_line(colour = "black"),  # Ensures the presence of axis lines
+  #   #      panel.border = element_rect(colour = "black", fill=NA, linewidth=1)) +  # Updated to use `linewidth`
+  #   guides(color = guide_legend(override.aes = list(pch = c(19, 17))))
+  # 
+
+{
+  
+  # Initial plot with the first dataset
+  plot(beta.mode ~ median_log_mass, xlim=c(2,10), ylim=c(0.5,0.9), data=taxon_masses_post[-9,], 
+       pch=19, col="red", main="Overlay of Two Data Sets", xlab="Median Log Mass", ylab="Beta Mode")
+  
+  # Fit linear models for both datasets
+  model1 <- lm(beta.mode ~ median_log_mass, data=taxon_masses_post[-9,])
+  model2 <- lm(beta.mode ~ median_mass.log, data=mass_model_stats[-c(11,1),])
+  
+  # Add regression lines
+  abline(model1, col="red")
+  abline(model2, col="blue")
+  
+  # Calculate summaries and extract coefficients, p-values, and R-squared
+  summary1 <- summary(model1)
+  summary2 <- summary(model2)
+  eq1 <- paste("y =", formatC(coef(model1)[1], format = "f", digits = 2), "+", formatC(coef(model1)[2], format = "f", digits = 2), "x",
+               ", p =", formatC(summary1$coefficients[2,4], format="e", digits=2),
+               ", R² =", formatC(summary1$r.squared, format="f", digits = 3))
+  eq2 <- paste("y =", formatC(coef(model2)[1], format = "f", digits = 2), "+", formatC(coef(model2)[2], format = "f", digits = 2), "x",
+               ", p =", formatC(summary2$coefficients[2,4], format="e", digits=2),
+               ", R² =", formatC(summary2$r.squared, format="f", digits = 3))
+  
+  # Add points from the second dataset
+  points(beta.mode ~ median_mass.log, data=mass_model_stats[-c(11,1),], pch=17, col="blue")
+  
+  # Add text for equations on the plot
+  text(x = 4.5, y = 0.54, eq1, col="red", cex=0.55)
+  text(x = 4.5, y = 0.51, eq2, col="blue", cex=0.55)
+  
+  # Add a legend
+  legend("bottomright", legend=c("Dataset 1", "Dataset 2"), col=c("red", "blue"), pch=c(19, 17), bty="n")
+  
+ 
+}
+dev.off()
+
+
+}
+
+
 #beta[,-c(4,11)]
 
 #violin plots

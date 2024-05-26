@@ -42,6 +42,8 @@ require(ratematrix)
 require(mapplots)
 require(autoimage)
 
+setwd('/Users/cotinga/jsb439@cornell.edu/Code/avian_molecular_shifts')
+
 #read in function definitions
 source("Functions_consensus_genetrees.R")
 
@@ -4302,7 +4304,6 @@ for(i in 1:length(remaps)){
 plot(simmap.janus.nuc.aggregate, ftype="off", colors=setNames(c('#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f','#ff7f00','#cab2d6','#6a3d9a','#ffff99','#b15928'), as.character(seq(0,11))))
 nodelabels(node=remaps)
 
-
 #11 shifts, 12 models total
 
 check.identify(phy = simmap.janus.nuc.aggregate, data=data.frame(names=rownames(LHT),LHT$mass), simmap.tree = T)
@@ -4345,7 +4346,6 @@ plot(simmap.janus.nuc.aggregate.simplified, ftype="off", colors=setNames(sample(
 
 }
 
-
 {
   simmap.janus.nuc.aggregate.simplified.exons<-paintSubTree(simmap.janus.nuc.exons, node = 199, state = 'root_gallo')
   #simmap.janus.nuc.aggregate.simplified<-paintSubTree(simmap.janus.nuc.aggregate.simplified, node = 389, state = 'notopaleognathae', anc.state = 'notopaleognathae', stem=T)
@@ -4362,8 +4362,6 @@ plot(simmap.janus.nuc.aggregate.simplified, ftype="off", colors=setNames(sample(
   #tiplabels(text = getStates(simmap.janus.nuc.aggregate.simplified, type = 'tips'), frame='none')
   
 }
-
-
 
 {
   simmap.janus.nuc.aggregate.simplified2<-paintSubTree(simmap.janus.nuc.exons, node = 199, state = 'root_struthio')
@@ -6454,6 +6452,26 @@ latitude_plot <-
 
 }
 }
+
+
+#creating mapping of masses to taxon names for BMR analyses 
+{
+# Create a data frame for node to taxon mapping
+node_taxon_mapping <- data.frame(
+  node = c("200", "202", "203", "239", "253", "264", "297", "344", "363", "389", "390", "393"),
+  taxon = c("Neognathae", "Passerea", "Reminader of Neoaves", "Passeri",
+            "Psittaciformes", "Coraciimorphae", "Aequornithes", "Otidae",
+            "Columbea", "Notopaleognathae", "Rheiformes, Casuariiformes, and Apterygiformes", "Tinamiformes"),
+  stringsAsFactors = FALSE
+)
+
+#save the object summary
+saveRDS(get_species_masses(get_all_descendants(simmap.janus.all.aggregate, remaps), megaLHT, node_taxon_mapping)
+, file = './RDS/taxon_masses.RDS')
+
+}
+
+
 
 #plotting
 pdf(file="LH_shift_plots.pdf", height=11.5, width=7)
