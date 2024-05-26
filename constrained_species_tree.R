@@ -6472,7 +6472,6 @@ saveRDS(get_species_masses(get_all_descendants(simmap.janus.all.aggregate, remap
 }
 
 
-
 #plotting
 pdf(file="LH_shift_plots.pdf", height=11.5, width=7)
 ggarrange(chickpc1plot, massplot, labels=c("ChickPC1", "Mass"),
