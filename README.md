@@ -1,4 +1,6 @@
-# Supplemental Data Repository: Genome and life-history evolution link bird diversification to the end-Cretaceous mass extinction
+# Supplemental Data Repository
+
+## Genome and life-history evolution link bird diversification to the end-Cretaceous mass extinction
 
 *in press* at Science Advances
 
