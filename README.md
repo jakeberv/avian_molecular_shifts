@@ -1,5 +1,7 @@
 # Supplemental Data Repository
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12513738.svg)](https://doi.org/10.5281/zenodo.12513738)
+
 ## Genome and life-history evolution link bird diversification to the end-Cretaceous mass extinction
 
 *in press* at Science Advances
