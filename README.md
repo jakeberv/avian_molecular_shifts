@@ -1,6 +1,7 @@
-# Supplemental Data Repository
-
+Release v1.0.0 has been archived at Zenodo
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12513738.svg)](https://doi.org/10.5281/zenodo.12513738)
+
+# Supplemental Data Repository
 
 ## Genome and life-history evolution link bird diversification to the end-Cretaceous mass extinction
 
