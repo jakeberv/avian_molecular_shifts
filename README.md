@@ -10,10 +10,10 @@ The pre-print for our research is available at [this link](https://doi.org/10.11
 
 ## Authors
 
-### Lead and Corresponding Author
+### Lead and Corresponding author
 
 -   **Jacob S. Berv**<sup>1,2,3,</sup>
-    -   Email: [jberv\@umich.edu](mailto:jberv@umich.edu), [jacob.berv\@gmail.com](mailto:jacob.berv@gmail.com)
+    -   Email: [jberv\@umich.edu](mailto:jberv@umich.edu)
 
 ### Co-authors
 
