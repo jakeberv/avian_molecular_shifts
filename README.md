@@ -1,153 +1,130 @@
-pre-print available: https://doi.org/10.1101/2022.10.21.513146
+# Supplemental Data Repository: Genome and life-history evolution link bird diversification to the end-Cretaceous mass extinction
 
-### Jacob S. Berv<sup>1,2,3,*</sup>, Sonal Singhal<sup>4</sup>, Daniel J. Field<sup>5,6</sup>, Nathanael Walker-Hale<sup>7</sup>, Sean W. McHugh<sup>8</sup>, J. Ryan Shipley<sup>9</sup>, Eliot T. Miller<sup>10</sup>, Rebecca T. Kimball<sup>11</sup>, Edward L. Braun<sup>11</sup>, Alex Dornburg<sup>12</sup>, C. Tomomi Parins-Fukuchi<sup>13</sup>, Richard O. Prum<sup>14,15</sup>, Benjamin M. Winger<sup>1,3</sup>, Matt Friedman<sup>2, 16</sup>, Stephen A. Smith<sup>1</sup>
+*in press* at Science Advances
 
-Corresponding Author: *Jacob S. Berv, jberv@umich.edu, jacob.berv@gmail.com
+The pre-print for our research is available at [this link](https://doi.org/10.1101/2022.10.21.513146).
 
-Author affiliations:
+---
 
-1.	Department of Ecology and Evolutionary Biology, 1105 North University Avenue, Biological Sciences Building, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
-2.	University of Michigan Museum of Paleontology, 1105 North University Avenue, Biological Sciences Building, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
-3.	University of Michigan Museum of Zoology, 1105 North University Avenue, Biological Sciences Building, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
-4.	Department of Biology, California State University, Dominguez Hills, Carson, California 90747, USA
-5.	Department of Earth Sciences, Downing Street, University of Cambridge, Cambridge CB2 3EQ, UK
-6.	Museum of Zoology, University of Cambridge, Downing Street, Cambridge CB2 3EJ, UK
-7.	Department of Plant Sciences, University of Cambridge, Downing Street, Cambridge, CB2 3EA, UK
-8.	Department of Evolution, Ecology, and Population Biology, Washington University in St Louis, St Louis, Missouri, USA
-9.	Department of Forest Dynamics Swiss Federal Institute for Forest, Snow, and Landscape Research WSL Zürcherstrasse 111 8903 Birmensdorf, Switzerland
-10.	Macaulay Library, Cornell Lab of Ornithology, Ithaca, New York, 14850, USA
-11.	Department of Biology, University of Florida, Gainesville, Florida 32611, USA
-12.	Department of Bioinformatics and Genomics, University of North Carolina at Charlotte, Charlotte, North Carolina, USA
-13.	Department of Ecology and Evolutionary Biology, University of Toronto, Toronto, Ontario, Canada, M5S 3B2
-14.	Department of Ecology and Evolutionary Biology, Yale University, New Haven, Connecticut, 06520, USA
-15.	Peabody Museum of Natural History, Yale University, New Haven, Connecticut, 06520, USA
-16.	Department of Earth and Environmental Sciences, 1100 North University Avenue, University of Michigan, Ann Arbor, Michigan, 48109-1085, USA
+## Authors
 
+### Lead and Corresponding Author
 
-## Code and datasets
+-   **Jacob S. Berv**<sup>1,2,3,</sup>
+    -   Email: [jberv\@umich.edu](mailto:jberv@umich.edu), [jacob.berv\@gmail.com](mailto:jacob.berv@gmail.com)
+
+### Co-authors
+
+-   Sonal Singhal<sup>4</sup>
+-   Daniel J. Field<sup>5,6</sup>
+-   Nathanael Walker-Hale<sup>7</sup>
+-   Sean W. McHugh<sup>8</sup>
+-   J. Ryan Shipley<sup>9</sup>
+-   Eliot T. Miller<sup>10</sup>
+-   Rebecca T. Kimball<sup>11</sup>
+-   Edward L. Braun<sup>11</sup>
+-   Alex Dornburg<sup>12</sup>
+-   C. Tomomi Parins-Fukuchi<sup>13</sup>
+-   Richard O. Prum<sup>14,15</sup>
+-   Benjamin M. Winger<sup>1,3</sup>
+-   Matt Friedman<sup>2,16</sup>
+-   Stephen A. Smith<sup>1</sup>
+
+### Author Affiliations
+
+1.  Department of Ecology and Evolutionary Biology, University of Michigan, Ann Arbor, MI, USA
+2.  University of Michigan Museum of Paleontology, Ann Arbor, MI, USA
+3.  University of Michigan Museum of Zoology, Ann Arbor, MI, USA
+4.  Department of Biology, California State University, Dominguez Hills, Carson, CA, USA
+5.  Department of Earth Sciences, University of Cambridge, Cambridge, UK
+6.  Museum of Zoology, University of Cambridge, Cambridge, UK
+7.  Department of Plant Sciences, University of Cambridge, Cambridge, UK
+8.  Department of Evolution, Ecology, and Population Biology, Washington University in St Louis, St Louis, MO, USA
+9.  Department of Forest Dynamics, Swiss Federal Institute for Forest, Snow, and Landscape Research WSL, Birmensdorf, Switzerland
+10. Macaulay Library, Cornell Lab of Ornithology, Ithaca, NY, USA
+11. Department of Biology, University of Florida, Gainesville, FL, USA
+12. Department of Bioinformatics and Genomics, University of North Carolina at Charlotte, Charlotte, NC, USA
+13. Department of Ecology and Evolutionary Biology, University of Toronto, Toronto, Ontario, Canada
+14. Department of Ecology and Evolutionary Biology, Yale University, New Haven, CT, USA
+15. Peabody Museum of Natural History, Yale University, New Haven, CT, USA
+16. Department of Earth and Environmental Sciences, University of Michigan, Ann Arbor, MI, USA
+
+---
+
+## Code and Datasets
+
+### Primary Analysis Script Overview
 
 [**constrained_species_tree.R**](./constrained_species_tree.R)
 
-This is a large, complex R script containing the code for the primary analyses in our manuscript. It is separated into 17 sub-sections delimited using curly-bracket notation {}. Each section is commented and annotated for reproducibility. This script is mostly for processing and analyzing the *output files* from *Janus* and other software applied herein.
+This complex R script is central to our manuscript's analysis. It comprises 17 detailed sub-sections, each delimited by curly brackets `{}` for clear demarcation. Annotations and comments within each section ensure the script is comprehensible and reproducible. The primary focus of this script is to process and analyze output files from *Janus* and other utilized software.
+
+#### Sub-section Descriptions
+
+-   **System report and package references**: Documents the R package versions and system configurations used during the analysis.
+
+-   **Section 1 - Setting up 1**: Establishes file paths and conducts initial data pre-processing.
+
+-   **Section 2 - Setting up 2**: Continues data pre-processing, includes reading output from Janus, tree output files, and pre-processing for GC content quantification.
+
+-   **Section 3 - Generating new datasets for logistic regression**: Prepares input data objects for phylogenetic logistic regression as outlined in the manuscript.
+
+-   **Section 4 - Running phylogenetic logistic regression**: Executes logistic regression models, summarizes the fits, and produces plots for the supplementary materials (Figure S1).
+
+-   **Section 5 - Get data for GC content and codon usage**: Imports sequence datasets and estimates parameters such as GC content and other nucleotide statistics, summarizing results in an intermediate data frame.
+
+-   **Section 6 - Estimating phylogenetic signal**: Generates estimates of phylogenetic signal for various nucleotide statistics in an exploratory fashion.
+
+-   **Section 7 - Codon usage calculations**: Analyzes codon usage patterns, estimating different metrics and comparing them across groups identified by Janus using phylogenetic ANOVA.
+
+-   **Section 8 - Life history trait data setup**: Prepares life history trait datasets and performs initial preprocessing, including data imputation as described in the manuscript.
+
+-   **Section 9 - Setting up input objects for mvMORPH/OUwie analyses**: Prepares datasets for analysis with R packages that model character evolution.
+
+-   **Section 10 - OUwie model fitting**: Fits various models (e.g., BM, OU) to life history trait data, contributing to the visuals in Figure 2 of the manuscript.
+
+-   **Section 11 - Setting up plots of parameter estimates**: Arranges data objects for generating radar plots (Figure S7a-d) that depict parameter estimates from Janus.
+
+-   **Section 12 - Setting up BMR datasets**: Processes data for metabolic rate analysis, detailed further in [another script](./BMR) located in the BMR directory.
+
+-   **Section 13 - Setting up datasets for the random forest classifier**: Processes cleaned data sets for use with the random forest classifier, detailed in [another script](./RandomForest_var_imp.R).
+
+-   **Section 14 - Analyses with l1ou**: Utilizes the [l1ou R package](https://github.com/khabbazian/l1ou) to perform analyses with a pseudo-multivariate OU model with shifting optima, as detailed in the supplementary manuscript text.
+
+-   **Section 15 - Processing l1ou results**: Processes output from l1ou models, contributing to Figure 1 and Figure S4a-b.
+
+-   **Section 16 - Additional BMR models**: Explores additional, exploratory models of basal metabolic rate (BMR) allometry, not extensively discussed in the manuscript.
+
+-   **Section 17 - Miscellaneous**: Includes code for diagnostic plots and additional experimental analyses concerning multivariate model fitting. These sections are provided as exploratory content for interested readers.
+
+*Note: To facilitate seamless reproducibility, most execution lines in the script are commented out, allowing the script to load processed RDS objects directly from [here](./RDS). RDS files are a standard format for storing R objects, enabling the preservation of data states across sessions.*
 
 ---
 
-Below, we provide a brief overview of the various sub-sections of the script for reader reference.
+### Additional Resources and Directories
 
-### System report and package references
+This section outlines the other crucial files and directories included in our repository that support our main analysis or provide further insights and data.
 
-Here we provide a overview of the R package versions and system information used when the analyses were performed.
+#### Essential Scripts and Files
 
-### Section 1 - Setting up 1
+-   [**Functions_consensus_genetrees.R**](./Functions_consensus_genetrees.R): Contains custom and new functions utilized by the primary analysis script. This file is sourced in sequence during the script's execution.
 
-* This section sets up the appropriate file paths for importing data and performs initial data pre-processing.
+-   [**RandomForest_var_imp.R**](./RandomForest_var_imp.R): Implements RandomForest supervised classification using the tidymodels framework. This implementation is adapted from machine learning examples provided by the Physalia course.
 
-### Section 2 - Setting up 2
+-   [**shift_model_sims.R**](./shift_model_sims.R): Features code for evaluating the statistical performance of Janus, specifically addressing false positive and negative rates for substitution model shifts. The script includes a variety of R functions that establish a pipeline with IQ-tree for assessing Janus's performance across different topologies. Detailed annotations within the script provide additional insights.
 
-* This section performs additional data pre-processing, including reading the output data from Janus, reading in particular tree output files, and performing some pre-processing related to quantifying GC content.
+-   [**Supplementary Table 3.xlsx**](./Supplementary%20Table%203.xlsx): Contains assembly details for the mtDNA genome data extracted from the original AHE target capture data, as referenced in our manuscript.
 
-### Section 3 - Generating new datasets for logistic regression
+#### Important Directories
 
-* This section sets up input data objects for phylogenetic logistic regression, as described in the manuscript.
+-   [**LHT_DATA**](./LHT_DATA): This directory houses 'LHT_reference.xlsx', a database of life-history traits examined in our study. These traits are compiled from various sources, with the database containing only raw data, devoid of estimated values (refer to the primary R script and RDS files for more details).
 
-### Section 4 - Running phylogenetic logistic regression 
+-   [**RDS**](./RDS): Includes RDS files, which are R data objects that represent either intermediate or final data states generated during our analyses. These objects are crucial for the operations carried out by the [primary analysis script](/constrained_species_tree.R).
 
-* This section runs various logistic regression models, summarizes the model fits, and generates plots that are provided in the supplementary material (Figure S1).
+-   [**AHE_REASSEMBLY**](./AHE_REASSEMBLY): Contains files pertinent to the assembly of the AHE nuclear DNA dataset. A detailed README within this directory provides extensive information about the processes and methodologies employed.
 
-### Section 5 - Get data for GC content and codon usage
+-   [**mtDNA_REASSEMBLY**](./mtDNA_REASSEMBLY): Hosts files necessary for the assembly of the mtDNA dataset. Detailed documentation in this directory elaborates on the specific assembly steps and procedures.
 
-* This section imports the sequence datasets and estimates various relevant parameters, including aspects of GC content across various slices of the dataset and other nucleotide statistics. The output is an intermetdiate data frame summarizing the results for downstream processing.
+-   [**BMR**](./BMR): This directory includes scripts and files related to the analysis of the Basal Metabolic Rate (BMR) dataset. A comprehensive readme file in this directory offers detailed insights into the analysis techniques and results.
 
-### Section 6 - Estimating phylogenetic signal
-
-* This section generates estimates of phylogenetic signal across various nucleotide statistics. Largely exploratory.
-
-### Section 7 - Codon usage calculations
-
-* This section includes analyses of patterns of codon usage, as described in the manuscript. We estimate different metrics of codon usage and then compare them across groups identified by Janus, using phylogenetic anove (see manuscript text).
-
-### Section 8 - Life history trait data setup
-
-* This section sets up the life history character datasets and does initial pre-processing (eg. data imputation described in the manuscript).
-
-### Section 9 - Setting up input objects for mvMORPH/OUwie analyses
-
-* Setting up character and tree data sets in a format that can be read by the R packages for fitting models of character evolution.
-
-### Section 10 - OUwie model fitting
-
-* This section fits various models (eg, BM, OU) to life history trait data, as described in the manuscript. These analyses contribute to the graphics depicted in Figure 2 of the manuscript.
-
-### Section 11 - Setting up plots of paramter estimates
-
-* This section sets up the data objects for generating the radar plots provided in the supplemental text (Figure S7a-d). These plots depict the parameter estimates from Janus (e.g., estimates of equilibrium base frequencies).
-
-### Section 12 - Setting up BMR datasets
-
-* This section does pre-processing on the metabolic scaling data sets. The analyses of these data are described in [another script](./BMR) in the BMR directory.
-
-### Section 13 - Setting up datasets for the random forest classifier
-
-* This section does does some processing on the cleaned up data sets, to pass to the random forest classifier (tidymodels) described in [another script](./RandomForest_var_imp.R)
-
-### Section 14 - Analyses with l1ou
-
-* This section sets up and performs analyses using the [l1ou R package](https://github.com/khabbazian/l1ou), which fits a pseudo-multivariate OU model with shifting optimum. See the supplementary text in the manuscript for methods details.
-
-### Section 15 - Processing l1ou results
-
-* This section takes the models fit with l1ou and generates output products. These results contribute to Figure 1 and Figure S4a-b.
-
-### Section 16 - Additional BMR models
-
-* This section tests some additional exploratory models of BMR allometry. Most of these are not discussed in the manuscript and are provided as exploratory for interested readers.
-
-### Section 17 - Miscellaneous
-
-* This section includes code related to diagnostic plots, as well as some additional experimental analyses relative to multivariate model fitting. These are mostly not discussed in the manuscript and are provided as exploratory for interested readers.
-
-* Note: Most lines in the primary script where analyses are actually executed are commented out so that processed RDS objects ([provided here](./RDS), see below) can be loaded instead. RDS (R Data Serialization) files are a common format for saving R objects, and they allow R users to preserve the state of an object between R sessions. Thus, the script is provided in a format that should allow anyone to download the GitHub repository and go through every sub-section without needing to re-fit or re-process any data locally.
-
----
-
-## Other important files/directories
-
-[**Functions_consensus_genetrees.R**](./Functions_consensus_genetrees.R)
-
-* This file contains many custom or new functions called by the primary analysis script. This functions file is sourced by the primary analysis script when executed in order.
-
-[**RandomForest_var_imp.R**](./RandomForest_var_imp.R)
-
-* This script contains the code for RandomForest supervised classification using the tidymodels framework. This code is adapted from the Physalia course examples for machine learning in R.
-
-[**shift_model_sims.R**](./shift_model_sims.R)
-
-* This script contains the code for assessing the statistical performance of Janus; including assessing false positive/negative rates for substitution model shifts. It include various R functions defining a pipeline that, in combination with IQ-tree, can be used to assess the performance of Janus on arbitrary topologies. See annotations within this script for additional detail.
-
-[**Supplementary Table 3.xlsx**](./Supplementary%20Table%203.xlsx)
-
-* Supplementary Table 3, as noted in the manuscript. This file describes assembly details for assembly and extraction of mtDNA genome data from the original AHE target capture data.
-
-[**LHT_DATA**](./LHT_DATA)
-
-* Inside this directory, 'LHT_reference.xlsx' contains a database of life-history traits analyzed in the present study, which are collated from a variety of sources (described in the manuscript). This table contains only raw data, and does not include estimated values (See primary R script and RDS files).
-
-[**RDS**](./RDS)
-
-* This folder contains RDS files (R data objects). These files correspond to intermediate or final R data objects generated in the course of analysis and which are called/loaded by the [primary analysis script](/constrained_species_tree.R)
-
-[**AHE_REASSEMBLY**](./AHE_REASSEMBLY)
-
-* This folder contains files related to assembly of the AHE nuclear DNA dataset. See the detailed README in this directory for additional detail.
-
-[**mtDNA_REASSEMBLY**](./mtDNA_REASSEMBLY)
-
-* This folder contains files related to assembly of the mtDNA dataset. See the detailed README in this directory for additional detail.
-
-[**BMR**](./BMR)
-
-* This folder contains scripts and files related to analysis of the BMR dataset. See the detailed readme in this directory for additional detail.
-
-[**Janus**](./janus)
-
-* This folder contains the relevant results from janus (e.g.,input/output files). The topological constraint tree is in ‘timetree_all_taxa_OW_2019.nextree.tre’ available in the supplementary materials from Kimball et al. (2019) here: https://www.mdpi.com/1424-2818/11/7/109/s1, labeled as ‘MRL_3backbone.’ It is also provided in our GitHub repository [here](/trees/MRL_3backbone.tre) for reference. Janus has been implemented in both Golang and C, and the source code (and documentation) is available at https://git.sr.ht/~hms/janus and https://git.sr.ht/~hms/hringhorni.
+-   [**Janus**](./janus): Contains all relevant results from Janus, including input and output files. The directory also includes the ‘timetree_all_taxa_OW_2019.nextree.tre’ from the supplementary materials of Kimball et al. (2019), accessible [here](https://www.mdpi.com/1424-2818/11/7/109/s1) and in our repository [here](/trees/MRL_3backbone.tre). Janus is developed in both Golang and C, with its source code and documentation available at <https://git.sr.ht/~hms/janus> and <https://git.sr.ht/~hms/hringhorni>.
