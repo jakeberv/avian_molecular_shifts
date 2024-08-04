@@ -6,9 +6,13 @@ Release v1.0.0 has been archived at Zenodo
 
 ## Genome and life-history evolution link bird diversification to the end-Cretaceous mass extinction
 
-*in press* at Science Advances
+Now *published* at Science Advances. The paper describing our research is available open-access at [this link](https://doi.org/10.1126/sciadv.adp0114).
 
-The pre-print for our research is available at [this link](https://doi.org/10.1101/2022.10.21.513146).
+The PDF can be downloaded directly [here](https://github.com/jakeberv/jakeberv.github.io/raw/master/files/pdf/papers/Berv_et_al_2024.pdf)
+
+## Citation
+-   Berv, Jacob S., Sonal Singhal, Daniel J. Field, Nathanael Walker-Hale, Sean W. McHugh, J. Ryan Shipley, Eliot T. Miller, Rebecca T. Kimball, Edward L. Braun, Alex Dornburg, C. Tomomi Parins-Fukuchi, Richard O. Prum, Benjamin M. Winger, Matt Friedman, and Stephen A. Smith. 2024. "Genome and life-history evolution link bird diversification to the end-Cretaceous mass extinction."  Science Advances 10 (31):eadp0114. doi: doi:10.1126/sciadv.adp0114.
+
 
 ---
 
